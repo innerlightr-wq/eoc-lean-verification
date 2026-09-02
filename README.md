@@ -90,9 +90,6 @@ The proof uses:
 - a uniform bound on all states through a finite time horizon; and
 - a final finite counting contradiction.
 
-This core does **not** use the Garcia--Tal or Curry sparsity results,
-reciprocal summability, or any external Collatz conjecture.
-
 The dyadic argument intentionally favors formal simplicity over the sharper
 analytic constant available in the accompanying mathematical work. Its
 growth exponent is
