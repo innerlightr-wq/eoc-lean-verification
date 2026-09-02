@@ -1,3 +1,37 @@
+## September 2026 Update — Periodic-Sector Formalization
+
+The Lean formalization has been extended to cover the eventually periodic
+valuation-word sector of the accelerated Collatz system.
+
+The new modules `PeriodicCore.lean` and `Periodic.lean` formally establish,
+among other supporting results, that a positive integer orbit with an
+eventually periodic valuation word cannot remain permanently confined above
+a fixed drift barrier.
+
+The argument derives the strict block inequality
+
+\[
+3^L < 2^{S_B},
+\]
+
+for a repeated valuation block of length \(L\) and valuation sum \(S_B\).
+Equivalently,
+
+\[
+S_B - L\log_2 3 > 0,
+\]
+
+so repetition of the block produces positive cumulative drift and eventually
+violates any fixed upper confinement bound.
+
+The implementation has been verified with the repository's pinned Lean/Mathlib
+environment, and the full project currently builds successfully.
+
+**Scope.** This result settles the eventually periodic sector only. It does
+not establish the corresponding escape statement for arbitrary aperiodic
+confined valuation words, which remains the principal open sector.
+
+
 # EOC Lean Verification
 
 ```text
