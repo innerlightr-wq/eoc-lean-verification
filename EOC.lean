@@ -3,3 +3,5 @@ import EOC.Confinement
 import EOC.Realizer
 import EOC.ValuationWord
 import EOC.Basic
+import EOC.PeriodicCore
+import EOC.Periodic
