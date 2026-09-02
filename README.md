@@ -1,3 +1,156 @@
+## September 2026 Update: Bounded-Drift Realizer Escape
+
+The repository now includes a second formally verified infinite sector of the
+accelerated Collatz / EOC program: **bounded-drift realizer escape**.
+
+New modules:
+
+- `EOC/BoundedDriftCore.lean`
+- `EOC/BoundedDrift.lean`
+
+Both modules have been integrated into the project, and the full repository
+build completes successfully.
+
+### Main result
+
+For an infinite valuation word \(d\), let
+
+\[
+S_N=\sum_{j<N} d_j,
+\qquad
+R_N=S_N-N\log_2 3,
+\]
+
+and let \(r_N(d)\) denote the least positive integer realizing the first
+\(N\) valuations exactly.
+
+The new formalization establishes the qualitative implication
+
+\[
+\boxed{
+-G\le R_N(d)\le c\quad\text{for every }N
+\quad\Longrightarrow\quad
+r_N(d)\to\infty.
+}
+\]
+
+Equivalently, an infinite valuation word whose drift remains in a fixed
+vertical band cannot have a bounded sequence of least positive exact
+realizers.
+
+### Proof architecture
+
+The proof separates the hypothetical realizing orbit into two cases.
+
+If the least realizers were bounded, their monotonicity forces eventual
+stabilization at a single positive integer \(m\). That integer then realizes
+every finite prefix and therefore the entire infinite valuation word.
+
+For the resulting accelerated orbit:
+
+1. **Non-injective case.**  
+   A repeated state gives an eventually periodic orbit. The previously
+   formalized periodic-sector result implies positive drift per repeated
+   block, forcing \(R_N\) to become unbounded above. This contradicts the
+   assumed upper drift bound.
+
+2. **Injective case.**  
+   `BoundedDriftCore.lean` supplies a new elementary discrete packing
+   argument. A fixed lower drift bound restricts the growth of all orbit
+   states, while injectivity requires increasingly many distinct positive
+   integers. A dyadic product estimate makes these two requirements
+   incompatible.
+
+Thus neither a periodic nor an injective positive orbit can realize an
+infinite word whose drift remains bounded both above and below while keeping
+its least realizers bounded.
+
+### Mathlib-free arithmetic core
+
+A substantial part of the new argument is isolated in
+`EOC/BoundedDriftCore.lean`.
+
+The core proves an integer-arithmetic obstruction of the form
+
+\[
+\text{injective accelerated orbit}
+\quad\Longrightarrow\quad
+\inf_N R_N=-\infty,
+\]
+
+expressed internally through an equivalent power inequality rather than
+real logarithms.
+
+The proof uses:
+
+- filtered finite products and counting;
+- injective-state pigeonhole estimates;
+- dyadic decomposition;
+- an exact accelerated-orbit product identity;
+- a uniform bound on all states through a finite time horizon; and
+- a final finite counting contradiction.
+
+This core does **not** use the Garcia--Tal or Curry sparsity results,
+reciprocal summability, or any external Collatz conjecture.
+
+The dyadic argument intentionally favors formal simplicity over the sharper
+analytic constant available in the accompanying mathematical work. Its
+growth exponent is
+
+\[
+\log_2(3/2)\approx0.585<1,
+\]
+
+which is already sufficient for the qualitative pigeonhole contradiction.
+
+### Relation to the periodic sector
+
+The repository now contains two complementary formally verified mechanisms:
+
+\[
+\boxed{
+\text{eventually periodic confined word}
+\Longrightarrow
+r_N\to\infty
+}
+\]
+
+and
+
+\[
+\boxed{
+\text{two-sided bounded drift}
+\Longrightarrow
+r_N\to\infty.
+}
+\]
+
+The second result removes the entire bounded-drift (equivalently, for a
+confined word, bounded-slack) sector from the possible bounded-realizer
+regime.
+
+Consequently, any still-unresolved bounded-realizer candidate among
+\(c\)-confined words must have drift that makes arbitrarily deep negative
+excursions:
+
+\[
+\inf_N R_N=-\infty.
+\]
+
+This does **not** prove EOC or the Collatz conjecture. The general
+moving-anchor problem for irregular confined words with sufficiently deep
+negative drift remains open.
+
+### Formal verification status
+
+The new modules were checked with the repository's pinned Lean toolchain and
+then integrated into the complete project.
+
+The full build completed successfully:
+
+```text
+Build completed successfully (2031 jobs).
+
 ## September 2026 Update — Periodic-Sector Formalization
 
 The Lean formalization has been extended to cover the eventually periodic
