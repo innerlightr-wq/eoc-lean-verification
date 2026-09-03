@@ -1,3 +1,84 @@
+## Revision 5 — September 2026
+
+A new revision of the Effective Occupation Conjecture (EOC) manuscript is
+now available on Zenodo:
+
+**Elias De Jesús (2026).**  
+*A Global Occupation Conjecture for the Accelerated 3x + 1 Map:
+Divergent-Orbit Sparsity, Exact Realizers, and the Moving-Anchor Problem.*  
+Zenodo.  
+DOI: https://doi.org/10.5281/zenodo.22286812
+
+### What is new in Revision 5
+
+Revision 5 substantially expands and reorganizes the project around the
+distinction between two different aspects of the accelerated Collatz
+problem:
+
+- **Drift / Archimedean control:** what can be proved about the sparsity
+  and drift behavior of a hypothetical divergent orbit.
+
+- **Residue / arithmetic-placement control:** how small the exact integer
+  realizing a prescribed valuation word can be.
+
+The principal additions are:
+
+1. **Garcia–Tal/Curry divergent-orbit sparsity.**  
+   The manuscript incorporates the collision-free sparsity mechanism of
+   Garcia and Tal together with Curry's explicit quantitative refinement.
+   This yields reciprocal summability along hypothetical divergent orbits
+   and excludes eventual logarithmic drift floors
+   \[
+   R_n\ge -B\log_2 n+O(1)
+   \]
+   for
+   \[
+   B<1/\beta_*\approx1.0358567.
+   \]
+   This strengthens the manuscript's elementary \(B<8/9\) result and
+   crosses the harmonic threshold \(B=1\).
+
+2. **Corrected exact realizer framework.**  
+   Exact realizers of a finite valuation word are placed in a single
+   residue class modulo
+   \[
+   2^{S_N+1},
+   \]
+   with the additional bit enforcing terminal oddness. This corrected
+   congruence is the foundation of the residue-axis formulation of EOC.
+
+3. **Fixed anchors and the moving-anchor problem.**  
+   Periodic and eventually periodic valuation words admit exponential
+   realizer floors through fixed rational \(2\)-adic anchors. For genuinely
+   irregular words, however, the relevant anchor moves with the word.
+   Deterministic anti-concentration in this moving-anchor sector remains
+   the central unresolved arithmetic problem of EOC.
+
+4. **Finite Chang-history universality.**  
+   Using a mod-32 return observable related to Edward Y. Chang's one-bit
+   orbit-mixing framework, Revision 5 proves that every nonempty finite
+   binary history can be realized as consecutive prescribed events of a
+   genuine accelerated Collatz orbit.
+
+   The construction uses the canonical blocks
+   \[
+   0\mapsto(2,1,1),\qquad
+   1\mapsto(2,1,2),
+   \]
+   together with the exact realizer congruence.
+
+   This is a finite universality theorem only. It does **not** establish
+   asymptotic \(1/2\) balance, realization of arbitrary infinite histories,
+   a full-shift structure, EOC, or the Collatz conjecture. Instead, it shows
+   that finite forbidden-pattern arguments cannot establish the required
+   pointwise asymptotic balance.
+
+5. **Lean 4 verification.**  
+   The finite Chang-history construction has been formally verified in
+   Lean 4 / Mathlib in:
+
+   ```text
+   EOC/ChangHistory.lean
 ## Revision 5 Update — September 2026
 
 Revision 5 substantially reorganizes the EOC program around two distinct
