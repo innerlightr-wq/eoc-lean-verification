@@ -1,3 +1,231 @@
+## Revision 5 Update — September 2026
+
+Revision 5 substantially reorganizes the EOC program around two distinct
+axes of the accelerated Collatz problem:
+
+1. **The drift / Archimedean axis** — what can be proved about the growth,
+   sparsity, and drift behavior of a hypothetical divergent orbit.
+
+2. **The residue / arithmetic-placement axis** — how small the exact
+   positive integer realizing a prescribed valuation word can be.
+
+The second remains the central unresolved component of the Effective
+Occupation Conjecture (EOC).
+
+### 1. Garcia–Tal / Curry divergent-orbit sparsity
+
+Revision 5 incorporates the collision-free orbit-sparsity mechanism of
+Garcia and Tal (1999), together with the explicit quantitative sharpening
+developed by M. J. Curry (2026).
+
+Garcia and Tal established qualitative zero-Banach-density behavior for
+infinite aperiodic generalized 3n+1 orbits. Curry supplied an explicit
+windowed sparsity estimate of the form
+
+\[
+\#(\mathcal O\cap[a,a+X))
+\le C_\beta X^\beta\log(2X),
+\qquad \beta>\beta_*,
+\]
+
+where
+
+\[
+\beta_*\approx0.9653844.
+\]
+
+Applied to the accelerated Collatz orbit, this yields:
+
+- reciprocal summability along every hypothetical divergent orbit,
+  \[
+  \sum_{n\ge0}\frac1{m_n}<\infty;
+  \]
+
+- bounded accumulated correction term
+  \[
+  E_n=\sum_{j<n}\log_2\left(1+\frac1{3m_j}\right);
+  \]
+
+- exclusion of every eventual logarithmic drift floor
+  \[
+  R_n\ge-B\log_2 n+O(1)
+  \]
+  for
+  \[
+  B<\frac1{\beta_*}\approx1.0358567.
+  \]
+
+This crosses the harmonic threshold \(B=1\) and is substantially stronger
+than the elementary \(B<8/9\) exclusion developed internally in the EOC
+framework.
+
+This result concerns hypothetical divergent orbits only. It does **not**
+prove EOC, exclude nontrivial cycles, or resolve the arithmetic placement
+of exact realizers.
+
+### 2. Corrected exact realizer congruence
+
+Revision 5 uses the corrected exact realizer modulus
+
+\[
+2^{S_N+1},
+\]
+
+rather than \(2^{S_N}\).
+
+For a valuation word
+
+\[
+D=(d_0,\ldots,d_{N-1}),
+\]
+
+with
+
+\[
+C_N(D)=\sum_{j=0}^{N-1}3^{N-1-j}2^{s_j},
+\qquad
+S_N=\sum_{j<N}d_j,
+\]
+
+the exact realizers form one residue class modulo \(2^{S_N+1}\):
+
+\[
+r(D)\equiv
+\bigl(2^{S_N}-C_N(D)\bigr)3^{-N}
+\pmod{2^{S_N+1}}.
+\]
+
+The extra bit enforces terminal oddness and therefore exact realization of
+the final valuation digit.
+
+This provides the arithmetic foundation for the residue-axis formulation
+of EOC.
+
+### 3. Fixed anchors and the moving-anchor problem
+
+For periodic and eventually periodic valuation words, the relevant coarse
+realizers arise as truncations of a fixed rational 2-adic anchor. Binary
+periodicity of that anchor yields exponential lower bounds for the least
+positive realizer outside the explicitly identified periodic exceptions.
+
+A first-defect result also survives: for words of the form
+
+\[
+X^a E X^b,
+\]
+
+the realizer retains an exponential lower bound determined by the periodic
+run \(X^a\) preceding the first defect.
+
+The analogous recovery claim after a defect was retracted. Later periodic
+runs do not restore the lost global anchor precision.
+
+For genuinely irregular words, the relevant 2-adic anchor changes with the
+word itself. This **moving-anchor anti-concentration problem** is now
+identified as the central unresolved residue-axis problem of EOC.
+
+### 4. Finite Chang-history realizability
+
+Revision 5 adds a new application of the exact realizer machinery to a
+mod-32 return observable related to Edward Y. Chang's one-bit Collatz
+framework.
+
+Chang isolates a burst-ending distinction between the classes
+
+\[
+9\pmod{32}
+\qquad\text{and}\qquad
+25\pmod{32}.
+\]
+
+In valuation-word language, the present work derives
+
+\[
+m_j\equiv9\pmod{16}
+\iff
+(d_j,d_{j+1})=(2,1),
+\]
+
+and, at such an event,
+
+\[
+m_j\equiv9\pmod{32}\iff d_{j+2}=1,
+\]
+
+\[
+m_j\equiv25\pmod{32}\iff d_{j+2}\ge2.
+\]
+
+For an arbitrary binary history
+
+\[
+y=(y_0,\ldots,y_{K-1}),
+\]
+
+define canonical blocks
+
+\[
+0\mapsto(2,1,1),
+\qquad
+1\mapsto(2,1,2).
+\]
+
+Concatenating these blocks produces a valuation word of length \(3K\).
+The exact realizer theorem then gives a genuine positive odd Collatz seed
+whose prescribed events occur consecutively at
+
+\[
+0,3,6,\ldots,3(K-1),
+\]
+
+with exactly the chosen mod-32 labels.
+
+Hence:
+
+> **Every nonempty finite binary Chang history is realizable as a
+> consecutive finite history of genuine accelerated Collatz events.**
+
+For the canonical word,
+
+\[
+1\le r(D(y))
+<
+2^{4K+\#\{t:y_t=1\}+1}.
+\]
+
+The event status is completely controlled through index \(3K-2\); the
+first event position not determined by the canonical word is \(3K-1\).
+
+### 5. What finite universality does not imply
+
+The finite-history theorem does **not** establish:
+
+- realization of every infinite binary history by one orbit;
+- a full binary shift;
+- independence or Bernoulli behavior;
+- asymptotic frequency \(1/2\);
+- Chang's sufficient pointwise balance condition;
+- an implication from Chang return balance to EOC;
+- an arbitrary irregular-word realizer floor;
+- EOC or the Collatz conjecture.
+
+Instead, the theorem rules out a class of finite-obstruction strategies:
+there are no forbidden finite binary histories, no universal finite bound
+on biased runs, and no local exclusion of either label.
+
+Any asymptotic balance theorem must therefore use genuinely long-range
+information along a single orbit.
+
+### 6. Lean 4 formal verification
+
+The finite Chang-history construction has been formalized in Lean 4 /
+Mathlib.
+
+Main module:
+
+```text
+EOC/ChangHistory.lean
+
 ## September 2026 Update: Bounded-Drift Realizer Escape
 
 The repository now includes a second formally verified infinite sector of the
