@@ -8,7 +8,7 @@
 
 Session date: 2026-09-03. Repo: `EOC` (Lean 4 / Mathlib formalization of
 Pillar-3 realizer/confinement results). No Lean source files were modified in
-this round. Scratch code sits in `scratch/` as untracked files (see §9).
+this round. Scratch code sits in `scratch/` as untracked files (see §10).
 
 Provenance labels used throughout:
 
@@ -489,7 +489,238 @@ to `1`; `BIG` = 40 random odds in `[2^220, 2^260)`; one seed in
 
 ---
 
-## 8. Open questions
+## 8. Transport Audit: Genuine-Orbit Degeneracy and Failure of the GT/C Bridge
+
+Audit performed 2026-09-03 (same session, later round). Question asked: does the
+transport-deficit / matching-precision / regeneration framework provide a new
+dynamical bridge between Garcia–Tal/Curry value-space sparsity and the EOC
+moving-anchor / pointwise realizer-placement problem? **Verdict: no** (§8.9).
+
+Indexing note: the transport paper uses `d_1..d_j`, `S_j = Σ_{i=1}^j d_i`;
+scratchpad §2 uses `d_0..d_{N-1}`. Same objects; transport notation below.
+
+### 8.1 External source record
+
+**External source.** `SOURCE TO VERIFY` — no arXiv/DOI identifier located; local
+copy only (`~/Downloads/transportDeficits (1) (4).pdf`, 26 pp., header "August
+2026 — Technical Note"). Not checked against published literature.
+
+> Elias De Jesús, *Transport Deficits and 2-Adic Survival Budgets in
+> Accelerated Collatz Words: Equality Cylinders, Past–Future Matching, and
+> First-Failure Structure*, August 2026 technical note.
+
+Core exact **abstract-word** results used here (verified against the paper and
+re-checked computationally; **not** invalidated by the audit below):
+
+- **Mismatch recurrence** (Prop 29, Eq 39), every step, perfect or failed:
+  ```
+  X_{j+1} = ( X_j − K_j(d_{j+1}) ) / 2^{d_{j+1}}
+  ```
+- **Perfect-transport law** (Prop 32 Eq 52; Thm 18 Eq 25); a step with
+  `δ_{j+1} = 0` (⟺ `K_j(d_{j+1}) = 0`):
+  ```
+  F_{j+1} = F_j + d_{j+1},        M_{j+1} = M_j − d_{j+1}
+  ```
+  hence `H^tr_j := F_j + M_j` is **conserved on perfect steps**.
+- **First-failure regeneration** (Prop 30, Eq 46), with `X_j = 2^{M_j} a`,
+  `K_j = 2^{M_j} u`, `a,u` odd:
+  ```
+  M_{j+1} = M_j − d_{j+1} + v2(a − u)
+  ```
+- **Failure budget map** (Prop 33, Eq 56):
+  ```
+  ΔH^tr = v2(a − u) − δ_fail
+  ```
+- **Depth reset** (Cor 34, Eqs 59–60): at a failure with `F_j > 0`,
+  `δ_fail > F_j`, hence `F_{j+1} < d_{j+1}`.
+
+Supporting definitions: `ξ_j := −C_j·3^{−j} ∈ ℤ₂` with
+`ξ_j = χ_j + 2^{S_j} T_j` (Eq 2); `χ_j := ξ_j mod 2^{S_j}` (the "exposed coarse
+anchor" = scratchpad §2's `coarseAnchor`); `A_{j,∞} := Σ_{r≥0} 2^{D_r}·3^{−(j+1+r)}`
+(Prop 14, Eq 18); `X_j := T_j − A_{j,∞}` (Eq 36); `M_j := v2(X_j)` (Def 15,
+Eq 20); matching criterion `δ_{j+1}=…=δ_{j+m}=0 ⟺ M_j ≥ D_m` (Thm 16, Eq 21).
+
+**These abstract-word theorems are correct and stand.** The audit below
+concerns only their specialization to genuine positive-integer orbits.
+
+### 8.2 Decisive genuine-orbit identity
+
+**Derived here — exact algebraic corollary of the EOC carry identity.**
+`SOURCE TO VERIFY` — whether this exact ℤ₂ limiting formulation already appears
+explicitly in the EOC manuscript or elsewhere (it is `iter_carry_eq` /
+`residue_pinning` taken to the 2-adic limit).
+
+For a genuine accelerated orbit from odd seed `m_0` (EOC `Carry.lean`
+`q_eq_C` + `iter_carry_eq`):
+```
+2^{S_j} m_j = 3^j m_0 + C_j            (exact, in ℤ)
+```
+Therefore
+```
+ξ_j = −C_j·3^{−j} = m_0 − m_j·2^{S_j}·3^{−j}       (in ℤ₂)
+```
+Since `m_j` and `3^{−j}` are 2-adic units, `v2(ξ_j − m_0) = S_j`, hence
+```
+    ξ_j → m_0   in ℤ₂          (ξ_∞ := lim_j ξ_j = m_0)
+```
+Combining with `ξ_j = χ_j + 2^{S_j} T_j` (Eq 2) and the telescoping identity
+`ξ_{j+m} = ξ_j − 2^{S_j} A_{j,m}` (iterate the paper's App. A.2
+`ξ_{j+1} = ξ_j − 2^{S_j}·3^{−(j+1)}`), so that `A_{j,∞} = (ξ_j − ξ_∞)/2^{S_j}`:
+```
+    X_j = T_j − A_{j,∞} = ⌊ m_0 / 2^{S_j} ⌋
+    M_j = v2( ⌊ m_0 / 2^{S_j} ⌋ )
+    χ_j = m_0 mod 2^{S_j}
+```
+
+For a genuine orbit the transport mismatch `X_j` is **not** an independent
+past–future dynamical degree of freedom. It is exactly the high-bit tail of the
+original seed `m_0` above binary position `S_j`; `M_j` reads those seed bits and
+the running total `S_j`, nothing else.
+
+### 8.3 Permanent perfect transport past the seed bit-depth
+
+**Derived here.** If `2^{S_j} > m_0` then `⌊m_0/2^{S_j}⌋ = 0`, so
+```
+M_j = ∞ ,    and therefore    δ_{j+1} = δ_{j+2} = … = 0.
+```
+Transport becomes **permanently perfect** once the cumulative valuation depth
+`S_j` passes `⌊log₂ m_0⌋`.
+
+This is the transport-coordinate form of **residue pinning**: once
+`2^{S_j} > m_0`, `χ_j = m_0` (the exposed anchor equals the seed), so the
+paper's `A_{j,∞}` target is met exactly. **Not** a new Collatz theorem — it is
+the least-realizer / `residue_pinning` regime (scratchpad §2, EOC
+`Realizer.lean`) re-expressed 2-adically.
+
+### 8.4 Computational confirmation
+
+**Computational confirmation** — scripts `scratch/tcc2.py`,
+`scratch/transport_audit2.py`, `scratch/transport_audit.py`; exact integer /
+2-adic arithmetic. These confirm the implementation and illustrate §8.2–§8.3;
+they are **not** the proof.
+
+- `X_j = ⌊m_0/2^{S_j}⌋` (checked mod 2⁴⁸): **0 mismatches / 3128 rows**, 13
+  seeds including Mersenne primes up to `2¹²⁷−1`.
+- `χ_j = m_0 mod 2^{S_j}`: confirmed on every tested row.
+- `r(D_j) = m_0` for all post-transient `j`: confirmed on every tested seed.
+- Across **6,000 genuine trajectories**, **43,814** transport failures
+  (`K_j ≠ 0`) observed; **0 / 43,814** occurred after `S_j > bitlen(m_0)`.
+  Every failure lies in the initial transient.
+- Max `F_j` at any observed failure ≈ 13–16. Positive-regeneration events
+  (`v2(a−u) > δ_fail`) present at `H_before ≈ 4` (≈ 6% of failures), **absent
+  at `H_before ≥ 8`** in this sample. Consistent with the transport paper's own
+  §D.9 scan (40,000 trajectories, 380,078 failures with `H^tr ≥ 8`, 267 with
+  `v2(a−u) > H^tr`, up to `H^tr ≈ 13`) — and here shown to be **entirely a
+  transient phenomenon** (`S_j ≤ bitlen(m_0)`).
+
+Limitations: seeds `< 5×10⁶` (plus a few Mersenne primes for the `X_j`
+identity); all orbits terminate at 1; no divergent orbit accessible; `X_j`
+checked to 2⁴⁸, not exactly; finite `H` only.
+
+### 8.5 Negative result — transport → Garcia–Tal/Curry bridge
+
+**Negative result — deterministic.** The proposed bridge
+```
+transport failures / regeneration
+  → recurrent dynamical events
+  → Garcia–Tal/Curry window-count sparsity
+```
+does **not** exist in this form for genuine finite seeds. Reason: `ξ_j → m_0`
+(§8.2) forces `M_j = ∞`, `K_j = 0`, `δ_{j+1} = 0` for every `j` with
+`S_j > bitlen(m_0)`. A genuine orbit therefore has **only finitely many**
+transport failure / reset / regeneration events — all inside a transient of
+length `≈ (log₂ m_0)/α` — and thereafter **one** transport excursion lasting
+forever, with matching precision `∞` because the target is the seed itself.
+
+There is no infinite sequence of excursion-start events to localize into an
+Archimedean window, so no GT/C window-count argument can be attached.
+
+This is **stronger than "one quantitative lemma is missing."** The bridge is
+**structurally blocked** by the exact identity `ξ_∞ = m_0`. The statement that
+would be needed — *"a genuine divergent orbit has infinitely many `j` with
+`δ_{j+1} > 0`"* — is **false**, refuted by `χ_j = m_0` frozen (§8.3).
+
+### 8.6 Relation to collapse / moving anchor
+
+**Interpretation.** For genuine orbits, `F_j = S_j − log₂ χ_j` is the same
+coarse-collapse / moving-anchor depth already present in EOC (scratchpad §2;
+`E_j = S_j − log₂ r(D_j)` differs from `F_j` by `≤ 1`, transport Cor 3).
+Post-transient, `χ_j = m_0`, so `F_j = S_j − log₂ m_0` — a deterministic linear
+ramp, no new content.
+
+The transport decomposition `H^tr = F + M` (§D.3, Eq 50) is a meaningful
+**abstract-word** bookkeeping identity ("perfect transport converts stored
+precision into realized depth one-for-one"), but after the genuine-orbit
+transient `M = ∞`, so it is **not** a useful finite asymptotic Lyapunov
+variable. Every scalar combination examined in this audit (`H^tr ± λR`,
+`F ± λR`, `M − λ log₂ m`, `F + M + λR`) is either `∞` or an unbounded ramp on
+genuine orbits — recorded as a failed Lyapunov search.
+
+**Transport introduces no independent asymptotic obstruction beyond the
+existing moving-anchor / collapse problem.**
+
+### 8.7 Negative result — Chang cylinder comparison
+
+**Negative result — Chang comparison.** The transport variables give no useful
+bridge to the Chang bit-4 / cylinder-discrepancy problem (§7.1, OQ1).
+
+- Chang's `Y` is determined by a short **forward** valuation prefix / low
+  2-adic residue of `m_t` (scratchpad §4).
+- `M_j = v2(⌊m_0/2^{S_j}⌋)` reads **high bits of the original seed** during a
+  bounded initial transient.
+
+These read different bits. Scan (`scratch/transport_audit2.py`, 113,647
+burst-ending events): mean `M_before` = 0.779 (`Y=0`, `n=13,531`) vs 0.750
+(`Y=1`, `n=13,368`); transient fraction 0.233 vs 0.265 — no meaningful
+difference between the two Chang outcomes.
+
+```
+Task 10 verdict:  D — no meaningful interaction.
+```
+
+### 8.8 Interpretive consequence for the transport paper's open problems
+
+**Interpretation.** The transport paper's Open Problems 23 (§11) and 26–27
+(§C.4), insofar as they ask whether a genuine positive-integer orbit can
+achieve arbitrarily large or infinite matching precision `M_j(n)` with its own
+actual future, should be re-examined in light of
+```
+M_j(n) = v2( ⌊ n / 2^{S_j} ⌋ ) ,    hence    M_j(n) = ∞  ⟺  n < 2^{S_j}.
+```
+For every finite positive seed, `M_j = ∞` once `2^{S_j} > m_0`.
+
+**The paper is not wrong.** The abstract transport theorems (§8.1) remain
+valid. But the genuine-orbit interpretation of "matching precision" appears to
+collapse to residue pinning, and the open-problem statements should be revised
+(or explicitly restricted to non-realizable / adversarial future
+continuations) before further circulation. `SOURCE TO VERIFY` against the
+paper's own qualifier "outside already-understood trivial or periodic
+behavior" — the mechanism here (`ξ_∞ = seed`) is arguably exactly that
+qualifier.
+
+### 8.9 Final status
+
+```
+Transport is useful abstract-word structure, but NOT a new asymptotic
+genuine-orbit dynamical coordinate.
+
+No transport → Garcia–Tal/Curry bridge.
+No transport → Chang cylinder-discrepancy bridge.
+```
+
+Audit verdict (of the five options A–E offered): **D — transport is mostly a
+reparameterization of the existing moving-anchor / collapse obstruction**,
+sharpened by the observation that its distinctive quantity `M_j` / `H^tr` is
+**degenerate (`= ∞`) on every genuine orbit after a bounded transient**. Not
+verdict E: no transport theorem is false.
+
+The unresolved pointwise problem remains the same one already identified
+elsewhere in this scratchpad (OQ1, §7.4): how a single deterministic orbit
+samples arithmetic states over long times.
+
+---
+
+## 9. Open questions
 
 - **OQ1 (Open question).** Along a single infinite aperiodic accelerated
   orbit, does the burst-ending subsequence (`n_t ≡ 1 mod 8`) visit `9 mod 32`
@@ -502,7 +733,9 @@ to `1`; `BIG` = 40 random odds in `[2^220, 2^260)`; one seed in
   (`#(O ∩ [a,a+X)) ≤ C_β X^β log 2X`, `β < 1`; Garcia–Tal/Curry, **not** in
   the EOC repo, **SOURCE TO VERIFY** for exact statement/authorship) refine
   per residue class mod 32 with the same exponent? Needed for GT/C to touch
-  Chang's split; no evidence either way here.
+  Chang's split; no evidence either way here. *(Update, §8: the transport
+  framework was tested as a route to attach GT/C and found structurally
+  blocked on genuine orbits — this OQ is untouched by that negative result.)*
 - **OQ4 (Open question).** Can `EOC/PeriodicRealizer.lean`'s `ξ_X` /
   `delta_X` apparatus be given a residue-mod-32 reading that constrains the
   *distribution* (not just the value) of bit 4 over an ensemble of blocks?
@@ -510,29 +743,44 @@ to `1`; `BIG` = 40 random odds in `[2^220, 2^260)`; one seed in
 - **OQ5 (Open question).** Is the channel dependence in Test 4
   (`P(25) ≈ 0.42` for `L = 1`, `≈ 0.53` for `L ≥ 2`) a genuine asymptotic
   feature or a small-number artifact of terminating orbits?
+- **OQ6 (Open question).** The transport-audit identity `M_j = v2(⌊m_0/2^{S_j}⌋)`
+  (§8.2) gives the *value* of matching precision explicitly; its *distribution*
+  over dynamically-selected `n` (e.g. along burst-ending times, or over
+  realizers of a fixed prefix) is unaddressed — and that distributional
+  question is the same ergodic-mixing / Collatz-level obstacle as OQ1 / §7.4.
 
 ---
 
-## 9. Reproducibility / file inventory
+## 10. Reproducibility / file inventory
 
 Scratch code, copied into the repo working tree as **untracked** files
 (`scratch/`, gitignored-by-intent; delete freely, not part of the build):
 
 | file | contents |
 |---|---|
-| `scratch/chang_eoc_experiment.py` | Tests 1–5 |
-| `scratch/supp_long.py` | Test 1 on one 433,166-step orbit |
-| `scratch/supp_negatives.py` | N1 (return-map closure), N2 (ensemble balance) |
+| `scratch/chang_eoc_experiment.py` | §6 Tests 1–5 |
+| `scratch/supp_long.py` | §6 Test 1 on one 433,166-step orbit |
+| `scratch/supp_negatives.py` | §6 N1 (return-map closure), N2 (ensemble balance) |
+| `scratch/transport_audit.py` | §8 first-pass transport audit on genuine orbits |
+| `scratch/transport_audit2.py` | §8 `X_j`/`χ_j` identity, failure stats, Chang connection |
+| `scratch/tcc2.py` | §8 minimal exact check `X_j = ⌊m_0/2^{S_j}⌋` (mod 2⁴⁸) |
 
-Runtimes: ~32 s, ~6 s, ~22 s respectively (single core, CPython 3.12).
-Determinism: `random.seed(20260903)` (main), `random.seed(1)` (supp_long),
-`random.seed(7)` (supp_negatives).
+Runtimes: §6 scripts ~32 s / ~6 s / ~22 s; §8 scripts ~5 min / ~17 s / <1 s
+(single core, CPython 3.12). Determinism: `random.seed(20260903)` (main §6),
+`random.seed(1)` (supp_long), `random.seed(7)` (supp_negatives),
+`random.seed(3)` / `random.seed(5)` (transport_audit2).
 
-**Verdict recorded this round (from §6–§7):** the EOC carry coordinate is
+**Verdict — Chang round (from §6–§7):** the EOC carry coordinate is
 **C — essentially a relabeling of the raw residue state; adds no useful
 predictive structure**. Smallest state space capturing all deterministic
 information about `Y`: **2 states** (`m_t mod 32 ∈ {9, 25}`, i.e. `Y` itself;
 equivalently `d_2 ∈ {1, ≥2}`, equivalently `m_2 mod 4`).
+
+**Verdict — Transport round (from §8):** **D — transport is mostly a
+reparameterization of the existing moving-anchor / collapse obstruction**, and
+its distinctive quantity `M_j` / `H^tr` is degenerate (`= ∞`) on every genuine
+orbit after a bounded transient. No transport → Garcia–Tal/Curry bridge; no
+transport → Chang-discrepancy bridge. No transport theorem is false.
 
 No Lean sources, README, or imports were modified. No exploratory finding in
 this file is a theorem claim.
