@@ -1,10 +1,13 @@
 import EOC.TaoLike.ResidueTV
 import Mathlib.Analysis.SpecificLimits.Basic
+import Mathlib.Analysis.Normed.Ring.InfiniteSum
+import Mathlib.Logic.Equiv.Fin.Basic
+import Mathlib.Algebra.BigOperators.Fin
 import Mathlib.Data.ZMod.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 
 /-!
-# Tao finite-valuation mixing interface (Milestone 4)
+# Tao finite-valuation mixing interface (Milestones 4 and 4B)
 
 ## Source
 
@@ -39,19 +42,15 @@ with the paper's supporting definitions (its equations (1.1), (1.8), (1.9), and 
   which are supported on `{0,1,2,…}`; we therefore avoid the Mathlib geometric API entirely
   here rather than risk a silent off-by-one).
 * **TV convention.** `d_TV(X,Y) := Σ_{r∈R} |P(X=r) - P(Y=r)|` (paper's eq. (1.9)) — the
-  **full L1** sum, with **no** `1/2` prefactor. This repo's Milestone-3 `EOC.dTV`-shaped
-  quantity (see `conditional_residue_tv_eta_bound`, `EOC.TaoLike.ResidueTV`) is instead
-  `(1/2) * Σ_v |P(v) - U(v)|`, the standard *half*-L1 convention. **CONVENTION FACTOR**: for
-  discrete laws, `sup_E |P(E) - Q(E)| = (1/2) · Σ_x |P(x) - Q(x)|` (a standard fact — the
-  event-sup characterization of total variation, sometimes called Scheffé's identity), so
-  Tao's `d_TV` is *exactly twice* the event-sup quantity `EventTVBound` defined below, and
-  *exactly twice* Milestone 3's own `dTV`. This identity is **not proved** in this file (it is
-  out of scope for an interface milestone, requiring general summability/coupling
-  machinery for the infinite-support valuation-vector case); it is reported here explicitly,
-  as required, rather than silently assumed. The interface below is therefore stated using
-  the `EventTVBound`/event-sup convention throughout (matching Milestone 3's own convention),
-  with constants `Cres`, `A` understood as *already absorbing* whatever factor is needed
-  relative to Tao's literal `≪` constants (which are themselves unspecified).
+  **full L1** sum, with **no** `1/2` prefactor. This is formalized directly below as
+  `taoL1TV` (Milestone 4B; superseding Milestone 4's `EventTVBound`, which conflated the
+  literal Tao metric with the strictly weaker *event-sup* notion — see `EventDiscrepancyBound`
+  and the metric bridge `event_discrepancy_le_taoL1TV`). This repo's Milestone-3 `dTV`-shaped
+  quantity (`conditional_residue_tv_eta_bound`, `EOC.TaoLike.ResidueTV`) remains the *half*-L1
+  / event-sup convention, i.e. exactly `EventDiscrepancyBound`'s sense, and is **exactly half**
+  of `taoL1TV` for genuine discrete laws (a standard fact, *not* proved in this file — it is
+  not needed: `finite_valuation_mixing` below is stated directly in `taoL1TV`, matching Tao
+  literally, with no convention-factor caveat required).
 * **Residue support.** `Unif((2ℤ+1)/2^n'ℤ)` is uniform on the **odd** residue classes modulo
   `2^n'` — **EXACT MATCH** with `oddResidues`/`oddResidues_card` from `EOC.TaoLike.ResidueTV`
   (cardinality `2^(n'-1)`, *not* `2^n'`), reused directly below as `unifOddResidues`.
@@ -59,19 +58,48 @@ with the paper's supporting definitions (its equations (1.1), (1.8), (1.9), and 
   *linearly* in `n` (with slope `≥ 2+c₀`), not merely `Q ≥ n`. This exact relation is encoded
   in `finite_valuation_mixing` below; it is **not** combined with our own
   `2^(Q+S)/Y`-scale bound in this file (Part 11 of the Milestone 4 brief: the arithmetic
-  budget connecting the two belongs to the *next* milestone).
+  budget connecting the two belongs to a later milestone).
+* **`n = 0`.** Tao's literal domain is `n ∈ ℕ` (which includes `0`); our interface requires
+  `1 ≤ n`. This is an honest **interface specialization** (documented, not a literal-match
+  claim) — harmless since all downstream uses have a positive horizon, but `n = 0` is not
+  literally covered.
+* **`c₀` quantifier.** The literal wording is "there exist an absolute constant `c₀ > 0`"
+  (existential), but the surrounding discussion in the source (and the proof, which is
+  uniform in `c₀`) supports instantiating the proposition at *any* chosen `c₀ > 0` — the
+  "existence" is of a single global witness, not a restriction to a distinguished one.
+  We encode the **proof-level generalization** `∀ c0 > 0, …` rather than the bare literal
+  existential, and flag this explicitly here per Part 10 of the Milestone 4B brief, rather
+  than silently strengthening the external theorem without comment.
 
-## What is formally defined here
+## Milestone 4B: making the geometric target semantically concrete
 
-* `EventProb`, `EventTVBound`, `pushforward` — a lightweight event-probability/TV
-  abstraction (no general measure theory), plus one generic sanity lemma
-  `event_prob_le_of_tv`.
-* `geom2` — the one-digit `Geom(2)` weight function, **with a Lean-checked proof** that it
-  normalizes to `1` (`geom2_normalizes`).
-* `valuationVector` — the real Syracuse valuation vector, reusing `a`/`orbit` (no
-  duplication).
-* `unifOddResidues` — uniform-on-odd-residues, reusing `oddResidues`/`oddResidues_card`.
-* `TaoMixingConstants`, `TaoMixingHypothesis` — the external interface itself.
+Milestone 4 left `iidGeom2Vector : (n : ℕ) → EventProb (Fin n → ℕ)` as an **unconstrained**
+structure field: nothing forced it to have `Geom(2)` marginals, be nonnegative, additive, or
+independent across coordinates. A downstream proof could have discharged
+`TaoMixingHypothesis` against a functional bearing no relation to Tao's actual target law,
+while the name `iidGeom2Vector` suggested otherwise. Milestone 4B repairs this:
+
+* `atomWeight n a := ∏ i, geom2 (a i)` is the joint atom weight of the length-`n` iid
+  `Geom(2)` vector at `a`, and `atomWeight_tsum_eq_one` is a **Lean-checked proof** (not an
+  assumption) that `Σ' a : Fin n → ℕ, atomWeight n a = 1`, established by induction on `n`
+  using the finite-product tsum factorization `Σ' p : ℕ × (Fin n → ℕ), f p.1 * g p.2 =
+  (Σ' k, f k)(Σ' b, g b)` (`Summable.tsum_mul_tsum`) transported along `Fin.consEquiv`. This
+  is the semantic certificate that the target is genuinely the iid product law, not merely
+  suggestively named.
+* `genEventProb w` builds an `EventProb` from any weight function by countable summation over
+  the event (`Σ' x, indicator E w x`); any `EventProb` built this way is additive *by
+  construction*, which is exactly what makes the metric bridge provable.
+* `iidGeom2VectorProb n := genEventProb (atomWeight n)` is the **fixed, concrete** target;
+  `TaoMixingHypothesis` no longer carries a free `iidGeom2Vector` field and refers to
+  `iidGeom2VectorProb` directly.
+* `taoL1TV P Q := Σ' x, |P {x} - Q {x}|` is Tao's own metric, literally (his eq. (1.9)),
+  defined for *any* `EventProb` (including the abstract external starting law `N`, which is
+  intentionally left unconstrained — Part 5 of the Milestone 4B brief: `N` is what
+  `TaoMixingHypothesis` is *about*, not something this file constructs).
+* `EventDiscrepancyBound` is the strictly weaker event-sup notion (Milestone 4's
+  `EventTVBound`, renamed for honesty); `event_discrepancy_le_taoL1TV` proves the one
+  direction we actually need (`taoL1TV ≤ ε → event-sup ≤ ε`) for laws of `genEventProb`
+  shape, i.e. exactly the concrete geometric/uniform-residue targets built here.
 
 ## EXTERNAL THEOREM INTERFACE — what is external / NOT proved in this repo
 
@@ -91,9 +119,9 @@ is introduced anywhere.
 * Persistence / shifted persistence / Chernoff bounds / long excursions are **not** touched.
 * The arithmetic budget connecting our `2^(Q+S)/Y` bound to Tao's `n' ≥ (2+c₀)n` /
   `≪ 2^{-n'}` hypotheses (roughly `S + 2Q + margin ≤ log₂ Y`) is **not** encoded here; that
-  belongs to the next milestone (`conditional_future_valuation_mixing`).
+  belongs to a later milestone (`conditional_future_valuation_mixing`).
 * The interface does **not** connect our verified residue-TV bound to `N`'s residue
-  pushforward; Milestone 4 is an interface audit only (Part 6 of the brief).
+  pushforward.
 -/
 
 namespace EOC
@@ -101,32 +129,119 @@ namespace TaoExternal
 
 open Finset
 
-/-! ### Event-probability / total-variation abstraction -/
+/-! ### Event-probability abstraction -/
 
 /-- A (not necessarily normalized, not necessarily nonnegative) event-probability functional
-on `α`: assigns a real number to every subset ("event") of `α`. No measure-theoretic axioms
-are imposed — this interface only needs TV-style comparison, not full probability theory. -/
+on `α`: assigns a real number to every subset ("event") of `α`. -/
 def EventProb (α : Type*) := Set α → ℝ
 
 /-- Pushforward of an event-probability functional along a map, via preimage. -/
 def pushforward {α β : Type*} (P : EventProb α) (f : α → β) : EventProb β :=
   fun E => P (f ⁻¹' E)
 
-/-- **Event-level total variation bound.** `EventTVBound P Q ε` means every event's
-probability under `P` and `Q` differs by at most `ε`. For discrete laws this is the standard
-`sup_E |P(E) - Q(E)|` total-variation distance — see the module doc for the exact
-factor-of-2 relationship to Tao's literal `d_TV` (full-`Σ` convention, his eq. (1.9)). -/
-def EventTVBound {α : Type*} (P Q : EventProb α) (ε : ℝ) : Prop :=
+/-- **Event discrepancy** (Milestone 4's `EventTVBound`, renamed): `EventDiscrepancyBound P Q
+ε` means every event's probability under `P` and `Q` differs by at most `ε`. This is the
+`sup_E |P(E) - Q(E)|` notion — strictly weaker than (in general half of) Tao's literal
+`taoL1TV` below; see the module doc. -/
+def EventDiscrepancyBound {α : Type*} (P Q : EventProb α) (ε : ℝ) : Prop :=
   ∀ E : Set α, |P E - Q E| ≤ ε
 
-/-- **Minimal downstream sanity check.** If two event-probability functionals are within `ε`
-in the `EventTVBound` sense, then any event's probability under `P` is bounded by its
-probability under `Q` plus `ε`. This is the generic consequence downstream persistence
-arguments actually need; it is deliberately *not* specialized to Collatz. -/
-theorem event_prob_le_of_tv {α : Type*} {P Q : EventProb α} {ε : ℝ}
-    (h : EventTVBound P Q ε) (E : Set α) : P E ≤ Q E + ε := by
+theorem event_prob_le_of_discrepancy {α : Type*} {P Q : EventProb α} {ε : ℝ}
+    (h : EventDiscrepancyBound P Q ε) (E : Set α) : P E ≤ Q E + ε := by
   have h2 := (abs_le.mp (h E)).2
   linarith
+
+/-! ### Discrete laws generated by a weight function -/
+
+/-- Build an `EventProb` from a weight function by countable summation over the event. Any
+`EventProb` of this shape is additive *by construction*: this is what makes the metric bridge
+`event_discrepancy_le_taoL1TV` below provable, in contrast to a wholly arbitrary `EventProb`
+(which need not be additive at all). -/
+noncomputable def genEventProb {α : Type*} (w : α → ℝ) : EventProb α :=
+  fun E => ∑' x, Set.indicator E w x
+
+theorem genEventProb_singleton {α : Type*} (w : α → ℝ) (a : α) :
+    genEventProb w {a} = w a := by
+  unfold genEventProb
+  rw [tsum_eq_single a (fun b hb => by simp [Set.indicator, hb])]
+  simp
+
+theorem genEventProb_empty {α : Type*} (w : α → ℝ) : genEventProb w ∅ = 0 := by
+  unfold genEventProb; simp
+
+theorem genEventProb_univ {α : Type*} (w : α → ℝ) (h : ∑' x, w x = 1) :
+    genEventProb w Set.univ = 1 := by
+  unfold genEventProb
+  simpa using h
+
+/-! ### Tao's literal metric and its bridge to event discrepancy -/
+
+/-- **Tao's total-variation metric, literally** (his eq. (1.9)): the full-`Σ` sum of
+atom-probability differences. Defined for any `EventProb` (in particular the abstract
+external starting law `N`), via singleton evaluation. -/
+noncomputable def taoL1TV {α : Type*} (P Q : EventProb α) : ℝ :=
+  ∑' x : α, |P {x} - Q {x}|
+
+theorem taoL1TV_genEventProb {α : Type*} (w1 w2 : α → ℝ) :
+    taoL1TV (genEventProb w1) (genEventProb w2) = ∑' x, |w1 x - w2 x| := by
+  unfold taoL1TV
+  exact tsum_congr (fun x => by rw [genEventProb_singleton, genEventProb_singleton])
+
+/-- **Metric bridge** (Part 6/7 of the Milestone 4B brief): Tao's full-`Σ` bound implies the
+weaker event-discrepancy bound, for laws generated by a nonnegative summable weight function
+(exactly the shape of `iidGeom2VectorProb`/`unifOddResidues` below). We prove only the
+direction Tao's theorem actually gives us (`taoL1TV ≤ ε → event discrepancy ≤ ε`); the
+converse (`event discrepancy ≤ ε → taoL1TV ≤ 2ε`) is not needed downstream and is not proved
+here. -/
+theorem event_discrepancy_le_taoL1TV {α : Type*} {w1 w2 : α → ℝ}
+    (h1nn : ∀ x, 0 ≤ w1 x) (h2nn : ∀ x, 0 ≤ w2 x)
+    (h1 : Summable w1) (h2 : Summable w2) :
+    EventDiscrepancyBound (genEventProb w1) (genEventProb w2)
+      (taoL1TV (genEventProb w1) (genEventProb w2)) := by
+  rw [taoL1TV_genEventProb]
+  intro E
+  have hind1nn : ∀ x, 0 ≤ Set.indicator E w1 x := fun x => Set.indicator_nonneg (fun y _ => h1nn y) x
+  have hind2nn : ∀ x, 0 ≤ Set.indicator E w2 x := fun x => Set.indicator_nonneg (fun y _ => h2nn y) x
+  have hind1le : ∀ x, Set.indicator E w1 x ≤ w1 x :=
+    fun x => Set.indicator_le_self' (fun y _ => h1nn y) x
+  have hind2le : ∀ x, Set.indicator E w2 x ≤ w2 x :=
+    fun x => Set.indicator_le_self' (fun y _ => h2nn y) x
+  have hind1 : Summable (Set.indicator E w1) :=
+    Summable.of_nonneg_of_le hind1nn hind1le h1
+  have hind2 : Summable (Set.indicator E w2) :=
+    Summable.of_nonneg_of_le hind2nn hind2le h2
+  have hdiff_dom : ∀ x, |Set.indicator E w1 x - Set.indicator E w2 x| ≤ w1 x + w2 x := by
+    intro x
+    rw [abs_sub_le_iff]
+    refine ⟨?_, ?_⟩
+    · linarith [hind1le x, hind2nn x, h1nn x, h2nn x]
+    · linarith [hind2le x, hind1nn x, h1nn x, h2nn x]
+  have habs_summable :
+      Summable (fun x => |Set.indicator E w1 x - Set.indicator E w2 x|) :=
+    Summable.of_nonneg_of_le (fun x => abs_nonneg _) hdiff_dom (h1.add h2)
+  have hw12_dom : ∀ x, |w1 x - w2 x| ≤ w1 x + w2 x := by
+    intro x; rw [abs_sub_le_iff]; constructor <;> linarith [h1nn x, h2nn x]
+  have hw12_summable : Summable (fun x => |w1 x - w2 x|) :=
+    Summable.of_nonneg_of_le (fun x => abs_nonneg _) hw12_dom (h1.add h2)
+  have hstep1 : genEventProb w1 E - genEventProb w2 E
+      = ∑' x, (Set.indicator E w1 x - Set.indicator E w2 x) := by
+    unfold genEventProb; exact (Summable.tsum_sub hind1 hind2).symm
+  have hstep2 : |∑' x, (Set.indicator E w1 x - Set.indicator E w2 x)|
+      ≤ ∑' x, |Set.indicator E w1 x - Set.indicator E w2 x| := by
+    have hnorm := norm_tsum_le_tsum_norm (f := fun x =>
+      Set.indicator E w1 x - Set.indicator E w2 x) habs_summable
+    rwa [Real.norm_eq_abs, show (fun x => ‖Set.indicator E w1 x - Set.indicator E w2 x‖)
+      = (fun x => |Set.indicator E w1 x - Set.indicator E w2 x|) from
+      funext (fun x => Real.norm_eq_abs _)] at hnorm
+  calc |genEventProb w1 E - genEventProb w2 E|
+      = |∑' x, (Set.indicator E w1 x - Set.indicator E w2 x)| := by rw [hstep1]
+    _ ≤ ∑' x, |Set.indicator E w1 x - Set.indicator E w2 x| := hstep2
+    _ ≤ ∑' x, |w1 x - w2 x| := by
+        apply Summable.tsum_mono habs_summable hw12_summable
+        intro x
+        by_cases hx : x ∈ E
+        · simp [Set.indicator, hx]
+        · simp [Set.indicator, hx, abs_nonneg]
 
 /-! ### The one-digit `Geom(2)` law -/
 
@@ -138,28 +253,101 @@ theorem geom2_eq_of_pos {k : ℕ} (hk : 1 ≤ k) : geom2 k = (1 / 2 : ℝ) ^ k :
 
 theorem geom2_eq_zero : geom2 0 = 0 := by unfold geom2; simp
 
-/-- **Normalization check** (Part 4 of the Milestone 4 brief): `Σ_{k≥1} 2^{-k} = 1`,
-Lean-checked, not merely asserted. -/
+theorem geom2_nonneg (k : ℕ) : 0 ≤ geom2 k := by unfold geom2; split_ifs <;> positivity
+
+theorem geom2_le_half_pow (k : ℕ) : geom2 k ≤ (1 / 2 : ℝ) ^ k := by
+  unfold geom2; split_ifs with h
+  · exact le_refl _
+  · positivity
+
+theorem geom2_summable : Summable geom2 := by
+  have hsum0 : Summable (fun n : ℕ => (1 / 2 : ℝ) ^ n) :=
+    summable_geometric_of_lt_one (by norm_num) (by norm_num)
+  exact Summable.of_nonneg_of_le geom2_nonneg geom2_le_half_pow hsum0
+
+/-- **Normalization check** (Part 4 of the Milestone 4 brief, preserved from Milestone 4):
+`Σ_{k≥1} 2^{-k} = 1`, Lean-checked, not merely asserted. -/
 theorem geom2_normalizes : ∑' k : ℕ, geom2 k = 1 := by
   have hsum0 : Summable (fun n : ℕ => (1 / 2 : ℝ) ^ n) :=
     summable_geometric_of_lt_one (by norm_num) (by norm_num)
   have hval : ∑' n : ℕ, (1 / 2 : ℝ) ^ n = 2 := by
     rw [tsum_geometric_of_lt_one (by norm_num) (by norm_num)]; norm_num
-  have hle : ∀ k, 0 ≤ geom2 k ∧ geom2 k ≤ (1 / 2 : ℝ) ^ k := by
-    intro k
-    unfold geom2
-    split_ifs with h
-    · exact ⟨by positivity, le_refl _⟩
-    · exact ⟨le_refl _, by positivity⟩
-  have hsumg : Summable geom2 :=
-    Summable.of_nonneg_of_le (fun k => (hle k).1) (fun k => (hle k).2) hsum0
-  rw [hsumg.tsum_eq_zero_add, geom2_eq_zero, zero_add]
+  rw [geom2_summable.tsum_eq_zero_add, geom2_eq_zero, zero_add]
   have hgn1 : ∀ n : ℕ, geom2 (n + 1) = (1 / 2 : ℝ) * (1 / 2 : ℝ) ^ n := by
     intro n
     rw [geom2_eq_of_pos (by omega)]
     ring
   rw [tsum_congr hgn1, tsum_mul_left, hval]
   norm_num
+
+/-! ### The iid `Geom(2)^n` vector law, made concrete (Milestone 4B) -/
+
+/-- The joint atom weight of the length-`n` iid `Geom(2)` vector at `a`: `∏ i, geom2 (a i)`.
+This is the semantic core of the target law (Part 3 of the Milestone 4B brief). -/
+noncomputable def atomWeight (n : ℕ) (a : Fin n → ℕ) : ℝ := ∏ i, geom2 (a i)
+
+theorem atomWeight_nonneg (n : ℕ) (a : Fin n → ℕ) : 0 ≤ atomWeight n a :=
+  Finset.prod_nonneg (fun i _ => geom2_nonneg _)
+
+theorem atomWeight_cons (n : ℕ) (k : ℕ) (a : Fin n → ℕ) :
+    atomWeight (n + 1) (Fin.cons k a) = geom2 k * atomWeight n a := by
+  unfold atomWeight
+  rw [Fin.prod_univ_succ]
+  simp
+
+theorem atomWeight_summable (n : ℕ) : Summable (atomWeight n) := by
+  induction n with
+  | zero => exact Summable.of_finite
+  | succ n ih =>
+    have hmul : Summable (fun p : ℕ × (Fin n → ℕ) => geom2 p.1 * atomWeight n p.2) :=
+      Summable.mul_of_nonneg geom2_summable ih geom2_nonneg (atomWeight_nonneg n)
+    have heq : (fun p : ℕ × (Fin n → ℕ) => geom2 p.1 * atomWeight n p.2)
+        = (atomWeight (n + 1)) ∘ (Fin.consEquiv (fun _ : Fin (n + 1) => ℕ)) := by
+      funext p
+      simp only [Function.comp_apply]
+      rw [← atomWeight_cons n p.1 p.2]
+      congr 1
+    rw [heq] at hmul
+    exact (Equiv.summable_iff (Fin.consEquiv (fun _ : Fin (n + 1) => ℕ))).mp hmul
+
+theorem atomWeight_tsum_succ (n : ℕ) :
+    ∑' a : Fin (n + 1) → ℕ, atomWeight (n + 1) a
+      = (∑' k : ℕ, geom2 k) * ∑' a : Fin n → ℕ, atomWeight n a := by
+  rw [← Equiv.tsum_eq (Fin.consEquiv (fun _ : Fin (n + 1) => ℕ))]
+  have heq : ∀ p : ℕ × (Fin n → ℕ),
+      atomWeight (n + 1) (Fin.consEquiv (fun _ : Fin (n + 1) => ℕ) p)
+        = geom2 p.1 * atomWeight n p.2 := by
+    intro p
+    rw [← atomWeight_cons n p.1 p.2]
+    congr 1
+  simp_rw [heq]
+  exact (Summable.tsum_mul_tsum geom2_summable (atomWeight_summable n)
+    (Summable.mul_of_nonneg geom2_summable (atomWeight_summable n) geom2_nonneg
+      (atomWeight_nonneg n))).symm
+
+/-- **Product normalization** (Part 3/13 of the Milestone 4B brief) — established by
+induction, not merely postulated: `Σ' a : Fin n → ℕ, ∏ i, geom2 (a i) = 1`. -/
+theorem atomWeight_tsum_eq_one (n : ℕ) : ∑' a : Fin n → ℕ, atomWeight n a = 1 := by
+  induction n with
+  | zero => simp [atomWeight]
+  | succ n ih => rw [atomWeight_tsum_succ, ih, geom2_normalizes, mul_one]
+
+/-- **The fixed, concrete iid `Geom(2)^n` target law** (Part 4/8 of the Milestone 4B brief):
+`TaoMixingHypothesis` refers to this directly, replacing Milestone 4's unconstrained
+`iidGeom2Vector` field. -/
+noncomputable def iidGeom2VectorProb (n : ℕ) : EventProb (Fin n → ℕ) := genEventProb (atomWeight n)
+
+/-- **The atom/singleton certificate** (Part 13 of the Milestone 4B brief): the semantic
+statement that `iidGeom2VectorProb` truly assigns each vector its iid product probability. -/
+theorem iidGeom2VectorProb_singleton (n : ℕ) (a : Fin n → ℕ) :
+    iidGeom2VectorProb n {a} = ∏ i, geom2 (a i) :=
+  genEventProb_singleton (atomWeight n) a
+
+theorem iidGeom2VectorProb_univ (n : ℕ) : iidGeom2VectorProb n Set.univ = 1 :=
+  genEventProb_univ (atomWeight n) (atomWeight_tsum_eq_one n)
+
+theorem iidGeom2VectorProb_empty (n : ℕ) : iidGeom2VectorProb n ∅ = 0 :=
+  genEventProb_empty (atomWeight n)
 
 /-! ### The real-side valuation vector -/
 
@@ -173,14 +361,52 @@ noncomputable def valuationVector (m n : ℕ) : Fin n → ℕ := fun i => a (orb
 
 /-! ### Uniform distribution on odd residues -/
 
-/-- Uniform distribution on the odd residue classes modulo `2^Q`, as an event-probability
-functional on `ZMod (2^Q)`. Reuses `oddResidues`/`oddResidues_card`
-(`EOC.TaoLike.ResidueTV`) directly: support cardinality `2^(Q-1)`, **not** `2^Q` (Part 9 of
-the Milestone 4 brief — this is the same odd-residue convention as Tao's own
-`Unif((2ℤ+1)/2^n'ℤ)`). -/
-noncomputable def unifOddResidues (Q : ℕ) : EventProb (ZMod (2 ^ Q)) :=
-  fun E => (∑ v ∈ oddResidues Q, Set.indicator E (fun _ => (1 : ℝ)) (v : ZMod (2 ^ Q))) /
+/-- Weight function for uniform-on-odd-residues modulo `2^Q`: `1/2^(Q-1)` on the (image of
+the) odd residues, `0` elsewhere. -/
+noncomputable def unifOddResiduesWeight (Q : ℕ) (v : ZMod (2 ^ Q)) : ℝ :=
+  (if v ∈ (oddResidues Q).image (fun n : ℕ => (n : ZMod (2 ^ Q))) then 1 else 0) /
     (2 : ℝ) ^ (Q - 1)
+
+/-- Uniform distribution on the odd residue classes modulo `2^Q`, as an event-probability
+functional on `ZMod (2^Q)`, built via `genEventProb` (hence additive by construction).
+Reuses `oddResidues`/`oddResidues_card` (`EOC.TaoLike.ResidueTV`) directly: support
+cardinality `2^(Q-1)`, **not** `2^Q` (Part 9 of the Milestone 4 brief — this is the same
+odd-residue convention as Tao's own `Unif((2ℤ+1)/2^n'ℤ)`). -/
+noncomputable def unifOddResidues (Q : ℕ) : EventProb (ZMod (2 ^ Q)) :=
+  genEventProb (unifOddResiduesWeight Q)
+
+theorem unifOddResiduesWeight_nonneg (Q : ℕ) (v : ZMod (2 ^ Q)) :
+    0 ≤ unifOddResiduesWeight Q v := by
+  unfold unifOddResiduesWeight; positivity
+
+/-- **Normalization of the uniform-odd-residue target** (Part 11 of the Milestone 4B
+brief), for `Q ≥ 1`: `unifOddResidues Q Set.univ = 1`. -/
+theorem unifOddResidues_univ (Q : ℕ) (hQ : 1 ≤ Q) : unifOddResidues Q Set.univ = 1 := by
+  apply genEventProb_univ
+  have : NeZero (2 ^ Q) := ⟨by positivity⟩
+  rw [tsum_fintype]
+  have hinj : Set.InjOn (fun n : ℕ => (n : ZMod (2 ^ Q))) (oddResidues Q) := by
+    intro x hx y hy hxy
+    have hxlt : x < 2 ^ Q := Finset.mem_range.mp (Finset.mem_filter.mp hx).1
+    have hylt : y < 2 ^ Q := Finset.mem_range.mp (Finset.mem_filter.mp hy).1
+    have := congrArg ZMod.val hxy
+    rwa [ZMod.val_cast_of_lt hxlt, ZMod.val_cast_of_lt hylt] at this
+  have hcard : ((oddResidues Q).image (fun n : ℕ => (n : ZMod (2 ^ Q)))).card
+      = (oddResidues Q).card := Finset.card_image_of_injOn hinj
+  rw [oddResidues_card Q hQ] at hcard
+  unfold unifOddResiduesWeight
+  simp only [div_eq_mul_inv]
+  rw [← Finset.sum_mul]
+  have hbool : (∑ v : ZMod (2 ^ Q),
+      (if v ∈ (oddResidues Q).image (fun n : ℕ => (n : ZMod (2 ^ Q))) then (1 : ℝ) else 0))
+      = ((oddResidues Q).image (fun n : ℕ => (n : ZMod (2 ^ Q)))).card := by
+    rw [Finset.sum_boole]
+    congr 1
+    rw [Finset.filter_mem_eq_inter, Finset.univ_inter]
+  rw [hbool, hcard]
+  have hpos : (0 : ℝ) < (2 : ℝ) ^ (Q - 1) := by positivity
+  push_cast
+  field_simp
 
 /-! ### Tao's external constants and hypothesis -/
 
@@ -199,29 +425,33 @@ structure TaoMixingConstants (c0 : ℝ) where
 /-- **EXTERNAL THEOREM INTERFACE.** Tao's Proposition 1.9 (quoted and audited in the module
 doc above), as an explicit hypothesis structure rather than a Lean `axiom`: any downstream
 theorem that needs this result takes `(tao : TaoMixingHypothesis)` as an explicit parameter.
-`iidGeom2Vector n` names the (not further constructed here — see the module doc) event-
-probability functional of the iid `Geom(2)^n` law on `Fin n → ℕ`; `finite_valuation_mixing`
-is the proposition itself. Neither field is proved by this repository. -/
+Unlike Milestone 4, the conclusion refers directly to the **concrete** `iidGeom2VectorProb n`
+(Milestone 4B) — there is no arbitrary `iidGeom2Vector` field left to instantiate against a
+functional unrelated to Tao's actual target law. Both sides of `finite_valuation_mixing` are
+stated in Tao's own literal metric `taoL1TV` (his eq. (1.9), full-`Σ` convention) — this is
+well-typed even for the abstract external starting law `N` (Part 5/6 of the Milestone 4B
+brief: `N` is intentionally left unconstrained, since `TaoMixingHypothesis` is an assumption
+*about* `N`, not a construction of it), so no convention-factor caveat is needed to state the
+interface. Converting *our own* half-L1 `ResidueTV` bound into this full-L1 hypothesis is a
+genuinely separate step, deferred to the next milestone (the factor of 2 between the two
+conventions matters there, not here — see the module doc). -/
 structure TaoMixingHypothesis where
-  /-- The law of `n` iid `Geom(2)` digits, as an event-probability functional. Its single-
-  coordinate marginals are `geom2` (not asserted here as a structure axiom — see module doc:
-  Milestone 4 is an interface audit, not a construction of the product law). -/
-  iidGeom2Vector : (n : ℕ) → EventProb (Fin n → ℕ)
   /-- Tao's Proposition 1.9 itself. For every `c₀ > 0` there are constants
   `K : TaoMixingConstants c₀` such that: for every `n ≥ 1`, every residue modulus exponent
-  `Qres` with `(Qres : ℝ) ≥ (2 + c₀) * n`, and every event-probability functional `N`
-  on `ℕ` supported on the odd naturals, if `N`'s pushforward mod `2^Qres` is within
-  `K.Cres * 2^(-Qres)` (`EventTVBound` convention) of uniform on odd residues, then `N`'s
-  pushforward under `valuationVector · n` is within `K.A * 2^(-K.c1*n)` of `iidGeom2Vector n`. -/
+  `Qres` with `(Qres : ℝ) ≥ (2 + c₀) * n`, and every event-probability functional `N` on `ℕ`
+  supported on the odd naturals, if `N`'s pushforward mod `2^Qres` is within
+  `K.Cres * 2^(-Qres)` of uniform on odd residues **in Tao's own `taoL1TV` metric**, then
+  `N`'s pushforward under `valuationVector · n` is within `K.A * 2^(-K.c1*n)` of the concrete
+  `iidGeom2VectorProb n`, again in `taoL1TV`. -/
   finite_valuation_mixing :
     ∀ c0 : ℝ, 0 < c0 → ∃ K : TaoMixingConstants c0,
       ∀ (n Qres : ℕ) (N : EventProb ℕ),
         1 ≤ n → (Qres : ℝ) ≥ (2 + c0) * (n : ℝ) →
         N {m : ℕ | ¬ Odd m} = 0 →
-        EventTVBound (pushforward N (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
-          (K.Cres * (2 : ℝ) ^ (-(Qres : ℝ))) →
-        EventTVBound (pushforward N (fun m => valuationVector m n)) (iidGeom2Vector n)
-          (K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ))))
+        taoL1TV (pushforward N (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
+          ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
+        taoL1TV (pushforward N (fun m => valuationVector m n)) (iidGeom2VectorProb n)
+          ≤ K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))
 
 end TaoExternal
 end EOC
