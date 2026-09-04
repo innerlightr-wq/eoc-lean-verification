@@ -1,0 +1,285 @@
+import EOC.TaoLike.PrefixPartition
+
+/-!
+# Restart law alignment (Milestone 10)
+
+Closes Milestone 9's remaining obstruction: `cylinder_window_reindex` (`ResidueTV.lean`) proves
+only the *sufficient* direction of its window parametrization (every `r + D*(kmin+j)`, `j < N`,
+lies in `[Y,Z)`), not the *exhaustive* direction (every point of the residue class in `[Y,Z)`
+is one of these). This file proves a fresh, self-contained exhaustive arithmetic-progression
+window lemma (via `Nat.find`, not by extending `cylinder_window_reindex`), then uses it to align
+the true harmonic prefix-conditional law with the existing `conditionalRestartLaw`.
+
+This is deterministic arithmetic plus finite harmonic normalization: no `TaoMixingHypothesis`
+anywhere in this file.
+-/
+
+namespace EOC
+namespace TaoExternal
+
+open Finset
+
+/-! ## Part 1: the exhaustive arithmetic-progression window theorem -/
+
+/-- **Exhaustive AP window parametrization.** For a residue class `r mod D` and a window
+`[Y,Z)` with `r ≤ Y ≤ Z`, there is an explicit `kmin, N` such that a point `m ∈ [Y,Z)` lies in
+the class **iff** it is one of the `N` explicit points `r + D*(kmin+j)`. Proved fresh via
+`Nat.find` (least-witness), independent of `cylinder_window_reindex`'s internal construction. -/
+theorem modEq_window_exact (r D Y Z : ℕ) (hD : 0 < D) (hYr : r ≤ Y) (_hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, (∀ j < N, Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z) ∧
+      ∀ m : ℕ, Y ≤ m → m < Z →
+      (m ≡ r [MOD D] ↔ ∃ j < N, m = r + D * (kmin + j)) := by
+  classical
+  have hex_kmin : ∃ k, Y ≤ r + D * k := ⟨Y, by nlinarith⟩
+  set kmin := Nat.find hex_kmin with hkmin_def
+  have hkmin_ge : Y ≤ r + D * kmin := Nat.find_spec hex_kmin
+  have hkmin_min : ∀ k < kmin, ¬ (Y ≤ r + D * k) := fun k hk => Nat.find_min hex_kmin hk
+  have hex_N : ∃ n, Z ≤ r + D * (kmin + n) := ⟨Z, by nlinarith⟩
+  set N := Nat.find hex_N with hN_def
+  have hN_ge : Z ≤ r + D * (kmin + N) := Nat.find_spec hex_N
+  have hN_min : ∀ n < N, ¬ (Z ≤ r + D * (kmin + n)) := fun n hn => Nat.find_min hex_N hn
+  have hmem : ∀ j < N, Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z := by
+    intro j hjN
+    have hge : Y ≤ r + D * (kmin + j) := by
+      have : D * kmin ≤ D * (kmin + j) := Nat.mul_le_mul_left D (by omega)
+      omega
+    have hlt : r + D * (kmin + j) < Z := by
+      by_contra hge'
+      push_neg at hge'
+      exact hN_min j hjN hge'
+    exact ⟨hge, hlt⟩
+  refine ⟨kmin, N, hmem, ?_⟩
+  intro m hmY hmZ
+  constructor
+  · intro hmeq
+    have hmr : r ≤ m := le_trans hYr hmY
+    obtain ⟨k, hk⟩ : D ∣ (m - r) := (Nat.modEq_iff_dvd' hmr).mp hmeq.symm
+    have hmeq2 : m = r + D * k := by omega
+    have hkge : kmin ≤ k := by
+      by_contra hklt
+      push_neg at hklt
+      have hnot := hkmin_min k hklt
+      apply hnot
+      omega
+    refine ⟨k - kmin, ?_, ?_⟩
+    · by_contra hjge
+      push_neg at hjge
+      have hmono2 : r + D * (kmin + N) ≤ r + D * k := by
+        have hle : kmin + N ≤ k := by omega
+        have : D * (kmin + N) ≤ D * k := Nat.mul_le_mul_left D hle
+        omega
+      omega
+    · have hkeq : kmin + (k - kmin) = k := by omega
+      rw [hmeq2, hkeq]
+  · rintro ⟨j, hjN, hmeq⟩
+    rw [hmeq]
+    have hle : r ≤ r + D * (kmin + j) := Nat.le_add_right r _
+    exact ((Nat.modEq_iff_dvd' hle).mpr ⟨kmin + j, by omega⟩).symm
+
+/-- **Uniqueness of the index.** For fixed `r, D > 0, kmin`, the index `j` with
+`m = r + D*(kmin+j)` is unique. -/
+theorem reindexed_index_unique (r D kmin j1 j2 : ℕ) (hD : 0 < D)
+    (heq : r + D * (kmin + j1) = r + D * (kmin + j2)) : j1 = j2 := by
+  have hmul : D * (kmin + j1) = D * (kmin + j2) := by omega
+  have hsum : kmin + j1 = kmin + j2 := Nat.eq_of_mul_eq_mul_left hD hmul
+  omega
+
+/-- **Exhaustive AP window parametrization, with uniqueness.** -/
+theorem modEq_window_exact_unique (r D Y Z : ℕ) (hD : 0 < D) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, ∀ m : ℕ, Y ≤ m → m < Z → m ≡ r [MOD D] →
+      ∃! j, j < N ∧ m = r + D * (kmin + j) := by
+  obtain ⟨kmin, N, hmem, hiff⟩ := modEq_window_exact r D Y Z hD hYr hYZ
+  refine ⟨kmin, N, ?_⟩
+  intro m hmY hmZ hmeq
+  obtain ⟨j, hjN, hjeq⟩ := (hiff m hmY hmZ).mp hmeq
+  refine ⟨j, ⟨hjN, hjeq⟩, ?_⟩
+  rintro j' ⟨_, hj'eq⟩
+  exact (reindexed_index_unique r D kmin j j' hD (hjeq.symm.trans hj'eq)).symm
+
+/-! ## Part 2: the exhaustive window theorem at the `Realizes` level -/
+
+/-- **Exhaustive prefix-cylinder window parametrization.** Combines `modEq_window_exact` with
+`realizes_iff_modEq` (Milestone 9): every `m` in the window realizing the length-`t` word `d`
+is exactly one of the `N` explicit points `r + 2^(S d t+1)*(kmin+j)`. This is the converse
+Milestone 9 identified as missing. -/
+theorem realizes_window_exact (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, (∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+        ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Z) ∧
+      ∀ m, Y ≤ m → m < Z →
+      (Realizes d t m ↔ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j)) := by
+  obtain ⟨kmin, N, hmem, hiff⟩ := modEq_window_exact r (2 ^ (S d t + 1)) Y Z (by positivity) hYr hYZ
+  refine ⟨kmin, N, hmem, ?_⟩
+  intro m hmY hmZ
+  rw [realizes_iff_modEq d t r m hd_pos hr]
+  constructor
+  · rintro ⟨_, hmeq⟩
+    exact (hiff m hmY hmZ).mp hmeq
+  · intro hex
+    have hmeq := (hiff m hmY hmZ).mpr hex
+    refine ⟨?_, hmeq⟩
+    obtain ⟨j, _, hmeqj⟩ := hex
+    rw [hmeqj]
+    have hrodd := hr.1
+    have h2 : Even (2 ^ (S d t + 1)) := (Nat.even_pow).mpr ⟨even_two, by omega⟩
+    exact hrodd.add_even (h2.mul_right _)
+
+/-! ## Part 3: the harmonic global weight and its prefix-mass normalization -/
+
+/-- **The harmonic window weight**: `1/m` on odd `m` in `[Y,Z)`, `0` elsewhere. No reusable
+harmonic-window weight definition exists in the repo (`ConditionalMixing.lean`/`ResidueTV.lean`
+work directly with the raw `1/(r+Dcyl*(kmin+j))` terms inside a `Finset.sum`, never packaging
+a standalone global weight function `ℕ → ℝ`), so this is a genuinely new definition, not a
+duplicate. -/
+noncomputable def harmonicWindowWeight (Y Z : ℕ) (m : ℕ) : ℝ :=
+  if Y ≤ m ∧ m < Z ∧ Odd m then 1 / (m : ℝ) else 0
+
+theorem harmonicWindowWeight_nonneg (Y Z m : ℕ) : 0 ≤ harmonicWindowWeight Y Z m := by
+  unfold harmonicWindowWeight; split_ifs with h
+  · positivity
+  · exact le_refl 0
+
+theorem harmonicWindowWeight_supp (Y Z : ℕ) :
+    Function.support (harmonicWindowWeight Y Z) ⊆ ↑(range Z) := by
+  intro m hm
+  by_contra hmni
+  apply hm
+  unfold harmonicWindowWeight
+  rw [if_neg]
+  rintro ⟨_, hlt, _⟩
+  exact hmni (Finset.mem_range.mpr hlt)
+
+/-- **`Realizes` in terms of `valuationVector` equality.** `Realizes d t m` unfolds
+(definitionally, via `valuationVector_apply`) to exactly `Odd m` plus `valuationVector m t`
+agreeing pointwise with `d`. -/
+theorem realizes_iff_valuationVector_eq (d : ℕ → ℕ) (t m : ℕ) :
+    Realizes d t m ↔ Odd m ∧ valuationVector m t = fun i : Fin t => d i.val := by
+  unfold Realizes
+  constructor
+  · rintro ⟨hodd, hval⟩
+    exact ⟨hodd, funext (fun i => hval i.val i.isLt)⟩
+  · rintro ⟨hodd, heq⟩
+    refine ⟨hodd, fun j hj => ?_⟩
+    have := congrFun heq ⟨j, hj⟩
+    simpa using this
+
+/-- **`Realizes d t m` vs. matching `r`'s prefix vector.** Given a fixed realizer `r`, realizing
+`d` is exactly matching `r`'s own `valuationVector` (plus oddness). -/
+theorem realizes_iff_valuationVector_eq_of_realizer (d : ℕ → ℕ) (t r m : ℕ) (hr : Realizes d t r) :
+    Realizes d t m ↔ (valuationVector m t = valuationVector r t ∧ Odd m) := by
+  have hr' := (realizes_iff_valuationVector_eq d t r).mp hr
+  rw [realizes_iff_valuationVector_eq d t m, ← hr'.2]
+  tauto
+
+open Classical in
+/-- **Normalization identity.** The prefix mass of the harmonic window weight, on the prefix
+realized by `r`, equals exactly the restart normalizer `W` already used by
+`conditional_future_valuation_mixing`/`conditional_future_event_bound` (Milestone 5/7) — via
+reindexing along the exhaustive bijection `j ↦ r + 2^(S d t+1)*(kmin+j)`. -/
+theorem harmonic_prefixMass_eq_W (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, (∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+        ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Z) ∧
+      (∀ m, Y ≤ m → m < Z →
+        (Realizes d t m ↔ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j))) ∧
+      prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)
+        = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) := by
+  obtain ⟨kmin, N, hmem, hiff⟩ := realizes_window_exact d t r Y Z hd_pos hr hYr hYZ
+  refine ⟨kmin, N, hmem, hiff, ?_⟩
+  set D := 2 ^ (S d t + 1) with hD_def
+  have hDpos : 0 < D := by positivity
+  set F : ℕ → ℕ := fun j => r + D * (kmin + j) with hF_def
+  have hFinj : Set.InjOn F ↑(range N) := fun j1 _ j2 _ heq =>
+    reindexed_index_unique r D kmin j1 j2 hDpos heq
+  unfold prefixMass
+  have hpt : ∀ j ∈ range Z,
+      (if valuationVector j t = valuationVector r t then harmonicWindowWeight Y Z j else 0)
+        = (if Realizes d t j ∧ Y ≤ j then (1 : ℝ) / (j : ℝ) else 0) := by
+    intro j hjZ
+    have hjZ' : j < Z := Finset.mem_range.mp hjZ
+    unfold harmonicWindowWeight
+    by_cases hR : Realizes d t j ∧ Y ≤ j
+    · obtain ⟨hRj, hYj⟩ := hR
+      have hveq := (realizes_iff_valuationVector_eq_of_realizer d t r j hr).mp hRj
+      rw [if_pos hveq.1, if_pos ⟨hYj, hjZ', hveq.2⟩, if_pos ⟨hRj, hYj⟩]
+    · by_cases hveq : valuationVector j t = valuationVector r t
+      · rw [if_pos hveq, if_neg hR]
+        have hRj_iff : Realizes d t j ↔ Odd j :=
+          ⟨fun h => ((realizes_iff_valuationVector_eq_of_realizer d t r j hr).mp h).2,
+           fun hodd => (realizes_iff_valuationVector_eq_of_realizer d t r j hr).mpr ⟨hveq, hodd⟩⟩
+        by_cases hYj : Y ≤ j
+        · have hRj : ¬ Realizes d t j := fun h => hR ⟨h, hYj⟩
+          rw [hRj_iff] at hRj
+          exact if_neg (fun hcond : Y ≤ j ∧ j < Z ∧ Odd j => hRj hcond.2.2)
+        · exact if_neg (fun hcond : Y ≤ j ∧ j < Z ∧ Odd j => hYj hcond.1)
+      · rw [if_neg hveq]
+        exact (if_neg (fun hcond : Realizes d t j ∧ Y ≤ j => hveq
+          ((realizes_iff_valuationVector_eq_of_realizer d t r j hr).mp hcond.1).1)).symm
+  rw [Finset.sum_congr rfl hpt, ← Finset.sum_filter]
+  have hfilter_eq : (range Z).filter (fun j => Realizes d t j ∧ Y ≤ j) = (range N).image F := by
+    ext j
+    simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_image]
+    constructor
+    · rintro ⟨hjZ, hRj, hYj⟩
+      obtain ⟨j', hj'N, hFj'⟩ := (hiff j hYj hjZ).mp hRj
+      exact ⟨j', hj'N, hFj'.symm⟩
+    · rintro ⟨j', hj'N, hFj'⟩
+      obtain ⟨hYj', hjZ'⟩ := hmem j' hj'N
+      subst hFj'
+      exact ⟨hjZ', (hiff (F j') hYj' hjZ').mpr ⟨j', hj'N, rfl⟩, hYj'⟩
+  rw [hfilter_eq, Finset.sum_image hFinj]
+  refine Finset.sum_congr rfl (fun x _ => ?_)
+  simp only [hF_def, hD_def]
+  push_cast
+  ring
+
+/-! ## Part 4: central law alignment -/
+
+open Classical in
+/-- **Central law alignment (pointwise).** Under the reindexing `j ↦ r + 2^(S d t+1)*(kmin+j)`,
+the true harmonic prefix-conditional weight (`prefixConditionalWeight` applied to the harmonic
+window weight, at the prefix realized by `r`) is *exactly* `conditionalIndexWeight` — the
+weight `conditionalRestartLaw` is built from — with `W` instantiated to the prefix mass
+(equal, by `harmonic_prefixMass_eq_W`, to the closed-form normalizer). **EXACT ALIGNMENT**,
+not merely comparable or normalized-up-to-a-constant. -/
+theorem prefixConditionalWeight_reindex_eq_conditionalIndexWeight
+    (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ,
+      ∀ j : ℕ, prefixConditionalWeight (harmonicWindowWeight Y Z) Z t (valuationVector r t)
+          (r + 2 ^ (S d t + 1) * (kmin + j))
+        = conditionalIndexWeight r (2 ^ (S d t + 1)) kmin N
+            (prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)) j := by
+  obtain ⟨kmin, N, hmem, hiff, _⟩ := harmonic_prefixMass_eq_W d t r Y Z hd_pos hr hYr hYZ
+  refine ⟨kmin, N, ?_⟩
+  intro j
+  set D := 2 ^ (S d t + 1) with hD_def
+  have hDpos : 0 < D := by positivity
+  have hrealizes_always : Realizes d t (r + D * (kmin + j)) :=
+    (cylinder_restart d t r (kmin + j) hr).1
+  have hveq : valuationVector (r + D * (kmin + j)) t = valuationVector r t :=
+    ((realizes_iff_valuationVector_eq_of_realizer d t r (r + D * (kmin + j)) hr).mp
+      hrealizes_always).1
+  unfold prefixConditionalWeight conditionalIndexWeight
+  rw [if_pos hveq]
+  by_cases hjN : j < N
+  · rw [if_pos hjN]
+    congr 1
+    unfold harmonicWindowWeight
+    rw [if_pos (show Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z ∧ Odd (r + D * (kmin + j))
+      from ⟨(hmem j hjN).1, (hmem j hjN).2, hrealizes_always.1⟩)]
+    push_cast
+    ring
+  · rw [if_neg hjN]
+    have hout : ¬ (Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z) := by
+      rintro ⟨hY', hZ'⟩
+      obtain ⟨j', hj'N, hj'eq⟩ := (hiff (r + D * (kmin + j)) hY' hZ').mp hrealizes_always
+      have hjj' := reindexed_index_unique r D kmin j j' hDpos hj'eq
+      omega
+    unfold harmonicWindowWeight
+    rw [if_neg (fun hcond : Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z ∧
+        Odd (r + D * (kmin + j)) => hout ⟨hcond.1, hcond.2.1⟩)]
+    simp
+
+end TaoExternal
+end EOC
