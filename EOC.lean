@@ -17,3 +17,4 @@ import EOC.TaoLike.ResidueTV
 import EOC.TaoLike.TaoInterface
 import EOC.TaoLike.ConditionalMixing
 import EOC.TaoLike.PersistenceModel
+import EOC.TaoLike.ShiftedPersistence
