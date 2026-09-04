@@ -379,4 +379,206 @@ theorem thick_window_conditional_residue_tv
   exact ⟨kmin, N, W, hWpos, hWdef,
     conditional_residue_tv_explicit d t r h ht Q hQ kmin N W hWpos hWdef⟩
 
+/-! ### Milestone 3B: eliminating the free normalization `W` -/
+
+/-- **Harmonic window mass lower bound.** If every window point `A0 + D*j` (`j < N`) lies
+below `Y + H`, the total harmonic mass is at least `N / (Y+H)` — a generic finite fact, no
+Collatz structure involved. -/
+theorem harmonic_window_mass_lower_bound (A0 D Y H : ℝ) (N : ℕ)
+    (hA0pos : 0 < A0) (hDnn : 0 ≤ D)
+    (hmem : ∀ j < N, A0 + D * j < Y + H) :
+    (N : ℝ) / (Y + H) ≤ ∑ j ∈ range N, (1 : ℝ) / (A0 + D * j) := by
+  have hstep : ∀ j ∈ range N, (1 : ℝ) / (Y + H) ≤ (1 : ℝ) / (A0 + D * j) := by
+    intro j hj
+    have hjlt := hmem j (Finset.mem_range.mp hj)
+    have hpos : 0 < A0 + D * j := by
+      have hDjnn : (0:ℝ) ≤ D * (j:ℝ) := mul_nonneg hDnn (Nat.cast_nonneg j)
+      linarith
+    exact one_div_le_one_div_of_le hpos hjlt.le
+  calc (N : ℝ) / (Y + H) = ∑ _j ∈ range N, (1 : ℝ) / (Y + H) := by
+        rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]; ring
+    _ ≤ ∑ j ∈ range N, (1 : ℝ) / (A0 + D * j) := Finset.sum_le_sum hstep
+
+/-- **Cylinder count lower bound (thickness `≥ 4D`).** Combining the generic window count
+bound `H ≤ (N+2)D` (from `cylinder_window_reindex`) with a thickness hypothesis `4D ≤ H`
+gives the sharper multiplicative bound `H ≤ 2*N*D` — Lean-friendlier than a division. -/
+theorem cylinder_count_lower_bound_half (D N : ℕ) (H : ℝ)
+    (h4D : 4 * (D : ℝ) ≤ H) (hNub : H ≤ ((N : ℝ) + 2) * (D : ℝ)) :
+    H ≤ 2 * (N : ℝ) * (D : ℝ) := by
+  nlinarith [hNub, h4D]
+
+/-- **Normalization product lower bound.** Given `Y ≤ A0`, a harmonic-mass lower bound
+`N/(Y+H) ≤ W`, and the sharpened count bound `H ≤ 2ND`, the product `A0 * W` is bounded
+below multiplicatively (avoiding nested division): `Y*H ≤ 2*D*(Y+H)*(A0*W)`. -/
+theorem window_normalization_lower_bound (A0 D Y H : ℝ) (N : ℕ) (W : ℝ)
+    (hAY : Y ≤ A0) (hWnn : 0 ≤ W) (hWN : (N : ℝ) / (Y + H) ≤ W)
+    (hND : H ≤ 2 * (N : ℝ) * D) (hYHpos : 0 < Y + H) (hYpos : 0 < Y) (hDnn : 0 ≤ D) :
+    Y * H ≤ 2 * D * (Y + H) * (A0 * W) := by
+  have h1 : Y * ((N : ℝ) / (Y + H)) ≤ Y * W := mul_le_mul_of_nonneg_left hWN hYpos.le
+  have h2 : Y * W ≤ A0 * W := mul_le_mul_of_nonneg_right hAY hWnn
+  have h3 : Y * ((N : ℝ) / (Y + H)) = Y * (N : ℝ) / (Y + H) := by ring
+  have h4 : Y * H ≤ Y * (2 * (N : ℝ) * D) := mul_le_mul_of_nonneg_left hND hYpos.le
+  have h5 : Y * (2 * (N : ℝ) * D) = 2 * D * (Y * (N : ℝ)) := by ring
+  have h6 : Y * (N : ℝ) = (Y + H) * (Y * (N : ℝ) / (Y + H)) := by field_simp
+  have h7 : Y * H ≤ 2 * D * ((Y + H) * (Y * (N : ℝ) / (Y + H))) := by
+    rw [← h6]; linarith [h4, h5]
+  have h8 : 2 * D * ((Y + H) * (Y * (N : ℝ) / (Y + H))) ≤ 2 * D * ((Y + H) * (A0 * W)) := by
+    apply mul_le_mul_of_nonneg_left _ (by positivity : (0:ℝ) ≤ 2 * D)
+    apply mul_le_mul_of_nonneg_left _ hYHpos.le
+    rw [← h3]; linarith [h1, h2]
+  calc Y * H ≤ 2 * D * ((Y + H) * (Y * (N : ℝ) / (Y + H))) := h7
+    _ ≤ 2 * D * ((Y + H) * (A0 * W)) := h8
+    _ = 2 * D * (Y + H) * (A0 * W) := by ring
+
+/-- **Explicit window conditional residue TV, with `W` eliminated.** For a window
+`Y ≤ m < Y + H` (`Y > 0`) inside a realized cylinder that is *thick* relative to the
+cylinder spacing `D = 2^(S d t + 1)` (`4D ≤ ηY ≤ H`), the conditional residue TV on odd
+residues modulo `2^Q` is bounded by the fully explicit, `W`-free quantity
+`2^(Q + S d t) * (Y+H) / (Y*H)`. -/
+theorem conditional_residue_tv_window_bound
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
+    ∃ kmin N : ℕ, ∃ W : ℝ, 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (1 / 2 : ℝ) * ∑ v ∈ oddResidues Q,
+          |(∑ j ∈ range N,
+              (if orbit (r + 2 ^ (S d t + 1) * (kmin + j)) t % 2 ^ Q = v % 2 ^ Q
+                then (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) else 0)) / W
+            - 1 / (2 ^ (Q - 1) : ℝ)|
+        ≤ (2 : ℝ) ^ (Q + S d t) * ((Y : ℝ) + (H : ℝ)) / ((Y : ℝ) * (H : ℝ)) := by
+  have hrodd : Odd r := h.1
+  have hrpos : 0 < r := by obtain ⟨c, hc⟩ := hrodd; omega
+  set D := (2 ^ (S d t + 1) : ℕ) with hDdef
+  have hDcylpos : 0 < D := by rw [hDdef]; positivity
+  have hDcast : (D : ℝ) = (2 : ℝ) ^ (S d t + 1) := by rw [hDdef]; push_cast; ring
+  obtain ⟨kmin, N, hmem, hNlb⟩ :=
+    cylinder_window_reindex r D Y (Y + H) hDcylpos hYr (Nat.le_add_right Y H)
+  have hH4D : 4 * (D : ℝ) ≤ (H : ℝ) := by rw [hDcast]; exact le_trans hthick hH
+  have hNlb' : ((Y : ℝ) + H) - Y ≤ ((N : ℝ) + 2) * D := by push_cast at hNlb ⊢; linarith [hNlb]
+  have hHub : (H : ℝ) ≤ ((N : ℝ) + 2) * (D : ℝ) := by linarith [hNlb']
+  have hND : (H : ℝ) ≤ 2 * (N : ℝ) * (D : ℝ) := cylinder_count_lower_bound_half D N H hH4D hHub
+  have hNpos : 0 < N := by
+    rcases Nat.eq_zero_or_pos N with hN0 | hNpos
+    · exfalso
+      rw [hN0] at hND
+      have hzero : (2:ℝ) * (0:ℕ) * (D:ℝ) = 0 := by push_cast; ring
+      have hDR : (0:ℝ) < (D:ℝ) := by exact_mod_cast hDcylpos
+      linarith [hND, hH4D, hzero, hDR]
+    · exact hNpos
+  have hAY : Y ≤ r + D * kmin := (hmem 0 hNpos).1
+  set A0 := r + D * kmin with hA0def
+  have hA0castD : (A0 : ℝ) = (r : ℝ) + (D : ℝ) * (kmin : ℝ) := by rw [hA0def]; push_cast; ring
+  set W := ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (D : ℝ) * ((kmin : ℝ) + j)) with hWdef
+  have hWpos : 0 < W := by
+    apply Finset.sum_pos
+    · intro j _
+      have : (0:ℝ) < (r:ℝ) + (D:ℝ) * ((kmin:ℝ) + j) := by positivity
+      positivity
+    · exact ⟨0, Finset.mem_range.mpr hNpos⟩
+  have hWdef' :
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) := by
+    rw [hWdef, hDcast]
+  have hkey := conditional_residue_tv_explicit d t r h ht Q hQ kmin N W hWpos hWdef'
+  have hA0literal : (A0 : ℝ) = (r : ℝ) + (2 ^ (S d t + 1) : ℝ) * (kmin : ℝ) := by
+    rw [hA0castD, hDcast]
+  rw [← hA0literal] at hkey
+  have hmemR : ∀ j < N, (A0 : ℝ) + (D : ℝ) * (j : ℕ) < (Y : ℝ) + (H : ℝ) := by
+    intro j hj
+    have hj2 := (hmem j hj).2
+    rw [hA0castD]
+    have hcast : (r:ℝ) + (D:ℝ) * ((kmin:ℝ) + (j:ℕ)) < (Y:ℝ) + (H:ℝ) := by exact_mod_cast hj2
+    nlinarith [hcast]
+  have hA0posR : (0 : ℝ) < (A0 : ℝ) := by
+    rw [hA0castD]
+    have hrposR : (0:ℝ) < (r:ℝ) := by exact_mod_cast hrpos
+    have hDnnR' : (0:ℝ) ≤ (D:ℝ) := by positivity
+    have hkminnn : (0:ℝ) ≤ (kmin:ℝ) := by positivity
+    nlinarith [mul_nonneg hDnnR' hkminnn]
+  have hDnnR : (0 : ℝ) ≤ (D : ℝ) := by positivity
+  have hWNraw : (N : ℝ) / ((Y : ℝ) + (H : ℝ)) ≤ ∑ j ∈ range N, (1:ℝ) / ((A0:ℝ) + (D:ℝ) * j) :=
+    harmonic_window_mass_lower_bound (A0 : ℝ) (D : ℝ) (Y : ℝ) (H : ℝ) N hA0posR hDnnR hmemR
+  have hWNeq : (∑ j ∈ range N, (1:ℝ) / ((A0:ℝ) + (D:ℝ) * j)) = W := by
+    rw [hWdef]
+    apply Finset.sum_congr rfl
+    intro j _
+    congr 1
+    rw [hA0castD]; ring
+  rw [hWNeq] at hWNraw
+  have hWN : (N : ℝ) / ((Y : ℝ) + (H : ℝ)) ≤ W := hWNraw
+  have hYHpos : (0 : ℝ) < (Y : ℝ) + (H : ℝ) := by positivity
+  have hAYR : (Y : ℝ) ≤ (A0 : ℝ) := by exact_mod_cast hAY
+  have hprod : (Y : ℝ) * (H : ℝ) ≤ 2 * (D : ℝ) * ((Y : ℝ) + (H : ℝ)) * ((A0 : ℝ) * W) :=
+    window_normalization_lower_bound (A0 : ℝ) (D : ℝ) (Y : ℝ) (H : ℝ) N W
+      hAYR hWpos.le hWN hND hYHpos (by exact_mod_cast hYpos) hDnnR
+  have hHposR : (0:ℝ) < (H:ℝ) := by
+    have hDR : (0:ℝ) < (D:ℝ) := by exact_mod_cast hDcylpos
+    linarith [hH4D, hDR]
+  have hYHRpos : (0:ℝ) < (Y:ℝ) * (H:ℝ) := by positivity
+  have hA0Wpos : (0:ℝ) < (A0:ℝ) * W := mul_pos hA0posR hWpos
+  have h2A0W : (0 : ℝ) < 2 * (A0:ℝ) * W := by nlinarith [hA0Wpos]
+  have hpow : (2:ℝ) ^ (Q - 1) * (D:ℝ) = (2:ℝ) ^ (Q + S d t) := by
+    rw [hDdef]
+    push_cast
+    rw [← pow_add]
+    congr 1
+    omega
+  have hstep :
+      (2:ℝ) ^ (Q - 1) / (2 * (A0:ℝ) * W) ≤ (2:ℝ) ^ (Q + S d t) * ((Y:ℝ) + H) / ((Y:ℝ) * H) := by
+    rw [div_le_div_iff₀ h2A0W hYHRpos]
+    calc (2:ℝ) ^ (Q - 1) * ((Y:ℝ) * H)
+        ≤ (2:ℝ) ^ (Q - 1) * (2 * (D:ℝ) * ((Y:ℝ) + H) * ((A0:ℝ) * W)) :=
+          mul_le_mul_of_nonneg_left hprod (by positivity)
+      _ = ((2:ℝ) ^ (Q - 1) * (D:ℝ)) * (2 * (((Y:ℝ) + H) * ((A0:ℝ) * W))) := by ring
+      _ = (2:ℝ) ^ (Q + S d t) * (2 * (((Y:ℝ) + H) * ((A0:ℝ) * W))) := by rw [hpow]
+      _ = (2:ℝ) ^ (Q + S d t) * ((Y:ℝ) + H) * (2 * (A0:ℝ) * W) := by ring
+  refine ⟨kmin, N, W, hWpos, hWdef', ?_⟩
+  calc (1 / 2 : ℝ) * ∑ v ∈ oddResidues Q,
+        |(∑ j ∈ range N,
+            (if orbit (r + 2 ^ (S d t + 1) * (kmin + j)) t % 2 ^ Q = v % 2 ^ Q
+              then (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) else 0)) / W
+          - 1 / (2 ^ (Q - 1) : ℝ)| ≤ (2:ℝ) ^ (Q - 1) / (2 * (A0:ℝ) * W) := hkey
+    _ ≤ (2:ℝ) ^ (Q + S d t) * ((Y:ℝ) + H) / ((Y:ℝ) * H) := hstep
+
+/-- **Conditional residue TV, `η`-only bound.** The final deterministic estimate: for a
+window `Y ≤ m < Y+H` thick relative to the cylinder spacing (`4D ≤ ηY ≤ H`), the
+conditional residue TV is at most `(1 + 1/η) * 2^(Q + S d t) / Y` — a bound depending only
+on `η`, `Y`, `Q`, and `S d t` (no `H`, `N`, or `W` on the right-hand side). For a
+fixed-ratio window `Y ≤ m < λY` (`η := λ-1`, `H := (λ-1)Y`), the constant becomes
+`C_λ = 1 + 1/(λ-1) = λ/(λ-1)`. -/
+theorem conditional_residue_tv_eta_bound
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
+    ∃ kmin N : ℕ, ∃ W : ℝ, 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (1 / 2 : ℝ) * ∑ v ∈ oddResidues Q,
+          |(∑ j ∈ range N,
+              (if orbit (r + 2 ^ (S d t + 1) * (kmin + j)) t % 2 ^ Q = v % 2 ^ Q
+                then (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) else 0)) / W
+            - 1 / (2 ^ (Q - 1) : ℝ)|
+        ≤ (1 + 1 / η) * (2 : ℝ) ^ (Q + S d t) / (Y : ℝ) := by
+  obtain ⟨kmin, N, W, hWpos, hWdef, hbound⟩ :=
+    conditional_residue_tv_window_bound d t r h ht Q hQ Y H hYr hYpos η hη hH hthick
+  refine ⟨kmin, N, W, hWpos, hWdef, le_trans hbound ?_⟩
+  have hHpos : (0:ℝ) < (H:ℝ) := by
+    have hDcylpos : (0:ℝ) < (2 ^ (S d t + 1) : ℝ) := by positivity
+    nlinarith [hthick, hH, hDcylpos]
+  have hYposR : (0:ℝ) < (Y:ℝ) := by exact_mod_cast hYpos
+  have h2pos : (0:ℝ) < (2:ℝ) ^ (Q + S d t) := by positivity
+  have hHiden : ((Y:ℝ) + H) / ((Y:ℝ) * H) = 1 / H + 1 / (Y:ℝ) := by field_simp
+  have hHinv : (1:ℝ) / H ≤ 1 / (η * (Y:ℝ)) := one_div_le_one_div_of_le (mul_pos hη hYposR) hH
+  have heq2 : (1:ℝ) / (η * (Y:ℝ)) + 1 / (Y:ℝ) = (1 + 1/η) / (Y:ℝ) := by field_simp; ring
+  have hstep : ((Y:ℝ) + H) / ((Y:ℝ) * H) ≤ (1 + 1/η) / (Y:ℝ) := by
+    rw [hHiden]
+    calc 1/H + 1/(Y:ℝ) ≤ 1/(η*(Y:ℝ)) + 1/(Y:ℝ) := by linarith [hHinv]
+      _ = (1+1/η)/(Y:ℝ) := heq2
+  rw [show (2:ℝ) ^ (Q + S d t) * ((Y:ℝ) + H) / ((Y:ℝ) * H)
+      = (2:ℝ) ^ (Q + S d t) * (((Y:ℝ) + H) / ((Y:ℝ) * H)) by ring,
+    show (1 + 1/η) * (2:ℝ) ^ (Q + S d t) / (Y:ℝ)
+      = (2:ℝ) ^ (Q + S d t) * ((1+1/η)/(Y:ℝ)) by ring]
+  exact mul_le_mul_of_nonneg_left hstep h2pos.le
+
 end EOC
