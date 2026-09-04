@@ -12,3 +12,4 @@ import EOC.SignedRealizer
 import EOC.ChangHistory
 import EOC.TaoLike.Cylinder
 import EOC.TaoLike.CylinderAppend
+import EOC.TaoLike.HarmonicAP
