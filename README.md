@@ -186,7 +186,7 @@ Only entries confirmed against compiled, tracked source are listed.
 | I. Finite Chang-history realizability | `ChangHistory.lean` | FORMALLY VERIFIED | every finite binary "Chang history" is realized by some odd natural seed |
 | J. Harmonic AP discrepancy | `TaoLike/HarmonicAP.lean` | FORMALLY VERIFIED | finite, deterministic residue-class discrepancy bounds (counting and harmonic-weighted) |
 | K. Conditional residue total variation | `TaoLike/ResidueTV.lean` | FORMALLY VERIFIED | restarted cylinder state is quantitatively close to uniform on odd residues mod `2^Q` |
-| L. External Tao mixing interface | `TaoLike/TaoInterface.lean` | **CONDITIONAL FORMAL RESULT** | `TaoMixingHypothesis`/`TaoMixingProperty` — see [warning](#the-external-tao-interface) below |
+| L. External Tao mixing interface | `TaoLike/TaoInterface.lean` | **CONDITIONAL FORMAL RESULT** | `TaoMixingHypothesis`/`TaoMixingProperty` (M38: starting law must satisfy `IsProbabilityLaw`) — see [warning](#the-external-tao-interface) below |
 | M. Conditional future valuation mixing | `TaoLike/ConditionalMixing.lean` | CONDITIONAL FORMAL RESULT | conditioned on a realized prefix, the future valuation vector is `TaoMixingHypothesis`-close to iid `Geom(2)^n` |
 | N. iid geometric persistence Chernoff bound | `TaoLike/PersistenceModel.lean` | FORMALLY VERIFIED | exponential-rate upper bound on the abstract iid `Geom(2)^n` persistence event (not yet transferred to real orbits at this layer) |
 | O. Shifted persistence transfer | `TaoLike/ShiftedPersistence.lean` | CONDITIONAL FORMAL RESULT | one restart + one future block, real-orbit persistence bound |
@@ -196,6 +196,7 @@ Only entries confirmed against compiled, tracked source are listed.
 | S. All-shifts averaged persistence | `TaoLike/AllShiftsAveragedPersistence.lean` | CONDITIONAL FORMAL RESULT | finite-horizon union-over-shifts persistence bound |
 | T. Normalized harmonic law | `TaoLike/NormalizedHarmonicLaw.lean` | FORMALLY VERIFIED / CONDITIONAL* | proves the harmonic window's probability mass genuinely normalizes to 1 (unconditional), then transfers R–S to the normalized law (conditional, inherited) |
 | U. Harmonic exceptional-set summability | `TaoLike/HarmonicExceptionalSetSummability.lean` | CONDITIONAL FORMAL RESULT | dyadic-window summability of the exceptional (persistent) event; **audited explicitly not to yield a pointwise/soft-EOC conclusion** (ensemble statement only) |
+| V. Finite-prefix injective drift-depth bound | `FinitePrefixPacking.lean` | FORMALLY VERIFIED | for `M` odd, injectivity of `orbit M` through `2^L` together with a uniform drift floor `R_j ≥ -g` through `2^L` forces `(3·2^L − 2)·2^(L+1) ≤ 2^g · M · 3^(L+1)` (`finite_prefix_injective_drift_depth_bound`), with a power-form corollary `2^(2(L+1)) ≤ 2^g · M · 3^(L+1)` for `L ≥ 1` (`finite_prefix_injective_drift_depth_power_bound`) — unconditional, no `TaoMixingHypothesis`; a finite-horizon refinement of the packing mechanism behind row G |
 
 \* Row T is split: the normalization theorem itself needs no external
 hypothesis; the persistence-transfer corollaries it proves inherit the
@@ -366,12 +367,24 @@ currently supported by a proof in this repository):
   non-crossing, so no contradiction was forced this way);
 - higher-moment / survivor-clustering structure.
 
-A related, explicitly audited dead end: the existing two-sided bounded-drift
-pigeonhole mechanism (row G) requires a depth bound `G` essentially
-independent of `N` (rigorously, `O(log log N)`) — far stricter than even the
-empirically shallow depth observed on long-confined record seeds
-(`Θ(log N)`-ish). It cannot be triggered by first-passage words as they
-actually behave.
+A related, audited limitation: the original two-sided (infinite-horizon)
+bounded-drift pigeonhole mechanism (row G) requires a depth bound `G`
+independent of `N`. The **finite-prefix** quantitative refinement of this
+same packing argument (row V, `finite_prefix_injective_drift_depth_bound`)
+supersedes any earlier claim that the mechanism could only exclude an
+`O(log log N)` depth floor: it is a genuine **logarithmic** magnitude-packing
+obstruction. **MATHEMATICALLY DERIVED** from row V (not itself a packaged
+Lean theorem): whenever `orbit M` is injective through `N` with a uniform
+drift floor `−G(N)`, `G(N) ≥ (2 − log₂3)·log₂N − O_M(1)`
+(`2 − log₂3 ≈ 0.4150374993`). This excludes every fixed lower drift
+bound, every `O(log log N)` or `o(log N)` floor, and every logarithmic floor
+with coefficient below `2 − log₂3` — strictly stronger than the `O(log log
+N)` ceiling previously stated here. It does **not** exclude an arbitrary
+`O(log N)` floor with larger coefficient, an `N^θ`-scale floor, or
+`sqrt(N)`-scale negative drift, so it still falls short of (and by itself
+does not rule out) the empirically shallow depth observed on long-confined
+record seeds (`Θ(log N)`-ish). It still cannot be triggered by first-passage
+words as they actually behave.
 
 ## Natural next questions
 
@@ -404,12 +417,13 @@ Tal, and is not (yet) formalized in this repository.
 
 ## Current research checkpoint
 
-**FORMALLY VERIFIED** (rows A–K, N, Q of the table above):
+**FORMALLY VERIFIED** (rows A–K, N, Q, V of the table above):
 exact accelerated-orbit / valuation infrastructure; carry identities;
 realizer congruences; confinement/record-chronology; cylinder restart and
 additivity; periodic-sector and bounded-two-sided-drift realizer escape;
 harmonic AP and residue-TV infrastructure; iid persistence Chernoff
-estimate; prefix-partition/restart-law bookkeeping.
+estimate; prefix-partition/restart-law bookkeeping; the finite-prefix
+injective drift-depth packing bound (row V).
 
 **CONDITIONAL FORMAL RESULT, on `TaoMixingHypothesis`** (rows L, M, O, P, R,
 S, and the transfer half of T):
@@ -443,7 +457,8 @@ positive cycles; the Collatz conjecture itself.
 `Confinement.lean`
 
 **Periodic-sector and bounded-drift escape**
-`PeriodicCore.lean` · `Periodic.lean` · `BoundedDriftCore.lean` · `BoundedDrift.lean`
+`PeriodicCore.lean` · `Periodic.lean` · `BoundedDriftCore.lean` · `BoundedDrift.lean` ·
+`FinitePrefixPacking.lean`
 
 **Signed-block / Chang-history arithmetic**
 `SignedBlock.lean` · `SignedRealizer.lean` · `ChangHistory.lean`
@@ -487,6 +502,33 @@ consumed as a parameter by any downstream theorem that needs it.
 proof.** Any theorem depending on `TaoMixingHypothesis` is conditional on
 that external result being true, exactly as Tao proved it in his own paper
 — it is not re-derived here.
+
+**M38 (probability-law boundary repair).** Before M38, `EventProb α := Set
+α → ℝ` was only an extensional carrier — a bare set function with no
+additivity or normalization requirement — and `TaoMixingHypothesis`
+quantified its starting law `N` over arbitrary such functionals, constrained
+only by an odd-support condition. M38 adds `IsProbabilityLaw P`
+(`TaoInterface.lean`): `P` must equal `genEventProb w` for some nonnegative,
+summable atom-weight function `w` with `∑' x, w x = 1`.
+`TaoMixingHypothesis.finite_valuation_mixing` and `TaoMixingProperty` now
+require `IsProbabilityLaw N` before their conclusion applies, closing the
+interface to arbitrary non-probability set functions. The canonical laws the
+pipeline actually uses — `iidGeom2VectorProb`
+(`iidGeom2VectorProb_isProbabilityLaw`), `unifOddResidues`
+(`unifOddResidues_isProbabilityLaw`), and `conditionalRestartLaw` under its
+stated normalization hypotheses (`conditionalRestartLaw_isProbabilityLaw`,
+`TaoLike/ConditionalMixing.lean`) — are all certified `IsProbabilityLaw`, so
+the repair is not vacuous. `TaoMixingHypothesis` itself remains, exactly as
+above, an **EXTERNAL THEOREM INTERFACE**: the repository still does not
+prove Tao's theorem; M38 repairs the mathematical fidelity of the boundary
+so that downstream conditional theorems can no longer instantiate Tao mixing
+against an arbitrary non-probability set function. `lake build` succeeds on
+the full repository; no `sorry`, `admit`, or custom axiom was introduced,
+and `#print axioms` on `TaoMixingHypothesis`,
+`conditionalRestartLaw_isProbabilityLaw`,
+`conditional_future_valuation_mixing`, and `harmonic_exceptional_summability`
+shows only Lean's standard core axioms (`propext`, `Classical.choice`,
+`Quot.sound`).
 
 ## Reproducing the build
 
