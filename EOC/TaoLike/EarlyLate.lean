@@ -326,23 +326,24 @@ instead of `t+n` (the joint block). No restart is needed here either: this is a 
 transfer of the real prefix law to iid, composed with `iid_geom_sum_upper_tail` to bound the
 resulting iid BAD-prefix probability. -/
 
-/-- **BAD-prefix Tao transfer.** `P_real(BAD_t) ≤ P_iid(BAD_t) + K.A·2^(-K.c1·t)`, then bounded
-further by the iid Chernoff tail: `P_real(BAD_t) ≤ e^(-θ·sMax)·M_up(θ)^t + K.A·2^(-K.c1·t)`. -/
-theorem prefix_bad_tao_transfer
-    (tao : TaoMixingHypothesis)
+/-- **Fixed-witness BAD-prefix Tao transfer.** Same as `prefix_bad_tao_transfer`, but `K` (with
+its defining `TaoMixingProperty hK`) is supplied by the caller instead of derived internally
+from `tao` — so a single `K` can be chosen once (e.g. via `tao.finite_valuation_mixing cPrefix
+hcPrefix`) and its residue-closeness hypothesis stated as an explicit top-level hypothesis
+(needed for Milestone 11's BAD-prefix bound, since `K` is not otherwise available before the
+proof begins). -/
+theorem prefix_bad_tao_transfer_of_constants
+    (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
     (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
     (hw_supp : Function.support w ⊆ ↑(range Nwin))
     (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
     (t : ℕ) (ht : 1 ≤ t) (sMax : ℝ) (theta : ℝ) (hθ0 : 0 < theta) (hθ1 : theta < Real.log 2)
-    (c0 : ℝ) (hc0 : 0 < c0) (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * (t : ℝ)) :
-    ∃ K : TaoMixingConstants c0,
-      taoL1TV (pushforward (genEventProb w) (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
-          ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
-        pushforward (genEventProb w) (fun m => valuationVector m t) (badPrefixEvent t sMax)
-          ≤ Real.exp (-(theta * sMax)) * (geomUpperMgf theta) ^ t
-            + K.A * (2 : ℝ) ^ (-(K.c1 * (t : ℝ))) := by
-  obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
-  refine ⟨K, ?_⟩
+    (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * (t : ℝ)) :
+    taoL1TV (pushforward (genEventProb w) (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
+        ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
+      pushforward (genEventProb w) (fun m => valuationVector m t) (badPrefixEvent t sMax)
+        ≤ Real.exp (-(theta * sMax)) * (geomUpperMgf theta) ^ t
+          + K.A * (2 : ℝ) ^ (-(K.c1 * (t : ℝ))) := by
   intro hres
   have htv := hK t Qres (genEventProb w) ht hQrel hw_odd hres
   set F : ℕ → (Fin t → ℕ) := fun m => valuationVector m t with hF_def
@@ -383,6 +384,25 @@ theorem prefix_bad_tao_transfer
           + K.A * (2 : ℝ) ^ (-(K.c1 * (t : ℝ))) := by
         unfold badPrefixEvent
         linarith [htail]
+
+/-- **BAD-prefix Tao transfer.** `P_real(BAD_t) ≤ P_iid(BAD_t) + K.A·2^(-K.c1·t)`, then bounded
+further by the iid Chernoff tail: `P_real(BAD_t) ≤ e^(-θ·sMax)·M_up(θ)^t + K.A·2^(-K.c1·t)`. -/
+theorem prefix_bad_tao_transfer
+    (tao : TaoMixingHypothesis)
+    (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
+    (hw_supp : Function.support w ⊆ ↑(range Nwin))
+    (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
+    (t : ℕ) (ht : 1 ≤ t) (sMax : ℝ) (theta : ℝ) (hθ0 : 0 < theta) (hθ1 : theta < Real.log 2)
+    (c0 : ℝ) (hc0 : 0 < c0) (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * (t : ℝ)) :
+    ∃ K : TaoMixingConstants c0,
+      taoL1TV (pushforward (genEventProb w) (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
+          ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
+        pushforward (genEventProb w) (fun m => valuationVector m t) (badPrefixEvent t sMax)
+          ≤ Real.exp (-(theta * sMax)) * (geomUpperMgf theta) ^ t
+            + K.A * (2 : ℝ) ^ (-(K.c1 * (t : ℝ))) := by
+  obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
+  exact ⟨K, prefix_bad_tao_transfer_of_constants c0 K hK w hw_nonneg Nwin hw_supp hw_odd t ht sMax
+    theta hθ0 hθ1 Qres hQrel⟩
 
 /-! ## Part 6: scope note — the LATE union theorem is NOT proved here
 
