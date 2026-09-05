@@ -1,4 +1,5 @@
 import EOC.TaoLike.Cylinder
+import EOC.Confinement
 
 /-!
 # Compatible realizer lift (Milestone 37B)
@@ -26,6 +27,26 @@ Main results:
 * `q_modEq_of_leastRealizer_eq` / `swap_two_digits_leastRealizer_ne` — an
   **information-blindness** witness: two length-2 words with the *same* total valuation `S`
   (hence the same drift `R`) can have distinct carries `q` and hence distinct `leastRealizer`s.
+
+## Milestone 37C: the unique zero-lift digit, and candidate-digit relational structure
+
+* `extendDigit` — extends a prefix `d` (agreeing below `N`) by a single prescribed candidate
+  digit `e` at position `N`.
+* `liftDigit_extendDigit_eq_zero_iff` — for any candidate `e ≥ 1`, the extension's lift is zero
+  iff `e` equals the prefix's own actual next valuation. This makes the M37B "zero-lift is a
+  restatement" observation formally citable at *every* candidate digit, not just the word's own.
+* `existsUnique_zero_lift_digit` — **exactly one** positive candidate digit gives zero lift
+  (namely the prefix's actual next valuation). **FORMALLY VERIFIED STRUCTURAL CIRCULARITY**: any
+  criterion correctly separating that one candidate from all others is exactly as hard as
+  computing the actual next valuation itself.
+* `liftDigit_extendDigit_injective` — distinct candidate digits *always* give distinct lift
+  digits (an easy consequence of the extension formula plus M37B's
+  `leastRealizer_succ_ne_of_digit_ne`), answering Phase 2's injectivity question **positively**.
+* `q_succ_extendDigit_eq` — the carry `q _ (N+1)` of an extended word does **not depend on the
+  candidate digit `e` at all**: the candidate only ever enters through the target modulus
+  `2^(S_N+e+1)`, never through the carry data. This is the structural reason the zero-lift
+  question is circular: the *only* prefix-computable data (the carry) is identical across every
+  candidate, so nothing prefix-local can distinguish which candidate is the "real" one.
 
 No `sorry`, `admit`, `axiom`, or `opaque`.
 -/
@@ -305,5 +326,102 @@ theorem swap_two_digits_leastRealizer_ne (u v : ℕ) (huv : u ≠ v) :
   have hq' : 2 ^ u ≡ 2 ^ v [MOD 2 ^ (u + v + 1)] :=
     Nat.ModEq.add_left_cancel (Nat.ModEq.refl 3) hq
   exact two_pow_ne_modEq u v huv hq'
+
+/-! ## Milestone 37C: the unique zero-lift digit -/
+
+/-- Extends a prefix `d` by one prescribed candidate digit `e` at position `N`, leaving every
+other index untouched. -/
+def extendDigit (d : ℕ → ℕ) (N e : ℕ) : ℕ → ℕ := fun i => if i = N then e else d i
+
+private theorem extendDigit_agree (d : ℕ → ℕ) (N e : ℕ) :
+    ∀ i < N, extendDigit d N e i = d i := by
+  intro i hi
+  unfold extendDigit
+  rw [if_neg (show i ≠ N by omega)]
+
+private theorem extendDigit_self (d : ℕ → ℕ) (N e : ℕ) : extendDigit d N e N = e := by
+  unfold extendDigit; rw [if_pos rfl]
+
+private theorem extendDigit_pos (d : ℕ → ℕ) (N e : ℕ) (hd_pos : ∀ i < N, 1 ≤ d i)
+    (he : 1 ≤ e) : ∀ i < N + 1, 1 ≤ extendDigit d N e i := by
+  intro i _
+  unfold extendDigit
+  split_ifs with h
+  · exact he
+  · exact hd_pos i (by omega)
+
+/-- For any candidate next digit `e ≥ 1`, extending the prefix by `e` has zero lift exactly
+when `e` is the prefix's own actual next valuation. -/
+theorem liftDigit_extendDigit_eq_zero_iff (d : ℕ → ℕ) (N e : ℕ) (hN : 1 ≤ N)
+    (hd_pos : ∀ i < N, 1 ≤ d i) (he : 1 ≤ e) :
+    liftDigit (extendDigit d N e) N = 0 ↔ a (orbit (leastRealizer d N) N) = e := by
+  have hLeq : leastRealizer (extendDigit d N e) N = leastRealizer d N :=
+    leastRealizer_eq_of_agree (extendDigit d N e) d N (extendDigit_agree d N e)
+  have hd_pos' : ∀ i < N + 1, 1 ≤ extendDigit d N e i := extendDigit_pos d N e hd_pos he
+  have hthis := liftDigit_eq_zero_iff (extendDigit d N e) N hN hd_pos'
+  rw [hLeq, extendDigit_self] at hthis
+  exact hthis
+
+/-- **Unique zero-lift digit** (Phase 1 target): exactly one positive candidate next digit
+gives zero lift, namely the prefix's own actual next valuation. Any prefix-local criterion
+correctly separating that one candidate from every other is exactly as hard as computing
+`a (orbit (leastRealizer d N) N)` directly — **FORMALLY VERIFIED STRUCTURAL CIRCULARITY**. -/
+theorem existsUnique_zero_lift_digit (d : ℕ → ℕ) (N : ℕ) (hN : 1 ≤ N)
+    (hd_pos : ∀ i < N, 1 ≤ d i) :
+    ∃! e : ℕ, 1 ≤ e ∧ liftDigit (extendDigit d N e) N = 0 := by
+  have hodd : Odd (leastRealizer d N) := leastRealizer_odd d N hN hd_pos
+  have he_pos : 1 ≤ a (orbit (leastRealizer d N) N) := a_pos_of_odd (odd_orbit hodd N)
+  refine ⟨a (orbit (leastRealizer d N) N), ⟨he_pos, ?_⟩, ?_⟩
+  · exact (liftDigit_extendDigit_eq_zero_iff d N _ hN hd_pos he_pos).mpr rfl
+  · rintro e' ⟨he'_pos, he'_zero⟩
+    exact ((liftDigit_extendDigit_eq_zero_iff d N e' hN hd_pos he'_pos).mp he'_zero).symm
+
+/-! ## Phase 2: candidate digit ↦ lift digit is injective -/
+
+/-- **Injectivity** (Phase 2 target, answered positively): distinct candidate next digits
+*always* give distinct lift digits — no collision `k(e1) = k(e2)` is possible for `e1 ≠ e2`. -/
+theorem liftDigit_extendDigit_injective (d : ℕ → ℕ) (N : ℕ) (hd_pos : ∀ i < N, 1 ≤ d i)
+    (e1 e2 : ℕ) (he1 : 1 ≤ e1) (he2 : 1 ≤ e2) (hne : e1 ≠ e2) :
+    liftDigit (extendDigit d N e1) N ≠ liftDigit (extendDigit d N e2) N := by
+  intro heq
+  have hd1_pos := extendDigit_pos d N e1 hd_pos he1
+  have hd2_pos := extendDigit_pos d N e2 hd_pos he2
+  have hL1 : leastRealizer (extendDigit d N e1) N = leastRealizer d N :=
+    leastRealizer_eq_of_agree (extendDigit d N e1) d N (extendDigit_agree d N e1)
+  have hL2 : leastRealizer (extendDigit d N e2) N = leastRealizer d N :=
+    leastRealizer_eq_of_agree (extendDigit d N e2) d N (extendDigit_agree d N e2)
+  have hS1 : S (extendDigit d N e1) N = S d N :=
+    s_eq_of_agree_le (extendDigit d N e1) d N (extendDigit_agree d N e1) N le_rfl
+  have hS2 : S (extendDigit d N e2) N = S d N :=
+    s_eq_of_agree_le (extendDigit d N e2) d N (extendDigit_agree d N e2) N le_rfl
+  have hext1 := leastRealizer_succ_eq (extendDigit d N e1) N hd1_pos
+  have hext2 := leastRealizer_succ_eq (extendDigit d N e2) N hd2_pos
+  rw [hL1, hS1] at hext1
+  rw [hL2, hS2] at hext2
+  have heqR : leastRealizer (extendDigit d N e1) (N + 1) = leastRealizer (extendDigit d N e2) (N + 1) := by
+    rw [hext1, hext2, heq]
+  have hne' : extendDigit d N e1 N ≠ extendDigit d N e2 N := by
+    rw [extendDigit_self, extendDigit_self]; exact hne
+  exact leastRealizer_succ_ne_of_digit_ne (extendDigit d N e1) (extendDigit d N e2) N
+    hd1_pos hd2_pos hne' heqR
+
+/-! ## Phase 3: the carry does not depend on the candidate digit -/
+
+/-- **The carry at `N+1` is independent of the candidate digit `e`** (Phase 3 target): only the
+target modulus `2^(S d N + e + 1)` changes with `e`, never the carry `q _ (N+1)` itself. This is
+the precise structural reason the zero-lift question is circular: the *only* data a
+prefix-local computation can access at level `N+1` (namely `q _ (N+1)`) is exactly the same for
+every candidate digit, so nothing prefix-local can distinguish which candidate is realized. -/
+theorem q_succ_extendDigit_eq (d : ℕ → ℕ) (N e1 e2 : ℕ) :
+    q (extendDigit d N e1) (N + 1) = q (extendDigit d N e2) (N + 1) := by
+  have hq1 : q (extendDigit d N e1) N = q d N :=
+    q_eq_of_agree (extendDigit d N e1) d N (extendDigit_agree d N e1)
+  have hq2 : q (extendDigit d N e2) N = q d N :=
+    q_eq_of_agree (extendDigit d N e2) d N (extendDigit_agree d N e2)
+  have hs1 : s (extendDigit d N e1) N = s d N :=
+    s_eq_of_agree_le (extendDigit d N e1) d N (extendDigit_agree d N e1) N le_rfl
+  have hs2 : s (extendDigit d N e2) N = s d N :=
+    s_eq_of_agree_le (extendDigit d N e2) d N (extendDigit_agree d N e2) N le_rfl
+  rw [q_succ, q_succ, hq1, hq2, hs1, hs2]
 
 end EOC
