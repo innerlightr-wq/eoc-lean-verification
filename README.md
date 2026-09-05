@@ -14,13 +14,22 @@ arithmetic, confinement, and Tao-style almost-all estimates.
 > therefore do **not** constitute a formalization or proof of Tao's theorem
 > itself.
 
-This repository is a companion artifact to:
+This repository is a companion artifact to the current manuscript revision:
 
-> Elias De Jesús. *A Global Occupation Conjecture for the Accelerated 3x + 1
-> Map: Drift-Axis Progress, the Corrected Residue-Axis Reformulation, and the
-> Least-Realizer Floor.* Zenodo, 2026.
-> [doi:10.5281/zenodo.21895060](https://doi.org/10.5281/zenodo.21895060)
+> Elias De Jesús (2026). *A Global Occupation Conjecture for the Accelerated
+> 3x + 1 Map: Divergent-Orbit Sparsity, Exact Realizers, and the
+> Moving-Anchor Problem.* Zenodo.
+> [doi:10.5281/zenodo.22286812](https://doi.org/10.5281/zenodo.22286812)
 > (all-versions DOI: [10.5281/zenodo.20569293](https://doi.org/10.5281/zenodo.20569293))
+
+**Revision 5 (September 2026)** reorganized the manuscript around two axes:
+the **drift/Archimedean axis** (sparsity and drift behavior of a
+hypothetical divergent orbit) and the **residue/arithmetic-placement axis**
+(how small the exact integer realizing a prescribed valuation word can be
+— the axis this repository's Lean formalization targets). Its principal
+mathematical additions are summarized in
+[Manuscript highlights (Revision 5)](#manuscript-highlights-revision-5)
+below.
 
 Every theorem labeled **FORMALLY VERIFIED** below compiles against a pinned
 Mathlib revision with `lake build`. Results labeled otherwise are marked
@@ -30,6 +39,7 @@ accordingly — see the [status legend](#formalization-status-legend).
 
 - [The problem and the core map](#the-problem-and-the-core-map)
 - [The Global Occupation Conjecture](#the-global-occupation-conjecture-eoc)
+- [Manuscript highlights (Revision 5)](#manuscript-highlights-revision-5)
 - [Formally verified infrastructure](#formally-verified-infrastructure)
 - [The Tao-like almost-all program](#the-tao-like-almost-all-program)
 - [Exact cylinder / next-digit arithmetic](#exact-cylinder--next-digit-arithmetic)
@@ -99,6 +109,65 @@ repository's audit trail:
 hypothetical nontrivial positive cycle by themselves.** A separate
 no-nontrivial-cycle input is required before any of this could bear on the
 Collatz conjecture; this repository does **not** claim `EOC ⇒ Collatz`.
+
+## Manuscript highlights (Revision 5)
+
+These are results of the **manuscript** (paper-level mathematics, cited
+above), not of this repository's Lean formalization, except where a
+cross-reference to a specific tracked file is given. They are recorded here
+so the README reflects the manuscript's current content; none of them are
+claimed as Lean theorems unless a file is named.
+
+**Garcia–Tal/Curry divergent-orbit sparsity.** The manuscript combines the
+collision-free orbit-sparsity mechanism of Garcia and Tal (1999) — see
+[Literature](#literature), item 2 — with an explicit quantitative windowed
+sparsity refinement attributed in the manuscript to M. J. Curry (2026):
+
+```
+#(orbit ∩ [a, a+X)) ≤ C_β · X^β · log(2X),    β > β* ≈ 0.9653844
+```
+
+Applied to the accelerated Collatz orbit, the manuscript derives reciprocal
+summability along any hypothetical divergent orbit and excludes every
+eventual logarithmic drift floor `R_n ≥ −B·log₂n + O(1)` for
+`B < 1/β* ≈ 1.0358567` — crossing the harmonic threshold `B = 1`. **This
+concerns hypothetical divergent orbits only; it does not prove EOC, exclude
+nontrivial cycles, or resolve the arithmetic-placement/moving-anchor
+problem below.** *(Curry's refinement is cited here exactly as attributed
+in the manuscript; this repository has not independently verified or
+formalized it, and no separate bibliographic record for it was located.)*
+
+**Corrected exact realizer congruence.** The manuscript's residue-axis
+formulation places exact realizers of a length-`N` valuation word in one
+residue class modulo `2^(S_N+1)` (not `2^(S_N)`), with the extra bit
+enforcing terminal oddness. This is exactly what this repository formalizes
+as `realizerCongruence` (row C, `Realizer.lean`) — **FORMALLY VERIFIED**,
+already covered above.
+
+**Fixed anchors and the moving-anchor problem.** For (eventually) periodic
+valuation words, realizer floors arise from a *fixed* rational 2-adic
+anchor — formalized here as the periodic-sector result (row F,
+`Periodic.lean`/`PeriodicCore.lean`). For genuinely irregular words, the
+relevant anchor *moves* with the word; deterministic anti-concentration in
+this **moving-anchor problem** is the manuscript's name for the central
+unresolved residue-axis obstruction. This is the same frontier this
+repository's own audit trail independently arrived at and describes in
+[Where the proof currently stops](#where-the-proof-currently-stops) below
+(there, framed via `CriticalCrossing`, cylinder lifts, and the injective
+bounded-drift case) — two descriptions of one open problem, not two
+separate ones.
+
+**Finite Chang-history universality.** Using a mod-32 return observable
+related to Edward Y. Chang's one-bit orbit-mixing framework, the manuscript
+proves every nonempty finite binary history is realized as consecutive
+prescribed events of a genuine accelerated Collatz orbit, via canonical
+length-3 valuation blocks `0 ↦ (2,1,1)`, `1 ↦ (2,1,2)`. **FORMALLY
+VERIFIED** in this repository — row I, `ChangHistory.lean` (`changWord`,
+`changSeed`, and supporting lemmas). This is a **finite** universality
+theorem only: it does not establish asymptotic 1/2 balance, realization of
+arbitrary infinite histories, a full-shift structure, EOC, or the Collatz
+conjecture — see the module docstring for the complete list of what it does
+not imply.
 
 ## Formally verified infrastructure
 
@@ -324,10 +393,14 @@ yield pointwise control** — it would still be an ensemble statement.
 
 Garcia and Tal (1999) prove Banach-density-zero results for orbit
 representative sets in generalized `3n+1` systems, under their stated
-hypotheses. **This repository does not use, extend, or reprove their
-result**, and does not attribute any stronger quantitative power-saving
-exponent to their work beyond what their published paper states. Any such
-stronger interpretation would need its own citation.
+hypotheses. **This repository's Lean formalization does not use, extend, or
+reprove their result**, and does not attribute any quantitative
+power-saving exponent to Garcia and Tal's own paper beyond what it states.
+The companion manuscript's Revision 5 *does* use an explicit quantitative
+windowed-sparsity refinement of this qualitative result — see
+[Manuscript highlights](#manuscript-highlights-revision-5) above — but that
+refinement is attributed there to M. J. Curry (2026), not to Garcia and
+Tal, and is not (yet) formalized in this repository.
 
 ## Current research checkpoint
 
