@@ -102,26 +102,24 @@ NOT require a realized prefix or a restart; it applies to any finite-support
 `genEventProb`-shaped law directly. This is exactly what makes the EARLY case free of the
 restart machinery: apply it once, at length `t+n`, no Milestone 7 restart theorem invoked. -/
 
-/-- **EARLY-shift direct transfer.** For any finite-support (`Function.support w ⊆ range Nwin`),
-nonnegative, odd-supported starting weight `w`, transferring the *entire* length-`(t+n)`
-joint valuation vector directly bounds the shifted persistence probability by the iid rate
-plus a single Tao mixing error at length `t+n` — no restart, no prefix/GOOD-BAD split. -/
-theorem early_shift_persistence_upper_bound
-    (tao : TaoMixingHypothesis)
+/-- **Fixed-witness EARLY-shift direct transfer.** Same as `early_shift_persistence_upper_bound`,
+but `K` (with its defining `TaoMixingProperty hK`) is supplied by the caller instead of derived
+internally from `tao` — so a single `Kearly` can be chosen once and reused uniformly across
+every shift `t` in a finite early range (Milestone 12), instead of each call to
+`tao.finite_valuation_mixing c0 hc0` producing a separately-opaque existential witness. -/
+theorem early_shift_persistence_upper_bound_of_constants
+    (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
     (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
     (hw_supp : Function.support w ⊆ ↑(range Nwin))
     (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
     (t n : ℕ) (hn : 1 ≤ n) (c : ℝ)
-    (c0 : ℝ) (hc0 : 0 < c0) (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * ((t + n : ℕ) : ℝ)) :
-    ∃ K : TaoMixingConstants c0,
-      taoL1TV (pushforward (genEventProb w) (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
-          ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
-        pushforward (genEventProb w) (fun m => valuationVector m (t + n))
-            (jointShiftedPersistenceEvent t n c)
-          ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
-            + K.A * (2 : ℝ) ^ (-(K.c1 * ((t + n : ℕ) : ℝ))) := by
-  obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
-  refine ⟨K, ?_⟩
+    (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * ((t + n : ℕ) : ℝ)) :
+    taoL1TV (pushforward (genEventProb w) (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
+        ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
+      pushforward (genEventProb w) (fun m => valuationVector m (t + n))
+          (jointShiftedPersistenceEvent t n c)
+        ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
+          + K.A * (2 : ℝ) ^ (-(K.c1 * ((t + n : ℕ) : ℝ))) := by
   intro hres
   have htv := hK (t + n) Qres (genEventProb w) (by omega) hQrel hw_odd hres
   set F : ℕ → (Fin (t + n) → ℕ) := fun m => valuationVector m (t + n) with hF_def
@@ -165,6 +163,28 @@ theorem early_shift_persistence_upper_bound
     _ ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
           + K.A * (2 : ℝ) ^ (-(K.c1 * ((t + n : ℕ) : ℝ))) := by
         linarith [hiid]
+
+/-- **EARLY-shift direct transfer.** For any finite-support (`Function.support w ⊆ range Nwin`),
+nonnegative, odd-supported starting weight `w`, transferring the *entire* length-`(t+n)`
+joint valuation vector directly bounds the shifted persistence probability by the iid rate
+plus a single Tao mixing error at length `t+n` — no restart, no prefix/GOOD-BAD split. -/
+theorem early_shift_persistence_upper_bound
+    (tao : TaoMixingHypothesis)
+    (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
+    (hw_supp : Function.support w ⊆ ↑(range Nwin))
+    (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
+    (t n : ℕ) (hn : 1 ≤ n) (c : ℝ)
+    (c0 : ℝ) (hc0 : 0 < c0) (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * ((t + n : ℕ) : ℝ)) :
+    ∃ K : TaoMixingConstants c0,
+      taoL1TV (pushforward (genEventProb w) (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
+          ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
+        pushforward (genEventProb w) (fun m => valuationVector m (t + n))
+            (jointShiftedPersistenceEvent t n c)
+          ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
+            + K.A * (2 : ℝ) ^ (-(K.c1 * ((t + n : ℕ) : ℝ))) := by
+  obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
+  exact ⟨K, early_shift_persistence_upper_bound_of_constants c0 K hK w hw_nonneg Nwin hw_supp
+    hw_odd t n hn c Qres hQrel⟩
 
 /-! ## Part 3: the iid Geom(2) sum upper-tail Chernoff bound (BAD-prefix ingredient)
 
