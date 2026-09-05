@@ -243,15 +243,16 @@ weight `conditionalRestartLaw` is built from — with `W` instantiated to the pr
 (equal, by `harmonic_prefixMass_eq_W`, to the closed-form normalizer). **EXACT ALIGNMENT**,
 not merely comparable or normalized-up-to-a-constant. -/
 theorem prefixConditionalWeight_reindex_eq_conditionalIndexWeight
-    (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
-    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
-    ∃ kmin N : ℕ,
-      ∀ j : ℕ, prefixConditionalWeight (harmonicWindowWeight Y Z) Z t (valuationVector r t)
-          (r + 2 ^ (S d t + 1) * (kmin + j))
-        = conditionalIndexWeight r (2 ^ (S d t + 1)) kmin N
-            (prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)) j := by
-  obtain ⟨kmin, N, hmem, hiff, _⟩ := harmonic_prefixMass_eq_W d t r Y Z hd_pos hr hYr hYZ
-  refine ⟨kmin, N, ?_⟩
+    (d : ℕ → ℕ) (t r Y Z : ℕ) (kmin N : ℕ)
+    (hmem : ∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+      ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Z)
+    (hiff : ∀ m, Y ≤ m → m < Z →
+      (Realizes d t m ↔ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j)))
+    (hr : Realizes d t r) :
+    ∀ j : ℕ, prefixConditionalWeight (harmonicWindowWeight Y Z) Z t (valuationVector r t)
+        (r + 2 ^ (S d t + 1) * (kmin + j))
+      = conditionalIndexWeight r (2 ^ (S d t + 1)) kmin N
+          (prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)) j := by
   intro j
   set D := 2 ^ (S d t + 1) with hD_def
   have hDpos : 0 < D := by positivity
@@ -280,6 +281,133 @@ theorem prefixConditionalWeight_reindex_eq_conditionalIndexWeight
     rw [if_neg (fun hcond : Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z ∧
         Odd (r + D * (kmin + j)) => hout ⟨hcond.1, hcond.2.1⟩)]
     simp
+
+/-! ## Part 5: the event-level restart law identity -/
+
+open Classical in
+/-- **Support characterization.** The true harmonic prefix-conditional weight vanishes at every
+seed that is *not* one of the `N` exhaustive AP cylinder points. -/
+theorem prefixConditionalWeight_support_reindexed
+    (d : ℕ → ℕ) (t r Y Z : ℕ) (kmin N : ℕ)
+    (hiff : ∀ m, Y ≤ m → m < Z →
+      (Realizes d t m ↔ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j)))
+    (hr : Realizes d t r) :
+    ∀ m : ℕ, (¬ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j)) →
+      prefixConditionalWeight (harmonicWindowWeight Y Z) Z t (valuationVector r t) m = 0 := by
+  intro m hnotex
+  unfold prefixConditionalWeight
+  by_cases hveq : valuationVector m t = valuationVector r t
+  · rw [if_pos hveq]
+    unfold harmonicWindowWeight
+    by_cases hodd : Odd m
+    · have hRm := (realizes_iff_valuationVector_eq_of_realizer d t r m hr).mpr ⟨hveq, hodd⟩
+      have hout : ¬ (Y ≤ m ∧ m < Z) := by
+        rintro ⟨hY, hZ⟩
+        exact hnotex ((hiff m hY hZ).mp hRm)
+      rw [if_neg (fun hcond : Y ≤ m ∧ m < Z ∧ Odd m => hout ⟨hcond.1, hcond.2.1⟩)]
+      simp
+    · rw [if_neg (fun hcond : Y ≤ m ∧ m < Z ∧ Odd m => hodd hcond.2.2)]
+      simp
+  · rw [if_neg hveq]
+    simp
+
+open Classical in
+/-- **Seed-law reindexing identity.** The true harmonic prefix-conditional law, as an event law
+on starting seeds, equals `genEventProb (conditionalIndexWeight ...)` pulled back along the
+reindexing `j ↦ r + D*(kmin+j)`. -/
+theorem genEventProb_prefixConditional_eq_reindexed
+    (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, ∀ E : Set ℕ,
+      genEventProb (prefixConditionalWeight (harmonicWindowWeight Y Z) Z t (valuationVector r t)) E
+        = genEventProb (conditionalIndexWeight r (2 ^ (S d t + 1)) kmin N
+            (prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)))
+            ((fun j => r + 2 ^ (S d t + 1) * (kmin + j)) ⁻¹' E) := by
+  obtain ⟨kmin, N, hmem, hiff, _⟩ := harmonic_prefixMass_eq_W d t r Y Z hd_pos hr hYr hYZ
+  have hpointwise :=
+    prefixConditionalWeight_reindex_eq_conditionalIndexWeight d t r Y Z kmin N hmem hiff hr
+  have hsupport := prefixConditionalWeight_support_reindexed d t r Y Z kmin N hiff hr
+  refine ⟨kmin, N, ?_⟩
+  intro E
+  set D := 2 ^ (S d t + 1) with hD_def
+  set W := prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t) with hW_def
+  set F : ℕ → ℕ := fun j => r + D * (kmin + j) with hF_def
+  have hDpos : 0 < D := by positivity
+  have hFinj : Function.Injective F := fun j1 j2 heq =>
+    reindexed_index_unique r D kmin j1 j2 hDpos heq
+  have hw1_supp :
+      Function.support
+        (prefixConditionalWeight (harmonicWindowWeight Y Z) Z t (valuationVector r t))
+        ⊆ ↑((range N).image F) := by
+    intro m hm
+    by_contra hmni
+    apply hm
+    apply hsupport
+    rintro ⟨j, hjN, hjeq⟩
+    apply hmni
+    rw [hjeq]
+    exact Finset.mem_image.mpr ⟨j, Finset.mem_range.mpr hjN, rfl⟩
+  have hw2_supp : Function.support (conditionalIndexWeight r D kmin N W) ⊆ ↑(range N) := by
+    intro j hj
+    by_contra hjni
+    apply hj
+    unfold conditionalIndexWeight
+    exact if_neg (fun h => hjni (Finset.mem_range.mpr h))
+  have hind1_supp : Function.support (Set.indicator E
+      (prefixConditionalWeight (harmonicWindowWeight Y Z) Z t (valuationVector r t)))
+      ⊆ ↑((range N).image F) :=
+    fun m hm => hw1_supp (fun h0 => hm (by simp [Set.indicator, h0]))
+  have hind2_supp : Function.support (Set.indicator (F ⁻¹' E) (conditionalIndexWeight r D kmin N W))
+      ⊆ ↑(range N) :=
+    fun j hj => hw2_supp (fun h0 => hj (by simp [Set.indicator, h0]))
+  unfold genEventProb
+  rw [tsum_eq_sum' hind1_supp, tsum_eq_sum' hind2_supp,
+    Finset.sum_image (fun j1 _ j2 _ heq => hFinj heq)]
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  by_cases hFE : F j ∈ E
+  · simp only [Set.indicator, Set.mem_preimage, hFE, if_true]
+    exact hpointwise j
+  · simp only [Set.indicator, Set.mem_preimage, hFE, if_false]
+
+/-- **Restart-state law identity.** The true harmonic prefix-conditional law, pushed forward
+along the restart map `orbit ·t`, is *exactly* `conditionalRestartLaw` — the law Milestone 7 is
+built on. -/
+theorem prefixConditional_restart_eq_conditionalRestartLaw
+    (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, ∀ E : Set ℕ,
+      pushforward (genEventProb (prefixConditionalWeight (harmonicWindowWeight Y Z) Z t
+          (valuationVector r t))) (fun m => orbit m t) E
+        = conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N
+            (prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)) (orbit r t) t E := by
+  obtain ⟨kmin, N, hE⟩ := genEventProb_prefixConditional_eq_reindexed d t r Y Z hd_pos hr hYr hYZ
+  refine ⟨kmin, N, ?_⟩
+  intro E
+  unfold pushforward
+  rw [hE ((fun m => orbit m t) ⁻¹' E)]
+  unfold conditionalRestartLaw pushforward
+  congr 1
+  ext j
+  simp only [Set.mem_preimage]
+  rw [(cylinder_restart d t r (kmin + j) hr).2]
+
+/-- **Future valuation corollary.** The exact theorem Milestone 11 should consume: the true
+prefix-conditional law's future valuation vector law equals `conditionalRestartLaw`'s. -/
+theorem prefix_conditional_future_eq_restart_future
+    (d : ℕ → ℕ) (t r Y Z n : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, ∀ E : Set (Fin n → ℕ),
+      pushforward (pushforward (genEventProb (prefixConditionalWeight (harmonicWindowWeight Y Z) Z t
+          (valuationVector r t))) (fun m => orbit m t)) (fun x => valuationVector x n) E
+        = pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N
+            (prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)) (orbit r t) t)
+            (fun x => valuationVector x n) E := by
+  obtain ⟨kmin, N, hstate⟩ :=
+    prefixConditional_restart_eq_conditionalRestartLaw d t r Y Z hd_pos hr hYr hYZ
+  refine ⟨kmin, N, ?_⟩
+  intro E
+  unfold pushforward
+  exact hstate ((fun x => valuationVector x n) ⁻¹' E)
 
 end TaoExternal
 end EOC
