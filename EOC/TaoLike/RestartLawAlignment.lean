@@ -76,6 +76,88 @@ theorem modEq_window_exact (r D Y Z : ℕ) (hD : 0 < D) (hYr : r ≤ Y) (_hYZ : 
     have hle : r ≤ r + D * (kmin + j) := Nat.le_add_right r _
     exact ((Nat.modEq_iff_dvd' hle).mpr ⟨kmin + j, by omega⟩).symm
 
+/-- **Exhaustive AP window parametrization, with an explicit size lower bound on `N`.** Same
+`kmin, N` and conclusions as `modEq_window_exact`, plus the extra fact that the window length
+`Z - Y` is controlled by `N` from above (`(Z:ℝ) - Y ≤ (N+2)*D`) — the exact size bound
+`cylinder_window_reindex` (`ResidueTV.lean`) exposes for its own, separately-constructed
+`kmin, N`. Needed so Milestone 10's exhaustively-constructed `kmin, N` can be fed directly into
+the `_at_window` theorems built on `cylinder_window_reindex`'s two conclusions. Proved by a
+fresh, self-contained `Nat.find` argument (not by reusing `modEq_window_exact` as a black box,
+since the bound needs the internal minimality facts `hkmin_min`/`hN_min`, which are not part of
+`modEq_window_exact`'s exposed conclusion). -/
+theorem modEq_window_exact_with_bound (r D Y Z : ℕ) (hD : 0 < D) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, (∀ j < N, Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z) ∧
+      (∀ m : ℕ, Y ≤ m → m < Z →
+        (m ≡ r [MOD D] ↔ ∃ j < N, m = r + D * (kmin + j))) ∧
+      ((Z : ℝ) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (D : ℝ)) := by
+  classical
+  have hex_kmin : ∃ k, Y ≤ r + D * k := ⟨Y, by nlinarith⟩
+  set kmin := Nat.find hex_kmin with hkmin_def
+  have hkmin_ge : Y ≤ r + D * kmin := Nat.find_spec hex_kmin
+  have hkmin_min : ∀ k < kmin, ¬ (Y ≤ r + D * k) := fun k hk => Nat.find_min hex_kmin hk
+  have hex_N : ∃ n, Z ≤ r + D * (kmin + n) := ⟨Z, by nlinarith⟩
+  set N := Nat.find hex_N with hN_def
+  have hN_ge : Z ≤ r + D * (kmin + N) := Nat.find_spec hex_N
+  have hN_min : ∀ n < N, ¬ (Z ≤ r + D * (kmin + n)) := fun n hn => Nat.find_min hex_N hn
+  have hmem : ∀ j < N, Y ≤ r + D * (kmin + j) ∧ r + D * (kmin + j) < Z := by
+    intro j hjN
+    have hge : Y ≤ r + D * (kmin + j) := by
+      have : D * kmin ≤ D * (kmin + j) := Nat.mul_le_mul_left D (by omega)
+      omega
+    have hlt : r + D * (kmin + j) < Z := by
+      by_contra hge'
+      push_neg at hge'
+      exact hN_min j hjN hge'
+    exact ⟨hge, hlt⟩
+  have hiff : ∀ m : ℕ, Y ≤ m → m < Z →
+      (m ≡ r [MOD D] ↔ ∃ j < N, m = r + D * (kmin + j)) := by
+    intro m hmY hmZ
+    constructor
+    · intro hmeq
+      have hmr : r ≤ m := le_trans hYr hmY
+      obtain ⟨k, hk⟩ : D ∣ (m - r) := (Nat.modEq_iff_dvd' hmr).mp hmeq.symm
+      have hmeq2 : m = r + D * k := by omega
+      have hkge : kmin ≤ k := by
+        by_contra hklt
+        push_neg at hklt
+        have hnot := hkmin_min k hklt
+        apply hnot
+        omega
+      refine ⟨k - kmin, ?_, ?_⟩
+      · by_contra hjge
+        push_neg at hjge
+        have hmono2 : r + D * (kmin + N) ≤ r + D * k := by
+          have hle : kmin + N ≤ k := by omega
+          have : D * (kmin + N) ≤ D * k := Nat.mul_le_mul_left D hle
+          omega
+        omega
+      · have hkeq : kmin + (k - kmin) = k := by omega
+        rw [hmeq2, hkeq]
+    · rintro ⟨j, hjN, hmeq⟩
+      rw [hmeq]
+      have hle : r ≤ r + D * (kmin + j) := Nat.le_add_right r _
+      exact ((Nat.modEq_iff_dvd' hle).mpr ⟨kmin + j, by omega⟩).symm
+  refine ⟨kmin, N, hmem, hiff, ?_⟩
+  have hkmin_bound : r + D * kmin < Y + D := by
+    rcases Nat.eq_zero_or_pos kmin with hk0 | hkpos
+    · rw [hk0]; omega
+    · have hkm1 : kmin - 1 < kmin := by omega
+      have hlt := hkmin_min (kmin - 1) hkm1
+      push_neg at hlt
+      have hDeq : D * kmin = D * (kmin - 1) + D := by
+        have hks : kmin = (kmin - 1) + 1 := by omega
+        calc D * kmin = D * ((kmin - 1) + 1) := by rw [← hks]
+          _ = D * (kmin - 1) + D := by ring
+      omega
+  have hZbound : Z ≤ r + D * kmin + D * N := by
+    have hDeq : D * (kmin + N) = D * kmin + D * N := by ring
+    omega
+  have h1 : (Z : ℝ) ≤ (r : ℝ) + (D : ℝ) * (kmin : ℝ) + (D : ℝ) * (N : ℝ) := by
+    exact_mod_cast hZbound
+  have h2 : (r : ℝ) + (D : ℝ) * (kmin : ℝ) < (Y : ℝ) + (D : ℝ) := by
+    exact_mod_cast hkmin_bound
+  nlinarith [h1, h2]
+
 /-- **Uniqueness of the index.** For fixed `r, D > 0, kmin`, the index `j` with
 `m = r + D*(kmin+j)` is unique. -/
 theorem reindexed_index_unique (r D kmin j1 j2 : ℕ) (hD : 0 < D)
@@ -110,6 +192,35 @@ theorem realizes_window_exact (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i 
       (Realizes d t m ↔ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j)) := by
   obtain ⟨kmin, N, hmem, hiff⟩ := modEq_window_exact r (2 ^ (S d t + 1)) Y Z (by positivity) hYr hYZ
   refine ⟨kmin, N, hmem, ?_⟩
+  intro m hmY hmZ
+  rw [realizes_iff_modEq d t r m hd_pos hr]
+  constructor
+  · rintro ⟨_, hmeq⟩
+    exact (hiff m hmY hmZ).mp hmeq
+  · intro hex
+    have hmeq := (hiff m hmY hmZ).mpr hex
+    refine ⟨?_, hmeq⟩
+    obtain ⟨j, _, hmeqj⟩ := hex
+    rw [hmeqj]
+    have hrodd := hr.1
+    have h2 : Even (2 ^ (S d t + 1)) := (Nat.even_pow).mpr ⟨even_two, by omega⟩
+    exact hrodd.add_even (h2.mul_right _)
+
+/-- **Exhaustive prefix-cylinder window parametrization, with size bound.** Same as
+`realizes_window_exact`, plus the extra `(Z:ℝ)-(Y:ℝ) ≤ (N+2)*2^(S d t+1)` fact from
+`modEq_window_exact_with_bound`. -/
+theorem realizes_window_exact_with_bound (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, (∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+        ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Z) ∧
+      (∀ m, Y ≤ m → m < Z →
+        (Realizes d t m ↔ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j))) ∧
+      ((Z : ℝ) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ)) := by
+  obtain ⟨kmin, N, hmem, hiff, hNlb⟩ :=
+    modEq_window_exact_with_bound r (2 ^ (S d t + 1)) Y Z (by positivity) hYr hYZ
+  have hNlb' : (Z : ℝ) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ) := by
+    push_cast at hNlb ⊢; linarith [hNlb]
+  refine ⟨kmin, N, hmem, ?_, hNlb'⟩
   intro m hmY hmZ
   rw [realizes_iff_modEq d t r m hd_pos hr]
   constructor
@@ -186,6 +297,71 @@ theorem harmonic_prefixMass_eq_W (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀
         = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) := by
   obtain ⟨kmin, N, hmem, hiff⟩ := realizes_window_exact d t r Y Z hd_pos hr hYr hYZ
   refine ⟨kmin, N, hmem, hiff, ?_⟩
+  set D := 2 ^ (S d t + 1) with hD_def
+  have hDpos : 0 < D := by positivity
+  set F : ℕ → ℕ := fun j => r + D * (kmin + j) with hF_def
+  have hFinj : Set.InjOn F ↑(range N) := fun j1 _ j2 _ heq =>
+    reindexed_index_unique r D kmin j1 j2 hDpos heq
+  unfold prefixMass
+  have hpt : ∀ j ∈ range Z,
+      (if valuationVector j t = valuationVector r t then harmonicWindowWeight Y Z j else 0)
+        = (if Realizes d t j ∧ Y ≤ j then (1 : ℝ) / (j : ℝ) else 0) := by
+    intro j hjZ
+    have hjZ' : j < Z := Finset.mem_range.mp hjZ
+    unfold harmonicWindowWeight
+    by_cases hR : Realizes d t j ∧ Y ≤ j
+    · obtain ⟨hRj, hYj⟩ := hR
+      have hveq := (realizes_iff_valuationVector_eq_of_realizer d t r j hr).mp hRj
+      rw [if_pos hveq.1, if_pos ⟨hYj, hjZ', hveq.2⟩, if_pos ⟨hRj, hYj⟩]
+    · by_cases hveq : valuationVector j t = valuationVector r t
+      · rw [if_pos hveq, if_neg hR]
+        have hRj_iff : Realizes d t j ↔ Odd j :=
+          ⟨fun h => ((realizes_iff_valuationVector_eq_of_realizer d t r j hr).mp h).2,
+           fun hodd => (realizes_iff_valuationVector_eq_of_realizer d t r j hr).mpr ⟨hveq, hodd⟩⟩
+        by_cases hYj : Y ≤ j
+        · have hRj : ¬ Realizes d t j := fun h => hR ⟨h, hYj⟩
+          rw [hRj_iff] at hRj
+          exact if_neg (fun hcond : Y ≤ j ∧ j < Z ∧ Odd j => hRj hcond.2.2)
+        · exact if_neg (fun hcond : Y ≤ j ∧ j < Z ∧ Odd j => hYj hcond.1)
+      · rw [if_neg hveq]
+        exact (if_neg (fun hcond : Realizes d t j ∧ Y ≤ j => hveq
+          ((realizes_iff_valuationVector_eq_of_realizer d t r j hr).mp hcond.1).1)).symm
+  rw [Finset.sum_congr rfl hpt, ← Finset.sum_filter]
+  have hfilter_eq : (range Z).filter (fun j => Realizes d t j ∧ Y ≤ j) = (range N).image F := by
+    ext j
+    simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_image]
+    constructor
+    · rintro ⟨hjZ, hRj, hYj⟩
+      obtain ⟨j', hj'N, hFj'⟩ := (hiff j hYj hjZ).mp hRj
+      exact ⟨j', hj'N, hFj'.symm⟩
+    · rintro ⟨j', hj'N, hFj'⟩
+      obtain ⟨hYj', hjZ'⟩ := hmem j' hj'N
+      subst hFj'
+      exact ⟨hjZ', (hiff (F j') hYj' hjZ').mpr ⟨j', hj'N, rfl⟩, hYj'⟩
+  rw [hfilter_eq, Finset.sum_image hFinj]
+  refine Finset.sum_congr rfl (fun x _ => ?_)
+  simp only [hF_def, hD_def]
+  push_cast
+  ring
+
+open Classical in
+/-- **Normalization identity, with size bound.** Same as `harmonic_prefixMass_eq_W`, plus the
+extra `(Z:ℝ)-(Y:ℝ) ≤ (N+2)*2^(S d t+1)` fact from `realizes_window_exact_with_bound` — exactly
+the two facts (`hmem`, `hNlb`) the `_at_window` theorems (`ConditionalMixing.lean`,
+`ResidueTV.lean`, `ShiftedPersistence.lean`) require of a caller-supplied window, so Milestone
+10's own `kmin, N, W` can be fed into them directly without re-deriving a second window via
+`cylinder_window_reindex`. -/
+theorem harmonic_prefixMass_eq_W_with_bound (d : ℕ → ℕ) (t r Y Z : ℕ) (hd_pos : ∀ i < t, 1 ≤ d i)
+    (hr : Realizes d t r) (hYr : r ≤ Y) (hYZ : Y ≤ Z) :
+    ∃ kmin N : ℕ, (∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+        ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Z) ∧
+      (∀ m, Y ≤ m → m < Z →
+        (Realizes d t m ↔ ∃ j < N, m = r + 2 ^ (S d t + 1) * (kmin + j))) ∧
+      ((Z : ℝ) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ)) ∧
+      prefixMass (harmonicWindowWeight Y Z) Z t (valuationVector r t)
+        = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) := by
+  obtain ⟨kmin, N, hmem, hiff, hNlb⟩ := realizes_window_exact_with_bound d t r Y Z hd_pos hr hYr hYZ
+  refine ⟨kmin, N, hmem, hiff, hNlb, ?_⟩
   set D := 2 ^ (S d t + 1) with hD_def
   have hDpos : 0 < D := by positivity
   set F : ℕ → ℕ := fun j => r + D * (kmin + j) with hF_def

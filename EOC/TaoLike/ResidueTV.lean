@@ -430,17 +430,22 @@ theorem window_normalization_lower_bound (A0 D Y H : ℝ) (N : ℕ) (W : ℝ)
     _ ≤ 2 * D * ((Y + H) * (A0 * W)) := h8
     _ = 2 * D * (Y + H) * (A0 * W) := by ring
 
-/-- **Explicit window conditional residue TV, with `W` eliminated.** For a window
-`Y ≤ m < Y + H` (`Y > 0`) inside a realized cylinder that is *thick* relative to the
-cylinder spacing `D = 2^(S d t + 1)` (`4D ≤ ηY ≤ H`), the conditional residue TV on odd
-residues modulo `2^Q` is bounded by the fully explicit, `W`-free quantity
-`2^(Q + S d t) * (Y+H) / (Y*H)`. -/
-theorem conditional_residue_tv_window_bound
+open Classical in
+/-- **Fixed-window version.** Identical to `conditional_residue_tv_window_bound` except that
+the cylinder-window parameters `kmin, N` — together with the exact membership fact `hmem` and
+size lower bound `hNlb` that `cylinder_window_reindex` would otherwise supply internally — are
+given directly by the caller (e.g. Milestone 10's exhaustive window construction). `kmin, N`
+appear verbatim in the conclusion; no internal re-selection. -/
+theorem conditional_residue_tv_window_bound_at_window
     (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
     (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
     (hH : η * (Y : ℝ) ≤ (H : ℝ))
-    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
-    ∃ kmin N : ℕ, ∃ W : ℝ, 0 < W ∧
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ))
+    (kmin N : ℕ)
+    (hmem : ∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+      ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Y + H)
+    (hNlb : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ)) :
+    ∃ W : ℝ, 0 < W ∧
       W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
       (1 / 2 : ℝ) * ∑ v ∈ oddResidues Q,
           |(∑ j ∈ range N,
@@ -453,10 +458,8 @@ theorem conditional_residue_tv_window_bound
   set D := (2 ^ (S d t + 1) : ℕ) with hDdef
   have hDcylpos : 0 < D := by rw [hDdef]; positivity
   have hDcast : (D : ℝ) = (2 : ℝ) ^ (S d t + 1) := by rw [hDdef]; push_cast; ring
-  obtain ⟨kmin, N, hmem, hNlb⟩ :=
-    cylinder_window_reindex r D Y (Y + H) hDcylpos hYr (Nat.le_add_right Y H)
   have hH4D : 4 * (D : ℝ) ≤ (H : ℝ) := by rw [hDcast]; exact le_trans hthick hH
-  have hNlb' : ((Y : ℝ) + H) - Y ≤ ((N : ℝ) + 2) * D := by push_cast at hNlb ⊢; linarith [hNlb]
+  have hNlb' : ((Y : ℝ) + H) - Y ≤ ((N : ℝ) + 2) * D := by rw [hDcast]; exact hNlb
   have hHub : (H : ℝ) ≤ ((N : ℝ) + 2) * (D : ℝ) := by linarith [hNlb']
   have hND : (H : ℝ) ≤ 2 * (N : ℝ) * (D : ℝ) := cylinder_count_lower_bound_half D N H hH4D hHub
   have hNpos : 0 < N := by
@@ -533,7 +536,7 @@ theorem conditional_residue_tv_window_bound
       _ = ((2:ℝ) ^ (Q - 1) * (D:ℝ)) * (2 * (((Y:ℝ) + H) * ((A0:ℝ) * W))) := by ring
       _ = (2:ℝ) ^ (Q + S d t) * (2 * (((Y:ℝ) + H) * ((A0:ℝ) * W))) := by rw [hpow]
       _ = (2:ℝ) ^ (Q + S d t) * ((Y:ℝ) + H) * (2 * (A0:ℝ) * W) := by ring
-  refine ⟨kmin, N, W, hWpos, hWdef', ?_⟩
+  refine ⟨W, hWpos, hWdef', ?_⟩
   calc (1 / 2 : ℝ) * ∑ v ∈ oddResidues Q,
         |(∑ j ∈ range N,
             (if orbit (r + 2 ^ (S d t + 1) * (kmin + j)) t % 2 ^ Q = v % 2 ^ Q
@@ -541,13 +544,9 @@ theorem conditional_residue_tv_window_bound
           - 1 / (2 ^ (Q - 1) : ℝ)| ≤ (2:ℝ) ^ (Q - 1) / (2 * (A0:ℝ) * W) := hkey
     _ ≤ (2:ℝ) ^ (Q + S d t) * ((Y:ℝ) + H) / ((Y:ℝ) * H) := hstep
 
-/-- **Conditional residue TV, `η`-only bound.** The final deterministic estimate: for a
-window `Y ≤ m < Y+H` thick relative to the cylinder spacing (`4D ≤ ηY ≤ H`), the
-conditional residue TV is at most `(1 + 1/η) * 2^(Q + S d t) / Y` — a bound depending only
-on `η`, `Y`, `Q`, and `S d t` (no `H`, `N`, or `W` on the right-hand side). For a
-fixed-ratio window `Y ≤ m < λY` (`η := λ-1`, `H := (λ-1)Y`), the constant becomes
-`C_λ = 1 + 1/(λ-1) = λ/(λ-1)`. -/
-theorem conditional_residue_tv_eta_bound
+/-- **Convenience wrapper** (unchanged public API): derives `kmin, N` (with `hmem`, `hNlb`) via
+`cylinder_window_reindex`, then invokes the fixed-window version. -/
+theorem conditional_residue_tv_window_bound
     (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
     (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
     (hH : η * (Y : ℝ) ≤ (H : ℝ))
@@ -559,10 +558,40 @@ theorem conditional_residue_tv_eta_bound
               (if orbit (r + 2 ^ (S d t + 1) * (kmin + j)) t % 2 ^ Q = v % 2 ^ Q
                 then (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) else 0)) / W
             - 1 / (2 ^ (Q - 1) : ℝ)|
+        ≤ (2 : ℝ) ^ (Q + S d t) * ((Y : ℝ) + (H : ℝ)) / ((Y : ℝ) * (H : ℝ)) := by
+  have hDcylpos : (0:ℕ) < 2 ^ (S d t + 1) := by positivity
+  obtain ⟨kmin, N, hmem, hNlb⟩ :=
+    cylinder_window_reindex r (2 ^ (S d t + 1)) Y (Y + H) hDcylpos hYr (Nat.le_add_right Y H)
+  have hNlbR : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ) := by
+    push_cast at hNlb; linarith [hNlb]
+  obtain ⟨W, hWpos, hWdef, hbound⟩ :=
+    conditional_residue_tv_window_bound_at_window d t r h ht Q hQ Y H hYr hYpos η hη hH hthick
+      kmin N hmem hNlbR
+  exact ⟨kmin, N, W, hWpos, hWdef, hbound⟩
+
+/-- **Fixed-window version of `conditional_residue_tv_eta_bound`.** `kmin, N` (with `hmem`,
+`hNlb`) are supplied by the caller instead of derived via `cylinder_window_reindex`. -/
+theorem conditional_residue_tv_eta_bound_at_window
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ))
+    (kmin N : ℕ)
+    (hmem : ∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+      ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Y + H)
+    (hNlb : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ)) :
+    ∃ W : ℝ, 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (1 / 2 : ℝ) * ∑ v ∈ oddResidues Q,
+          |(∑ j ∈ range N,
+              (if orbit (r + 2 ^ (S d t + 1) * (kmin + j)) t % 2 ^ Q = v % 2 ^ Q
+                then (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) else 0)) / W
+            - 1 / (2 ^ (Q - 1) : ℝ)|
         ≤ (1 + 1 / η) * (2 : ℝ) ^ (Q + S d t) / (Y : ℝ) := by
-  obtain ⟨kmin, N, W, hWpos, hWdef, hbound⟩ :=
-    conditional_residue_tv_window_bound d t r h ht Q hQ Y H hYr hYpos η hη hH hthick
-  refine ⟨kmin, N, W, hWpos, hWdef, le_trans hbound ?_⟩
+  obtain ⟨W, hWpos, hWdef, hbound⟩ :=
+    conditional_residue_tv_window_bound_at_window d t r h ht Q hQ Y H hYr hYpos η hη hH hthick
+      kmin N hmem hNlb
+  refine ⟨W, hWpos, hWdef, le_trans hbound ?_⟩
   have hHpos : (0:ℝ) < (H:ℝ) := by
     have hDcylpos : (0:ℝ) < (2 ^ (S d t + 1) : ℝ) := by positivity
     nlinarith [hthick, hH, hDcylpos]
@@ -580,5 +609,30 @@ theorem conditional_residue_tv_eta_bound
     show (1 + 1/η) * (2:ℝ) ^ (Q + S d t) / (Y:ℝ)
       = (2:ℝ) ^ (Q + S d t) * ((1+1/η)/(Y:ℝ)) by ring]
   exact mul_le_mul_of_nonneg_left hstep h2pos.le
+
+/-- **Convenience wrapper** (unchanged public API): derives `kmin, N` (with `hmem`, `hNlb`) via
+`cylinder_window_reindex`, then invokes the fixed-window version. -/
+theorem conditional_residue_tv_eta_bound
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
+    ∃ kmin N : ℕ, ∃ W : ℝ, 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (1 / 2 : ℝ) * ∑ v ∈ oddResidues Q,
+          |(∑ j ∈ range N,
+              (if orbit (r + 2 ^ (S d t + 1) * (kmin + j)) t % 2 ^ Q = v % 2 ^ Q
+                then (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) else 0)) / W
+            - 1 / (2 ^ (Q - 1) : ℝ)|
+        ≤ (1 + 1 / η) * (2 : ℝ) ^ (Q + S d t) / (Y : ℝ) := by
+  have hDcylpos : (0:ℕ) < 2 ^ (S d t + 1) := by positivity
+  obtain ⟨kmin, N, hmem, hNlb⟩ :=
+    cylinder_window_reindex r (2 ^ (S d t + 1)) Y (Y + H) hDcylpos hYr (Nat.le_add_right Y H)
+  have hNlbR : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ) := by
+    push_cast at hNlb; linarith [hNlb]
+  obtain ⟨W, hWpos, hWdef, hbound⟩ :=
+    conditional_residue_tv_eta_bound_at_window d t r h ht Q hQ Y H hYr hYpos η hη hH hthick kmin
+      N hmem hNlbR
+  exact ⟨kmin, N, W, hWpos, hWdef, hbound⟩
 
 end EOC

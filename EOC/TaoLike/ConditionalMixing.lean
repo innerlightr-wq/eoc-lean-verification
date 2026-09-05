@@ -264,24 +264,30 @@ theorem conditionalResidueWeight_support (r Dcyl kmin Nwin : ℕ) (W : ℝ) (C t
 
 /-! ### Connecting Milestone 3B to Tao's literal metric -/
 
-/-- **The central residue theorem** (Part 6 of the Milestone 5 brief): the conditional
-restart-state law's residue distribution, measured in Tao's own `taoL1TV`, is within an
-explicit `2×` multiple of Milestone 3B's half-L1 bound — the factor of 2 made fully
-explicit, not hidden in a generic constant. -/
-theorem conditional_residue_taoL1TV_eta_bound
+/-- **Fixed-window version of the central residue theorem** (Part 6 of the Milestone 5
+brief): the conditional restart-state law's residue distribution, measured in Tao's own
+`taoL1TV`, is within an explicit `2×` multiple of Milestone 3B's half-L1 bound — the factor
+of 2 made fully explicit, not hidden in a generic constant. `kmin, N` (with `hmem`, `hNlb`)
+are supplied by the caller instead of derived via `cylinder_window_reindex`. -/
+theorem conditional_residue_taoL1TV_eta_bound_at_window
     (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
     (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
     (hH : η * (Y : ℝ) ≤ (H : ℝ))
-    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
-    ∃ kmin N : ℕ, ∃ W : ℝ, 0 < W ∧
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ))
+    (kmin N : ℕ)
+    (hmem : ∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+      ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Y + H)
+    (hNlb : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ)) :
+    ∃ W : ℝ, 0 < W ∧
       W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
       taoL1TV (pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
           (fun m : ℕ => (m : ZMod (2 ^ Q))))
         (unifOddResidues Q)
       ≤ 2 * (1 + 1 / η) * (2 : ℝ) ^ (Q + S d t) / (Y : ℝ) := by
-  obtain ⟨kmin, N, W, hWpos, hWdef, hbound⟩ :=
-    conditional_residue_tv_eta_bound d t r h ht Q hQ Y H hYr hYpos η hη hH hthick
-  refine ⟨kmin, N, W, hWpos, hWdef, ?_⟩
+  obtain ⟨W, hWpos, hWdef, hbound⟩ :=
+    conditional_residue_tv_eta_bound_at_window d t r h ht Q hQ Y H hYr hYpos η hη hH hthick kmin
+      N hmem hNlb
+  refine ⟨W, hWpos, hWdef, ?_⟩
   have hCodd : Odd (orbit r t) := orbit_odd_of_pos r t ht
   rw [conditionalRestartLaw_mod_eq]
   have hres_supp : ∀ v : ZMod (2 ^ Q),
@@ -364,6 +370,29 @@ theorem conditional_residue_taoL1TV_eta_bound
   rw [hRHS] at h2
   linarith [h2]
 
+/-- **Convenience wrapper** (unchanged public API): derives `kmin, N` (with `hmem`, `hNlb`) via
+`cylinder_window_reindex`, then invokes the fixed-window version. -/
+theorem conditional_residue_taoL1TV_eta_bound
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (Q : ℕ) (hQ : 1 ≤ Q) (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
+    ∃ kmin N : ℕ, ∃ W : ℝ, 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      taoL1TV (pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+          (fun m : ℕ => (m : ZMod (2 ^ Q))))
+        (unifOddResidues Q)
+      ≤ 2 * (1 + 1 / η) * (2 : ℝ) ^ (Q + S d t) / (Y : ℝ) := by
+  have hDcylpos : (0:ℕ) < 2 ^ (S d t + 1) := by positivity
+  obtain ⟨kmin, N, hmem, hNlb⟩ :=
+    cylinder_window_reindex r (2 ^ (S d t + 1)) Y (Y + H) hDcylpos hYr (Nat.le_add_right Y H)
+  have hNlbR : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ) := by
+    push_cast at hNlb; linarith [hNlb]
+  obtain ⟨W, hWpos, hWdef, hbound⟩ :=
+    conditional_residue_taoL1TV_eta_bound_at_window d t r h ht Q hQ Y H hYr hYpos η hη hH hthick
+      kmin N hmem hNlbR
+  exact ⟨kmin, N, W, hWpos, hWdef, hbound⟩
+
 /-! ### Information budget: turning our residue bound into Tao's literal hypothesis -/
 
 /-- **Multiplicative information budget** (Part 7 of the Milestone 5 brief): the explicit
@@ -388,6 +417,48 @@ theorem tao_residue_input_of_information_budget
     _ ≤ Cres * (Y : ℝ) := hbudget
 
 /-! ### Applying `TaoMixingHypothesis`: the central theorem -/
+
+/-- **Fixed-witness AND fixed-window version.** Same as
+`conditional_future_valuation_mixing_of_constants`, but the restart-window parameters
+`kmin, N` (with `hmem`, `hNlb`) are ALSO supplied by the caller — e.g. Milestone 10's
+exhaustive window construction — instead of derived via `cylinder_window_reindex`. Both `K`
+and `kmin, N, W` appear verbatim in the conclusion; neither is re-selected internally. -/
+theorem conditional_future_valuation_mixing_of_constants_at_window
+    (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (n : ℕ) (hn : 1 ≤ n)
+    (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (Q : ℕ) (hQrel : (Q : ℝ) ≥ (2 + c0) * (n : ℝ)) (hQ1 : 1 ≤ Q)
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ))
+    (kmin N : ℕ)
+    (hmem : ∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+      ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Y + H)
+    (hNlb : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ)) :
+    ∃ W : ℝ, 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (2 * (1 + 1 / η) * (2 : ℝ) ^ (S d t + 2 * Q) ≤ K.Cres * (Y : ℝ) →
+        taoL1TV (pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+            (fun m : ℕ => valuationVector m n))
+          (iidGeom2VectorProb n)
+        ≤ K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
+  obtain ⟨W, hWpos, hWdef, hresbound⟩ :=
+    conditional_residue_taoL1TV_eta_bound_at_window d t r h ht Q hQ1 Y H hYr hYpos η hη hH
+      hthick kmin N hmem hNlb
+  refine ⟨W, hWpos, hWdef, ?_⟩
+  intro hbudget
+  have hres_final : taoL1TV (pushforward
+        (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+        (fun m : ℕ => (m : ZMod (2 ^ Q)))) (unifOddResidues Q)
+      ≤ K.Cres * (2 : ℝ) ^ (-(Q : ℝ)) :=
+    le_trans hresbound
+      (tao_residue_input_of_information_budget Q (S d t) Y hYpos η K.Cres hη K.hCres hbudget)
+  have hoddsupp : (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+      {m : ℕ | ¬ Odd m} = 0 :=
+    conditionalRestartLaw_odd_support r (2 ^ (S d t + 1)) kmin N W (orbit r t) t
+      (orbit_odd_of_pos r t ht)
+  exact hK n Q (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+    hn hQrel hoddsupp hres_final
 
 /-- **Fixed-witness version of `conditional_future_valuation_mixing`.** FORMALLY VERIFIED
 *conditional on* the external `TaoMixingHypothesis` interface — composes: (1) the exact
@@ -417,22 +488,15 @@ theorem conditional_future_valuation_mixing_of_constants
             (fun m : ℕ => valuationVector m n))
           (iidGeom2VectorProb n)
         ≤ K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
-  obtain ⟨kmin, N, W, hWpos, hWdef, hresbound⟩ :=
-    conditional_residue_taoL1TV_eta_bound d t r h ht Q hQ1 Y H hYr hYpos η hη hH hthick
-  refine ⟨kmin, N, W, hWpos, hWdef, ?_⟩
-  intro hbudget
-  have hres_final : taoL1TV (pushforward
-        (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
-        (fun m : ℕ => (m : ZMod (2 ^ Q)))) (unifOddResidues Q)
-      ≤ K.Cres * (2 : ℝ) ^ (-(Q : ℝ)) :=
-    le_trans hresbound
-      (tao_residue_input_of_information_budget Q (S d t) Y hYpos η K.Cres hη K.hCres hbudget)
-  have hoddsupp : (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
-      {m : ℕ | ¬ Odd m} = 0 :=
-    conditionalRestartLaw_odd_support r (2 ^ (S d t + 1)) kmin N W (orbit r t) t
-      (orbit_odd_of_pos r t ht)
-  exact hK n Q (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
-    hn hQrel hoddsupp hres_final
+  have hDcylpos : (0:ℕ) < 2 ^ (S d t + 1) := by positivity
+  obtain ⟨kmin, N, hmem, hNlb⟩ :=
+    cylinder_window_reindex r (2 ^ (S d t + 1)) Y (Y + H) hDcylpos hYr (Nat.le_add_right Y H)
+  have hNlbR : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ) := by
+    push_cast at hNlb; linarith [hNlb]
+  obtain ⟨W, hWpos, hWdef, hbound⟩ :=
+    conditional_future_valuation_mixing_of_constants_at_window c0 K hK d t r h ht n hn Y H hYr
+      hYpos η hη hH Q hQrel hQ1 hthick kmin N hmem hNlbR
+  exact ⟨kmin, N, W, hWpos, hWdef, hbound⟩
 
 /-- **Convenience wrapper** (unchanged public API): chooses `K` once from `tao`, then invokes
 the fixed-witness version. -/
@@ -532,33 +596,32 @@ theorem conditionalRestartLaw_future_genEventProb
   exact genEventProb_pushforward_fiber_general Nwin (conditionalIndexWeight r Dcyl kmin Nwin W)
     (conditionalIndexWeight_support r Dcyl kmin Nwin W) _
 
-/-- **Fixed-witness version of `conditional_future_event_bound`** (Part 12/14 of the
-Milestone 5 brief): under the same hypotheses as
-`conditional_future_valuation_mixing_of_constants`, the conclusion transfers to a bound on
-any single event's probability — exactly what persistence arguments consume, avoiding the
-need to reconstruct total-variation machinery downstream. Both laws being genuinely
-`genEventProb`-generated (`conditionalRestartLaw_future_genEventProb`, `iidGeom2VectorProb`)
-is what makes this provable rather than an unjustified assumption for an abstract
-`EventProb`. `K` is supplied by the caller (with its defining `TaoMixingProperty hK`) rather
-than derived internally, so the same `K` can be reused uniformly across many prefixes. -/
-theorem conditional_future_event_bound_of_constants
+/-- **Fixed-witness AND fixed-window version.** Same as
+`conditional_future_event_bound_of_constants`, but the restart-window parameters `kmin, N`
+(with `hmem`, `hNlb`) are ALSO supplied by the caller — e.g. Milestone 10's exhaustive window
+construction — instead of derived via `cylinder_window_reindex`. -/
+theorem conditional_future_event_bound_of_constants_at_window
     (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
     (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
     (n : ℕ) (hn : 1 ≤ n)
     (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
     (hH : η * (Y : ℝ) ≤ (H : ℝ))
     (Q : ℕ) (hQrel : (Q : ℝ) ≥ (2 + c0) * (n : ℝ)) (hQ1 : 1 ≤ Q)
-    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) (E : Set (Fin n → ℕ)) :
-    ∃ (kmin N : ℕ) (W : ℝ), 0 < W ∧
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) (E : Set (Fin n → ℕ))
+    (kmin N : ℕ)
+    (hmem : ∀ j < N, Y ≤ r + 2 ^ (S d t + 1) * (kmin + j)
+      ∧ r + 2 ^ (S d t + 1) * (kmin + j) < Y + H)
+    (hNlb : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ)) :
+    ∃ W : ℝ, 0 < W ∧
       W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
       (2 * (1 + 1 / η) * (2 : ℝ) ^ (S d t + 2 * Q) ≤ K.Cres * (Y : ℝ) →
         pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
             (fun m : ℕ => valuationVector m n) E
           ≤ iidGeom2VectorProb n E + K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
-  obtain ⟨kmin, N, W, hWpos, hWdef, hmix⟩ :=
-    conditional_future_valuation_mixing_of_constants c0 K hK d t r h ht n hn Y H hYr hYpos η hη
-      hH Q hQrel hQ1 hthick
-  refine ⟨kmin, N, W, hWpos, hWdef, ?_⟩
+  obtain ⟨W, hWpos, hWdef, hmix⟩ :=
+    conditional_future_valuation_mixing_of_constants_at_window c0 K hK d t r h ht n hn Y H hYr
+      hYpos η hη hH Q hQrel hQ1 hthick kmin N hmem hNlb
+  refine ⟨W, hWpos, hWdef, ?_⟩
   intro hbudget
   have htv := hmix hbudget
   have hw_nonneg : ∀ v : Fin n → ℕ, 0 ≤ ∑ j ∈ range N,
@@ -603,6 +666,39 @@ theorem conditional_future_event_bound_of_constants
         unfold iidGeom2VectorProb at htv
         rw [conditionalRestartLaw_future_genEventProb] at htv
         linarith [hle, htv]
+
+/-- **Fixed-witness version of `conditional_future_event_bound`** (Part 12/14 of the
+Milestone 5 brief): under the same hypotheses as
+`conditional_future_valuation_mixing_of_constants`, the conclusion transfers to a bound on
+any single event's probability — exactly what persistence arguments consume, avoiding the
+need to reconstruct total-variation machinery downstream. Both laws being genuinely
+`genEventProb`-generated (`conditionalRestartLaw_future_genEventProb`, `iidGeom2VectorProb`)
+is what makes this provable rather than an unjustified assumption for an abstract
+`EventProb`. `K` is supplied by the caller (with its defining `TaoMixingProperty hK`) rather
+than derived internally, so the same `K` can be reused uniformly across many prefixes. -/
+theorem conditional_future_event_bound_of_constants
+    (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (n : ℕ) (hn : 1 ≤ n)
+    (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (Q : ℕ) (hQrel : (Q : ℝ) ≥ (2 + c0) * (n : ℝ)) (hQ1 : 1 ≤ Q)
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) (E : Set (Fin n → ℕ)) :
+    ∃ (kmin N : ℕ) (W : ℝ), 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (2 * (1 + 1 / η) * (2 : ℝ) ^ (S d t + 2 * Q) ≤ K.Cres * (Y : ℝ) →
+        pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+            (fun m : ℕ => valuationVector m n) E
+          ≤ iidGeom2VectorProb n E + K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
+  have hDcylpos : (0:ℕ) < 2 ^ (S d t + 1) := by positivity
+  obtain ⟨kmin, N, hmem, hNlb⟩ :=
+    cylinder_window_reindex r (2 ^ (S d t + 1)) Y (Y + H) hDcylpos hYr (Nat.le_add_right Y H)
+  have hNlbR : ((Y : ℝ) + (H : ℝ)) - (Y : ℝ) ≤ ((N : ℝ) + 2) * (2 ^ (S d t + 1) : ℝ) := by
+    push_cast at hNlb; linarith [hNlb]
+  obtain ⟨W, hWpos, hWdef, hbound⟩ :=
+    conditional_future_event_bound_of_constants_at_window c0 K hK d t r h ht n hn Y H hYr hYpos η
+      hη hH Q hQrel hQ1 hthick E kmin N hmem hNlbR
+  exact ⟨kmin, N, W, hWpos, hWdef, hbound⟩
 
 /-- **Convenience wrapper** (unchanged public API): chooses `K` once from `tao`, then invokes
 the fixed-witness version. -/
