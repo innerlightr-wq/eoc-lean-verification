@@ -242,7 +242,8 @@ generic in its weight parameter, so no re-derivation is needed, only the substit
 is stated for the normalized weight, the mathematically natural object for a
 "closeness-to-uniform" hypothesis to be about. -/
 theorem bad_prefix_true_bound_normalized
-    (Y H t : ℕ) (ht : 1 ≤ t) (sMaxNat : ℕ)
+    (Y H t : ℕ) (hMpos : 0 < harmonicWindowMass Y (Y + H))
+    (ht : 1 ≤ t) (sMaxNat : ℕ)
     (theta : ℝ) (hθ0 : 0 < theta) (hθ1 : theta < Real.log 2)
     (cPrefix : ℝ) (Qpre : ℕ) (hQpre1 : 1 ≤ Qpre) (hQprerel : (Qpre : ℝ) ≥ (2 + cPrefix) * (t : ℝ))
     (Kprefix : TaoMixingConstants cPrefix) (hKprefix : TaoMixingProperty cPrefix Kprefix)
@@ -255,10 +256,14 @@ theorem bad_prefix_true_bound_normalized
         {m | valuationVector m t ∈ badPrefixEvent t (sMaxNat : ℝ)}
       ≤ Real.exp (-(theta * (sMaxNat : ℝ))) * (geomUpperMgf theta) ^ t
         + Kprefix.A * (2 : ℝ) ^ (-(Kprefix.c1 * (t : ℝ))) := by
+  have hw_sum : ∑' m, normalizedHarmonicWindowWeight Y (Y + H) m = 1 := by
+    simpa [genEventProb] using
+      (genEventProb_normalizedHarmonicWindowWeight_univ Y (Y + H) hMpos)
   have htransfer := prefix_bad_tao_transfer_of_constants cPrefix Kprefix hKprefix
     (normalizedHarmonicWindowWeight Y (Y + H)) (normalizedHarmonicWindowWeight_nonneg Y (Y + H))
-    (Y + H) (normalizedHarmonicWindowWeight_supp Y (Y + H)) (normalizedHarmonicWindowWeight_odd_zero
-      Y H) t ht (sMaxNat : ℝ) theta hθ0 hθ1 Qpre hQprerel hresidue_prefix
+    (Y + H) (normalizedHarmonicWindowWeight_supp Y (Y + H)) hw_sum
+    (normalizedHarmonicWindowWeight_odd_zero Y H) t ht (sMaxNat : ℝ) theta hθ0 hθ1 Qpre hQprerel
+    hresidue_prefix
   have hpf : pushforward (genEventProb (normalizedHarmonicWindowWeight Y (Y + H)))
       (fun m => valuationVector m t) (badPrefixEvent t (sMaxNat : ℝ))
       = genEventProb (normalizedHarmonicWindowWeight Y (Y + H))
@@ -272,7 +277,8 @@ theorem bad_prefix_true_bound_normalized
 `bad_prefix_true_bound_normalized`: `early_shift_persistence_upper_bound_of_constants` is
 already generic in its weight parameter. -/
 theorem early_shift_true_bound_normalized
-    (Y H : ℕ) (c0 : ℝ) (Kearly : TaoMixingConstants c0) (hKearly : TaoMixingProperty c0 Kearly)
+    (Y H : ℕ) (hMpos : 0 < harmonicWindowMass Y (Y + H))
+    (c0 : ℝ) (Kearly : TaoMixingConstants c0) (hKearly : TaoMixingProperty c0 Kearly)
     (Qearly : ℕ) (t n : ℕ) (hn : 1 ≤ n) (c : ℝ)
     (hQrel : (Qearly : ℝ) ≥ (2 + c0) * ((t + n : ℕ) : ℝ))
     (hresidue_early : taoL1TV (pushforward (genEventProb (normalizedHarmonicWindowWeight Y (Y + H)))
@@ -282,9 +288,12 @@ theorem early_shift_true_bound_normalized
         {m : ℕ | valuationVector (orbit m t) n ∈ geomPersistenceEvent collatzAlpha c n}
       ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
         + Kearly.A * (2 : ℝ) ^ (-(Kearly.c1 * ((t + n : ℕ) : ℝ))) := by
+  have hw_sum : ∑' m, normalizedHarmonicWindowWeight Y (Y + H) m = 1 := by
+    simpa [genEventProb] using
+      (genEventProb_normalizedHarmonicWindowWeight_univ Y (Y + H) hMpos)
   have htransfer := early_shift_persistence_upper_bound_of_constants c0 Kearly hKearly
     (normalizedHarmonicWindowWeight Y (Y + H)) (normalizedHarmonicWindowWeight_nonneg Y (Y + H))
-    (Y + H) (normalizedHarmonicWindowWeight_supp Y (Y + H))
+    (Y + H) (normalizedHarmonicWindowWeight_supp Y (Y + H)) hw_sum
     (normalizedHarmonicWindowWeight_odd_zero Y H) t n hn c Qearly hQrel hresidue_early
   rwa [pushforward_jointShifted_eq_shiftEvent] at htransfer
 
@@ -348,8 +357,8 @@ theorem fixed_late_shift_persistence_upper_bound_normalized
   rw [prefixMass_tsum_eq_one (Y + H) t (normalizedHarmonicWindowWeight Y (Y + H)) hw_supp
     (genEventProb_normalizedHarmonicWindowWeight_univ Y (Y + H) hMpos), mul_one] at hGOODagg
   -- BAD bound (Milestone 8), reapplied directly to the normalized weight.
-  have hBADbound := bad_prefix_true_bound_normalized Y H t ht sMaxNat theta hθ0 hθ1 cPrefix Qpre
-    hQpre1 hQprerel Kprefix hKprefix hresidue_prefix
+  have hBADbound := bad_prefix_true_bound_normalized Y H t hMpos ht sMaxNat theta hθ0 hθ1 cPrefix
+    Qpre hQpre1 hQprerel Kprefix hKprefix hresidue_prefix
   -- Combine via subadditivity over `E ⊆ (E ∩ GOOD_seed) ∪ BAD_seed`.
   have hsubset :
       ((fun m => valuationVector (orbit m t) n) ⁻¹' geomPersistenceEvent collatzAlpha c n)
@@ -473,8 +482,8 @@ theorem all_shifts_averaged_persistence_finite_normalized
       have hcast : ((t + n : ℕ) : ℝ) ≤ ((Tearly + n : ℕ) : ℝ) := by
         exact_mod_cast Nat.add_le_add_right (le_of_lt htTearly) n
       nlinarith [hcast, hQrel_early_uniform]
-    exact early_shift_true_bound_normalized Y H c0early Kearly hKearly Qearly t n hn c hQrel_t
-      hresidue_early
+    exact early_shift_true_bound_normalized Y H hMpos c0early Kearly hKearly Qearly t n hn c
+      hQrel_t hresidue_early
   -- Step 4: bound the LATE piece.
   have hlate_bound : genEventProb (normalizedHarmonicWindowWeight Y (Y + H))
       {m : ℕ | ∃ t ∈ Ico Tearly Ttotal,

@@ -97,10 +97,10 @@ theorem iidGeom2VectorProb_joint_eq (t n : ℕ) (c : ℝ) :
 
 /-! ## Part 2: the EARLY-shift direct joint-vector transfer
 
-`TaoMixingHypothesis.finite_valuation_mixing` is fully generic over the starting law — it does
-NOT require a realized prefix or a restart; it applies to any finite-support
-`genEventProb`-shaped law directly. This is exactly what makes the EARLY case free of the
-restart machinery: apply it once, at length `t+n`, no Milestone 7 restart theorem invoked. -/
+`TaoMixingHypothesis.finite_valuation_mixing` does not require a realized prefix or a restart;
+it applies directly to any normalized, nonnegative finite-support `genEventProb` law. This is
+exactly what makes the EARLY case free of the restart machinery: apply it once, at length
+`t+n`, no Milestone 7 restart theorem invoked. -/
 
 /-- **Fixed-witness EARLY-shift direct transfer.** Same as `early_shift_persistence_upper_bound`,
 but `K` (with its defining `TaoMixingProperty hK`) is supplied by the caller instead of derived
@@ -111,6 +111,7 @@ theorem early_shift_persistence_upper_bound_of_constants
     (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
     (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
     (hw_supp : Function.support w ⊆ ↑(range Nwin))
+    (hw_sum : ∑' m, w m = 1)
     (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
     (t n : ℕ) (hn : 1 ≤ n) (c : ℝ)
     (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * ((t + n : ℕ) : ℝ)) :
@@ -121,7 +122,11 @@ theorem early_shift_persistence_upper_bound_of_constants
         ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
           + K.A * (2 : ℝ) ^ (-(K.c1 * ((t + n : ℕ) : ℝ))) := by
   intro hres
-  have htv := hK (t + n) Qres (genEventProb w) (by omega) hQrel hw_odd hres
+  have hw_summable : Summable w :=
+    summable_of_hasFiniteSupport (Set.Finite.subset (Finset.finite_toSet (range Nwin)) hw_supp)
+  have hlaw : IsProbabilityLaw (genEventProb w) :=
+    isProbabilityLaw_genEventProb w hw_nonneg hw_summable hw_sum
+  have htv := hK (t + n) Qres (genEventProb w) hlaw (by omega) hQrel hw_odd hres
   set F : ℕ → (Fin (t + n) → ℕ) := fun m => valuationVector m (t + n) with hF_def
   have hw'_nonneg : ∀ v : Fin (t + n) → ℕ, 0 ≤ ∑ j ∈ range Nwin, if F j = v then w j else 0 := by
     intro v
@@ -164,14 +169,16 @@ theorem early_shift_persistence_upper_bound_of_constants
           + K.A * (2 : ℝ) ^ (-(K.c1 * ((t + n : ℕ) : ℝ))) := by
         linarith [hiid]
 
-/-- **EARLY-shift direct transfer.** For any finite-support (`Function.support w ⊆ range Nwin`),
-nonnegative, odd-supported starting weight `w`, transferring the *entire* length-`(t+n)`
+/-- **EARLY-shift direct transfer.** For any normalized finite-support
+(`Function.support w ⊆ range Nwin`), nonnegative, odd-supported starting weight `w`,
+transferring the *entire* length-`(t+n)`
 joint valuation vector directly bounds the shifted persistence probability by the iid rate
 plus a single Tao mixing error at length `t+n` — no restart, no prefix/GOOD-BAD split. -/
 theorem early_shift_persistence_upper_bound
     (tao : TaoMixingHypothesis)
     (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
     (hw_supp : Function.support w ⊆ ↑(range Nwin))
+    (hw_sum : ∑' m, w m = 1)
     (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
     (t n : ℕ) (hn : 1 ≤ n) (c : ℝ)
     (c0 : ℝ) (hc0 : 0 < c0) (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * ((t + n : ℕ) : ℝ)) :
@@ -184,7 +191,7 @@ theorem early_shift_persistence_upper_bound
             + K.A * (2 : ℝ) ^ (-(K.c1 * ((t + n : ℕ) : ℝ))) := by
   obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
   exact ⟨K, early_shift_persistence_upper_bound_of_constants c0 K hK w hw_nonneg Nwin hw_supp
-    hw_odd t n hn c Qres hQrel⟩
+    hw_sum hw_odd t n hn c Qres hQrel⟩
 
 /-! ## Part 3: the iid Geom(2) sum upper-tail Chernoff bound (BAD-prefix ingredient)
 
@@ -356,6 +363,7 @@ theorem prefix_bad_tao_transfer_of_constants
     (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
     (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
     (hw_supp : Function.support w ⊆ ↑(range Nwin))
+    (hw_sum : ∑' m, w m = 1)
     (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
     (t : ℕ) (ht : 1 ≤ t) (sMax : ℝ) (theta : ℝ) (hθ0 : 0 < theta) (hθ1 : theta < Real.log 2)
     (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * (t : ℝ)) :
@@ -365,7 +373,11 @@ theorem prefix_bad_tao_transfer_of_constants
         ≤ Real.exp (-(theta * sMax)) * (geomUpperMgf theta) ^ t
           + K.A * (2 : ℝ) ^ (-(K.c1 * (t : ℝ))) := by
   intro hres
-  have htv := hK t Qres (genEventProb w) ht hQrel hw_odd hres
+  have hw_summable : Summable w :=
+    summable_of_hasFiniteSupport (Set.Finite.subset (Finset.finite_toSet (range Nwin)) hw_supp)
+  have hlaw : IsProbabilityLaw (genEventProb w) :=
+    isProbabilityLaw_genEventProb w hw_nonneg hw_summable hw_sum
+  have htv := hK t Qres (genEventProb w) hlaw ht hQrel hw_odd hres
   set F : ℕ → (Fin t → ℕ) := fun m => valuationVector m t with hF_def
   have hw'_nonneg : ∀ v : Fin t → ℕ, 0 ≤ ∑ j ∈ range Nwin, if F j = v then w j else 0 := by
     intro v
@@ -411,6 +423,7 @@ theorem prefix_bad_tao_transfer
     (tao : TaoMixingHypothesis)
     (w : ℕ → ℝ) (hw_nonneg : ∀ m, 0 ≤ w m) (Nwin : ℕ)
     (hw_supp : Function.support w ⊆ ↑(range Nwin))
+    (hw_sum : ∑' m, w m = 1)
     (hw_odd : genEventProb w {m : ℕ | ¬ Odd m} = 0)
     (t : ℕ) (ht : 1 ≤ t) (sMax : ℝ) (theta : ℝ) (hθ0 : 0 < theta) (hθ1 : theta < Real.log 2)
     (c0 : ℝ) (hc0 : 0 < c0) (Qres : ℕ) (hQrel : (Qres : ℝ) ≥ (2 + c0) * (t : ℝ)) :
@@ -421,8 +434,8 @@ theorem prefix_bad_tao_transfer
           ≤ Real.exp (-(theta * sMax)) * (geomUpperMgf theta) ^ t
             + K.A * (2 : ℝ) ^ (-(K.c1 * (t : ℝ))) := by
   obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
-  exact ⟨K, prefix_bad_tao_transfer_of_constants c0 K hK w hw_nonneg Nwin hw_supp hw_odd t ht sMax
-    theta hθ0 hθ1 Qres hQrel⟩
+  exact ⟨K, prefix_bad_tao_transfer_of_constants c0 K hK w hw_nonneg Nwin hw_supp hw_sum hw_odd t
+    ht sMax theta hθ0 hθ1 Qres hQrel⟩
 
 /-! ## Part 6: scope note — the LATE union theorem is NOT proved here
 

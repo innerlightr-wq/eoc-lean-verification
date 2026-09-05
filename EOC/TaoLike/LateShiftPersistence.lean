@@ -235,6 +235,7 @@ tail plus a Tao mixing error at length `t`, directly via `prefix_bad_tao_transfe
 (Milestone 8) — no new mixing argument, no reproving of `iid_geom_sum_upper_tail`. -/
 theorem bad_prefix_true_bound
     (Y H t : ℕ) (ht : 1 ≤ t) (sMaxNat : ℕ)
+    (hnorm : genEventProb (harmonicWindowWeight Y (Y + H)) Set.univ = 1)
     (theta : ℝ) (hθ0 : 0 < theta) (hθ1 : theta < Real.log 2)
     (cPrefix : ℝ) (Qpre : ℕ) (hQpre1 : 1 ≤ Qpre) (hQprerel : (Qpre : ℝ) ≥ (2 + cPrefix) * (t : ℝ))
     (Kprefix : TaoMixingConstants cPrefix) (hKprefix : TaoMixingProperty cPrefix Kprefix)
@@ -261,9 +262,11 @@ theorem bad_prefix_true_bound
         exact hm hodd
       · rw [Set.indicator_of_notMem hm]
     rw [tsum_congr hzero, tsum_zero]
+  have hw_sum : ∑' m, harmonicWindowWeight Y (Y + H) m = 1 := by
+    simpa [genEventProb] using hnorm
   have htransfer := prefix_bad_tao_transfer_of_constants cPrefix Kprefix hKprefix
-    (harmonicWindowWeight Y (Y + H)) hw_nonneg (Y + H) hw_supp hw_odd t ht (sMaxNat : ℝ) theta hθ0
-    hθ1 Qpre hQprerel hresidue_prefix
+    (harmonicWindowWeight Y (Y + H)) hw_nonneg (Y + H) hw_supp hw_sum hw_odd t ht
+    (sMaxNat : ℝ) theta hθ0 hθ1 Qpre hQprerel hresidue_prefix
   have hpf : pushforward (genEventProb (harmonicWindowWeight Y (Y + H)))
       (fun m => valuationVector m t) (badPrefixEvent t (sMaxNat : ℝ))
       = genEventProb (harmonicWindowWeight Y (Y + H))
@@ -330,8 +333,8 @@ theorem fixed_late_shift_persistence_upper_bound
   rw [prefixMass_tsum_eq_one (Y + H) t (harmonicWindowWeight Y (Y + H)) hw_supp hnorm,
     mul_one] at hGOODagg
   -- BAD bound (Milestone 8).
-  have hBADbound := bad_prefix_true_bound Y H t ht sMaxNat theta hθ0 hθ1 cPrefix Qpre hQpre1
-    hQprerel Kprefix hKprefix hresidue_prefix
+  have hBADbound := bad_prefix_true_bound Y H t ht sMaxNat hnorm theta hθ0 hθ1 cPrefix Qpre
+    hQpre1 hQprerel Kprefix hKprefix hresidue_prefix
   -- Combine via subadditivity over `E ⊆ (E ∩ GOOD_seed) ∪ BAD_seed`.
   have hsubset :
       ((fun m => valuationVector (orbit m t) n) ⁻¹' geomPersistenceEvent collatzAlpha c n)

@@ -111,6 +111,7 @@ shift `t`, no restart, no GOOD/BAD split. `Kearly` is supplied by the caller and
 identically across every early shift. -/
 theorem early_shift_true_bound
     (Y H : ℕ) (c0 : ℝ) (Kearly : TaoMixingConstants c0) (hKearly : TaoMixingProperty c0 Kearly)
+    (hnorm : genEventProb (harmonicWindowWeight Y (Y + H)) Set.univ = 1)
     (Qearly : ℕ) (t n : ℕ) (hn : 1 ≤ n) (c : ℝ)
     (hQrel : (Qearly : ℝ) ≥ (2 + c0) * ((t + n : ℕ) : ℝ))
     (hresidue_early : taoL1TV (pushforward (genEventProb (harmonicWindowWeight Y (Y + H)))
@@ -122,9 +123,11 @@ theorem early_shift_true_bound
         + Kearly.A * (2 : ℝ) ^ (-(Kearly.c1 * ((t + n : ℕ) : ℝ))) := by
   have hw_nonneg := harmonicWindowWeight_nonneg Y (Y + H)
   have hw_supp := harmonicWindowWeight_supp Y (Y + H)
+  have hw_sum : ∑' m, harmonicWindowWeight Y (Y + H) m = 1 := by
+    simpa [genEventProb] using hnorm
   have htransfer := early_shift_persistence_upper_bound_of_constants c0 Kearly hKearly
-    (harmonicWindowWeight Y (Y + H)) hw_nonneg (Y + H) hw_supp (harmonicWindowWeight_odd_zero Y H)
-    t n hn c Qearly hQrel hresidue_early
+    (harmonicWindowWeight Y (Y + H)) hw_nonneg (Y + H) hw_supp hw_sum
+    (harmonicWindowWeight_odd_zero Y H) t n hn c Qearly hQrel hresidue_early
   rwa [pushforward_jointShifted_eq_shiftEvent] at htransfer
 
 /-! ## Part 4: the combined integer-horizon theorem -/
@@ -229,7 +232,8 @@ theorem all_shifts_averaged_persistence_finite
       have hcast : ((t + n : ℕ) : ℝ) ≤ ((Tearly + n : ℕ) : ℝ) := by
         exact_mod_cast Nat.add_le_add_right (le_of_lt htTearly) n
       nlinarith [hcast, hQrel_early_uniform]
-    exact early_shift_true_bound Y H c0early Kearly hKearly Qearly t n hn c hQrel_t hresidue_early
+    exact early_shift_true_bound Y H c0early Kearly hKearly hnorm Qearly t n hn c hQrel_t
+      hresidue_early
   -- Step 4: bound the LATE piece.
   have hlate_bound : genEventProb (harmonicWindowWeight Y (Y + H))
       {m : ℕ | ∃ t ∈ Ico Tearly Ttotal,
