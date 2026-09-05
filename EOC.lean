@@ -7,6 +7,7 @@ import EOC.PeriodicCore
 import EOC.Periodic
 import EOC.BoundedDriftCore
 import EOC.BoundedDrift
+import EOC.FinitePrefixPacking
 import EOC.SignedBlock
 import EOC.SignedRealizer
 import EOC.ChangHistory
