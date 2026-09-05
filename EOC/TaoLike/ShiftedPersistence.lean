@@ -24,11 +24,39 @@ namespace TaoExternal
 
 open Finset
 
-/-- **Natural-log shifted persistence transfer.** Specializes `conditional_future_event_bound`
-at `E := geomPersistenceEvent collatzAlpha c n` and bounds its iid term with
-`geometric_persistence_upper_bound`. Reuses Milestones 5 and 6 as black boxes: no unfolding of
-`iidGeom2VectorProb`, `conditionalRestartLaw`, `tsum`, the Chernoff proof, or the residue-TV
-mixing proof. -/
+/-- **Fixed-witness natural-log shifted persistence transfer.** Specializes
+`conditional_future_event_bound_of_constants` at `E := geomPersistenceEvent collatzAlpha c n`
+and bounds its iid term with `geometric_persistence_upper_bound`. Reuses Milestones 5 and 6 as
+black boxes: no unfolding of `iidGeom2VectorProb`, `conditionalRestartLaw`, `tsum`, the
+Chernoff proof, or the residue-TV mixing proof. `K` is supplied by the caller (with its
+defining `TaoMixingProperty hK`) rather than derived internally, so the same `K` reappears
+verbatim in the conclusion — enabling uniform reuse across many realized prefixes. -/
+theorem conditional_shifted_persistence_upper_bound_of_constants
+    (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (c : ℝ) (n : ℕ) (hn : 1 ≤ n)
+    (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (Q : ℕ) (hQrel : (Q : ℝ) ≥ (2 + c0) * (n : ℝ)) (hQ1 : 1 ≤ Q)
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
+    ∃ (kmin N : ℕ) (W : ℝ), 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (2 * (1 + 1 / η) * (2 : ℝ) ^ (S d t + 2 * Q) ≤ K.Cres * (Y : ℝ) →
+        pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+            (fun m : ℕ => valuationVector m n) (geomPersistenceEvent collatzAlpha c n)
+          ≤ Real.exp (lambdaStar * c) * Real.exp (-(rateNats * (n : ℝ)))
+            + K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
+  obtain ⟨kmin, N, W, hWpos, hWdef, hmix⟩ :=
+    conditional_future_event_bound_of_constants c0 K hK d t r h ht n hn Y H hYr hYpos η hη hH Q
+      hQrel hQ1 hthick (geomPersistenceEvent collatzAlpha c n)
+  refine ⟨kmin, N, W, hWpos, hWdef, ?_⟩
+  intro hbudget
+  have hreal := hmix hbudget
+  have hiid := geometric_persistence_upper_bound c n hn
+  linarith [hreal, hiid]
+
+/-- **Convenience wrapper** (unchanged public API): chooses `K` once from `tao`, then invokes
+the fixed-witness version. -/
 theorem conditional_shifted_persistence_upper_bound
     (tao : TaoMixingHypothesis)
     (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
@@ -44,16 +72,40 @@ theorem conditional_shifted_persistence_upper_bound
             (fun m : ℕ => valuationVector m n) (geomPersistenceEvent collatzAlpha c n)
           ≤ Real.exp (lambdaStar * c) * Real.exp (-(rateNats * (n : ℝ)))
             + K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
-  obtain ⟨K, kmin, N, W, hWpos, hWdef, hmix⟩ :=
-    conditional_future_event_bound tao d t r h ht n hn Y H hYr hYpos η hη hH
-      c0 hc0 Q hQrel hQ1 hthick (geomPersistenceEvent collatzAlpha c n)
-  refine ⟨K, kmin, N, W, hWpos, hWdef, ?_⟩
+  obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
+  obtain ⟨kmin, N, W, hWpos, hWdef, hbound⟩ :=
+    conditional_shifted_persistence_upper_bound_of_constants c0 K hK d t r h ht c n hn Y H hYr
+      hYpos η hη hH Q hQrel hQ1 hthick
+  exact ⟨K, kmin, N, W, hWpos, hWdef, hbound⟩
+
+/-- **Fixed-witness bit-rate corollary.** Same statement, iid term expressed via `I0` and
+`Real.rpow`; `K` supplied explicitly as above. -/
+theorem conditional_shifted_persistence_upper_bound_bits_of_constants
+    (c0 : ℝ) (K : TaoMixingConstants c0) (hK : TaoMixingProperty c0 K)
+    (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
+    (c : ℝ) (n : ℕ) (hn : 1 ≤ n)
+    (Y H : ℕ) (hYr : r ≤ Y) (hYpos : 0 < Y) (η : ℝ) (hη : 0 < η)
+    (hH : η * (Y : ℝ) ≤ (H : ℝ))
+    (Q : ℕ) (hQrel : (Q : ℝ) ≥ (2 + c0) * (n : ℝ)) (hQ1 : 1 ≤ Q)
+    (hthick : 4 * (2 ^ (S d t + 1) : ℝ) ≤ η * (Y : ℝ)) :
+    ∃ (kmin N : ℕ) (W : ℝ), 0 < W ∧
+      W = ∑ j ∈ range N, (1 : ℝ) / ((r : ℝ) + (2 ^ (S d t + 1) : ℝ) * ((kmin : ℝ) + j)) ∧
+      (2 * (1 + 1 / η) * (2 : ℝ) ^ (S d t + 2 * Q) ≤ K.Cres * (Y : ℝ) →
+        pushforward (conditionalRestartLaw r (2 ^ (S d t + 1)) kmin N W (orbit r t) t)
+            (fun m : ℕ => valuationVector m n) (geomPersistenceEvent collatzAlpha c n)
+          ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
+            + K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
+  obtain ⟨kmin, N, W, hWpos, hWdef, hmix⟩ :=
+    conditional_future_event_bound_of_constants c0 K hK d t r h ht n hn Y H hYr hYpos η hη hH Q
+      hQrel hQ1 hthick (geomPersistenceEvent collatzAlpha c n)
+  refine ⟨kmin, N, W, hWpos, hWdef, ?_⟩
   intro hbudget
   have hreal := hmix hbudget
-  have hiid := geometric_persistence_upper_bound c n hn
+  have hiid := geometric_persistence_upper_bound_bits c n hn
   linarith [hreal, hiid]
 
-/-- **Bit-rate corollary.** Same statement, iid term expressed via `I0` and `Real.rpow`. -/
+/-- **Convenience wrapper** (unchanged public API): chooses `K` once from `tao`, then invokes
+the fixed-witness version. -/
 theorem conditional_shifted_persistence_upper_bound_bits
     (tao : TaoMixingHypothesis)
     (d : ℕ → ℕ) (t r : ℕ) (h : Realizes d t r) (ht : 1 ≤ t)
@@ -69,14 +121,11 @@ theorem conditional_shifted_persistence_upper_bound_bits
             (fun m : ℕ => valuationVector m n) (geomPersistenceEvent collatzAlpha c n)
           ≤ Real.exp (lambdaStar * c) * (2 : ℝ) ^ (-(I0 * (n : ℝ)))
             + K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))) := by
-  obtain ⟨K, kmin, N, W, hWpos, hWdef, hmix⟩ :=
-    conditional_future_event_bound tao d t r h ht n hn Y H hYr hYpos η hη hH
-      c0 hc0 Q hQrel hQ1 hthick (geomPersistenceEvent collatzAlpha c n)
-  refine ⟨K, kmin, N, W, hWpos, hWdef, ?_⟩
-  intro hbudget
-  have hreal := hmix hbudget
-  have hiid := geometric_persistence_upper_bound_bits c n hn
-  linarith [hreal, hiid]
+  obtain ⟨K, hK⟩ := tao.finite_valuation_mixing c0 hc0
+  obtain ⟨kmin, N, W, hWpos, hWdef, hbound⟩ :=
+    conditional_shifted_persistence_upper_bound_bits_of_constants c0 K hK d t r h ht c n hn Y H
+      hYr hYpos η hη hH Q hQrel hQ1 hthick
+  exact ⟨K, kmin, N, W, hWpos, hWdef, hbound⟩
 
 end TaoExternal
 end EOC

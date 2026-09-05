@@ -453,5 +453,29 @@ structure TaoMixingHypothesis where
         taoL1TV (pushforward N (fun m => valuationVector m n)) (iidGeom2VectorProb n)
           ≤ K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))
 
+/-- **Fixed-witness Tao mixing property** (interface refactor, Milestone "uniform Tao witness"):
+exactly the property `tao.finite_valuation_mixing c0 hc0` asserts of its existentially-chosen
+`K`, but stated as a standalone `Prop` about a *given* `K`. This is what lets a single `K`
+(chosen once, e.g. via `(tao.finite_valuation_mixing c0 hc0).choose` /
+`(tao.finite_valuation_mixing c0 hc0).choose_spec`) be threaded uniformly through many
+downstream applications (e.g. one per realized prefix in Milestone 11's GOOD-prefix
+aggregation), instead of each downstream theorem re-deriving its own — mathematically
+unconstrained, but *Lean-opaque* — witness from `tao`. Purely a witness-management
+definition: no new mathematical content, no strengthening of `TaoMixingHypothesis`. -/
+def TaoMixingProperty (c0 : ℝ) (K : TaoMixingConstants c0) : Prop :=
+  ∀ (n Qres : ℕ) (N : EventProb ℕ),
+    1 ≤ n → (Qres : ℝ) ≥ (2 + c0) * (n : ℝ) →
+    N {m : ℕ | ¬ Odd m} = 0 →
+    taoL1TV (pushforward N (fun m => (m : ZMod (2 ^ Qres)))) (unifOddResidues Qres)
+      ≤ K.Cres * (2 : ℝ) ^ (-(Qres : ℝ)) →
+    taoL1TV (pushforward N (fun m => valuationVector m n)) (iidGeom2VectorProb n)
+      ≤ K.A * (2 : ℝ) ^ (-(K.c1 * (n : ℝ)))
+
+/-- Any `K` obtained from `tao.finite_valuation_mixing c0 hc0` satisfies `TaoMixingProperty`
+by construction — the bridge from the existential interface to the fixed-witness one. -/
+theorem taoMixingProperty_choose (tao : TaoMixingHypothesis) (c0 : ℝ) (hc0 : 0 < c0) :
+    TaoMixingProperty c0 (tao.finite_valuation_mixing c0 hc0).choose :=
+  (tao.finite_valuation_mixing c0 hc0).choose_spec
+
 end TaoExternal
 end EOC

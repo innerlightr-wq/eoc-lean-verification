@@ -21,3 +21,4 @@ import EOC.TaoLike.ShiftedPersistence
 import EOC.TaoLike.EarlyLate
 import EOC.TaoLike.PrefixPartition
 import EOC.TaoLike.RestartLawAlignment
+import EOC.TaoLike.LateShiftPersistence
