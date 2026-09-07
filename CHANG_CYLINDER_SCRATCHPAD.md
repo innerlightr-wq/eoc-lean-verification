@@ -8,7 +8,8 @@
 
 Session date: 2026-09-03. Repo: `EOC` (Lean 4 / Mathlib formalization of
 Pillar-3 realizer/confinement results). No Lean source files were modified in
-this round. Scratch code sits in `scratch/` as untracked files (see §10).
+this round. Scratch code sits in `scratch/` (tracked in git but outside the
+Lean build target — see §10).
 
 Provenance labels used throughout:
 
@@ -736,10 +737,13 @@ samples arithmetic states over long times.
   Chang's split; no evidence either way here. *(Update, §8: the transport
   framework was tested as a route to attach GT/C and found structurally
   blocked on genuine orbits — this OQ is untouched by that negative result.)*
-- **OQ4 (Open question).** Can `EOC/PeriodicRealizer.lean`'s `ξ_X` /
-  `delta_X` apparatus be given a residue-mod-32 reading that constrains the
-  *distribution* (not just the value) of bit 4 over an ensemble of blocks?
-  §4 suggests the value is determined but the distribution is not addressed.
+- **OQ4 (Open question).** Can a `ξ_X` / `delta_X`-style apparatus (referenced
+  in earlier external notes as `EOC/PeriodicRealizer.lean`, which does
+  **not** exist in this repository's working tree or git history — see §10;
+  the `ξ_X`/`delta_X` construction itself is not available here to check) be
+  given a residue-mod-32 reading that constrains the *distribution* (not
+  just the value) of bit 4 over an ensemble of blocks? §4 suggests the value
+  is determined but the distribution is not addressed.
 - **OQ5 (Open question).** Is the channel dependence in Test 4
   (`P(25) ≈ 0.42` for `L = 1`, `≈ 0.53` for `L ≥ 2`) a genuine asymptotic
   feature or a small-number artifact of terminating orbits?
@@ -753,17 +757,23 @@ samples arithmetic states over long times.
 
 ## 10. Reproducibility / file inventory
 
-Scratch code, copied into the repo working tree as **untracked** files
-(`scratch/`, gitignored-by-intent; delete freely, not part of the build):
+Scratch code, in `scratch/` (not part of the `EOC` Lean library build target
+— see `lakefile.toml` — but **tracked in git**, not gitignored; only `.lake`
+and `.DS_Store` are gitignored):
 
-| file | contents |
-|---|---|
-| `scratch/chang_eoc_experiment.py` | §6 Tests 1–5 |
-| `scratch/supp_long.py` | §6 Test 1 on one 433,166-step orbit |
-| `scratch/supp_negatives.py` | §6 N1 (return-map closure), N2 (ensemble balance) |
-| `scratch/transport_audit.py` | §8 first-pass transport audit on genuine orbits |
-| `scratch/transport_audit2.py` | §8 `X_j`/`χ_j` identity, failure stats, Chang connection |
-| `scratch/tcc2.py` | §8 minimal exact check `X_j = ⌊m_0/2^{S_j}⌋` (mod 2⁴⁸) |
+| file | contents | status |
+|---|---|---|
+| `scratch/chang_eoc_experiment.py` | §6 Tests 1–5 | present, tracked |
+| `scratch/supp_long.py` | §6 Test 1 on one 433,166-step orbit | present, tracked |
+| `scratch/supp_negatives.py` | §6 N1 (return-map closure), N2 (ensemble balance) | present, tracked |
+| `scratch/transport_audit.py` | §8 first-pass transport audit on genuine orbits | **UNAVAILABLE** — not in the working tree or any reachable git history |
+| `scratch/transport_audit2.py` | §8 `X_j`/`χ_j` identity, failure stats, Chang connection | **UNAVAILABLE** — not in the working tree or any reachable git history |
+| `scratch/tcc2.py` | §8 minimal exact check `X_j = ⌊m_0/2^{S_j}⌋` (mod 2⁴⁸) | **UNAVAILABLE** — not in the working tree or any reachable git history |
+
+The three unavailable `§8` transport scripts (and `CHANG_CYLINDER_SCRATCHPAD.md.bak`,
+referenced nowhere in this repo but mentioned in older external notes) were
+never committed to this repository; §8's transport findings are therefore
+not independently reproducible from this repo alone.
 
 Runtimes: §6 scripts ~32 s / ~6 s / ~22 s; §8 scripts ~5 min / ~17 s / <1 s
 (single core, CPython 3.12). Determinism: `random.seed(20260903)` (main §6),

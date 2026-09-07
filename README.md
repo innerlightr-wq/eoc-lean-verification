@@ -75,7 +75,7 @@ R_N   := S_N − alpha·N        (the "drift" at step N)
 drift identity**
 
 ```
-log₂(m₀ / m_N) = N·alpha + E_N − S_N,      E_N := Σ_{n<N} log₂(1 + 1/(3m_n)) ≥ 0
+log₂(m_N / m₀) = N·alpha + E_N − S_N,      E_N := Σ_{n<N} log₂(1 + 1/(3m_n)) ≥ 0
 ```
 
 equivalently `R_N = log₂(m₀/m_N) + E_N`. **PROVED MATHEMATICALLY** (derived
@@ -118,24 +118,54 @@ cross-reference to a specific tracked file is given. They are recorded here
 so the README reflects the manuscript's current content; none of them are
 claimed as Lean theorems unless a file is named.
 
-**Garcia–Tal/Curry divergent-orbit sparsity.** The manuscript combines the
-collision-free orbit-sparsity mechanism of Garcia and Tal (1999) — see
-[Literature](#literature), item 2 — with an explicit quantitative windowed
-sparsity refinement attributed in the manuscript to M. J. Curry (2026):
+**García–Tal mechanism; Curry quantitative theorem (divergent-orbit
+sparsity).** Two separable pieces, not one joint result:
 
-```
-#(orbit ∩ [a, a+X)) ≤ C_β · X^β · log(2X),    β > β* ≈ 0.9653844
-```
+- **García and Tal (1999)** (see [Literature](#literature), item 2): the
+  *qualitative* Banach-density-zero result for aperiodic/infinite orbits in
+  generalized `3n+1` systems, via a collision-free/windowed pigeonhole
+  mechanism. García–Tal do **not** state or prove an explicit power-saving
+  exponent.
+- **Curry (2026)**, "An Explicit Windowed Sparsity Bound for Divergent
+  3x+1 Orbits, with Logarithmic-Floor Exclusion beyond the Harmonic
+  Barrier" (see [Literature](#literature), item 3): a short,
+  self-contained *explicit quantitative* sharpening of that same
+  collision-free/window mechanism, combined with explicit Terras–Everett
+  parity-prefix counting. Curry's Theorem 2.3: for a collision-free set `A`
+  and every `β > β*`, there is `C_β` with
+  ```
+  #(A ∩ [a,a+X)) ≤ C_β · X^β · log(2X)     (uniformly in a)
+  ```
+  where
+  ```
+  β* = γ* log₂3 = H(γ*) ≈ 0.9653844,      γ* ≈ 0.6090897 solves H(γ) = γ·log₂3
+  ```
+  (`γ*` identified by Curry with Rozier's critical ones-ratio `r_H`). An
+  infinite aperiodic orbit's value set is collision-free, so Curry's
+  Proposition 3.1 gives `Σ_{x∈orbit} 1/x < ∞` for a divergent orbit — for
+  this repository's accelerated odd iterates `m_n`, `Σ_n 1/m_n < ∞`, so the
+  drift-identity correction term `E_N = Σ_{k<N} log₂(1+1/(3m_k))` (see
+  above) stays **bounded** along any divergent orbit. Curry's Theorem 4.1,
+  Theorem 4.2, and Corollary 4.3 then exclude every eventual logarithmic
+  drift floor `R_n ≥ −B·log₂n + O(1)` for `B < 1/β* ≈ 1.0358567` —
+  crossing the harmonic threshold `B = 1`.
 
-Applied to the accelerated Collatz orbit, the manuscript derives reciprocal
-summability along any hypothetical divergent orbit and excludes every
-eventual logarithmic drift floor `R_n ≥ −B·log₂n + O(1)` for
-`B < 1/β* ≈ 1.0358567` — crossing the harmonic threshold `B = 1`. **This
-concerns hypothetical divergent orbits only; it does not prove EOC, exclude
-nontrivial cycles, or resolve the arithmetic-placement/moving-anchor
-problem below.** *(Curry's refinement is cited here exactly as attributed
-in the manuscript; this repository has not independently verified or
-formalized it, and no separate bibliographic record for it was located.)*
+**PRIMARY-SOURCE VERIFIED NEW QUANTITATIVE DEVELOPMENT** (by direct
+inspection of Curry's paper by this repository's maintainer; the paper was
+not independently re-derived or re-checked by an automated tool in this
+documentation-correction session): Curry (2026) provides an explicit
+quantitative sharpening of the García–Tal collision-free window mechanism,
+obtaining `β* ≈ 0.9653844` and the floor-exclusion threshold
+`1/β* ≈ 1.0358567`. Curry (Remark 2.4) states that the power saving is
+implicit in García–Tal once the older exponents are made explicit, and that
+he found no exact prior match for the explicit exponent `β*` or its
+identification with Rozier's `r_H` — **this is Curry's own literature
+assessment ("no exact match identified"), not an exhaustive independent
+novelty verification performed here or in this repository.**
+
+**This concerns hypothetical divergent orbits only; it does not prove EOC,
+exclude nontrivial cycles, or resolve the arithmetic-placement/moving-anchor
+problem below.**
 
 **Corrected exact realizer congruence.** The manuscript's residue-axis
 formulation places exact realizers of a length-`N` valuation word in one
@@ -332,13 +362,23 @@ MATHEMATICALLY** (elementary, using only that `alpha` is irrational).
 difficulty is **natural-integer realizability**, not the existence of an
 abstract confined path.
 
-**COMPUTATIONAL EVIDENCE only**: finite-prefix least realizers of this
-canonical mechanical word were computed exactly (via modular inverse, not
-brute-force search) up to `N = 1000`; they did **not** stabilize, with
-bit-length growing approximately linearly in `N` at slope `≈ alpha`. This is
-evidence against natural-integer realizability of this *specific* canonical
-word — it is **not** a theorem that the limiting 2-adic seed is non-natural,
-and it says nothing about other confined words.
+**PROVED MATHEMATICALLY (corollary of an existing formal theorem), not merely
+computational**: the mechanical word has digits `d*_j ∈ {1,2}` (so `d*_j ≥
+1`) and satisfies `-1 < R*_N ≤ 0` for every `N` (immediate from `floor(x) ≤ x
+< floor(x) + 1` applied to `alpha·N`). Instantiating the already-formalized
+`EOC.leastRealizer_unbounded_of_two_sided_drift` (row G, `BoundedDrift.lean`)
+with upper bound `c = 0` and lower-drift bound `G = 1` shows directly that
+`leastRealizer d* N` is unbounded as `N → ∞` — i.e. **no fixed natural seed
+realizes all finite prefixes of this infinite mechanical word** (the least
+realizers required grow without bound as the prefix length grows, so no
+single fixed seed can keep up realizing the whole infinite word). This is a
+corollary of an existing theorem instantiated on this specific word, not a
+new Lean theorem about the mechanical word itself, and it says nothing about
+other confined words. It is corroborated computationally: finite-prefix
+least realizers of this canonical mechanical word were computed exactly
+(via modular inverse, not brute-force search) up to `N = 1000`; they did
+**not** stabilize, with bit-length growing approximately linearly in `N` at
+slope `≈ alpha`, consistent with the corollary above.
 
 ## Where the proof currently stops
 
@@ -383,7 +423,9 @@ N)` ceiling previously stated here. It does **not** exclude an arbitrary
 `O(log N)` floor with larger coefficient, an `N^θ`-scale floor, or
 `sqrt(N)`-scale negative drift, so it still falls short of (and by itself
 does not rule out) the empirically shallow depth observed on long-confined
-record seeds (`Θ(log N)`-ish). It still cannot be triggered by first-passage
+record seeds (numerically consistent with roughly logarithmic growth over
+the tested record range — see the record list below; not a proved
+asymptotic rate). It still cannot be triggered by first-passage
 words as they actually behave.
 
 ## Natural next questions
@@ -404,16 +446,20 @@ yield pointwise control** — it would still be an ensemble statement.
 
 ## Context: divergent orbits and Banach density
 
-Garcia and Tal (1999) prove Banach-density-zero results for orbit
+García and Tal (1999) prove Banach-density-zero results for orbit
 representative sets in generalized `3n+1` systems, under their stated
 hypotheses. **This repository's Lean formalization does not use, extend, or
 reprove their result**, and does not attribute any quantitative
-power-saving exponent to Garcia and Tal's own paper beyond what it states.
-The companion manuscript's Revision 5 *does* use an explicit quantitative
+power-saving exponent to García and Tal's own paper — they state none. The
+companion manuscript's Revision 5 *does* use an explicit quantitative
 windowed-sparsity refinement of this qualitative result — see
 [Manuscript highlights](#manuscript-highlights-revision-5) above — but that
-refinement is attributed there to M. J. Curry (2026), not to Garcia and
-Tal, and is not (yet) formalized in this repository.
+refinement (the exponent `β* ≈ 0.9653844` and the resulting
+`B < 1/β* ≈ 1.0358567` floor-exclusion threshold) is Michael John Curry's
+own theorem (2026; primary source now inspected directly by this
+repository's maintainer — see [Literature](#literature), item 3), built on
+top of the García–Tal mechanism, not a result of García and Tal's own 1999
+paper, and is not (yet) formalized in this repository.
 
 ## Current research checkpoint
 
@@ -436,7 +482,8 @@ under cylinder refinement; exact one-step crossing hazard; the exact drift
 identity `R_N = log₂(m₀/m_N) + E_N`.
 
 **COMPUTATIONAL**:
-long confined record seeds (up to length ~109, seed ~381727); canonical
+long confined record seeds (up to length 114, seed 1,027,431, among all odd
+seeds `≤ 2^20`); canonical
 critical-mechanical-word realizer growth (to `N = 1000`); record-holder
 deficit/shadowing observations.
 
@@ -475,10 +522,18 @@ positive cycles; the Collatz conjecture itself.
 `TaoLike/HarmonicExceptionalSetSummability.lean`
 
 **Experimental / historical**
-Untracked research scratchpads (`scratch/`, `CHANG_CYLINDER_SCRATCHPAD.md.bak`,
-`EOC/PeriodicRealizer.lean`) are deliberately outside the tracked Lean build
-and are not part of any claim in this README. A more detailed narrative of
-the recent (untracked, audit-only) research phase is in
+`scratch/` (tracked in git, but deliberately outside the `EOC` Lean library
+target — see `lakefile.toml`) holds the exact/numerical Python experiments
+cited above and in `CHANG_CYLINDER_SCRATCHPAD.md`; none of its contents are
+part of any claim in this README. `CHANG_CYLINDER_SCRATCHPAD.md`'s own file
+inventory (§10) and open-question list (§9, OQ4) additionally mention
+`CHANG_CYLINDER_SCRATCHPAD.md.bak`, `EOC/PeriodicRealizer.lean`, and three
+`scratch/transport_*`/`tcc2.py` scripts: none of these exist anywhere in this
+repository's working tree or git history (verified by `git log --all` /
+`git ls-tree`) — they are unavailable, not merely untracked, and any claim
+resting on them should be read as historical/unreproducible from this repo
+alone. A more detailed narrative of the recent (untracked, audit-only)
+research phase is in
 [`docs/RESEARCH_CHECKPOINT_2026-09.md`](docs/RESEARCH_CHECKPOINT_2026-09.md).
 
 ## Formalization status legend
@@ -564,25 +619,36 @@ lake env lean EOC/Confinement.lean
    Source for generalized `3n+1` systems and Banach-density-zero orbit
    results — see [Context](#context-divergent-orbits-and-banach-density).
 
-3. Yakov G. Sinai, "Statistical (3x+1)-problem," *Communications on Pure
+3. Michael John Curry, "An Explicit Windowed Sparsity Bound for Divergent
+   3x + 1 Orbits, with Logarithmic-Floor Exclusion beyond the Harmonic
+   Barrier," Zenodo, 2026.
+   DOI: [10.5281/zenodo.22087163](https://doi.org/10.5281/zenodo.22087163).
+   Source for the explicit quantitative sharpening of the García–Tal
+   mechanism (`β* ≈ 0.9653844`, floor exclusion `B < 1/β* ≈ 1.0358567`) and
+   reciprocal summability cited in
+   [Manuscript highlights](#manuscript-highlights-revision-5) above; primary
+   source inspected directly by this repository's maintainer, not by an
+   automated tool in this session.
+
+4. Yakov G. Sinai, "Statistical (3x+1)-problem," *Communications on Pure
    and Applied Mathematics* **56**(7) (2003), 1016–1028.
    DOI: [10.1002/cpa.10084](https://doi.org/10.1002/cpa.10084).
    Background on statistical/probabilistic approaches to the 3x+1 dynamics.
 
-4. Alex V. Kontorovich and Jeffrey C. Lagarias, "Stochastic Models for the
+5. Alex V. Kontorovich and Jeffrey C. Lagarias, "Stochastic Models for the
    3x+1 and 5x+1 Problems," in *The Ultimate Challenge: The 3x+1 Problem*,
    American Mathematical Society, 2010. Also
    [arXiv:0910.1944](https://arxiv.org/abs/0910.1944).
    Background on stochastic/iid modeling of valuation sequences.
 
-5. Günther J. Wirsching, *The Dynamical System Generated by the 3n+1
+6. Günther J. Wirsching, *The Dynamical System Generated by the 3n+1
    Function*, Lecture Notes in Mathematics 1681, Springer, 1998.
    DOI: [10.1007/BFb0095985](https://doi.org/10.1007/BFb0095985).
 
-6. Jeffrey C. Lagarias, "The 3x+1 Problem: An Overview,"
+7. Jeffrey C. Lagarias, "The 3x+1 Problem: An Overview,"
    [arXiv:2111.02635](https://arxiv.org/abs/2111.02635).
 
-7. Jeffrey C. Lagarias, "The 3x+1 problem and its generalizations,"
+8. Jeffrey C. Lagarias, "The 3x+1 problem and its generalizations,"
    *American Mathematical Monthly* **92** (1985), 3–23.
 
 ## License, citing, acknowledgments

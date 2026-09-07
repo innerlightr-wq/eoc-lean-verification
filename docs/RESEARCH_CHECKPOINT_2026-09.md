@@ -48,14 +48,27 @@ Splitting on whether the witness seed's orbit is eventually injective:
   `not_confined_forever_of_evPeriodic_orbit` (an eventually-periodic
   confined word forces `R_N → +∞` along period boundaries) settles this case
   unconditionally, using only the *upper* confinement bound.
-- **Injective case: the entire remaining open content.** The existing
+- **Injective case: the entire remaining open content.** At the time of this
+  audit phase (2026-09-03), the existing
   `BoundedDriftCore.no_injective_orbit_of_lower_drift` pigeonhole mechanism
-  needs a genuinely `N`-independent lower drift bound `G` — reverse-
-  engineering its proof shows it can tolerate at best `G = O(log log N)`
-  if only guaranteed up to a finite prefix length `N`. This is far
-  stricter than even the empirically observed depth of long-confined
-  record seeds (`Θ(log N)`-ish, see §4) — one exponential level too weak.
-  **No rescue of this mechanism was found.**
+  needed a genuinely `N`-independent lower drift bound `G`, and
+  reverse-engineering its proof showed it could tolerate at best
+  `G = O(log log N)` if only guaranteed up to a finite prefix length `N` —
+  far stricter than even the empirically observed depth of long-confined
+  record seeds (numerically consistent with roughly logarithmic growth over
+  the tested record range, see §4), one exponential level too weak.
+  **UPDATE (superseded):** the subsequent finite-prefix refinement of this
+  same packing mechanism (`EOC.finite_prefix_injective_drift_depth_bound`,
+  `FinitePrefixPacking.lean`, row V in the README) removes this
+  `O(log log N)` ceiling: it gives a genuine logarithmic floor
+  `G(N) ≥ (2 − log₂3)·log₂N − O_M(1)`, ruling out any fixed, `O(log log N)`,
+  or `o(log N)` depth bound (see the README's
+  ["Where the proof currently stops"](../README.md#where-the-proof-currently-stops)).
+  It still falls short of the observed record depth (numerically consistent
+  with roughly logarithmic growth over the tested record range) and does
+  not by itself resolve the injective case — **no rescue of the *original*
+  `O(log log N)`-limited mechanism was found**, but the mechanism itself has
+  since been strengthened.
 
 ## 2. First-passage arithmetic
 
@@ -138,10 +151,17 @@ tried and explicitly ruled out:
   any finite-automaton argument outright.
 - **Canonical mechanical word.** The obvious "always confined" abstract
   word `d*_j = floor(alpha(j+1)) − floor(alpha·j)` is confined forever
-  abstractly (elementary, exact), but its finite-prefix least realizers
-  computed exactly to `N = 1000` grow without bound rather than
-  stabilizing — **COMPUTATION**, evidence (not proof) that this specific
-  canonical word is not realized by any natural seed.
+  abstractly (elementary, exact: digits in `{1,2}`, `-1 < R*_N ≤ 0` for all
+  `N`). **UPDATE (superseded):** this is enough to instantiate the
+  already-formalized `EOC.leastRealizer_unbounded_of_two_sided_drift`
+  (`BoundedDrift.lean`, `c = 0`, `G = 1`), which **proves** — not merely
+  observes — that its least realizers are unbounded with prefix length, i.e.
+  no fixed natural seed realizes all finite prefixes of this infinite word;
+  see the README's
+  ["critical Sturmian boundary"](../README.md#the-critical-sturmian-boundary)
+  section. The finite-prefix computation to `N = 1000` (least realizers
+  computed exactly, growing without bound rather than stabilizing) remains
+  useful corroboration but is no longer the primary evidence.
 - **Companion-seed amplification gap.** A single length-`N` cylinder has
   mass `≈ 2^{-alpha·N}`, while the aggregate persistence event the Tao-like
   summability theorem controls has mass `≈ 2^{-I₀·N}`, with
@@ -167,15 +187,25 @@ committed to the repository. They are reproducible from the definitions in
 
 - **Long-confined record seeds** (direct orbit simulation, all odd seeds up
   to `2^20`): confined-length records at seeds 3 (1 step), 7 (3), 27 (36),
-  703 (50), 10087 (65), 35655 (84), 381727 (108).
+  703 (50), 10087 (65), 35655 (84), 270271 (102), 362343 (103), 381727
+  (108), 626331 (110), 1027431 (114). **UPDATE:** the four seeds 270271,
+  362343, 626331, 1027431 were omitted from this list in the original
+  audit-phase enumeration; re-run and independently verified (exact
+  big-integer simulation, same record definition: largest `N` with
+  `2^{S_j} ≤ 3^j` for all `j ≤ N`) during the 2026-09-07 documentation
+  correction pass. No further records were found up to `2^20`.
 - **Canonical mechanical word realizer growth**: computed exactly (modular
   inverse, not brute force) for `N` up to 1000; bit-length grows at slope
   `≈ alpha ≈ 1.585`, consistent with no stabilization.
 - **Record-seed deficit (`Delta_n`) shadowing**: stays in the range
   `0`–`8` across the tested record seeds, with the maximum growing slowly
-  (roughly `Θ(log(confined length))`) across successive, longer records —
-  "shallow" in a qualitative sense, but still far too deep for the
-  `O(log log N)` requirement identified in §1.
+  (numerically consistent with roughly logarithmic growth in confined
+  length, not a proved asymptotic rate) across successive, longer records —
+  "shallow" in a qualitative sense, but still far too deep for the original
+  `O(log log N)` requirement identified in §1 (since superseded by the
+  logarithmic `(2 − log₂3)·log₂N` floor — see the §1 update above; the
+  observed, empirically-roughly-logarithmic record depth remains outside
+  even that strengthened floor).
 
 ## 6. Natural next questions (not promises)
 
