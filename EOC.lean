@@ -2,6 +2,9 @@ import EOC.Carry
 import EOC.Confinement
 import EOC.Realizer
 import EOC.ValuationWord
+import EOC.FiniteValuationWord
+import EOC.CompositionCounting
+import EOC.ChordRotation
 import EOC.Basic
 import EOC.PeriodicCore
 import EOC.Periodic
