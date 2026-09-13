@@ -2,20 +2,42 @@ name: Lean Action CI
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Least privilege by default; only the docs job needs Pages permissions.
 permissions:
   contents: read # Read access to repository contents
-  pages: write # Write access to GitHub Pages
-  id-token: write # Write access to ID tokens
 
 jobs:
-  build:
+  # Lean verification: the PR-gating check.
+  lean:
+    name: Lean
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v5
+      - uses: leanprover/lean-action@v1
+
+  # Documentation generation: runs only after Lean passes on a push to main.
+  docs:
+    name: docs
+    needs: lean
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: read # Read access to repository contents
+      pages: write # Write access to GitHub Pages
+      id-token: write # Write access to ID tokens
+
+    steps:
+      - uses: actions/checkout@v5
+      # docgen-action builds on a built Lean project, as in the previous single job.
       - uses: leanprover/lean-action@v1
       - uses: leanprover-community/docgen-action@v1
