@@ -1,0 +1,96 @@
+==============================================================================
+PHASE II.0: generic DP exactly reproduces Catalan numbers
+==============================================================================
+  n=   0: C_n(exact)=                        1  DP=                        1  match=True
+  n=   1: C_n(exact)=                        1  DP=                        1  match=True
+  n=   2: C_n(exact)=                        2  DP=                        2  match=True
+  n=   3: C_n(exact)=                        5  DP=                        5  match=True
+  n=   4: C_n(exact)=                       14  DP=                       14  match=True
+  n=   5: C_n(exact)=                       42  DP=                       42  match=True
+  n=   6: C_n(exact)=                      132  DP=                      132  match=True
+  n=   7: C_n(exact)=                      429  DP=                      429  match=True
+  n=   8: C_n(exact)=                     1430  DP=                     1430  match=True
+  n=   9: C_n(exact)=                     4862  DP=                     4862  match=True
+  n=  10: C_n(exact)=                    16796  DP=                    16796  match=True
+  n=  11: C_n(exact)=                    58786  DP=                    58786  match=True
+  n=  12: C_n(exact)=                   208012  DP=                   208012  match=True
+  n=  13: C_n(exact)=                   742900  DP=                   742900  match=True
+  n=  14: C_n(exact)=                  2674440  DP=                  2674440  match=True
+  n=  15: C_n(exact)=                  9694845  DP=                  9694845  match=True
+  n=  16: C_n(exact)=                 35357670  DP=                 35357670  match=True
+  n=  17: C_n(exact)=                129644790  DP=                129644790  match=True
+  n=  18: C_n(exact)=                477638700  DP=                477638700  match=True
+  n=  19: C_n(exact)=               1767263190  DP=               1767263190  match=True
+  n=  20: C_n(exact)=               6564120420  DP=               6564120420  match=True
+  n=  30: C_n(exact)=         3814986502092304  DP=         3814986502092304  match=True
+  n=  50: C_n(exact)=1978261657756160653623774456  DP=1978261657756160653623774456  match=True
+  n=  75: C_n(exact)=1221395654430378811828760722007962130791020  DP=1221395654430378811828760722007962130791020  match=True
+  n= 100: C_n(exact)=896519947090131496687170070074100632420837521538745909320  DP=896519947090131496687170070074100632420837521538745909320  match=True
+
+  ALL 25 tested n values match exactly: True
+
+==============================================================================
+PHASE II.1-3: unrestricted shell, constrained count, survival fraction
+==============================================================================
+  n=   5  C_n bits=     5.392  U_n bits=     7.977  survival=1.666667e-01  n*survival=0.8333  log2_corr(->const)=-1.1248
+  n=  10  C_n bits=    14.036  U_n bits=    17.495  survival=9.090909e-02  n*survival=0.9091  log2_corr(->const)=-0.9813
+  n=  20  C_n bits=    32.612  U_n bits=    37.004  survival=4.761905e-02  n*survival=0.9524  log2_corr(->const)=-0.9052
+  n=  40  C_n bits=    71.151  U_n bits=    76.509  survival=2.439024e-02  n*survival=0.9756  log2_corr(->const)=-0.8659
+  n=  80  C_n bits=   149.671  U_n bits=   156.011  survival=1.234568e-02  n*survival=0.9877  log2_corr(->const)=-0.8459
+  n= 160  C_n bits=   308.181  U_n bits=   315.512  survival=6.211180e-03  n*survival=0.9938  log2_corr(->const)=-0.8359
+  n= 320  C_n bits=   626.686  U_n bits=   635.013  survival=3.115265e-03  n*survival=0.9969  log2_corr(->const)=-0.8308
+
+  READING: survival_fraction * n should approach a CONSTANT (confirming the
+  classical survival cost ~ n^-1, i.e. C_n/C(2n,n) ~ const/n exactly --
+  standard fact, re-derived/verified here), and log2_correction should
+  approach log2(1/sqrt(pi)) = -0.9624... exactly.
+
+==============================================================================
+PHASE II.4: one-position marginals (interior)
+==============================================================================
+  n=40, j=10: support size=6, total mass=1.000000 (should be 1)
+    mode height = 4, P(mode) = 0.377204
+  n=40, j=20: support size=11, total mass=1.000000 (should be 1)
+    mode height = 4, P(mode) = 0.290374
+  n=40, j=30: support size=16, total mass=1.000000 (should be 1)
+    mode height = 6, P(mode) = 0.260340
+
+==============================================================================
+PHASE II.5: prefix-cylinder masses
+==============================================================================
+  n=60, prefix=(1, 1, 1, 1, 1): P = 38/221 = 1.719457e-01
+  n=60, prefix=(1, -1, 1, -1, 1, -1, 1, -1, 1, -1): P = 1983049/1785169932 = 1.110846e-03
+  n=60, prefix=(1, 1, -1, 1, -1): P = 305/4641 = 6.571860e-02
+
+==============================================================================
+PHASE II.6: collision probability of two independent uniform Dyck paths
+==============================================================================
+  n=30, k=  1 (theta=0.017): P_coll = 1.00000000e+00   -log2(P)/k = -0.0000
+  n=30, k=  2 (theta=0.033): P_coll = 6.12611319e-01   -log2(P)/k = 0.3535
+  n=30, k=  5 (theta=0.083): P_coll = 1.10351723e-01   -log2(P)/k = 0.6360
+  n=30, k= 10 (theta=0.167): P_coll = 4.48943106e-03   -log2(P)/k = 0.7799
+  n=30, k= 20 (theta=0.333): P_coll = 5.84532907e-06   -log2(P)/k = 0.8692
+  n=30, k= 30 (theta=0.500): P_coll = 7.31070874e-09   -log2(P)/k = 0.9009
+  n=30, k= 40 (theta=0.667): P_coll = 9.92748727e-12   -log2(P)/k = 0.9138
+  n=30, k= 55 (theta=0.917): P_coll = 1.01599405e-15   -log2(P)/k = 0.9056
+  n=30, k= 59 (theta=0.983): P_coll = 2.62124125e-16   -log2(P)/k = 0.8773
+  n=30, k= 60 (theta=1.000): P_coll = 2.62124125e-16   -log2(P)/k = 0.8627
+
+==============================================================================
+PHASE II.7-8: logarithmic correction behavior, k regimes summary
+==============================================================================
+  n=10: {'log2_all_walks_2^2n': 20, 'log2_bridge_C(2n,n)_exact': 17.495261691472315, 'bridge_correction_vs_2n': -2.504738308527685, 'log2_Catalan_C_n_exact': 14.035830072835017, 'total_correction_vs_2n': -5.964169927164983, 'positivity_extra_correction_vs_bridge': -3.459431618637298}
+  n=20: {'log2_all_walks_2^2n': 40, 'log2_bridge_C(2n,n)_exact': 37.00427198236608, 'bridge_correction_vs_2n': -2.9957280176339225, 'log2_Catalan_C_n_exact': 32.61195455958732, 'total_correction_vs_2n': -7.388045440412682, 'positivity_extra_correction_vs_bridge': -4.39231742277876}
+  n=40: {'log2_all_walks_2^2n': 80, 'log2_bridge_C(2n,n)_exact': 76.5087795832022, 'bridge_correction_vs_2n': -3.491220416797802, 'log2_Catalan_C_n_exact': 71.15122757858411, 'total_correction_vs_2n': -8.848772421415887, 'positivity_extra_correction_vs_bridge': -5.357552004618086}
+  n=80: {'log2_all_walks_2^2n': 160, 'log2_bridge_C(2n,n)_exact': 156.01103369149394, 'bridge_correction_vs_2n': -3.9889663085060647, 'log2_Catalan_C_n_exact': 149.67118368860932, 'total_correction_vs_2n': -10.328816311390682, 'positivity_extra_correction_vs_bridge': -6.339850002884617}
+
+  DECOMPOSITION READING: 'bridge_correction_vs_2n' should approach
+  -0.5*log2(n) - 0.5*log2(pi/2) (endpoint-only cost, the ordinary bridge
+  local-limit cost ~ n^-1/2); 'positivity_extra_correction_vs_bridge'
+  should approach an ADDITIONAL -log2(n) + const (the extra n^-1 cost of
+  the reflection/positivity constraint on TOP of the bridge cost); their
+  sum, 'total_correction_vs_2n', is the full Catalan n^-3/2 correction.
+  This is the exact n^{-1/2} (bridge) times n^{-1} (positivity) = n^{-3/2}
+  (total) decomposition Phase II asks to identify.
+
+Wrote /Users/eliasdejesus/Desktop/eoc-lean-verification/results/constrained_word_asymptotics/catalan_barrier_control.json

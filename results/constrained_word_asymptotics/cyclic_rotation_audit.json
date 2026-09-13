@@ -1,0 +1,66 @@
+{
+  "classical_cycle_lemma_sanity_ok": true,
+  "n_confined_rotations_constant_fraction": 0.8571428571428571,
+  "example_varying_group": [
+    [
+      3,
+      5,
+      1
+    ],
+    [
+      2,
+      3,
+      2,
+      3,
+      3,
+      2
+    ]
+  ],
+  "unique_argmax_fraction": 1.0,
+  "max_start_construction_success_fraction": 0.013377206470262623,
+  "max_start_counterexamples": [
+    {
+      "word": [
+        1,
+        1,
+        3
+      ],
+      "c": 0,
+      "start": 0,
+      "rotated": [
+        1,
+        1,
+        3
+      ]
+    },
+    {
+      "word": [
+        1,
+        2,
+        2
+      ],
+      "c": 0,
+      "start": 0,
+      "rotated": [
+        1,
+        2,
+        2
+      ]
+    },
+    {
+      "word": [
+        1,
+        3,
+        1
+      ],
+      "c": 0,
+      "start": 2,
+      "rotated": [
+        1,
+        1,
+        3
+      ]
+    }
+  ],
+  "irrationality_proof": "log_2(3) irrational: log_2(3)=p/q => 3^q=2^p, impossible by unique factorization (LHS odd unless q=0, RHS a power of 2). Hence R_j injective in j for any fixed word; max is always unique. PROVED."
+}

@@ -1,0 +1,52 @@
+==============================================================================
+Step 0: classical cycle lemma sanity check (a_i <= 1, unrelated to
+this problem's unbounded digits -- confirms the audit code itself)
+==============================================================================
+  classical cycle lemma (a_i<=1) verified on 200 random sequences: True
+
+==============================================================================
+Step 1-8: brute-force rotation audit, small (N,s), valuation digits >=1
+==============================================================================
+  audited 32518 words across N in [3,6], varying s, c in {0,1}
+
+  Groups (N,s,c) with n_confined_rotations CONSTANT across all words in the group: 72/84
+  Example of a VARYING group (kills a naive 'depends only on (N,s,c)' cycle-lemma analogue): (N,s,c)=(3, 5, 1), n_confined_rotations values seen = [2, 3]
+
+--- Explicit smallest counterexample search: does exactly 1 rotation
+    per orbit maximize the centered partial sum (cycle-lemma analogue
+    via 'start right after the running max')? ---
+  words with a UNIQUE argmax of R_j over j=0..N: 32518/32518
+
+--- Does starting right after the maximizer of R_j give a confined
+    rotation? (the natural cycle-lemma-style construction) ---
+  construction succeeds on 435/32518 unique-max words (fraction=0.0134)
+  Explicit counterexamples (word, c, rotation-start, resulting rotated word):
+    ((1, 1, 3), 0, 0, (1, 1, 3))
+    ((1, 2, 2), 0, 0, (1, 2, 2))
+    ((1, 3, 1), 0, 2, (1, 1, 3))
+
+  INTERPRETATION: the classical cycle lemma's clean 'exactly k rotations
+  work' count is SPECIFIC to steps bounded above by 1; this audit's
+  digits are unbounded below (>=1) with no upper bound, so an increment can
+  overshoot the barrier by an arbitrary amount in a single step, which is
+  exactly the mechanism that breaks the classical proof (the classical
+  argument relies on the running minimum changing by AT MOST 1 per step, so
+  that the first return to a new minimum is well-defined and unique; with
+  unbounded steps, a single digit can jump the barrier entirely, so 'the
+  rotation starting after the max' need not be confined -- see counterexamples
+  above, if any were found).
+
+==============================================================================
+Irrationality argument: exact partial-sum ties are impossible
+==============================================================================
+
+  CLAIM (PROVABLE): for j != j' with j,j' in [0,N], R_j = R_{j'} would
+  require (s_j - s_{j'}) = (j-j')*alpha, i.e. alpha = (s_j-s_{j'})/(j-j')
+  RATIONAL -- impossible since alpha=log_2(3) is irrational (log_2(3)=p/q
+  would give 3^q=2^p, impossible by unique factorization for any positive
+  integers p,q). Hence R_j is INJECTIVE as a function of j for any fixed
+  word (all values distinct), so the maximizer of R_j over a finite range
+  is ALWAYS unique -- confirmed empirically above (100% unique-argmax rate),
+  and here given an exact proof, not merely observed.
+
+Wrote /Users/eliasdejesus/Desktop/eoc-lean-verification/results/constrained_word_asymptotics/cyclic_rotation_audit.json

@@ -1,0 +1,110 @@
+==============================================================================
+PHASE I: Stirling normalization audit (floor vs ceil endpoint)
+==============================================================================
+
+--- convention: s_N = floor(alpha*N) ---
+  N=   50 s_N=   79  log2(U_N)=     70.8347  extensive-only resid= -4.0897  full-T2 resid= -0.0051
+  N=  100 s_N=  158  log2(U_N)=    145.2616  extensive-only resid= -4.5872  full-T2 resid= -0.0025
+  N=  200 s_N=  316  log2(U_N)=    294.6117  extensive-only resid= -5.0860  full-T2 resid= -0.0013
+  N=  400 s_N=  633  log2(U_N)=    595.2496  extensive-only resid= -5.5896  full-T2 resid= -0.0006
+  N=  800 s_N= 1267  log2(U_N)=   1197.0279  extensive-only resid= -6.0914  full-T2 resid= -0.0003
+  N= 1600 s_N= 2535  log2(U_N)=   2401.0858  extensive-only resid= -6.5923  full-T2 resid= -0.0002
+  N= 3200 s_N= 5071  log2(U_N)=   4809.7021  extensive-only resid= -7.0927  full-T2 resid= -0.0001
+
+--- convention: s_N = ceil(alpha*N) ---
+  N=   50 s_N=   80  log2(U_N)=     72.2316  extensive-only resid= -4.1231  full-T2 resid= -0.0049
+  N=  100 s_N=  159  log2(U_N)=    146.6828  extensive-only resid= -4.6041  full-T2 resid= -0.0025
+  N=  200 s_N=  317  log2(U_N)=    296.0451  extensive-only resid= -5.0944  full-T2 resid= -0.0013
+  N=  400 s_N=  634  log2(U_N)=    596.6853  extensive-only resid= -5.5938  full-T2 resid= -0.0006
+  N=  800 s_N= 1268  log2(U_N)=   1198.4648  extensive-only resid= -6.0935  full-T2 resid= -0.0003
+  N= 1600 s_N= 2536  log2(U_N)=   2402.5232  extensive-only resid= -6.5933  full-T2 resid= -0.0002
+  N= 3200 s_N= 5072  log2(U_N)=   4811.1397  extensive-only resid= -7.0932  full-T2 resid= -0.0001
+
+  READING: 'extensive-only resid' should GROW like -0.5*log2(N) (i.e. drift
+  down without bound) if the entropy coefficient alone (alpha*N*H2(rho)) is
+  used without the Stirling correction -- confirming the coefficient is
+  right but incomplete. 'full-T2 resid' (extensive term + derived -1/2 log
+  correction + derived endpoint constant) should stay BOUNDED (O(1)) as N
+  grows, confirming the full T2 asymptotic form. Floor vs ceil differ only
+  in a bounded (Sturmian) shift of the O(1) constant, not in the -1/2
+  exponent or the leading coefficient.
+
+==============================================================================
+PHASE III: exact confined-word count asymptotics A_N, U_N, q_N
+==============================================================================
+
+--- c = 0, convention = floor ---
+  N=   10 s_N=   15  A_N bits=     8.895  U_N bits=    10.967  D_N=  2.0724  q_N=2.377622e-01
+  N=   20 s_N=   31  A_N bits=    22.501  U_N bits=    25.703  D_N=  3.2019  q_N=1.086759e-01
+  N=   40 s_N=   63  A_N bits=    50.850  U_N bits=    55.728  D_N=  4.8780  q_N=3.400663e-02
+  N=   80 s_N=  126  A_N bits=   109.859  U_N bits=   114.881  D_N=  5.0223  q_N=3.077077e-02
+  N=  160 s_N=  253  A_N bits=   228.878  U_N bits=   235.120  D_N=  6.2418  q_N=1.321347e-02
+  N=  320 s_N=  507  A_N bits=   468.066  U_N bits=   476.104  D_N=  8.0374  q_N=3.806402e-03
+  N=  640 s_N= 1014  A_N bits=   948.266  U_N bits=   957.140  D_N=  8.8733  q_N=2.132475e-03
+  N=  800 s_N= 1267  A_N bits=  1188.815  U_N bits=  1197.028  D_N=  8.2127  q_N=3.370741e-03
+  effective exponents (q_N ~ N^-gamma) between successive N:
+    N:   10->   20  gamma_eff = +1.1295
+    N:   20->   40  gamma_eff = +1.6761
+    N:   40->   80  gamma_eff = +0.1443
+    N:   80->  160  gamma_eff = +1.2196
+    N:  160->  320  gamma_eff = +1.7955
+    N:  320->  640  gamma_eff = +0.8359
+    N:  640->  800  gamma_eff = -2.0518
+
+--- c = 1, convention = floor ---
+  N=   10 s_N=   15  A_N bits=    10.308  U_N bits=    10.967  D_N=  0.6589  q_N=6.333666e-01
+  N=   20 s_N=   31  A_N bits=    24.175  U_N bits=    25.703  D_N=  1.5283  q_N=3.466876e-01
+  N=   40 s_N=   63  A_N bits=    53.172  U_N bits=    55.728  D_N=  2.5558  q_N=1.700697e-01
+  N=   80 s_N=  126  A_N bits=   111.671  U_N bits=   114.881  D_N=  3.2093  q_N=1.081185e-01
+  N=  160 s_N=  253  A_N bits=   230.758  U_N bits=   235.120  D_N=  4.3620  q_N=4.862869e-02
+  N=  320 s_N=  507  A_N bits=   470.475  U_N bits=   476.104  D_N=  5.6286  q_N=2.021305e-02
+  N=  640 s_N= 1014  A_N bits=   950.682  U_N bits=   957.140  D_N=  6.4582  q_N=1.137370e-02
+  N=  800 s_N= 1267  A_N bits=  1190.673  U_N bits=  1197.028  D_N=  6.3553  q_N=1.221426e-02
+  effective exponents (q_N ~ N^-gamma) between successive N:
+    N:   10->   20  gamma_eff = +0.8694
+    N:   20->   40  gamma_eff = +1.0275
+    N:   40->   80  gamma_eff = +0.6535
+    N:   80->  160  gamma_eff = +1.1527
+    N:  160->  320  gamma_eff = +1.2665
+    N:  320->  640  gamma_eff = +0.8296
+    N:  640->  800  gamma_eff = -0.3195
+
+--- c = 3, convention = floor ---
+  N=   10 s_N=   15  A_N bits=    10.947  U_N bits=    10.967  D_N=  0.0203  q_N=9.860140e-01
+  N=   20 s_N=   31  A_N bits=    25.446  U_N bits=    25.703  D_N=  0.2576  q_N=8.365062e-01
+  N=   40 s_N=   63  A_N bits=    54.861  U_N bits=    55.728  D_N=  0.8666  q_N=5.484231e-01
+  N=   80 s_N=  126  A_N bits=   113.398  U_N bits=   114.881  D_N=  1.4826  q_N=3.578446e-01
+  N=  160 s_N=  253  A_N bits=   232.707  U_N bits=   235.120  D_N=  2.4123  q_N=1.878597e-01
+  N=  320 s_N=  507  A_N bits=   472.608  U_N bits=   476.104  D_N=  3.4954  q_N=8.867338e-02
+  N=  640 s_N= 1014  A_N bits=   952.753  U_N bits=   957.140  D_N=  4.3865  q_N=4.781230e-02
+  N=  800 s_N= 1267  A_N bits=  1192.544  U_N bits=  1197.028  D_N=  4.4843  q_N=4.467725e-02
+  effective exponents (q_N ~ N^-gamma) between successive N:
+    N:   10->   20  gamma_eff = +0.2372
+    N:   20->   40  gamma_eff = +0.6091
+    N:   40->   80  gamma_eff = +0.6160
+    N:   80->  160  gamma_eff = +0.9297
+    N:  160->  320  gamma_eff = +1.0831
+    N:  320->  640  gamma_eff = +0.8911
+    N:  640->  800  gamma_eff = +0.3039
+
+--- even/odd N subsequence stratification, c=0 ---
+  N%4==0 effective exponents (last 3): [(188, 192, 36.37044772494031), (192, 196, -24.38985241803596), (196, 200, -10.106487608549312)]
+  N%4==2 effective exponents (last 3): [(186, 190, 40.60240863992809), (190, 194, -12.511338340057593), (194, 198, -26.659051862286866)]
+==============================================================================
+DENSE SWEEP + OLS REGRESSION (proper exponent estimate, not adjacent-point ratios)
+==============================================================================
+  c=0: n_points=381  gamma_full=+0.9968 (se=0.0246)  gamma_1st_half=+1.0006  gamma_2nd_half=+0.9898
+  c=1: n_points=381  gamma_full=+0.9651 (se=0.0126)  gamma_1st_half=+0.9522  gamma_2nd_half=+0.9826
+  c=3: n_points=181  gamma_full=+0.7829 (se=0.0093)  gamma_1st_half=+0.7119  gamma_2nd_half=+0.8879
+
+  READING: if gamma_1st_half and gamma_2nd_half disagree by much more than
+  a few standard errors, a SINGLE stable power-law exponent over this range
+  is NOT supported by the data as tested -- this must be reported as an
+  honest negative/uncertain finding, not smoothed into a single headline
+  gamma. Compare directly against T2's rigorously-confirmed exponent 1/2:
+  q_N = A_N/U_N is NOT the same normalization as U_N itself, so there is no
+  a priori reason gamma should equal 1/2 -- any match or mismatch is a
+  finding to report, not to assume.
+
+
+Wrote /Users/eliasdejesus/Desktop/eoc-lean-verification/results/constrained_word_asymptotics/confined_composition_asymptotics.json
