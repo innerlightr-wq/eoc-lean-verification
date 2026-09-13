@@ -28,3 +28,4 @@ import EOC.TaoLike.AllShiftsAveragedPersistence
 import EOC.TaoLike.NormalizedHarmonicLaw
 import EOC.TaoLike.HarmonicExceptionalSetSummability
 import EOC.TaoLike.PersistenceRateCramer
+import EOC.TaoLike.CylinderDigitCounting
