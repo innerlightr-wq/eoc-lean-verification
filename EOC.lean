@@ -27,3 +27,4 @@ import EOC.TaoLike.LateShiftPersistence
 import EOC.TaoLike.AllShiftsAveragedPersistence
 import EOC.TaoLike.NormalizedHarmonicLaw
 import EOC.TaoLike.HarmonicExceptionalSetSummability
+import EOC.TaoLike.PersistenceRateCramer
