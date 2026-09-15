@@ -35,8 +35,52 @@ Every theorem labeled **FORMALLY VERIFIED** below compiles against a pinned
 Mathlib revision with `lake build`. Results labeled otherwise are marked
 accordingly — see the [status legend](#formalization-status-legend).
 
+## Current status — September 2026
+
+A dated, detailed account is in [`docs/RESEARCH_STATUS.md`](docs/RESEARCH_STATUS.md). Labels there: PROVED (LEAN),
+PROVED (MATH), EXTERNAL THEOREM, COMPUTATIONAL, HEURISTIC, CONJECTURAL, REFUTED, OPEN.
+
+**Formally verified** (Lean, `lake build` passes, 79 modules, no `sorry`, standard axioms only):
+
+- pair-valuation, transport and survivor-counting results (`PairValuation`, `SuffixTransport`, `TransportCollapse`,
+  `UpperEscape`, `SurvivorCounting`, …) and the baseline exceptional exponent H₂(1/α) ≈ 0.949956
+  (`ExceptionalPowerBound`);
+- the exact Tao triangle geometry for U(a,b) = (2^{−a} mod 3^b)/3^b: recurrences, propagation, merging
+  (`TriangleArray`);
+- the pair-block Fourier interface: `BlockCubeHyp` instantiated for L = 2 blocks (`BlockCubeInstance`), and
+  positive-density-good-angle ⇒ low-frequency decay ⇒ `WeightedFourier` (`GoodAngles`, `DecayInterface`,
+  conditional on explicit hypotheses);
+- the Rényi-2 / prefix-sharing barrier (`RenyiBarrier`, `RenyiInstance`);
+- the sharp distinct-triangle hop theorem: consecutive black cells in distinct triangles need (2^d + 3)η > 1, i.e.
+  d ≥ 6 at η = 1/54, with a kernel-checked witness (160,5) → (154,6) (`TriangleHop`);
+- the deterministic black-run decomposition n ≤ (2H₁+1)W + Occ(R₁) + H₁N₆ + 2H₁ (`TriangleHop`);
+- the formal reduction of the p-adic Subspace Theorem (hypothesis `SubspaceInstance`) to sublinear maximal triangle
+  size (`MaxTriangle`).
+
+**Externally grounded mathematical result.** The p-adic Subspace Theorem (Schlickewei; Ridout case) together with the
+repository's reduction implies **R_max(L) = o(L)** for Tao-black triangles along the critical corridor, for every fixed
+η. The result is ineffective: no rate and no computable threshold. **It does not imply positive-density good angles or
+A > 1/α.**
+
+**Computational evidence** (not proofs):
+
+- triangle sizes appear approximately exponentially distributed, P(size ≥ r) ≈ e^{−r};
+- R_max is numerically compatible with O(log L) (R_max ≈ 8.2 at J = 6400);
+- black occupation ≈ 2η;
+- distinct-triangle hopping is rare;
+- all of this resembles a random-unit environment.
+
+**Open:**
+
+- exponentially concentrated control of Tao-black triangle occupation under the critical confined law (the current
+  bottleneck);
+- any fixed low-frequency decay exponent γ > 0;
+- any proof of A > 1/α (the exceptional exponent stays at H₂(1/α) ≈ 0.949956);
+- EOC and the Collatz conjecture themselves (see below).
+
 ## Contents
 
+- [Current status — September 2026](#current-status--september-2026)
 - [The problem and the core map](#the-problem-and-the-core-map)
 - [The Global Occupation Conjecture](#the-global-occupation-conjecture-eoc)
 - [Manuscript highlights (Revision 5)](#manuscript-highlights-revision-5)
@@ -525,20 +569,40 @@ positive cycles; the Collatz conjecture itself.
 `TaoLike/AllShiftsAveragedPersistence.lean` · `TaoLike/NormalizedHarmonicLaw.lean` ·
 `TaoLike/HarmonicExceptionalSetSummability.lean`
 
+**Realizer / transport / survivor layer (2026-09-14)**
+`PairValuation.lean` · `SuffixTransport.lean` · `TransportCollapse.lean` · `PrescribedMatching.lean` ·
+`LogCorridor.lean` · `UpperEscape.lean` · `UpperCertificates.lean` · `SurvivorCounting.lean` ·
+`CapacityBounds.lean` · `SurvivorDensity.lean` · `EntropyBounds.lean` · `SurvivorClusters.lean` ·
+`ExceptionalPowerBound.lean` · `SplitPrefix.lean` · `LiftDigits.lean` · `ResidueDiscrepancy.lean`
+
+**Fourier / exponent chain (2026-09-14/15)**
+`ShellWeyl.lean` · `PrefixSuffixBilinear.lean` · `PrefixCollision.lean` · `PrefixStateFormula.lean` ·
+`ShellwiseChain.lean` · `SwapBound.lean` · `SwapCollatz.lean` · `TwistExpansion.lean` · `WeightedChain.lean` ·
+`FirstDivergence.lean` · `BlockCube.lean` · `ShellDecomposition.lean` · `ShellRefined.lean` · `ThreeBlock.lean` ·
+`WhiteRun.lean` · `IntervalSieve.lean` · `SpacingChain.lean` · `PsiSieve.lean` · `PsiShellBound.lean` ·
+`PowerOrbit.lean` · `RenyiBarrier.lean` · `DecayInterface.lean` · `RenyiInstance.lean` · `GoodAngles.lean`
+
+**Tao-triangle layer (2026-09-15)**
+`TriangleArray.lean` · `BlockCubeInstance.lean` · `MaxTriangle.lean` · `TriangleHop.lean`
+
 **Experimental / historical**
 `scratch/` (tracked in git, but deliberately outside the `EOC` Lean library
-target — see `lakefile.toml`) holds the exact/numerical Python experiments
-cited above and in `CHANG_CYLINDER_SCRATCHPAD.md`; none of its contents are
-part of any claim in this README. `CHANG_CYLINDER_SCRATCHPAD.md`'s own file
+target — see `lakefile.toml`) holds the exact/numerical experiments and the
+per-round research reports; see [`scratch/README.md`](scratch/README.md) for
+reproduction commands. None of its contents are proofs; the computational
+evidence quoted in [Current status](#current-status--september-2026) is
+labeled COMPUTATIONAL. `CHANG_CYLINDER_SCRATCHPAD.md`'s own file
 inventory (§10) and open-question list (§9, OQ4) additionally mention
 `CHANG_CYLINDER_SCRATCHPAD.md.bak`, `EOC/PeriodicRealizer.lean`, and three
 `scratch/transport_*`/`tcc2.py` scripts: none of these exist anywhere in this
 repository's working tree or git history (verified by `git log --all` /
 `git ls-tree`) — they are unavailable, not merely untracked, and any claim
 resting on them should be read as historical/unreproducible from this repo
-alone. A more detailed narrative of the recent (untracked, audit-only)
-research phase is in
-[`docs/RESEARCH_CHECKPOINT_2026-09.md`](docs/RESEARCH_CHECKPOINT_2026-09.md).
+alone. The earlier audit-only research phase is narrated in
+[`docs/RESEARCH_CHECKPOINT_2026-09.md`](docs/RESEARCH_CHECKPOINT_2026-09.md); the
+2026-09-15 checkpoint of the triangle / Subspace rounds is in
+[`docs/RESEARCH_STATUS.md`](docs/RESEARCH_STATUS.md), with literature in
+[`docs/LITERATURE_SUBSPACE_TRIANGLES.md`](docs/LITERATURE_SUBSPACE_TRIANGLES.md).
 
 ## Formalization status legend
 
@@ -657,9 +721,16 @@ lake env lean EOC/Confinement.lean
 
 ## License, citing, acknowledgments
 
-- The **paper** (linked above) is CC BY 4.0, per its Zenodo record.
+- The **paper** (linked above) is CC BY 4.0, per its Zenodo record. The
+  manuscript text is governed by its own publication / Zenodo terms and is
+  not distributed in this repository.
 - The **Lean source in this repository** is released under
-  [Apache License 2.0](LICENSE), matching Mathlib's own license.
+  [Apache License 2.0](LICENSE), matching Mathlib's own license. The same
+  license covers the other files in this repository (scripts, reports and
+  documentation) unless a file states otherwise. Third-party papers and
+  lecture notes are not redistributed here; see the literature files for
+  links.
+- Citation metadata for the repository is in [`CITATION.cff`](CITATION.cff).
 
 If you use this formalization, please cite the paper (DOI above). If you
 want to cite the formalization itself, cite this repository together with

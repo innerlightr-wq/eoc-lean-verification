@@ -1,0 +1,13 @@
+c=0 j0=30 sigma=47 |P|=8.4142e+10 (log2 36.29) Ns=50000000
+  t= 4 delta=-6.585e-08 (se 1.1e-07)  random 1.90e-10   need(2^-0.05t)=0.871
+  t= 6 delta=-1.878e-07 (se 2.3e-07)  random 7.61e-10   need(2^-0.05t)=0.812
+  t= 8 delta=-1.560e-07 (se 4.5e-07)  random 3.04e-09   need(2^-0.05t)=0.758
+  t=10 delta=-9.509e-08 (se 9.1e-07)  random 1.22e-08   need(2^-0.05t)=0.707
+  t=12 delta=+1.687e-06 (se 1.8e-06)  random 4.87e-08   need(2^-0.05t)=0.660
+  t=14 delta=-1.686e-06 (se 3.6e-06)  random 1.95e-07   need(2^-0.05t)=0.616
+  t=16 delta=+2.987e-06 (se 7.2e-06)  random 7.79e-07   need(2^-0.05t)=0.574
+  t=18 delta=+8.186e-06 (se 1.4e-05)  random 3.12e-06   need(2^-0.05t)=0.536
+  t=20 delta=+3.399e-06 (se 2.9e-05)  random 1.25e-05   need(2^-0.05t)=0.500
+  t=22 delta=+5.753e-05 (se 5.8e-05)  random 4.98e-05   need(2^-0.05t)=0.467
+  t=24 delta=+1.706e-04 (se 1.2e-04)  random 1.99e-04   need(2^-0.05t)=0.435
+  t=26 delta=+7.095e-04 (se 2.3e-04)  random 7.98e-04   need(2^-0.05t)=0.406

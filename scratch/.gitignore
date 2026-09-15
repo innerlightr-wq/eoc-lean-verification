@@ -1,0 +1,83 @@
+# Untracked-by-design scratch artifacts (see scratch/README.md). Paths are relative to scratch/.
+
+# Compiled C executables: rebuild from the .c source next to each one (see scratch/README.md).
+/collision_2026-09-15/block_cert
+/collision_2026-09-15/block_norm
+/collision_2026-09-15/check_formula
+/collision_2026-09-15/mc_collide
+/collision_2026-09-15/phi_dp
+/collision_2026-09-15/split_dp
+/decay_2026-09-15/c3gamma
+/horizon_2026-09-14/shell_q
+/horizon_2026-09-14/survivor_hist
+/horizon_2026-09-14/word_fourier
+/interval_2026-09-15/c3chain
+/interval_2026-09-15/c3chain2
+/interval_2026-09-15/c3chain3
+/interval_2026-09-15/c3chain4
+/interval_2026-09-15/c3chain5
+/interval_2026-09-15/check_c3
+/interval_2026-09-15/pcheck
+/l3_2026-09-15/phi3
+/lift_mixing_2026-09-14/step_stats
+/lift_mixing_2026-09-14/word_state
+/orbit_2026-09-15/mwindow
+/orbit_2026-09-15/orbit
+/phase_dependence_2026-09-14/clusters
+/phase_dependence_2026-09-14/pair_v2
+/phase_dependence_2026-09-14/survivor_dump
+/phase_dependence_2026-09-14/word_enum
+/scales_reconciliation_2026-09-14/renewal_dp
+/spacing_2026-09-15/c3theta
+/spacing_2026-09-15/energy
+/spacing_2026-09-15/ldloss
+/spacing_2026-09-15/spacing
+/swap_2026-09-15/bad_geom
+/swap_2026-09-15/deep_dp
+/swap_2026-09-15/deep_dp_ld
+/tao_2026-09-15/lambda1
+/tao_2026-09-15/lambda1q
+/weighted_2026-09-15/classes
+/weighted_2026-09-15/coarse
+/weighted_2026-09-15/pairspacing
+/weighted_2026-09-15/pairspacing2
+/weighted_2026-09-15/phi_weighted
+/weyl_2026-09-14/bilinear_check
+/weyl_2026-09-14/prefix_states
+/weyl_2026-09-14/pstate_analyze
+/weyl_2026-09-14/shell_profile
+/weyl_2026-09-14/tilt_byshell
+/weyl_2026-09-14/tilt_fourier
+/weyl_2026-09-14/weyl_analyze
+/weyl_2026-09-14/weyl_peaks
+/weyl_2026-09-14/weyl_scaling
+/weyl_2026-09-14/weyl_words
+/weyl_2026-09-14/weyl_zeros
+
+# Raw binary dumps (up to 324 MB each; regenerable with the dump programs in the same folder).
+*.bin
+
+# Large raw text outputs (> 300 KB; regenerable, not needed to check any reported number).
+/horizon_2026-09-14/pn_table.json
+/interval_2026-09-15/V800.txt
+/phase_dependence_2026-09-14/edges_U0_2p32_N100.txt
+/phase_dependence_2026-09-14/edges_U0_2p32_N120.txt
+/phase_dependence_2026-09-14/edges_U0_2p32_N60.txt
+/phase_dependence_2026-09-14/edges_U0_2p32_N80.txt
+/phase_dependence_2026-09-14/pn_table.json
+
+# Lean build logs and empty/timing-only run logs.
+/interval_2026-09-15/build.log
+/spacing_2026-09-15/build.log
+/spacing_2026-09-15/build_tail.txt
+/horizon_2026-09-14/runs.log
+/lift_mixing_2026-09-14/steps.log
+
+# Superseded outputs (kept locally for provenance only): float sampler (fails at J = 1600) and partial buggy rmax.py rerun.
+/hop_2026-09-15/HOPS_floatsampler.txt
+/triangle_2026-09-15/RMAX_rerun_2026-09-15.txt
+
+# Third-party copyrighted sources downloaded for reading (fetch from the URLs in docs/LITERATURE_SUBSPACE_TRIANGLES.md).
+/tao_2026-09-15/src/
+/tao_2026-09-15/tao.tgz
+/ridout_2026-09-15/src/

@@ -1,0 +1,3 @@
+J      cells  black   Rmax(true)  Rmax-ln(cells)   | Rmax(random) Rmax-ln(cells)   Rmax/lnJ(true)
+   200    800 0.0475      4.29     -2.39        |     6.39     -0.30     0.810   (0s)
+   400   1600 0.0275      3.74     -3.64        |     4.60     -2.78     0.624   (0s)

@@ -1,0 +1,31 @@
+anchors: 3000 (sizes 2^8..2^128); not reaching 1 within 20000 steps: 0
+[identity] R_n > U  <=>  2^U m_n prod(3m_k) < mu prod(3m_k+1): 36234/36234
+
+[XIII] first upper exit U_U vs 2^U-descent time sigma_U, hitting time h of 1
+   U=0: exits 3000/3000; U_U <= sigma_U violated: 0; equality 3000/3000 (100.0%); mean gap sigma-U_U 0.00, max gap 0; exits after hitting 1: 0; max U_U/log2(mu) = 3.44
+   U=1: exits 3000/3000; U_U <= sigma_U violated: 0; equality 3000/3000 (100.0%); mean gap sigma-U_U 0.00, max gap 0; exits after hitting 1: 0; max U_U/log2(mu) = 4.47
+   U=2: exits 3000/3000; U_U <= sigma_U violated: 0; equality 2996/3000 (99.9%); mean gap sigma-U_U 0.00, max gap 1; exits after hitting 1: 0; max U_U/log2(mu) = 5.21
+   U=4: exits 3000/3000; U_U <= sigma_U violated: 0; equality 3000/3000 (100.0%); mean gap sigma-U_U 0.00, max gap 0; exits after hitting 1: 0; max U_U/log2(mu) = 5.71
+   U=8: exits 3000/3000; U_U <= sigma_U violated: 0; equality 2408/2408 (100.0%); mean gap sigma-U_U 0.00, max gap 0; exits after hitting 1: 458; max U_U/log2(mu) = 6.13
+
+[XIII-b] per-size-band statistics for U = 2 (matching ceiling U + L*alpha at the first exit)
+     8-bit: mean exit  12.0 (max 41), mean log2(min m/mu) before exit  -3.12, mean h   19.1, mean max R    7.8, mean min R  -2.03, mean matching ceiling  21.0
+    16-bit: mean exit   7.3 (max 49), mean log2(min m/mu) before exit  -3.45, mean h   38.4, mean max R   15.8, mean min R  -1.14, mean matching ceiling  13.6
+    32-bit: mean exit   8.4 (max 59), mean log2(min m/mu) before exit  -3.40, mean h   79.1, mean max R   31.8, mean min R  -1.16, mean matching ceiling  15.3
+    64-bit: mean exit   8.7 (max 69), mean log2(min m/mu) before exit  -3.46, mean h  156.2, mean max R   63.8, mean min R  -1.19, mean matching ceiling  15.8
+   128-bit: mean exit   8.6 (max 65), mean log2(min m/mu) before exit  -3.41, mean h  306.7, mean max R  127.8, mean min R  -1.25, mean matching ceiling  15.6
+
+[XIII-c] fixed corridor [-4, U] and log corridor (B=0.8, C=2, U): which wall is hit first
+   U=1: fixed [-4,U] first exit upper/lower = 2793/207;  log corridor upper/lower = 2961/39
+   U=2: fixed [-4,U] first exit upper/lower = 2781/219;  log corridor upper/lower = 2959/41
+   U=4: fixed [-4,U] first exit upper/lower = 2754/246;  log corridor upper/lower = 2956/44
+   U=8: fixed [-4,U] first exit upper/lower = 2753/247;  log corridor upper/lower = 2956/44
+
+[XIV] predictors of the upper-exit time (U = 2), Spearman rank correlation with U_2
+   log2 mu                       : -0.029
+   sigma_2 (2^2-descent time)    : +1.000
+   index of first digit >= 3     : +0.732
+   index of first digit >= 4     : +0.771
+   sum of first 5 digits         : -0.823
+   leading run of 1-digits       : +0.401
+   headroom 2 - R_1              : +0.476

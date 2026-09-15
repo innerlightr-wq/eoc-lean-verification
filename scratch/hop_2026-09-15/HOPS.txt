@@ -1,0 +1,123 @@
+J=100 xi=true paths=400 t=16 m=175: cells 40000, black fraction 0.0377  (states W/E/S/H = 38491/1051/458/0)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/400
+  mean white density 0.9623 (min 0.9000); mean N6/n 0.00545 (p6 = 0.00685); mean H = 3.52
+  steps with d>=6: from black 11, next black 0 (P = 0.0000); from white 205, next black 8 (P = 0.0390);  2 eta = 0.0370
+  distinct-triangle hops 0 out of 1509 steps from black: rate 0.00e+00  (random model p6*2eta = 2.54e-04); hop digits {}
+  Q(a,b) over 1509 black cells: mean 1.25e-04, max 5.91e-03, max Q/p6 = 0.864;  Qb (any black target): mean 1.25e-04, max 5.91e-03
+  runs 1051: mean length 1.44, P(len>=2,4,8,16) = [0.3292, 0.0133, 0.0, 0.0], max 4; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.873 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.81, P(>=3,6) = 0.270, 0.0000
+  episodes 1051: mean length 1.44, max 4, triangles/episode mean 1.0000, max 1
+  occupation of black cells by apex size >=3: 0.370, >=6: 0.0000 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9724  E:0.0276  S:0.0000  H:0.0000   (n=38091)
+    E: W:0.6708  E:0.0000  S:0.3292  H:0.0000   (n=1051)
+    S: W:0.7555  E:0.0000  S:0.2445  H:0.0000   (n=458)
+
+J=200 xi=true paths=300 t=33 m=350: cells 60000, black fraction 0.0322  (states W/E/S/H = 58070/1362/568/0)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/300
+  mean white density 0.9678 (min 0.9200); mean N6/n 0.00616 (p6 = 0.00685); mean H = 3.62
+  steps with d>=6: from black 9, next black 0 (P = 0.0000); from white 359, next black 5 (P = 0.0139);  2 eta = 0.0370
+  distinct-triangle hops 0 out of 1930 steps from black: rate 0.00e+00  (random model p6*2eta = 2.54e-04); hop digits {}
+  Q(a,b) over 1930 black cells: mean 2.10e-04, max 4.32e-03, max Q/p6 = 0.631;  Qb (any black target): mean 2.32e-04, max 4.32e-03
+  runs 1362: mean length 1.42, P(len>=2,4,8,16) = [0.2819, 0.0169, 0.0, 0.0], max 4; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.839 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.75, P(>=3,6) = 0.170, 0.0000
+  episodes 1362: mean length 1.42, max 4, triangles/episode mean 1.0000, max 1
+  occupation of black cells by apex size >=3: 0.262, >=6: 0.0000 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9764  E:0.0236  S:0.0000  H:0.0000   (n=57770)
+    E: W:0.7181  E:0.0000  S:0.2819  H:0.0000   (n=1362)
+    S: W:0.6761  E:0.0000  S:0.3239  H:0.0000   (n=568)
+
+J=400 xi=true paths=200 t=66 m=700: cells 80000, black fraction 0.0335  (states W/E/S/H = 77318/1979/701/2)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/200
+  mean white density 0.9665 (min 0.9275); mean N6/n 0.00658 (p6 = 0.00685); mean H = 3.71
+  steps with d>=6: from black 20, next black 2 (P = 0.1000); from white 505, next black 23 (P = 0.0455);  2 eta = 0.0370
+  distinct-triangle hops 2 out of 2666 steps from black: rate 7.50e-04  (random model p6*2eta = 2.54e-04); hop digits {7: 2}
+  Q(a,b) over 2666 black cells: mean 1.46e-04, max 6.83e-03, max Q/p6 = 0.997;  Qb (any black target): mean 1.74e-04, max 6.83e-03
+  runs 1981: mean length 1.35, P(len>=2,4,8,16) = [0.2731, 0.0111, 0.0, 0.0], max 5; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.837 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.66, P(>=3,6) = 0.136, 0.0000
+  episodes 1979: mean length 1.36, max 5, triangles/episode mean 1.0010, max 2
+  occupation of black cells by apex size >=3: 0.212, >=6: 0.0000 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9743  E:0.0257  S:0.0000  H:0.0000   (n=77134)
+    E: W:0.7249  E:0.0000  S:0.2751  H:0.0000   (n=1963)
+    S: W:0.7689  E:0.0000  S:0.2282  H:0.0029   (n=701)
+    H: W:0.5000  E:0.0000  S:0.5000  H:0.0000   (n=2)
+
+J=800 xi=true paths=100 t=133 m=1401: cells 80000, black fraction 0.0320  (states W/E/S/H = 77441/1820/739/0)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/100
+  mean white density 0.9680 (min 0.9363); mean N6/n 0.00662 (p6 = 0.00685); mean H = 4.74
+  steps with d>=6: from black 10, next black 0 (P = 0.0000); from white 519, next black 18 (P = 0.0347);  2 eta = 0.0370
+  distinct-triangle hops 0 out of 2559 steps from black: rate 0.00e+00  (random model p6*2eta = 2.54e-04); hop digits {}
+  Q(a,b) over 2559 black cells: mean 2.20e-04, max 6.80e-03, max Q/p6 = 0.993;  Qb (any black target): mean 2.80e-04, max 6.80e-03
+  runs 1820: mean length 1.41, P(len>=2,4,8,16) = [0.2615, 0.0423, 0.0, 0.0], max 5; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.792 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.67, P(>=3,6) = 0.163, 0.0000
+  episodes 1820: mean length 1.41, max 5, triangles/episode mean 1.0000, max 1
+  occupation of black cells by apex size >=3: 0.293, >=6: 0.0000 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9765  E:0.0235  S:0.0000  H:0.0000   (n=77341)
+    E: W:0.7385  E:0.0000  S:0.2615  H:0.0000   (n=1820)
+    S: W:0.6441  E:0.0000  S:0.3559  H:0.0000   (n=739)
+
+J=1600 xi=true paths=40 t=266 m=2802: cells 64000, black fraction 0.0374  (states W/E/S/H = 61605/1744/651/0)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/40
+  mean white density 0.9626 (min 0.9487); mean N6/n 0.00679 (p6 = 0.00685); mean H = 5.80
+  steps with d>=6: from black 21, next black 0 (P = 0.0000); from white 413, next black 11 (P = 0.0266);  2 eta = 0.0370
+  distinct-triangle hops 0 out of 2390 steps from black: rate 0.00e+00  (random model p6*2eta = 2.54e-04); hop digits {}
+  Q(a,b) over 2390 black cells: mean 2.77e-04, max 6.80e-03, max Q/p6 = 0.993;  Qb (any black target): mean 3.31e-04, max 6.80e-03
+  runs 1744: mean length 1.37, P(len>=2,4,8,16) = [0.2649, 0.0206, 0.0, 0.0], max 7; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.923 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.77, P(>=3,6) = 0.172, 0.0120
+  episodes 1744: mean length 1.37, max 7, triangles/episode mean 1.0000, max 1
+  occupation of black cells by apex size >=3: 0.260, >=6: 0.0401 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9717  E:0.0283  S:0.0000  H:0.0000   (n=61570)
+    E: W:0.7343  E:0.0000  S:0.2657  H:0.0000   (n=1739)
+    S: W:0.7097  E:0.0000  S:0.2903  H:0.0000   (n=651)
+
+J=200 xi=random paths=300 t=33 m=350: cells 60000, black fraction 0.0250  (states W/E/S/H = 58502/1198/299/1)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/300
+  mean white density 0.9750 (min 0.9400); mean N6/n 0.00638 (p6 = 0.00685); mean H = 2.67
+  steps with d>=6: from black 8, next black 1 (P = 0.1250); from white 373, next black 11 (P = 0.0295);  2 eta = 0.0370
+  distinct-triangle hops 1 out of 1498 steps from black: rate 6.68e-04  (random model p6*2eta = 2.54e-04); hop digits {6: 1}
+  Q(a,b) over 1498 black cells: mean 2.61e-04, max 6.50e-03, max Q/p6 = 0.950;  Qb (any black target): mean 2.61e-04, max 6.50e-03
+  runs 1199: mean length 1.25, P(len>=2,4,8,16) = [0.201, 0.0092, 0.0, 0.0], max 4; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.732 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.39, P(>=3,6) = 0.067, 0.0000
+  episodes 1198: mean length 1.25, max 4, triangles/episode mean 1.0008, max 2
+  occupation of black cells by apex size >=3: 0.111, >=6: 0.0000 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9794  E:0.0206  S:0.0000  H:0.0000   (n=58202)
+    E: W:0.7988  E:0.0000  S:0.2003  H:0.0008   (n=1198)
+    S: W:0.8060  E:0.0000  S:0.1940  H:0.0000   (n=299)
+    H: W:0.0000  E:0.0000  S:1.0000  H:0.0000   (n=1)
+
+J=800 xi=random paths=100 t=133 m=1401: cells 80000, black fraction 0.0332  (states W/E/S/H = 77347/2035/618/0)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/100
+  mean white density 0.9668 (min 0.9463); mean N6/n 0.00672 (p6 = 0.00685); mean H = 4.23
+  steps with d>=6: from black 16, next black 0 (P = 0.0000); from white 521, next black 23 (P = 0.0441);  2 eta = 0.0370
+  distinct-triangle hops 0 out of 2653 steps from black: rate 0.00e+00  (random model p6*2eta = 2.54e-04); hop digits {}
+  Q(a,b) over 2653 black cells: mean 2.32e-04, max 6.80e-03, max Q/p6 = 0.993;  Qb (any black target): mean 2.63e-04, max 6.80e-03
+  runs 2035: mean length 1.30, P(len>=2,4,8,16) = [0.2428, 0.0079, 0.0, 0.0], max 5; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.849 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.59, P(>=3,6) = 0.119, 0.0000
+  episodes 2035: mean length 1.30, max 5, triangles/episode mean 1.0000, max 1
+  occupation of black cells by apex size >=3: 0.181, >=6: 0.0000 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9737  E:0.0263  S:0.0000  H:0.0000   (n=77247)
+    E: W:0.7572  E:0.0000  S:0.2428  H:0.0000   (n=2035)
+    S: W:0.7994  E:0.0000  S:0.2006  H:0.0000   (n=618)
+
+J=1600 xi=random paths=40 t=266 m=2802: cells 64000, black fraction 0.0340  (states W/E/S/H = 61826/1583/591/0)
+  checks: kernel mismatches 0 (xi=1 only), hops with d<6: 0, deterministic-inequality violations 0/40
+  mean white density 0.9660 (min 0.9500); mean N6/n 0.00688 (p6 = 0.00685); mean H = 6.40
+  steps with d>=6: from black 18, next black 0 (P = 0.0000); from white 422, next black 15 (P = 0.0355);  2 eta = 0.0370
+  distinct-triangle hops 0 out of 2174 steps from black: rate 0.00e+00  (random model p6*2eta = 2.54e-04); hop digits {}
+  Q(a,b) over 2174 black cells: mean 2.73e-04, max 6.83e-03, max Q/p6 = 0.997;  Qb (any black target): mean 3.23e-04, max 6.83e-03
+  runs 1583: mean length 1.37, P(len>=2,4,8,16) = [0.2558, 0.0208, 0.0013, 0.0], max 8; run length <= floor(apex/ln3)+1 violated: 0
+  entry depth (size at run start): mean 0.853 (random model Exp(1) mean 1); apex size of visited triangles: mean 1.71, P(>=3,6) = 0.140, 0.0126
+  episodes 1583: mean length 1.37, max 8, triangles/episode mean 1.0000, max 1
+  occupation of black cells by apex size >=3: 0.224, >=6: 0.0419 (fractions of black cells)
+  coarse chain P(next | current):
+    W: W:0.9744  E:0.0256  S:0.0000  H:0.0000   (n=61786)
+    E: W:0.7442  E:0.0000  S:0.2558  H:0.0000   (n=1583)
+    S: W:0.6853  E:0.0000  S:0.3147  H:0.0000   (n=591)
+
+exit=0

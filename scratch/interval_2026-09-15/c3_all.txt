@@ -1,0 +1,2 @@
+K=800 j0=504 refined=1 gd=0.0000: C=2.0400e+10 (log2 34.25, /K 0.04281) | trivial-only log2 C=85.34 (/K 0.10668)
+K=1600 j0=1008 refined=1 gd=0.0000: C=3.1837e+15 (log2 51.50, /K 0.03219) | trivial-only log2 C=173.10 (/K 0.10819)

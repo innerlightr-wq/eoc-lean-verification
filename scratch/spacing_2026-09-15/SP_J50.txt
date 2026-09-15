@@ -1,0 +1,19 @@
+j0=50 sigma=79 t=9 m=89 log2|P|=65.50  H2=0.949956  gamma_1=0.7143 (|Phi(1)/P|^2=3.138e-22)
+ u= 1 E/P^2=5.0000e-01 theta_eff=1.00000 margin=+0.05004 excess=3.138e-22 excess*|P|/2^u=0.008 mean_{0<l<2^u}|Phi/P|^2=3.138e-22  a_u*|P|=0.041
+ u= 2 E/P^2=2.5000e-01 theta_eff=1.00000 margin=+0.05004 excess=1.927e-21 excess*|P|/2^u=0.025 mean_{0<l<2^u}|Phi/P|^2=6.245e-22  a_u*|P|=0.021
+ u= 3 E/P^2=1.2500e-01 theta_eff=1.00000 margin=+0.05004 excess=4.109e-21 excess*|P|/2^u=0.027 mean_{0<l<2^u}|Phi/P|^2=4.991e-22  a_u*|P|=0.008
+ u= 4 E/P^2=6.2500e-02 theta_eff=1.00000 margin=+0.05004 excess=6.146e-21 excess*|P|/2^u=0.020 mean_{0<l<2^u}|Phi/P|^2=3.101e-22  a_u*|P|=0.019
+ u= 5 E/P^2=3.1250e-02 theta_eff=1.00000 margin=+0.05004 excess=9.595e-21 excess*|P|/2^u=0.016 mean_{0<l<2^u}|Phi/P|^2=3.387e-22  a_u*|P|=0.056
+ u= 6 E/P^2=1.5625e-02 theta_eff=1.00000 margin=+0.05004 excess=3.013e-20 excess*|P|/2^u=0.024 mean_{0<l<2^u}|Phi/P|^2=7.118e-22  a_u*|P|=0.086
+ u= 7 E/P^2=7.8125e-03 theta_eff=1.00000 margin=+0.05004 excess=1.215e-19 excess*|P|/2^u=0.049 mean_{0<l<2^u}|Phi/P|^2=1.185e-21  a_u*|P|=0.228
+ u= 8 E/P^2=3.9062e-03 theta_eff=1.00000 margin=+0.05004 excess=5.680e-19 excess*|P|/2^u=0.115 mean_{0<l<2^u}|Phi/P|^2=2.790e-21  a_u*|P|=0.183
+ u= 9 E/P^2=1.9531e-03 theta_eff=1.00000 margin=+0.05004 excess=1.391e-18 excess*|P|/2^u=0.141 mean_{0<l<2^u}|Phi/P|^2=3.157e-21  a_u*|P|=0.314
+ u=10 E/P^2=9.7656e-04 theta_eff=1.00000 margin=+0.05004 excess=3.863e-18 excess*|P|/2^u=0.196 mean_{0<l<2^u}|Phi/P|^2=4.594e-21  a_u*|P|=0.359
+ u=11 E/P^2=4.8828e-04 theta_eff=1.00000 margin=+0.05004 excess=1.030e-17 excess*|P|/2^u=0.262 mean_{0<l<2^u}|Phi/P|^2=5.748e-21  a_u*|P|=0.390
+ u=12 E/P^2=2.4414e-04 theta_eff=1.00000 margin=+0.05004 excess=2.535e-17 excess*|P|/2^u=0.322 mean_{0<l<2^u}|Phi/P|^2=6.624e-21  a_u*|P|=0.448
+ u=13 E/P^2=1.2207e-04 theta_eff=1.00000 margin=+0.05004 excess=5.613e-17 excess*|P|/2^u=0.356 mean_{0<l<2^u}|Phi/P|^2=7.615e-21  a_u*|P|=0.432
+ u=14 E/P^2=6.1035e-05 theta_eff=1.00000 margin=+0.05004 excess=1.282e-16 excess*|P|/2^u=0.407 mean_{0<l<2^u}|Phi/P|^2=7.955e-21  a_u*|P|=0.463
+ u=15 E/P^2=3.0518e-05 theta_eff=1.00000 margin=+0.05004 excess=2.623e-16 excess*|P|/2^u=0.416 mean_{0<l<2^u}|Phi/P|^2=8.424e-21  a_u*|P|=0.354
+ u=16 E/P^2=1.5259e-05 theta_eff=1.00000 margin=+0.05004 excess=5.213e-16 excess*|P|/2^u=0.414 mean_{0<l<2^u}|Phi/P|^2=7.613e-21  a_u*|P|=0.453
+ u=17 E/P^2=7.6294e-06 theta_eff=1.00000 margin=+0.05004 excess=1.044e-15 excess*|P|/2^u=0.414 mean_{0<l<2^u}|Phi/P|^2=8.160e-21  a_u*|P|=0.567
+ u=18 E/P^2=3.8147e-06 theta_eff=1.00000 margin=+0.05004 excess=2.313e-15 excess*|P|/2^u=0.459 mean_{0<l<2^u}|Phi/P|^2=9.527e-21

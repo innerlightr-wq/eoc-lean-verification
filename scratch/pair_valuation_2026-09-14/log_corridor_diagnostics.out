@@ -1,0 +1,22 @@
+[A] genuine anchors: first exit from -B log2(n+1) - C <= R_n <= U
+   B=0.000 C=2 U=2: n=1500 exits: lower 279, upper 1221; mean L 5.6, max L 31; mean M^max 9.7; M^max > U+L*alpha: 0; window bound violated: 0/1500, max log(window)/log(bound) = 0.274
+   B=0.415 C=2 U=2: n=1500 exits: lower 91, upper 1409; mean L 7.2, max L 116; mean M^max 12.5; M^max > U+L*alpha: 0; window bound violated: 0/1500, max log(window)/log(bound) = 0.158
+   B=0.800 C=2 U=2: n=1500 exits: lower 30, upper 1470; mean L 7.8, max L 116; mean M^max 13.6; M^max > U+L*alpha: 0; window bound violated: 0/1500, max log(window)/log(bound) = 0.031
+   B=1.000 C=2 U=2: n=1500 exits: lower 10, upper 1490; mean L 8.0, max L 116; mean M^max 14.1; M^max > U+L*alpha: 0  (B >= 8/9: no unconditional bound; Curry covers B < 1.0359 qualitatively)
+   B=1.200 C=2 U=2: n=1500 exits: lower 4, upper 1496; mean L 8.1, max L 116; mean M^max 14.2; M^max > U+L*alpha: 0  (B >= 8/9: no unconditional bound; Curry covers B < 1.0359 qualitatively)
+   B=0.800 C=6 U=1: n=1500 exits: lower 0, upper 1500; mean L 5.8, max L 109; mean M^max 9.6; M^max > U+L*alpha: 0; window bound violated: 0/1500, max log(window)/log(bound) = 0.027
+
+[B] genuine path-record trajectories: depth of lower excursions relative to log walls
+   mu=27: steps to 1: 41, min R = -6.72 at n=32, B needed to contain it (C=2): 0.935 (at n=32)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+   mu=703: steps to 1: 62, min R = -6.89 at n=34, B needed to contain it (C=2): 0.953 (at n=34)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+   mu=77671: steps to 1: 83, min R = -12.72 at n=32, B needed to contain it (C=2): 2.125 (at n=32)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+   mu=1212415: steps to 1: 119, min R = -15.23 at n=38, B needed to contain it (C=2): 2.507 (at n=36)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+   mu=3873535: steps to 1: 116, min R = -16.17 at n=55, B needed to contain it (C=2): 2.441 (at n=55)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+   mu=80049391: steps to 1: 211, min R = -23.12 at n=72, B needed to contain it (C=2): 3.412 (at n=72)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+   mu=1410123943: steps to 1: 286, min R = -30.65 at n=143, B needed to contain it (C=2): 3.996 (at n=143)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+   mu=1980976057694848447: steps to 1: 547, min R = -63.22 at n=291, B needed to contain it (C=2): 7.476 (at n=291)  [vs 8/9 = 0.889, 1/beta* = 1.036]
+
+[C] synthetic log-floor-hugging prescribed futures vs genuine anchors
+   B'=0.50: e digit mean 1.570 (log-hugging drift), split depth vs 3000 anchors: mean 1.96, max 12; violations of M <= U + L*alpha: 0
+   B'=0.80: e digit mean 1.565 (log-hugging drift), split depth vs 3000 anchors: mean 2.03, max 13; violations of M <= U + L*alpha: 0
+   B'=1.00: e digit mean 1.560 (log-hugging drift), split depth vs 3000 anchors: mean 2.00, max 13; violations of M <= U + L*alpha: 0

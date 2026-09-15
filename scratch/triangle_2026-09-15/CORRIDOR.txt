@@ -1,0 +1,33 @@
+J=100 t=16 m=175 eta=0.0185: black fraction | top-3 sizes | #triangles | occupation by size>=3,6,10
+  true alpha             black=0.0433 max size= 3.42 #tri=   3.3 occ>=3:0.0133 >=6:0.0000 >=10:0.0000
+  true alpha-0.05        black=0.0233 max size= 3.42 #tri=   1.7 occ>=3:0.0033 >=6:0.0000 >=10:0.0000
+  true alpha+0.05        black=0.0233 max size= 3.34 #tri=   1.7 occ>=3:0.0067 >=6:0.0000 >=10:0.0000
+  true p/q=19/12         black=0.0467 max size= 3.42 #tri=   3.7 occ>=3:0.0133 >=6:0.0000 >=10:0.0000
+  true p/q=65/41         black=0.0433 max size= 3.42 #tri=   3.3 occ>=3:0.0133 >=6:0.0000 >=10:0.0000
+  true p/q=84/53         black=0.0433 max size= 3.42 #tri=   3.3 occ>=3:0.0133 >=6:0.0000 >=10:0.0000
+  true p/q=485/306       black=0.0433 max size= 3.42 #tri=   3.3 occ>=3:0.0133 >=6:0.0000 >=10:0.0000
+  random0 alpha          black=0.0433 max size= 4.39 #tri=   3.0 occ>=3:0.0167 >=6:0.0000 >=10:0.0000
+  random1 alpha          black=0.0233 max size= 3.65 #tri=   1.7 occ>=3:0.0100 >=6:0.0000 >=10:0.0000
+  random2 alpha          black=0.0300 max size= 2.60 #tri=   2.7 occ>=3:0.0000 >=6:0.0000 >=10:0.0000
+J=400 t=66 m=700 eta=0.0185: black fraction | top-3 sizes | #triangles | occupation by size>=3,6,10
+  true alpha             black=0.0317 max size= 4.37 #tri=   9.3 occ>=3:0.0058 >=6:0.0000 >=10:0.0000
+  true alpha-0.05        black=0.0375 max size= 4.56 #tri=  10.7 occ>=3:0.0058 >=6:0.0000 >=10:0.0000
+  true alpha+0.05        black=0.0317 max size= 5.04 #tri=   9.0 occ>=3:0.0092 >=6:0.0000 >=10:0.0000
+  true p/q=19/12         black=0.0325 max size= 4.37 #tri=   8.7 occ>=3:0.0067 >=6:0.0000 >=10:0.0000
+  true p/q=65/41         black=0.0325 max size= 4.37 #tri=   9.3 occ>=3:0.0058 >=6:0.0000 >=10:0.0000
+  true p/q=84/53         black=0.0317 max size= 4.37 #tri=   9.3 occ>=3:0.0058 >=6:0.0000 >=10:0.0000
+  true p/q=485/306       black=0.0317 max size= 4.37 #tri=   9.3 occ>=3:0.0058 >=6:0.0000 >=10:0.0000
+  random0 alpha          black=0.0442 max size= 6.91 #tri=  12.7 occ>=3:0.0108 >=6:0.0033 >=10:0.0000
+  random1 alpha          black=0.0350 max size= 4.41 #tri=   9.3 occ>=3:0.0067 >=6:0.0000 >=10:0.0000
+  random2 alpha          black=0.0517 max size=10.41 #tri=  10.0 occ>=3:0.0292 >=6:0.0142 >=10:0.0142
+J=1600 t=266 m=2802 eta=0.0185: black fraction | top-3 sizes | #triangles | occupation by size>=3,6,10
+  true alpha             black=0.0435 max size= 7.34 #tri=  47.7 occ>=3:0.0096 >=6:0.0019 >=10:0.0000
+  true alpha-0.05        black=0.0465 max size= 7.34 #tri=  51.3 occ>=3:0.0090 >=6:0.0013 >=10:0.0000
+  true alpha+0.05        black=0.0425 max size= 7.34 #tri=  46.7 occ>=3:0.0138 >=6:0.0015 >=10:0.0000
+  true p/q=19/12         black=0.0425 max size= 6.65 #tri=  47.3 occ>=3:0.0096 >=6:0.0013 >=10:0.0000
+  true p/q=65/41         black=0.0438 max size= 7.34 #tri=  46.0 occ>=3:0.0108 >=6:0.0021 >=10:0.0000
+  true p/q=84/53         black=0.0425 max size= 7.34 #tri=  46.3 occ>=3:0.0096 >=6:0.0019 >=10:0.0000
+  true p/q=485/306       black=0.0438 max size= 7.34 #tri=  47.7 occ>=3:0.0098 >=6:0.0019 >=10:0.0000
+  random0 alpha          black=0.0356 max size= 6.74 #tri=  39.3 occ>=3:0.0123 >=6:0.0035 >=10:0.0000
+  random1 alpha          black=0.0404 max size= 5.96 #tri=  43.3 occ>=3:0.0104 >=6:0.0000 >=10:0.0000
+  random2 alpha          black=0.0333 max size= 5.72 #tri=  37.0 occ>=3:0.0071 >=6:0.0000 >=10:0.0000

@@ -1,0 +1,12 @@
+sigma=18 |P|=1
+sigma=19 |P|=18
+sigma=20 |P|=170
+sigma=21 |P|=1115
+sigma=22 |P|=5668
+sigma=23 |P|=23708
+sigma=24 |P|=84446
+sigma=25 |P|=260126
+sigma=26 |P|=701159
+sigma=27 |P|=1636123
+sigma=28 |P|=3065018
+sigma=29 |P|=3065018

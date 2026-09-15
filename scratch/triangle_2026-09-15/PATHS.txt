@@ -1,0 +1,15 @@
+== J=200
+true: black step fraction 0.0323; triangle visits 277; size quantiles [1.14, 3.95, 4.29]
+   size s<3  : visits   230, fraction staying >= 0.75 of available height: 0.935
+   size 3-6  : visits    47, fraction staying >= 0.75 of available height: 0.915
+random: black step fraction 0.0318; triangle visits 291; size quantiles [1.02, 4.02, 4.05]
+   size s<3  : visits   228, fraction staying >= 0.75 of available height: 0.969
+   size 3-6  : visits    63, fraction staying >= 0.75 of available height: 0.952
+== J=400
+true: black step fraction 0.0316; triangle visits 558; size quantiles [1.61, 3.2, 4.7]
+   size s<3  : visits   482, fraction staying >= 0.75 of available height: 0.915
+   size 3-6  : visits    69, fraction staying >= 0.75 of available height: 0.841
+random: black step fraction 0.0351; triangle visits 609; size quantiles [1.37, 3.91, 6.91]
+   size s<3  : visits   493, fraction staying >= 0.75 of available height: 0.929
+   size 3-6  : visits   109, fraction staying >= 0.75 of available height: 0.716
+   size 6-10 : visits     7, fraction staying >= 0.75 of available height: 0.286

@@ -1,0 +1,2 @@
+c=0 j0=60 sigma=95 (top 95) m=104 t=m-sigma-1=8 |P|=1.325438e+24 log2|P|=80.133
+  h=1..255: sum|Phi/P|^2=3.849e-23 (random 1.924e-22)  max|Phi/P|=3.032e-12  mean log2|Phi/P|=-44.42 (random -40.43)  maxBsw=3.161e-03  sumBsw^2=7.260e-04

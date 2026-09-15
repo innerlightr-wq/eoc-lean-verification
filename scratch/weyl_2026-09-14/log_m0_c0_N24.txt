@@ -1,0 +1,1 @@
+mode=0 c=0 N=24 sN=38 words=820236724 -> weyl_m0_c0_N24.bin

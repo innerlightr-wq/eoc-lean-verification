@@ -1,0 +1,2 @@
+c=0 j0=50 sigma=79 (top 79) m=88 t=m-sigma-1=8 |P|=5.202813e+19 log2|P|=65.496
+  h=1..255: sum|Phi/P|^2=8.099e-19 (random 4.901e-18)  max|Phi/P|=3.735e-10  mean log2|Phi/P|=-36.48 (random -33.11)  maxBsw=1.106e-02  sumBsw^2=7.461e-03

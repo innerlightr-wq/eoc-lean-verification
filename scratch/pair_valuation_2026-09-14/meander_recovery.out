@@ -1,0 +1,4 @@
+(b) unbiased random 512-bit seeds: first dip R_t <= -G, then time to R > 2 (U = 2)
+   G=3: dips before first exit 546/6000, mean recovery   15.7, median 12, 99% 64; iid Wald approx (G+2+1.4)/0.415 = 15.4
+   G=5: dips before first exit 149/6000, mean recovery   19.5, median 17, 99% 56; iid Wald approx (G+2+1.4)/0.415 = 20.2
+   G=8: dips before first exit 9/6000, mean recovery   33.1, median 32, 99% 62; iid Wald approx (G+2+1.4)/0.415 = 27.5

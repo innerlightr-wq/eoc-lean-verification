@@ -1,5 +1,8 @@
 # Research checkpoint — September 2026
 
+> Later work (the 2026-09-14/15 Fourier, Tao-triangle and Subspace rounds, with the Lean modules they added) is
+> summarized in [`RESEARCH_STATUS.md`](RESEARCH_STATUS.md). This file is kept as the record of the earlier audit.
+
 This document expands on the README's ["Proved mathematically, not yet
 Lean-packaged"](../README.md#proved-mathematically-not-yet-lean-packaged) and
 ["Where the proof currently stops"](../README.md#where-the-proof-currently-stops)

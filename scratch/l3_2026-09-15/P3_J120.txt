@@ -1,0 +1,4 @@
+c=0 j0=120 sigma=190 t=20 m=211 log2|P|=169.06 |V|=9690 EXH=20
+  low block 1<=l<2^t: mean phi2=2.627e-52 (rate 0.7139)  mean Q3=1.944e-23 (rate 0.3144)  mean B3^2=1.789e-26 (rate 0.3564)  max Q3=1.768e-19 at l=898839
+  weighted: R_true=5.504e-41   R3 (rigorous-bound version)=1.139e-11   [(1+r/2)*sum w*.../(|V|/2^t)]
+  shell Q3 sums: low=2.39e-17 u0=5.44e-18 u1=3.45e-18 u2=3.72e-18 u3=5.35e-18 u4=9.68e-18 u10=6.68e-18 u20=4.17e-18 u30=4.12e-18

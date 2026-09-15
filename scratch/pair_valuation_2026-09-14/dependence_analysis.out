@@ -1,0 +1,46 @@
+   (missing glide_sieve_36_40.out )
+[X-XII] M_0(X) vs independent-trials extreme-value prediction (exact P_N); Gumbel scale 1/(I0 ln 2) = 18.2 steps
+   log2X  M_0  M/log2X  N_med  N_[10%,90%]   M-N_med   (log2X)/I0
+      12    51   4.250     68  [52,94]     -17     151.3
+      14    66   4.714     87  [71,115]     -21     176.5
+      16    85   5.312    108  [90,136]     -23     201.7
+      18    85   4.722    129  [111,158]     -44     226.9
+      20   115   5.750    150  [132,180]     -35     252.1
+      22   141   6.409    172  [153,202]     -31     277.4
+      24   181   7.542    194  [175,225]     -13     302.6
+      26   237   9.115    217  [197,247]     +20     327.8
+      28   249   8.893    239  [220,270]     +10     353.0
+      30   249   8.300    262  [242,294]     -13     378.2
+      32   282   8.812    285  [266,317]      -3     403.4
+      34   345  10.147    308  [288,340]     +37     428.7
+      36   345   9.583    332  [311,364]     +13     453.9
+      38   345   9.079    355  [335,387]     -10     479.1
+      40   345   8.625    379  [358,411]     -34     504.3
+
+[IX-b] survivors #{odd mu < X : exit > N} vs (X/2) P_N beyond the fresh-bit regime (N >= 26)
+   X=2^36: N=30: 243078504/243080415.7=1.000  N=60: 21150282/21139298.7=1.001  N=100: 1187929/1185943.1=1.002  N=150: 44132/44074.4=1.001  N=200: 2124/1874.9=1.133  N=250: 91/90.8=1.002  N=300: 12/4.4=2.725
+
+[XIII] 471 odd mu < 2^32 with exit >= 180
+   orbit-merge clusters inside the confined windows: 152 clusters for 471 seeds; largest sizes [19, 17, 15, 15, 12, 9, 8, 8]
+   pairwise common word-prefix length: genuine survivors vs exact survivor-model words (fraction of pairs)
+     >=  0: genuine 1.00000   model 1.00000   ratio 1.00
+     >=  1: genuine 1.00000   model 1.00000   ratio 1.00
+     >=  2: genuine 0.75545   model 0.75241   ratio 1.00
+     >=  3: genuine 0.52127   model 0.52339   ratio 1.00
+     >=  4: genuine 0.33873   model 0.32592   ratio 1.04
+     >=  5: genuine 0.21062   model 0.18867   ratio 1.12
+     >=  6: genuine 0.13117   model 0.10963   ratio 1.20
+     >=  7: genuine 0.07135   model 0.06017   ratio 1.19
+     >=  8: genuine 0.03874   model 0.03324   ratio 1.17
+     >=  9: genuine 0.01995   model 0.01773   ratio 1.13
+     >= 10: genuine 0.01030   model 0.01007   ratio 1.02
+     >= 11: genuine 0.00522   model 0.00587   ratio 0.89
+     >= 12: genuine 0.00286   model 0.00294   ratio 0.98
+     >= 13: genuine 0.00123   model 0.00132   ratio 0.93
+     >= 14: genuine 0.00053   model 0.00074   ratio 0.72
+     >= 15: genuine 0.00029   model 0.00034   ratio 0.84
+   PairValuation check v2(mu_i - mu_j) = S_k + min(a,b) on all 110685 pairs: 110685/110685
+   classes mod 2^8: 19 distinct among 471; max occupancy 101
+   classes mod 2^12: 144 distinct among 471; max occupancy 15
+   classes mod 2^16: 386 distinct among 471; max occupancy 5
+   classes mod 2^20: 458 distinct among 471; max occupancy 2

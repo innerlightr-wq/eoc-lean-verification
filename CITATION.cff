@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: >-
+  If you use this formalization, please cite this repository together with the
+  specific commit you built against, and the companion manuscript listed under
+  references.
+title: "EOC Lean Verification"
+type: software
+authors:
+  - family-names: "De Jesús"
+    given-names: "Elias"
+repository-code: "https://github.com/innerlightr-wq/eoc-lean-verification"
+url: "https://github.com/innerlightr-wq/eoc-lean-verification"
+license: Apache-2.0
+keywords:
+  - Collatz
+  - 3x+1
+  - Lean 4
+  - Mathlib
+  - formal verification
+  - p-adic Subspace Theorem
+references:
+  - type: generic
+    title: >-
+      A Global Occupation Conjecture for the Accelerated 3x + 1 Map:
+      Divergent-Orbit Sparsity, Exact Realizers, and the Moving-Anchor Problem
+    authors:
+      - family-names: "De Jesús"
+        given-names: "Elias"
+    year: 2026
+    publisher:
+      name: Zenodo
+    doi: "10.5281/zenodo.22286812"
