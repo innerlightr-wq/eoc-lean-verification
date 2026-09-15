@@ -1,0 +1,18 @@
+J=60 sigma=95: environment -> amplitude rate -log2|Phi/P|/J ; run-fraction(>=4) ; block-3 entropy (1 = max)
+  2^-107             rate= 0.7559   runfrac=0.000  H3=0.914
+  2^-108             rate= 0.7719   runfrac=0.000  H3=0.914
+  2^-150             rate= 0.7286   runfrac=0.067  H3=0.919
+  2^-200             rate= 0.7720   runfrac=0.067  H3=0.950
+  random0            rate= 0.7121   runfrac=0.067  H3=0.969
+  random1            rate= 0.7564   runfrac=0.133  H3=0.917
+  random2            rate= 0.7263   runfrac=0.133  H3=0.949
+  -1/2               rate= 0.0723   runfrac=1.000  H3=-0.000
+  1/5                rate= 0.4466   runfrac=0.000  H3=0.440
+  1/7                rate= 0.8028   runfrac=0.000  H3=0.560
+  1/13               rate= 0.7087   runfrac=0.000  H3=0.354
+  int 1              rate= 0.1219   runfrac=0.983  H3=0.026
+  int 2              rate= 0.1726   runfrac=0.983  H3=0.026
+  int 5              rate= 0.2243   runfrac=0.967  H3=0.053
+  Thue-Morse         rate= 0.7602   runfrac=0.000  H3=0.543
+  planted runs 6     rate= 0.7253   runfrac=0.567  H3=0.697
+  planted runs 12    rate= 0.6855   runfrac=0.633  H3=0.555

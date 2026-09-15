@@ -1,0 +1,6 @@
+j0=60 lambda=1: mean amp rate 0.422, min 0.243; P(rate<z): 0.01:0.00e+00 0.05:0.00e+00 0.1:0.00e+00 0.2:0.00e+00 0.3:4.20e-03 | weak blocks: P(weak|u>=4)=0.0311, E W=0.46, Var W/binomial=0.57
+j0=60 random-freq: mean amp rate 0.415, min 0.241; P(rate<z): 0.01:0.00e+00 0.05:0.00e+00 0.1:0.00e+00 0.2:0.00e+00 0.3:1.02e-02 | weak blocks: P(weak|u>=4)=0.0555, E W=0.83, Var W/binomial=0.75
+j0=100 lambda=1: mean amp rate 0.415, min 0.280; P(rate<z): 0.01:0.00e+00 0.05:0.00e+00 0.1:0.00e+00 0.2:0.00e+00 0.3:2.25e-03 | weak blocks: P(weak|u>=4)=0.0186, E W=0.46, Var W/binomial=0.92
+j0=100 random-freq: mean amp rate 0.420, min 0.276; P(rate<z): 0.01:0.00e+00 0.05:0.00e+00 0.1:0.00e+00 0.2:0.00e+00 0.3:2.75e-03 | weak blocks: P(weak|u>=4)=0.0076, E W=0.19, Var W/binomial=1.02
+j0=150 lambda=1: mean amp rate 0.424, min 0.317; P(rate<z): 0.01:0.00e+00 0.05:0.00e+00 0.1:0.00e+00 0.2:0.00e+00 0.3:0.00e+00 | weak blocks: P(weak|u>=4)=0.0274, E W=1.02, Var W/binomial=0.88
+j0=150 random-freq: mean amp rate 0.421, min 0.301; P(rate<z): 0.01:0.00e+00 0.05:0.00e+00 0.1:0.00e+00 0.2:0.00e+00 0.3:0.00e+00 | weak blocks: P(weak|u>=4)=0.0285, E W=1.06, Var W/binomial=0.86

@@ -1,0 +1,1 @@
+mode=0 c=1 N=22 sN=35 words=419166819 -> weyl_m0_c1_N22.bin

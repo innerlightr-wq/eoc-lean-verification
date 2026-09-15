@@ -1,0 +1,3 @@
+c=0 j0=50 sigma=79 (top 79) m=92 t=m-sigma-1=12 |P|=5.202813e+19 log2|P|=65.496
+  h=1..4095: sum|Phi/P|^2=2.545e-17 (random 7.871e-17)  max|Phi/P|=2.819e-09 @h=2213  mean log2|Phi/P|=-36.39 (random -33.11)
+  swap bound: max=1.351e-02 @h=2213 (log2 -6.21) rms=5.479e-03 mean log2=-7.61  sum^2=1.229e-01  per-step rates: max 0.1242 rms 0.1502

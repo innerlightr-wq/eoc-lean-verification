@@ -1,0 +1,42 @@
+[1] prescribed matching = split depth vs anchor word: {'cases': 24000, 'beta0': 10560, 'fail': 0, 'blocks': 10080, 'detect_fail': 0, 'Ajm_extra_bit_fail': 5270}  (5.2s)
+    detect_fail = blocks where (T = A_{j,m+1} mod 2^(D_m+1)) != (block == anchor block)
+    Ajm_extra_bit_fail = anchor blocks where the paper's A_{j,m} misses the extra bit
+[2] odd mu < 3000 with 3 !| mu realised as anchor states: 1000/1000  (0.0s)
+[3a] confined: DP M^max == floor(c + (L_c(mu)+1) alpha): 384/384
+[3b] DP M^max == exhaustive max of paper-literal finite matching (L+1 <= 9): confined c=0: 83/83, confined c=1/2: 75/75, confined c=1: 73/73, confined c=2: 63/63, corridor [-1,1]: 96/96, corridor [-2,1]: 86/86, corridor [-3,2]: 65/65, persistence c=0 horizon 15: 83/83  (4.2s)
+[3c] prefixes whose anchor follows the family through the whole cap/horizon (M^max = inf): {'confined c=0': 0, 'confined c=1/2': 0, 'confined c=1': 0, 'confined c=2': 0, 'corridor [-1,1]': 0, 'corridor [-2,1]': 0, 'corridor [-3,2]': 0, 'near-critical |S_20-20a|<=1/2': 65, 'near-critical |S_40-40a|<=1': 28, 'persistence c=0 horizon 15': 91}  (1.3s)
+     beta_j=1 prefixes: 2302/4000 (beta_j=0 => M = 0 for every prescribed future)
+     confined c=0                       L_C: mean   2.49 max  146 | M^max: mean   4.98 max 232
+     confined c=1/2                     L_C: mean   4.49 max  184 | M^max: mean   8.75 max 293
+     confined c=1                       L_C: mean   5.49 max  185 | M^max: mean  10.74 max 295
+     confined c=2                       L_C: mean   7.75 max  185 | M^max: mean  15.33 max 296
+     corridor [-1,1]                    L_C: mean   1.71 max   13 | M^max: mean   4.14 max 23
+     corridor [-2,1]                    L_C: mean   3.26 max   25 | M^max: mean   6.74 max 40
+     corridor [-3,2]                    L_C: mean   6.09 max   50 | M^max: mean  12.08 max 82
+     near-critical |S_20-20a|<=1/2      L_C: mean  12.61 max   20 | M^max: mean  25.08 max 32
+     near-critical |S_40-40a|<=1        L_C: mean  25.32 max   40 | M^max: mean  50.11 max 64
+     persistence c=0 horizon 15         L_C: mean  17.30 max  400 | M^max: mean   3.49 max 23
+
+[4] dependence of L_0 (confined c=0 shadowing length) on past descriptors (beta_j = 1):
+     corr(L_0, j        ) = -0.010
+     corr(L_0, S_j      ) = -0.001
+     corr(L_0, F_j      ) = +0.033
+     corr(L_0, R_j      ) = +0.023
+     corr(L_0, log2 mu_j) = -0.026
+     past source genuine : n=1284  mean L_0 = 2.701  max 146
+     past source confined: n=1018  mean L_0 = 2.221  max 37
+     control, generic odd mu (3 !| mu) of the same bit length: mean L_0 = 2.415
+
+[4b] density of odd mu < 2^22 (3 !| mu) with L_0(mu) >= L  vs  P_Geom(2)(0-confined for L steps):
+     L= 1: density 0.500000   iid persistence 0.500000   (S_L ~ 2 bits vs 22-bit range)
+     L= 2: density 0.375000   iid persistence 0.375000   (S_L ~ 3 bits vs 22-bit range)
+     L= 3: density 0.249999   iid persistence 0.250000   (S_L ~ 5 bits vs 22-bit range)
+     L= 5: density 0.148437   iid persistence 0.148438   (S_L ~ 8 bits vs 22-bit range)
+     L= 8: density 0.089598   iid persistence 0.089600   (S_L ~ 13 bits vs 22-bit range)
+     L=10: density 0.064507   iid persistence 0.064514   (S_L ~ 16 bits vs 22-bit range)
+     L=13: density 0.044438   iid persistence 0.044452   (S_L ~ 21 bits vs 22-bit range)
+     L=16: density 0.030840   iid persistence 0.030916   (S_L ~ 25 bits vs 22-bit range)
+     L=20: density 0.019082   iid persistence 0.019254   (S_L ~ 32 bits vs 22-bit range)
+     L=25: density 0.011367   iid persistence 0.011647   (S_L ~ 40 bits vs 22-bit range)
+     L=30: density 0.006881   iid persistence 0.007075   (S_L ~ 48 bits vs 22-bit range)
+     max L_0 over odd mu < 2^22 with 3 !| mu: 140  (4.6s)

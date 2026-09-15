@@ -1,0 +1,7 @@
+j0=60 blocks=20 samples=6000: mean Z=2.480 bits/block (0.413 amplitude bits/step), var=5.153, P(Z<0.1)=0.276, P(Z=0)=0.256
+  corr(Z_r, Z_r+1) = +0.0003
+  corr(Z_r, Z_r+2) = +0.0095
+  corr(Z_r, Z_r+3) = +0.0119
+  corr(Z_r, Z_r+5) = +0.0143
+  corr(Z_r, Z_r+8) = +0.0239
+  per-path total: median 49.2, 1% quantile 35.0, min 27.6 bits (mean 49.6);  per-block tail P(Z>8)=0.017

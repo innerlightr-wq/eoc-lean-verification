@@ -1,0 +1,9 @@
+sigma=14 |P|=1
+sigma=15 |P|=13
+sigma=16 |P|=88
+sigma=17 |P|=408
+sigma=18 |P|=1458
+sigma=19 |P|=4199
+sigma=20 |P|=9592
+sigma=21 |P|=17637
+sigma=22 |P|=17637

@@ -1,0 +1,8 @@
+A=0.700 K=200 j0=125 refined=1 gd=0.0000: C=4.4991e+02 (log2 8.81, /K 0.04407) | eff.exp 0.98854 | trivial-only log2 C=19.77 (/K 0.09887)
+A=0.700 K=400 j0=251 refined=1 gd=0.0000: C=1.7400e+03 (log2 10.76, /K 0.02691) | eff.exp 0.97139 | trivial-only log2 C=41.65 (/K 0.10413)
+A=0.700 K=800 j0=504 refined=1 gd=0.0000: C=1.1695e+04 (log2 13.51, /K 0.01689) | eff.exp 0.96137 | trivial-only log2 C=85.34 (/K 0.10668)
+A=0.700 K=1600 j0=1008 refined=1 gd=0.0000: C=3.3203e+05 (log2 18.34, /K 0.01146) | eff.exp 0.95594 | trivial-only log2 C=173.10 (/K 0.10819)
+A=0.700 K=200 j0=125 refined=1 gd=0.0000: C=3.5587e+02 (log2 8.48, /K 0.04238) | eff.exp 0.98685 | trivial-only log2 C=19.77 (/K 0.09887)
+A=0.700 K=400 j0=251 refined=1 gd=0.0000: C=1.0822e+03 (log2 10.08, /K 0.02520) | eff.exp 0.96968 | trivial-only log2 C=41.65 (/K 0.10413)
+A=0.700 K=800 j0=504 refined=1 gd=0.0000: C=4.3352e+03 (log2 12.08, /K 0.01510) | eff.exp 0.95958 | trivial-only log2 C=85.34 (/K 0.10668)
+A=0.700 K=1600 j0=1008 refined=1 gd=0.0000: C=3.5664e+04 (log2 15.12, /K 0.00945) | eff.exp 0.95393 | trivial-only log2 C=173.10 (/K 0.10819)

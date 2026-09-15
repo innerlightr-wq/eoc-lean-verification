@@ -1,0 +1,6 @@
+j0=60 sigma=95 t=11 m=107 blocks=20 lambdas=2047 paths=20 pairs=40940
+ white fraction per block 3.4709e-03; runs per (lam,path) 0.0676; rigidity violations 0
+ P(Rmax>=k): {1: '6.676e-02', 2: '1.856e-03', 3: '0.000e+00', 4: '0.000e+00', 5: '0.000e+00'}
+ v27 at run starts: {0: 2671, 1: 95}
+ deep blocks (3^{n_r} > 2^t): P(v27(e_r) >= k): {1: '3.826e-02', 2: '1.369e-03', 3: '1.493e-05'}  (27^-k = ['3.70e-02', '1.37e-03', '5.08e-05'] )
+ per-path log2 prod W^2: median -50.5 (rate 0.421), max -26.0 (rate 0.216); log2 mean -38.9

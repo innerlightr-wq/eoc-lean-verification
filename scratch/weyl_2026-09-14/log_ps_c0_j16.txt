@@ -1,0 +1,10 @@
+sigma=16 |P|=1
+sigma=17 |P|=15
+sigma=18 |P|=117
+sigma=19 |P|=627
+sigma=20 |P|=2595
+sigma=21 |P|=8762
+sigma=22 |P|=24521
+sigma=23 |P|=57917
+sigma=24 |P|=108950
+sigma=25 |P|=108950
