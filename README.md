@@ -35,12 +35,30 @@ Every theorem labeled **FORMALLY VERIFIED** below compiles against a pinned
 Mathlib revision with `lake build`. Results labeled otherwise are marked
 accordingly — see the [status legend](#formalization-status-legend).
 
+## Current verified milestone — ShapeTail (2026-09-16)
+
+- **PROVED (LEAN):** for every even j ≥ 300, the actual Collatz barrier b(j) = ⌊j log₂ 3⌋ satisfies the repository's
+  `ShapeTail` estimate (N₀ = 10, K = ⌊j/25⌋, ρ₁ = 2^{−⌊j/300⌋}). Badly shaped confined words occupy an
+  exponentially small share of the top shell.
+- **Explicit rate:** ρ₁ ≤ 2·2^{−j/300}.
+- **Main theorem:** `EOC.ShapeUnconditional.shapeTail_allEven_rate` (also `shapeTail_allEven`, `shapeTail_cofinal`).
+- Kernel checked, standard Lean/Mathlib axioms only (`propext`, `Classical.choice`, `Quot.sound`); no `sorry`,
+  no `native_decide`.
+- **Pressure-only chain (PROVED (LEAN), `EOC/AverageOddDark.lean`):** `AverageOddDarkPressure ⇒ CriticalWhiteCount ⇒
+  LowFreqDecay` with no ShapeTail hypothesis; at s = 3 the averaged pressure must stay below ≈ 0.14 (N₀ = 30) or
+  ≈ 0.17 (N₀ = 100).
+- **Main remaining analytic blocker:** `AverageOddDarkPressure` for the true environment (OPEN). This is **not** a
+  proof of `CriticalWhiteCount`, of an improved exceptional exponent, or of Collatz.
+
+Details: [`docs/SHAPETAIL_UNCONDITIONAL.md`](docs/SHAPETAIL_UNCONDITIONAL.md). How this relates to the literature:
+[`docs/LITERATURE_CONTEXT.md`](docs/LITERATURE_CONTEXT.md).
+
 ## Current status — September 2026
 
 A dated, detailed account is in [`docs/RESEARCH_STATUS.md`](docs/RESEARCH_STATUS.md). Labels there: PROVED (LEAN),
 PROVED (MATH), EXTERNAL THEOREM, COMPUTATIONAL, HEURISTIC, CONJECTURAL, REFUTED, OPEN.
 
-**Formally verified** (Lean, `lake build` passes, 79 modules, no `sorry`, standard axioms only):
+**Formally verified** (Lean, `lake build` passes, 92 modules, no `sorry`, standard axioms only):
 
 - pair-valuation, transport and survivor-counting results (`PairValuation`, `SuffixTransport`, `TransportCollapse`,
   `UpperEscape`, `SurvivorCounting`, …) and the baseline exceptional exponent H₂(1/α) ≈ 0.949956
@@ -55,7 +73,10 @@ PROVED (MATH), EXTERNAL THEOREM, COMPUTATIONAL, HEURISTIC, CONJECTURAL, REFUTED,
   d ≥ 6 at η = 1/54, with a kernel-checked witness (160,5) → (154,6) (`TriangleHop`);
 - the deterministic black-run decomposition n ≤ (2H₁+1)W + Occ(R₁) + H₁N₆ + 2H₁ (`TriangleHop`);
 - the formal reduction of the p-adic Subspace Theorem (hypothesis `SubspaceInstance`) to sublinear maximal triangle
-  size (`MaxTriangle`).
+  size (`MaxTriangle`);
+- (2026-09-16) unconditional `ShapeTail` for every even j ≥ 300 with rate 2·2^{−j/300} (`ShapeTail`, `ShapeBridge`,
+  `ShapeCertificate`, `ShapeUnconditional`); white-cell contraction for pair blocks and the reduction
+  `ShapeTail + OddDarkPressure ⇒ CriticalWhiteCount ⇒ LowFreqDecay/WeightedFourier` (`WhiteContraction`, `OddBlack`).
 
 **Externally grounded mathematical result.** The p-adic Subspace Theorem (Schlickewei; Ridout case) together with the
 repository's reduction implies **R_max(L) = o(L)** for Tao-black triangles along the critical corridor, for every fixed
@@ -72,14 +93,16 @@ A > 1/α.**
 
 **Open:**
 
-- exponentially concentrated control of Tao-black triangle occupation under the critical confined law (the current
-  bottleneck);
+- exponentially concentrated control of Tao-black triangle occupation under the critical confined law, now in the
+  form `OddDarkPressure` / averaged pressure control (the current bottleneck; `ShapeTail`, the other input of
+  `CriticalWhiteCount`, is proved);
 - any fixed low-frequency decay exponent γ > 0;
 - any proof of A > 1/α (the exceptional exponent stays at H₂(1/α) ≈ 0.949956);
 - EOC and the Collatz conjecture themselves (see below).
 
 ## Contents
 
+- [Current verified milestone — ShapeTail](#current-verified-milestone--shapetail-2026-09-16)
 - [Current status — September 2026](#current-status--september-2026)
 - [The problem and the core map](#the-problem-and-the-core-map)
 - [The Global Occupation Conjecture](#the-global-occupation-conjecture-eoc)
@@ -585,6 +608,14 @@ positive cycles; the Collatz conjecture itself.
 **Tao-triangle layer (2026-09-15)**
 `TriangleArray.lean` · `BlockCubeInstance.lean` · `MaxTriangle.lean` · `TriangleHop.lean`
 
+**White count / ShapeTail layer (2026-09-16)**
+`WhiteContraction.lean` · `OddBlack.lean` · `LocalWindow.lean` · `ShapeTail.lean` · `ShapeBridge.lean` ·
+`ShapeCertificate.lean` · `ShapeUnconditional.lean` · `AverageOddDark.lean` · `BinomialEntropy.lean` ·
+`LogAbsorb.lean`
+
+**Pointwise-descent side results (2026-09-16; `DirectDescent` assumes the OPEN `LinearRealizerFloor`)**
+`DirectDescent.lean` · `HarmonicFloor.lean` · `LiftGap.lean`
+
 **Experimental / historical**
 `scratch/` (tracked in git, but deliberately outside the `EOC` Lean library
 target — see `lakefile.toml`) holds the exact/numerical experiments and the
@@ -602,7 +633,9 @@ alone. The earlier audit-only research phase is narrated in
 [`docs/RESEARCH_CHECKPOINT_2026-09.md`](docs/RESEARCH_CHECKPOINT_2026-09.md); the
 2026-09-15 checkpoint of the triangle / Subspace rounds is in
 [`docs/RESEARCH_STATUS.md`](docs/RESEARCH_STATUS.md), with literature in
-[`docs/LITERATURE_SUBSPACE_TRIANGLES.md`](docs/LITERATURE_SUBSPACE_TRIANGLES.md).
+[`docs/LITERATURE_SUBSPACE_TRIANGLES.md`](docs/LITERATURE_SUBSPACE_TRIANGLES.md). The 2026-09-16 ShapeTail milestone is
+documented in [`docs/SHAPETAIL_UNCONDITIONAL.md`](docs/SHAPETAIL_UNCONDITIONAL.md), and the relation to the 3x+1
+literature in [`docs/LITERATURE_CONTEXT.md`](docs/LITERATURE_CONTEXT.md).
 
 ## Formalization status legend
 
@@ -674,6 +707,9 @@ lake env lean EOC/Confinement.lean
   without expecting to re-verify.
 
 ## Literature
+
+A verified reference list with context (Terras, Everett, Lagarias, Lagarias–Weiss, Tao, …) is in
+[`docs/LITERATURE_CONTEXT.md`](docs/LITERATURE_CONTEXT.md).
 
 1. Terence Tao, "Almost all orbits of the Collatz map attain almost bounded
    values," *Forum of Mathematics, Pi* **10** (2022), e12.

@@ -26,6 +26,83 @@ COMPUTATIONAL.
 
 ---
 
+# Milestone — 2026-09-16: Unconditional ShapeTail closed
+
+**Headline.** **ShapeTail is now unconditional in Lean for every even j ≥ 300.** The pressure side remains open; this
+is not a proof of Collatz.
+
+* **PROVED (LEAN)** — `EOC.ShapeUnconditional.shapeTail_allEven`: for every even j ≥ 300,
+  `ShapeTail (collatzBarrier 0) j (collatzBarrier 0 j) 10 (j / 25) (2 ^ (j / 300))⁻¹`.
+* **PROVED (LEAN)** — `EOC.ShapeUnconditional.shapeTail_allEven_rate`: the same with some ρ₁ ≤ 2·2^{−j/300}. The
+  exponential rate is 1/300 bits per unit of word length; the factor 2 comes from the floor ⌊j/300⌋.
+* **PROVED (LEAN)** — `EOC.ShapeUnconditional.shapeTail_cofinal`: j = 300(q+1), K = 12(q+1), ρ₁ = 2^{−(q+1)} exactly.
+* Axioms: `propext`, `Classical.choice`, `Quot.sound` (`#print axioms`); no `sorry`, no `native_decide`. The 150
+  base certificates j = 300, …, 598 are one `decide +kernel` statement (`bases_ok`).
+* Full account: [`SHAPETAIL_UNCONDITIONAL.md`](SHAPETAIL_UNCONDITIONAL.md). Literature context:
+  [`LITERATURE_CONTEXT.md`](LITERATURE_CONTEXT.md).
+
+Lean state: 92 modules imported by `EOC.lean`; `lake build EOC` completes with 8800 jobs.
+
+**Pressure-only wrapper — PROVED (LEAN), `EOC/AverageOddDark.lean`.**
+
+* `shapeTail_allEven_budget`: the same unconditional ShapeTail holds for any N₀ and K with
+  K + ⌊31j/100⌋ + ⌊σ/(N₀+2)⌋ ≤ j/2. The certificate does not involve N₀ or K.
+* `AverageOddDarkPressure b j σ t U d s θ C` is `OddDarkPressure` with M = 2^{θj + C log₂ j}.
+* `criticalWhiteCount_of_averagePressure` / `criticalWhiteCount_rate` (concrete schedules
+  `criticalWhiteCount_N30`, `_N100`): for even j ≥ max(300, (3C/(θ'−θ))²), averaged pressure alone gives
+  `CriticalWhiteCount` with ρ ≤ 2·2^{−j/300} + 2^{−γj}, whenever θ' + γ ≤ ν log₂((1+s)/2) and ν j ≤ n, k + n ≤ K.
+* `lowFreqDecay_of_averagePressure`: the same hypothesis gives `LowFreqDecay` with constant 4. Its side conditions
+  (nonempty shell, κ(d,N₀)^{2k} ≤ exp(−8kd²/N₀)) are proved.
+* Sufficient threshold (PROVED (MATH) from these hypotheses): θ(s) < (K_max(N₀) − k/j)·log₂((1+s)/2), with
+  K_max = 0.19 − 317/(200(N₀+2)); at s = 3 this is 0.1405 (N₀ = 30) and 0.1745 (N₀ = 100). With K = ⌊j/25⌋ it would
+  be 0.04, below the measured true pressure 0.048 (COMPUTATIONAL). Details:
+  `scratch/avgpressure_2026-09-16/REPORT.md`.
+
+## Chain after this milestone
+
+    ShapeTail (PROVED, LEAN)  +  OddDarkPressure (OPEN)
+        ⇒ CriticalWhiteCount        OddBlack.criticalWhiteCount_of_shape_and_oddPressure   (implication PROVED (LEAN))
+        ⇒ LowFreqDecay              WhiteContraction.lowFreqDecay_of_criticalWhiteCount     (implication PROVED (LEAN))
+        ⇒ WeightedFourier           WhiteContraction.weightedFourier_of_criticalWhiteCount  (implication PROVED (LEAN))
+        ⇒ exceptional-set bound     WeightedChain.weighted_phi_decay_implies_exceptional_bound
+
+* `criticalWhiteCount_of_shape_and_oddPressure` takes `ShapeTail` at K = k + n, together with `OddDarkPressure` and
+  the numerical condition M ≤ ρ₂((1+s)/2)ⁿ. The parameter compatibility of these with the proved K = ⌊j/25⌋, N₀ = 10
+  has not been checked (OPEN).
+* **White-point contraction**, listed as OPEN in Lean in §10 of the 2026-09-15 checkpoint below, is now PROVED (LEAN)
+  in `WhiteContraction` (`pair_factor_le_of_good`, `goodPair_of_white_step`).
+
+## Current status of the main statements
+
+| statement | status |
+|---|---|
+| `ShapeTail` (Collatz barrier, every even j ≥ 300, rate 2·2^{−j/300}) | PROVED (LEAN) |
+| `OddDarkPressure` / averaged pressure control for the true environment | OPEN — **the current blocker** |
+| `CriticalWhiteCount`, `LowFreqDecay` | OPEN (follow from `AverageOddDarkPressure` alone by PROVED (LEAN) implications) |
+| lower shells σ < ⌊jα⌋ and barrier offsets U > 0 for ShapeTail (needed by the exceptional-set chain) | OPEN (the certificate holds exactly for σ ≥ ~1.40j at j = 300…2400, COMPUTATIONAL) |
+| `WeightedFourier` beyond the fresh-bit boundary (A > 1/α) | OPEN |
+| exceptional-set exponent below H₂(1/α) ≈ 0.949956 | OPEN (baseline H₂(1/α) is PROVED (LEAN)) |
+| EOC; the Collatz conjecture | OPEN |
+
+## Modules added 2026-09-16
+
+All compile, contain no `sorry`, and are imported by `EOC.lean`.
+
+* ShapeTail chain: `ShapeTail`, `ShapeBridge`, `ShapeCertificate`, `ShapeUnconditional`, `LocalWindow` (layered
+  kernels and super-eigenvector bounds).
+* White-count interface: `WhiteContraction`, `OddBlack` (the `OddDarkPressure` hypothesis is an explicit `Prop`).
+* Pressure-only wrapper: `AverageOddDark`.
+* Auxiliary: `BinomialEntropy` (C(n,k) ≥ 2^{nH(k/n)}/(n+1)), `LogAbsorb` (absorbing an O(log n) surplus into the rate).
+* Pointwise-descent side results: `DirectDescent` (its descent theorems assume the OPEN `LinearRealizerFloor`),
+  `HarmonicFloor` (a logarithmic drift ceiling along a non-descending orbit), `LiftGap` (least-realizer
+  stabilization). None of them is a pointwise Collatz result.
+
+Round reports: `scratch/shapetail_2026-09-16/` (bridge and certificate), `scratch/pressure_2026-09-16/` (shape-only
+large deviations, PROVED (MATH)), `scratch/shapetail_allEven_2026-09-16/` (residue audit, COMPUTATIONAL guidance
+only). Other 2026-09-16 exploratory rounds are not part of this milestone and are not in git.
+
+---
+
 # Research checkpoint — 2026-09-15
 
 **Headline.**

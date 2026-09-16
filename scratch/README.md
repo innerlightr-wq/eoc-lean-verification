@@ -7,6 +7,15 @@ the labels used. The consolidated status is in [`../docs/RESEARCH_STATUS.md`](..
 A report's header line "Nothing committed or pushed" describes the state at the end of that round. All rounds of
 2026-09-14/15 were committed together at the 2026-09-15 checkpoint.
 
+Of the 2026-09-16 rounds, only those behind the ShapeTail milestone are in git: `shapetail_2026-09-16/`,
+`pressure_2026-09-16/`, `shapetail_allEven_2026-09-16/` and `avgpressure_2026-09-16/` (threshold arithmetic for
+`EOC/AverageOddDark.lean`; `python3 threshold.py`, `python3 lowershells.py`). For the last one, run `python3 residues.py > residues.txt`
+(standard library, ~2 s). Its output guided the schedule of `EOC/ShapeUnconditional.lean` but is not part of the proof;
+the Lean kernel re-checks every finite fact the proof uses. The other exploratory rounds of that day are not
+committed. Some committed module docstrings and reports still cite them (e.g. `rmin_2026-09-16`, `cheap_2026-09-16`,
+`transient_2026-09-16`, `oddpressure_2026-09-16`, `whitecount_2026-09-16`, `cw*_2026-09-16`). Those citations are provenance only: nothing
+proved in Lean depends on them, and they are not reproducible from this repository.
+
 ## Dependencies
 
 * **Python 3** (tested with 3.14), **standard library only**. No NumPy is needed or used by any script in this

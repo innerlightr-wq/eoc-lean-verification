@@ -1,0 +1,21 @@
+J = 400, R = 200, sigma = sg = 633, log2|C_J| = 588.040
+exact mean #tight = 79.855  (0.3993 per block)
+
+Chernoff rate for P(#tight >= T):  min over t>=1 of  t^{-T} Z(t)/Z(1)
+   T/R    best t    log2 P bound    rate (bits per digit J)
+   0.42    1.20         -0.502     0.00126
+   0.45    1.40         -2.919     0.00730
+   0.48    2.00         -7.630     0.01907
+   0.50    2.50        -11.762     0.02940
+   0.55    3.00        -26.434     0.06609
+   0.60    6.00        -47.601     0.11900
+
+feasible region: need  K + T + sigma/(N0+2) <= R,  i.e.  T/R <= 1 - K/R - sigma/((N0+2)R)
+   N0    sigma/((N0+2)R)    max T/R at K/R = 0.10   margin over mean tight
+    4      0.5275             0.3725              -0.0268
+    6      0.3956             0.5044              +0.1051
+   10      0.2637             0.6362              +0.2370
+   14      0.1978             0.7022              +0.3029
+   20      0.1439             0.7561              +0.3569
+   30      0.0989             0.8011              +0.4018
+   40      0.0754             0.8246              +0.4254
