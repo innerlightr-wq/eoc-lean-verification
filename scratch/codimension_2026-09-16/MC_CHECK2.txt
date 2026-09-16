@@ -1,0 +1,6 @@
+window r0=173 state#63: 24-sample mean 1.3882 -> 720-sample mean 1.1106 +- 0.0106 (max sample 6.87); bound 1.3251
+window r0=173 state#62: 24-sample mean 1.3437 -> 720-sample mean 1.1129 +- 0.0105 (max sample 6.67); bound 1.3251
+window r0=173 state#64: 24-sample mean 1.3359 -> 720-sample mean 1.1111 +- 0.0103 (max sample 6.69); bound 1.3251
+window r0=156 state#69: 24-sample mean 1.3263 -> 720-sample mean 1.1043 +- 0.0065 (max sample 2.57); bound 1.3251
+window r0=71 state#51: 24-sample mean 1.3230 -> 720-sample mean 1.1150 +- 0.0080 (max sample 3.71); bound 1.3251
+720-sample means over all 1357 (window,state) pairs: max 1.1546, average 1.0958

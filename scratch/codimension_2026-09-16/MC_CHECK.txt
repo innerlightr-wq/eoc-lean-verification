@@ -1,0 +1,1 @@
+J=400 K=8: Haar mean window mass per state: max over (window,state) 1.3882, average 1.0877;  rigorous bound e^T M^K 1 = 1.3251 (q=37/100)

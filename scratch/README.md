@@ -13,7 +13,8 @@ Of the 2026-09-16 rounds, only those behind the ShapeTail milestone are in git: 
 (exact odd-dark pressure engine and operator/window scans behind `EOC/PressureBridge.lean`; `python3 validate.py`,
 `python3 corpus.py J LAMMAX T1,T2,...`, `python3 geo_scan.py`; the three largest corpus JSON files are ignored), and `logwindows_2026-09-16/`
 (logarithmic dangerous-window scan and exact certification behind `EOC/DangerousWindows.lean`; `python3 logk2.py`,
-`python3 certify.py`, `python3 delta.py`). For the last one, run `python3 residues.py > residues.txt`
+`python3 certify.py`, `python3 delta.py`), and `codimension_2026-09-16/` (rigorous Haar bound for dangerous windows;
+`python3 haar_bound.py`, Monte Carlo checks `mc_check.py`, `mc_check2.py`). For the last one, run `python3 residues.py > residues.txt`
 (standard library, ~2 s). Its output guided the schedule of `EOC/ShapeUnconditional.lean` but is not part of the proof;
 the Lean kernel re-checks every finite fact the proof uses. The other exploratory rounds of that day are not
 committed. Some committed module docstrings and reports still cite them (e.g. `rmin_2026-09-16`, `cheap_2026-09-16`,

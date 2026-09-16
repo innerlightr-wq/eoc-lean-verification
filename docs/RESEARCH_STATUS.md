@@ -84,6 +84,12 @@ Lean state: 94 modules imported by `EOC.lean`; `lake build EOC` completes with 8
   are certified by exact integer arithmetic; the worst exact rate is 0.0908 < 1/10. The per-state danger density
   decays like ≈ 3^{−(2.2 + 0.5K)} (HEURISTIC fit), which explains why K ≍ log j is the right scale.
 * OPEN: the arithmetic local-window statement for λ·2^{−m} at every shift and every j.
+* PROVED (MATH), `scratch/codimension_2026-09-16/REPORT.md`: dark (d = 1/108) implies Tao-black at η = 1/54, i.e. three
+  leading balanced-ternary digits of the phase vanish; each block adds two fresh digits and consecutive rows share one.
+  A 2-state digit operator then gives, for a Haar-random 3-adic environment and any start state,
+  P(K-window mass > 2^{K/5}) ≤ 1.055·3^{−0.100K} (exponent 0.136 with the second moment).  This covers
+  K ≳ 4.6–6.3·log₂ j after a union over start states, not yet K = 2 log₂ j, and it is a Haar statement, not a
+  statement about the orbit λ·2^{−m}.
 
 ## Chain after this milestone
 
