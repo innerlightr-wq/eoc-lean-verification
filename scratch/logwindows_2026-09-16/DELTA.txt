@@ -1,0 +1,18 @@
+haar  K= 2 delta=3.133e-02 (-log3 delta = 3.15) per-window sup fraction 0.940
+haar  K= 4 delta=9.697e-03 (-log3 delta = 4.22) per-window sup fraction 0.625
+haar  K= 6 delta=3.777e-03 (-log3 delta = 5.08) per-window sup fraction 0.346
+haar  K= 8 delta=1.078e-03 (-log3 delta = 6.22) per-window sup fraction 0.110
+haar  K=10 delta=4.053e-04 (-log3 delta = 7.11) per-window sup fraction 0.050
+haar  K=12 delta=3.317e-05 (-log3 delta = 9.39) per-window sup fraction 0.015
+haar  K=16 delta=0.000e+00 (-log3 delta = inf) per-window sup fraction 0.000
+haar  K=20 delta=0.000e+00 (-log3 delta = inf) per-window sup fraction 0.000
+haar  K=24 delta=0.000e+00 (-log3 delta = inf) per-window sup fraction 0.000
+lam1  K= 2 delta=3.052e-02 (-log3 delta = 3.18) per-window sup fraction 0.925
+lam1  K= 4 delta=9.278e-03 (-log3 delta = 4.26) per-window sup fraction 0.625
+lam1  K= 6 delta=3.712e-03 (-log3 delta = 5.09) per-window sup fraction 0.406
+lam1  K= 8 delta=1.207e-03 (-log3 delta = 6.12) per-window sup fraction 0.160
+lam1  K=10 delta=5.944e-04 (-log3 delta = 6.76) per-window sup fraction 0.087
+lam1  K=12 delta=0.000e+00 (-log3 delta = inf) per-window sup fraction 0.000
+lam1  K=16 delta=0.000e+00 (-log3 delta = inf) per-window sup fraction 0.000
+lam1  K=20 delta=0.000e+00 (-log3 delta = inf) per-window sup fraction 0.000
+lam1  K=24 delta=0.000e+00 (-log3 delta = inf) per-window sup fraction 0.000

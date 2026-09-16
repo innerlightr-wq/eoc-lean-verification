@@ -41,7 +41,7 @@ is not a proof of Collatz.
 * Full account: [`SHAPETAIL_UNCONDITIONAL.md`](SHAPETAIL_UNCONDITIONAL.md). Literature context:
   [`LITERATURE_CONTEXT.md`](LITERATURE_CONTEXT.md).
 
-Lean state: 93 modules imported by `EOC.lean`; `lake build EOC` completes with 8801 jobs.
+Lean state: 94 modules imported by `EOC.lean`; `lake build EOC` completes with 8802 jobs.
 
 **Pressure-only wrapper — PROVED (LEAN), `EOC/AverageOddDark.lean`.**
 
@@ -71,6 +71,19 @@ Lean state: 93 modules imported by `EOC.lean`; `lake build EOC` completes with 8
 * REFUTED: environment-universal certificates. A 3-adic unit ξ ≡ 2^m realises 0.32–0.35, and the
   state-only super-eigenvector gives 0.19–0.29. Fixed-K dangerous-window fractions grow linearly in j.
 * OPEN: `SummedOddDarkPressure` for λ·2^{−m} (λ = 1 at every shift is unavoidable, since cshell(0) = {1, 2^m − 1}).
+
+**Dangerous windows (PROVED (LEAN), `EOC/DangerousWindows.lean`).**
+
+* `summedPressure_of_tenth_twoNinths`: split the pair blocks into windows of K ≤ k₁ log₂ j + k₀ blocks. Suppose, for
+  every low frequency, all but (2/9)·W + (a log₂ j + b)/K windows have geometric mass ≤ 2^{K/5} from every state.
+  Then `SummedOddDarkPressure` holds with θ = 1/6 and an explicit C. Dangerous windows are paid for by the proved
+  universal ceiling 2^{(4/5)K} (`val_le_ceiling`; 2/5 bits per step for j ≥ 300).
+* `nodd_companion`: λ and 2^m − λ have identical odd-dark counts, so the u = 0 shell reduces to λ = 1.
+* COMPUTATIONAL (`scratch/logwindows_2026-09-16/REPORT.md`): with K = ⌈2 log₂ j⌉ every window is safe in all 36
+  environments scanned (j ≤ 6400). 1602 windows in 30 distinct environments (λ = 1 at five shifts and λ = 17, per j)
+  are certified by exact integer arithmetic; the worst exact rate is 0.0908 < 1/10. The per-state danger density
+  decays like ≈ 3^{−(2.2 + 0.5K)} (HEURISTIC fit), which explains why K ≍ log j is the right scale.
+* OPEN: the arithmetic local-window statement for λ·2^{−m} at every shift and every j.
 
 ## Chain after this milestone
 

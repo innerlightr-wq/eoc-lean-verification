@@ -1,0 +1,29 @@
+Variant C: smallest j with A*(log2 j)^2 <= slack*j (slack = 0.1745 - 1/6 = 0.00783)
+  A=0.5: j >= 11646
+  A=1: j >= 27828
+  A=2: j >= 65324
+  A=5: j >= 197534
+  A=10: j >= 450260
+
+Variant B: excess E absorbed by (2/9 - 1/5) W = W/45; W = floor(j/2 / K), K = ceil(2 log2 j)
+  j=400: K=18, W=11, W/45 = 0.2 windows (vs log2 j = 8.6)
+  j=1600: K=22, W=36, W/45 = 0.8 windows (vs log2 j = 10.6)
+  j=6400: K=26, W=123, W/45 = 2.7 windows (vs log2 j = 12.6)
+  j=25600: K=30, W=426, W/45 = 9.5 windows (vs log2 j = 14.6)
+  j=100000: K=34, W=1470, W/45 = 32.7 windows (vs log2 j = 16.6)
+  j=1000000: K=40, W=12500, W/45 = 277.8 windows (vs log2 j = 19.9)
+
+Concrete corollary constant with K <= 2 log2 j + 1 (k1 = 2, k0 = 1), zero excess (a = b = 0):
+  C = 3.9500
+Downstream cutoff j >= (3C/(theta' - 1/6))^2 of lowFreqDecay_of_summedPressure:
+  theta' = 0.17: j >= 1.264e+07   (needs K_max(N0) > theta': N0 >= 78)
+  theta' = 0.172: j >= 4.937e+06   (needs K_max(N0) > theta': N0 >= 87)
+  theta' = 0.174: j >= 2.611e+06   (needs K_max(N0) > theta': N0 >= 98)
+  theta' = 0.176: j >= 1.612e+06   (needs K_max(N0) > theta': N0 >= 112)
+  theta' = 0.178: j >= 1.093e+06   (needs K_max(N0) > theta': N0 >= 131)
+
+Universal ceiling: (1/2) log2(1 + 2q), q -> 1 - 1/log2 3 = 0.36907024642854247 -> 0.3987723495216074
+  theta_max = 0.4000: phi(1/10) = 0.2222
+  theta_max = 0.3988: phi(1/10) = 0.2231
+  theta_max = 0.3750: phi(1/10) = 0.2424
+  theta_max = 0.3333: phi(1/10) = 0.2857
