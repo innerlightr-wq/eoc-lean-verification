@@ -17,8 +17,11 @@ arithmetic count.  This file names that count and proves the end-to-end implicat
   conjecture on the ternary digits of `2^n`; it belongs to the same general family of open
   digit-distribution questions.
 * `lowFreqDecay_of_powerOfTwoSparsity` — **the hypothesis implies `LowFreqDecay`** (through
-  `SummedOddDarkPressure` at rate `1/6` and `CriticalWhiteCount`), for any logarithmic window size
+  `SummedOddDarkPressure` at rate `1/6`, the proved `ShapeTail`, and the frequency-summed
+  white-count split `AverageOddDark.lowFreqDecay_of_shape_and_summedPressure`; the per-frequency
+  `CriticalWhiteCount` `Prop` is not instantiated), for any logarithmic window size
   `K ≤ A log₂ j + 1`, with the explicit constant `C = 2 + (3/5)a + (4/5)A + (2 + (3/5)b + 4/5)/8`.
+  The hypothesis itself is OPEN, so `LowFreqDecay` remains conditional.
 * Stable helpers: `dark_iff_distZ` (the dark predicate is `‖λ u 2^z / 2^m‖ < d`), `dark_shift`
   (**shift translation**: raising `m` and the column `z` by the same `t` leaves the dark predicate
   unchanged, so only `a = m − z` matters), `black_fiftyfourth_iff` (Tao-black at `η = 1/54` is
