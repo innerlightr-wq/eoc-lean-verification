@@ -9,7 +9,9 @@ A report's header line "Nothing committed or pushed" describes the state at the 
 
 Of the 2026-09-16 rounds, only those behind the ShapeTail milestone are in git: `shapetail_2026-09-16/`,
 `pressure_2026-09-16/`, `shapetail_allEven_2026-09-16/` and `avgpressure_2026-09-16/` (threshold arithmetic for
-`EOC/AverageOddDark.lean`; `python3 threshold.py`, `python3 lowershells.py`). For the last one, run `python3 residues.py > residues.txt`
+`EOC/AverageOddDark.lean`; `python3 threshold.py`, `python3 lowershells.py`) and `pressure_exact_2026-09-16/`
+(exact odd-dark pressure engine and operator/window scans behind `EOC/PressureBridge.lean`; `python3 validate.py`,
+`python3 corpus.py J LAMMAX T1,T2,...`, `python3 geo_scan.py`; the three largest corpus JSON files are ignored). For the last one, run `python3 residues.py > residues.txt`
 (standard library, ~2 s). Its output guided the schedule of `EOC/ShapeUnconditional.lean` but is not part of the proof;
 the Lean kernel re-checks every finite fact the proof uses. The other exploratory rounds of that day are not
 committed. Some committed module docstrings and reports still cite them (e.g. `rmin_2026-09-16`, `cheap_2026-09-16`,

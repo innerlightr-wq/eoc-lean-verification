@@ -41,7 +41,7 @@ is not a proof of Collatz.
 * Full account: [`SHAPETAIL_UNCONDITIONAL.md`](SHAPETAIL_UNCONDITIONAL.md). Literature context:
   [`LITERATURE_CONTEXT.md`](LITERATURE_CONTEXT.md).
 
-Lean state: 92 modules imported by `EOC.lean`; `lake build EOC` completes with 8800 jobs.
+Lean state: 93 modules imported by `EOC.lean`; `lake build EOC` completes with 8801 jobs.
 
 **Pressure-only wrapper — PROVED (LEAN), `EOC/AverageOddDark.lean`.**
 
@@ -57,6 +57,20 @@ Lean state: 92 modules imported by `EOC.lean`; `lake build EOC` completes with 8
   K_max = 0.19 − 317/(200(N₀+2)); at s = 3 this is 0.1405 (N₀ = 30) and 0.1745 (N₀ = 100). With K = ⌊j/25⌋ it would
   be 0.04, below the measured true pressure 0.048 (COMPUTATIONAL). Details:
   `scratch/avgpressure_2026-09-16/REPORT.md`.
+
+**Pressure interface and bridge (PROVED (LEAN), later on 2026-09-16).**
+
+* `AverageOddDark.lowFreqDecay_of_summedPressure`: the pressure hypothesis need not be uniform in λ.
+  `LowFreqDecay` sums over each frequency shell, so `SummedOddDarkPressure` (the moment summed over
+  λ ∈ cshell u, bounded by 2^{u+1}·2^{θj + C log₂ j}·|P_σ|) suffices.
+* `PressureBridge.sum_pow_nodd_le_geo`: ∑_P s^{N_odd} ≤ (σj/p)·ker(geometric kernel)(0 → σ)·|P_σ| with
+  p = (j−1)/(σ−1), a polynomial loss. `sum_pow_nodd_le_windows` turns K-block window mass bounds into moment bounds.
+* COMPUTATIONAL (`scratch/pressure_exact_2026-09-16/REPORT.md`, exact integer DP of the Lean observable):
+  6720 true low-frequency environments (J ≤ 1600) are all certified below θ = 1/6. The worst global rate
+  is 0.034 and the median about 0.009.
+* REFUTED: environment-universal certificates. A 3-adic unit ξ ≡ 2^m realises 0.32–0.35, and the
+  state-only super-eigenvector gives 0.19–0.29. Fixed-K dangerous-window fractions grow linearly in j.
+* OPEN: `SummedOddDarkPressure` for λ·2^{−m} (λ = 1 at every shift is unavoidable, since cshell(0) = {1, 2^m − 1}).
 
 ## Chain after this milestone
 

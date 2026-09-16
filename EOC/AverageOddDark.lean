@@ -26,6 +26,9 @@ the chain up to `LowFreqDecay`:
 * `lowFreqDecay_of_averagePressure` — **`AverageOddDarkPressure ⇒ LowFreqDecay`** with `C = 4`
   and an explicit rate `γ`.
 * `N0 = 30, K = ⌊7j/50⌋` and `N0 = 100, K = ⌊17j/100⌋` are packaged as concrete schedules.
+* `SummedOddDarkPressure`, `lowFreqDecay_of_summedPressure` — uniformity in `λ` is not needed:
+  `LowFreqDecay` sums over the frequencies of each shell, so a bound on the **summed** moment
+  `∑_{λ ∈ cshell u} ∑_P s^{N_odd} ≤ 2^{u+1}·2^{θj + C log₂ j}·|P_σ|` suffices (`summed_of_average`).
 
 The pressure bound itself is a hypothesis; nothing here claims it.
 
@@ -262,6 +265,192 @@ theorem criticalWhiteCount_N100 {j t U k n : ℕ} {d s θ θ' C ν γ : ℝ}
     ∃ ρ ≤ 2 * (2 : ℝ) ^ (-(j : ℝ) / 300) + (2 : ℝ) ^ (-(γ * j)),
       CriticalWhiteCount (collatzBarrier 0) j (collatzBarrier 0 j) t U 100 d k ρ :=
   criticalWhiteCount_rate hj hev (budget_100 j (by omega)) hkn hs hC hθ hlarge hn hγ hpress
+
+/-! ## 7. Frequency-summed pressure suffices
+
+`GoodAngles.lowFreqDecay_of_goodAngles` bounds each frequency separately and then **sums** over
+`λ ∈ cshell`.  Hence the pressure hypothesis need not be uniform in `λ`: a bound on the moment
+summed over each shell, `∑_{λ ∈ cshell u} ∑_P s^{N_odd} ≤ 2^{u+1}·M·|P_σ|`, feeds `LowFreqDecay`
+directly. -/
+
+section Summed
+
+variable (b : ℕ → ℕ)
+
+open Classical in
+/-- **Per-frequency few-good bound.**  For a single `λ`, the class-weighted mass with fewer than `k`
+good blocks is at most `ρ₁|P_σ| + (∑_P s^{N_odd}) / ((1+s)/2)^n`. -/
+theorem fewGood_le_single {j σ t N0 k n : ℕ} {d s ρ₁ : ℝ} (lam : ℕ) (hj : 1 ≤ j) (hs : 1 ≤ s)
+    (hshape : ShapeTail b j σ N0 (k + n) ρ₁) :
+    ∑ c ∈ (PrefixCollision.shellP b j σ).image (BlockCubeInstance.pairκ j) with
+        ((range (j / 2)).filter (GoodPair b (σ + 1 + t) N0 d lam c)).card < k,
+        BlockCubeInstance.nCls (PrefixCollision.shellP b j σ) (BlockCubeInstance.pairκ j) c ≤
+      ρ₁ * ((PrefixCollision.shellP b j σ).card : ℝ) +
+        (∑ P ∈ PrefixCollision.shellP b j σ, s ^ Nodd b (σ + 1 + t) d lam P) /
+          ((1 + s) / 2) ^ n := by
+  set T := PrefixCollision.shellP b j σ
+  set κ := BlockCubeInstance.pairκ j
+  set C := T.image κ
+  set w := BlockCubeInstance.nCls T κ
+  set good := fun c => ((range (j / 2)).filter (GoodPair b (σ + 1 + t) N0 d lam c)).card
+  set shp := fun c => ((range (j / 2)).filter (ShapeGood b N0 c)).card
+  set bad := fun c => ((range (j / 2)).filter (BadPair b (σ + 1 + t) N0 d lam c)).card
+  have hw0 : ∀ c, 0 ≤ w c := fun c => by unfold w BlockCubeInstance.nCls; positivity
+  have ha : (0 : ℝ) < (1 + s) / 2 := by linarith
+  have hsplit : ∑ c ∈ C.filter (fun c => good c < k), w c ≤
+      ∑ c ∈ C.filter (fun c => shp c < k + n), w c + ∑ c ∈ C.filter (fun c => n ≤ bad c), w c := by
+    rw [sum_filter, sum_filter, sum_filter, ← sum_add_distrib]
+    refine sum_le_sum fun c _ => ?_
+    have hgc := goodCount_ge b (m := σ + 1 + t) (N0 := N0) (d := d) (lam := lam) c (range (j / 2))
+    split_ifs with h1 h2 h3 h2 h3 <;> linarith [hw0 c]
+  have hbad : (∑ c ∈ C.filter (fun c => n ≤ bad c), w c) * ((1 + s) / 2) ^ n ≤
+      ∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P := by
+    rw [sum_mul]
+    calc ∑ c ∈ C.filter (fun c => n ≤ bad c), w c * ((1 + s) / 2) ^ n
+        ≤ ∑ c ∈ C.filter (fun c => n ≤ bad c), w c * ((1 + s) / 2) ^ bad c :=
+          sum_le_sum fun c hc => mul_le_mul_of_nonneg_left
+            (pow_le_pow_right₀ (by linarith) (mem_filter.mp hc).2) (hw0 c)
+      _ ≤ ∑ c ∈ C, w c * ((1 + s) / 2) ^ bad c :=
+          sum_le_sum_of_subset_of_nonneg (filter_subset _ _)
+            (fun c _ _ => mul_nonneg (hw0 c) (pow_nonneg ha.le _))
+      _ ≤ ∑ c ∈ C, ∑ P ∈ T.filter (fun P => κ P = c), s ^ Nodd b (σ + 1 + t) d lam P :=
+          sum_le_sum fun c hc => sum_class_pow_nodd_ge b (t := t) hj hs hc
+      _ = ∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P :=
+          sum_fiberwise_of_maps_to (fun P hP => mem_image_of_mem κ hP) _
+  have hpos : (0 : ℝ) < ((1 + s) / 2) ^ n := pow_pos ha n
+  have hbad2 : ∑ c ∈ C.filter (fun c => n ≤ bad c), w c ≤
+      (∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P) / ((1 + s) / 2) ^ n := by
+    rw [le_div_iff₀ hpos]; exact hbad
+  have hsh : ∑ c ∈ C.filter (fun c => shp c < k + n), w c ≤ ρ₁ * (T.card : ℝ) := hshape
+  exact hsplit.trans (add_le_add hsh hbad2)
+
+open Classical in
+/-- **`ShapeTail` + frequency-summed pressure ⇒ `LowFreqDecay`.** -/
+theorem lowFreqDecay_of_shape_and_summedPressure {j σ t U N0 k n : ℕ} {d s ρ₁ M C γ : ℝ}
+    (hj : 1 ≤ j) (hne : (PrefixCollision.shellP b j σ).Nonempty) (hd0 : 0 ≤ d) (hd1 : d ≤ 1 / 2)
+    (hN : 2 ≤ N0) (hs : 1 ≤ s) (hρ₁ : 0 ≤ ρ₁) (hshape : ShapeTail b j σ N0 (k + n) ρ₁)
+    (hpress : ∀ u ≤ U, ∑ lam ∈ ShellDecomposition.cshell (σ + 1) t u,
+        ∑ P ∈ PrefixCollision.shellP b j σ, s ^ Nodd b (σ + 1 + t) d lam P ≤
+      2 ^ (u + 1) * M * ((PrefixCollision.shellP b j σ).card : ℝ))
+    (hrate : kappa d N0 ^ (2 * k) + ρ₁ + M / ((1 + s) / 2) ^ n ≤ C * (2 : ℝ) ^ (-(γ * j))) :
+    DecayInterface.LowFreqDecay b j σ t U C γ := by
+  intro u hu
+  set T := PrefixCollision.shellP b j σ
+  set Cl := T.image (BlockCubeInstance.pairκ j)
+  set w := BlockCubeInstance.nCls T (BlockCubeInstance.pairκ j)
+  set P2 : ℝ := (T.card : ℝ) ^ 2
+  set a : ℝ := ((1 + s) / 2) ^ n
+  have ha : 0 < a := pow_pos (by linarith) n
+  have hT : (0 : ℝ) < T.card := by exact_mod_cast hne.card_pos
+  have hP2 : 0 ≤ P2 := by positivity
+  have hwsum : ∑ c ∈ Cl, w c = (T.card : ℝ) := BlockCubeInstance.sum_nCls T _
+  have hκ0 := kappa_nonneg hd0 hd1 hN
+  obtain ⟨hwpos, hbd⟩ := BlockCubeInstance.blockCubeHyp_pair b j σ t U hj hne
+  -- per-frequency bound
+  have hpt : ∀ lam ∈ ShellDecomposition.cshell (σ + 1) t u,
+      ‖TwistExpansion.Psi T (σ + 1) t (WeightedChain.yPrime j σ t) lam‖ ^ 2 ≤
+        P2 * (kappa d N0 ^ (2 * k) + ρ₁) +
+          P2 * ((∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P) / a / T.card) := by
+    intro lam hlam
+    set ρl := ρ₁ + (∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P) / a / T.card
+    have hdens : GoodAngles.PositiveDensityGoodAngles Cl w
+        (BlockCubeInstance.Wfac (BlockCubeInstance.pairB b) fun _ r x =>
+          SwapCollatz.collatzPhase lam (σ + 1 + t) (WeightedChain.uInv (σ + 1 + t)) (2 * r + 1) x)
+        (fun c r => GoodPair b (σ + 1 + t) N0 d lam c r) (j / 2) k ρl (kappa d N0) := by
+      refine ⟨fun c _ r => ?_, fun c _ r hg => pair_factor_le_of_good b hd0 hg, ?_⟩
+      · unfold BlockCubeInstance.Wfac; exact wfac_mem_unit _ _
+      · have h := fewGood_le_single b (t := t) (d := d) lam hj hs hshape
+        rw [hwsum]
+        have e : ρl * (T.card : ℝ) =
+            ρ₁ * T.card + (∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P) / a := by
+          simp only [ρl]; field_simp
+        rw [e]; convert h using 2
+    have havg := GoodAngles.avg_prod_sq_le_of_goodAngles Cl w _ _ (j / 2) k hκ0 (kappa_le_one d N0)
+      (fun c _ => by unfold w BlockCubeInstance.nCls; positivity) hdens
+    have hdiv : (∑ c ∈ Cl, w c * ∏ r ∈ range (j / 2),
+        (BlockCubeInstance.Wfac (BlockCubeInstance.pairB b) (fun _ r x =>
+          SwapCollatz.collatzPhase lam (σ + 1 + t) (WeightedChain.uInv (σ + 1 + t)) (2 * r + 1) x)
+          c r) ^ 2) / ∑ c ∈ Cl, w c ≤ kappa d N0 ^ (2 * k) + ρl := (div_le_iff₀ hwpos).mpr havg
+    calc _ ≤ P2 * _ := hbd u hu lam hlam
+      _ ≤ P2 * (kappa d N0 ^ (2 * k) + ρl) := mul_le_mul_of_nonneg_left hdiv hP2
+      _ = _ := by simp only [ρl]; ring
+  have hcard : ((ShellDecomposition.cshell (σ + 1) t u).card : ℝ) ≤ 2 ^ (u + 1) := by
+    exact_mod_cast ShellDecomposition.card_cshell_le (σ + 1) t u
+  have hconst : 0 ≤ P2 * (kappa d N0 ^ (2 * k) + ρ₁) := by
+    have := pow_nonneg hκ0 (2 * k); positivity
+  have hsumS := hpress u hu
+  calc ∑ lam ∈ ShellDecomposition.cshell (σ + 1) t u,
+        ‖TwistExpansion.Psi T (σ + 1) t (WeightedChain.yPrime j σ t) lam‖ ^ 2
+      ≤ ∑ lam ∈ ShellDecomposition.cshell (σ + 1) t u, (P2 * (kappa d N0 ^ (2 * k) + ρ₁) +
+          P2 * ((∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P) / a / T.card)) := sum_le_sum hpt
+    _ = ((ShellDecomposition.cshell (σ + 1) t u).card : ℝ) * (P2 * (kappa d N0 ^ (2 * k) + ρ₁)) +
+          P2 / a / T.card * ∑ lam ∈ ShellDecomposition.cshell (σ + 1) t u,
+            ∑ P ∈ T, s ^ Nodd b (σ + 1 + t) d lam P := by
+        rw [sum_add_distrib, sum_const, nsmul_eq_mul, mul_sum]
+        congr 1; refine sum_congr rfl fun lam _ => ?_; ring
+    _ ≤ 2 ^ (u + 1) * (P2 * (kappa d N0 ^ (2 * k) + ρ₁)) +
+          P2 / a / T.card * (2 ^ (u + 1) * M * T.card) := by
+        gcongr
+    _ = 2 ^ (u + 1) * P2 * (kappa d N0 ^ (2 * k) + ρ₁ + M / a) := by
+        field_simp
+    _ ≤ 2 ^ (u + 1) * P2 * (C * (2 : ℝ) ^ (-(γ * j))) := by gcongr
+    _ = _ := by simp only [P2]; ring
+
+end Summed
+
+/-- **Frequency-summed averaged pressure.**  For every shell `u ≤ U`, the moment summed over the
+frequencies of the shell is at most `2^{u+1} · 2^{θ j + C log₂ j} · |P_σ|`.  Implied by
+`AverageOddDarkPressure` (`|cshell u| ≤ 2^{u+1}`), and strictly weaker in general. -/
+def SummedOddDarkPressure (b : ℕ → ℕ) (j σ t U : ℕ) (d s θ C : ℝ) : Prop :=
+  ∀ u ≤ U, ∑ lam ∈ ShellDecomposition.cshell (σ + 1) t u,
+      ∑ P ∈ PrefixCollision.shellP b j σ, s ^ Nodd b (σ + 1 + t) d lam P ≤
+    2 ^ (u + 1) * (2 : ℝ) ^ (C * Real.logb 2 j + θ * j) * ((PrefixCollision.shellP b j σ).card : ℝ)
+
+theorem summed_of_average {b : ℕ → ℕ} {j σ t U : ℕ} {d s θ C : ℝ}
+    (h : AverageOddDarkPressure b j σ t U d s θ C) : SummedOddDarkPressure b j σ t U d s θ C := by
+  intro u hu
+  have hcard : ((ShellDecomposition.cshell (σ + 1) t u).card : ℝ) ≤ 2 ^ (u + 1) := by
+    exact_mod_cast ShellDecomposition.card_cshell_le (σ + 1) t u
+  have hnn : (0 : ℝ) ≤ (2 : ℝ) ^ (C * Real.logb 2 j + θ * j) *
+      ((PrefixCollision.shellP b j σ).card : ℝ) := by positivity
+  calc _ ≤ ∑ lam ∈ ShellDecomposition.cshell (σ + 1) t u,
+        (2 : ℝ) ^ (C * Real.logb 2 j + θ * j) * ((PrefixCollision.shellP b j σ).card : ℝ) :=
+        sum_le_sum fun lam hlam => h u hu lam hlam
+    _ = _ * _ := by rw [sum_const, nsmul_eq_mul]
+    _ ≤ _ := by rw [mul_assoc]; exact mul_le_mul_of_nonneg_right hcard hnn
+
+/-- **Frequency-summed pressure ⇒ `LowFreqDecay` for the Collatz barrier.**  Same parameters as
+`lowFreqDecay_of_averagePressure`, with the λ-uniform hypothesis replaced by the summed one. -/
+theorem lowFreqDecay_of_summedPressure {j t U N0 K k n : ℕ} {d s θ θ' C ν γ : ℝ}
+    (hj : 300 ≤ j) (hev : 2 ∣ j)
+    (hK : K + 31 * j / 100 + collatzBarrier 0 j / (N0 + 2) ≤ j / 2) (hkn : k + n ≤ K)
+    (hN : 2 ≤ N0) (hd0 : 0 ≤ d) (hd1 : d ≤ 1 / 2)
+    (hs : 1 ≤ s) (hC : 0 ≤ C) (hθ : θ < θ') (hlarge : (3 * C / (θ' - θ)) ^ 2 ≤ j)
+    (hn : ν * j ≤ n) (hγ : θ' + γ ≤ ν * Real.logb 2 ((1 + s) / 2))
+    (hγ300 : γ ≤ 1 / 300) (hγk : γ * j * Real.log 2 ≤ 8 * k * d ^ 2 / N0)
+    (hpress : SummedOddDarkPressure (collatzBarrier 0) j (collatzBarrier 0 j) t U d s θ C) :
+    DecayInterface.LowFreqDecay (collatzBarrier 0) j (collatzBarrier 0 j) t U 4 γ := by
+  have hj1 : (1 : ℝ) ≤ j := by exact_mod_cast (by omega : 1 ≤ j)
+  have habs := LogAbsorb.rpow_log_absorb hC hθ (by linarith) hlarge
+  refine lowFreqDecay_of_shape_and_summedPressure (collatzBarrier 0) (k := k) (n := n)
+    (M := (2 : ℝ) ^ (θ' * j)) (by omega) (shellP_nonempty (by omega)) hd0 hd1 hN hs
+    (by positivity) (shapeTail_mono hkn (shapeTail_allEven_budget (N0 := N0) hj hev hK))
+    (fun u hu => (hpress u hu).trans ?_) ?_
+  · have hP : (0 : ℝ) ≤ ((PrefixCollision.shellP (collatzBarrier 0) j
+        (collatzBarrier 0 j)).card : ℝ) := Nat.cast_nonneg _
+    gcongr
+  · have h1 := rho_le_rate j
+    have h2 := pressure_term_le hs hn hγ
+    have hj0 : (0 : ℝ) ≤ j := Nat.cast_nonneg j
+    have e1 : (2 : ℝ) ^ (-(γ * j)) = Real.exp (-(γ * j * Real.log 2)) := by
+      rw [Real.rpow_def_of_pos (by norm_num)]; ring_nf
+    have hkap : kappa d N0 ^ (2 * k) ≤ (2 : ℝ) ^ (-(γ * j)) := by
+      rw [e1]
+      exact (kappa_pow_le_exp hd0 hd1 hN k).trans (Real.exp_le_exp.mpr (by linarith))
+    have h300 : (2 : ℝ) ^ (-(j : ℝ) / 300) ≤ (2 : ℝ) ^ (-(γ * j)) :=
+      Real.rpow_le_rpow_of_exponent_le one_le_two (by nlinarith)
+    have hp : (0 : ℝ) ≤ (2 : ℝ) ^ (-(γ * j)) := by positivity
+    nlinarith
 
 end AverageOddDark
 end EOC

@@ -58,7 +58,7 @@ Details: [`docs/SHAPETAIL_UNCONDITIONAL.md`](docs/SHAPETAIL_UNCONDITIONAL.md). H
 A dated, detailed account is in [`docs/RESEARCH_STATUS.md`](docs/RESEARCH_STATUS.md). Labels there: PROVED (LEAN),
 PROVED (MATH), EXTERNAL THEOREM, COMPUTATIONAL, HEURISTIC, CONJECTURAL, REFUTED, OPEN.
 
-**Formally verified** (Lean, `lake build` passes, 92 modules, no `sorry`, standard axioms only):
+**Formally verified** (Lean, `lake build` passes, 93 modules, no `sorry`, standard axioms only):
 
 - pair-valuation, transport and survivor-counting results (`PairValuation`, `SuffixTransport`, `TransportCollapse`,
   `UpperEscape`, `SurvivorCounting`, …) and the baseline exceptional exponent H₂(1/α) ≈ 0.949956
