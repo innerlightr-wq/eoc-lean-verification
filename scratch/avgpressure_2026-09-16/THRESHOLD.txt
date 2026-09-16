@@ -1,0 +1,32 @@
+Kmax(N0): {4: -0.0742, 10: 0.0579, 20: 0.118, 30: 0.1405, 50: 0.1595, 100: 0.1745, 1000: 0.1884}
+
+sup sufficient theta (kap -> 0):  theta_max = Kmax(N0) * log2((1+s)/2)
+   s    N0=10     N0=30     N0=100    N0=1000    measured true J=1200
+ 1.5      0.0186    0.0452    0.0562    0.0607   0.0128
+   2      0.0339    0.0822    0.1021    0.1102   0.0250
+   3      0.0579    0.1405    0.1745    0.1884   0.0480
+   4      0.0766    0.1857    0.2306    0.2491   0.0707
+   6      0.1047    0.2539    0.3153    0.3405   0.1113
+
+ratio theta(s)/log2((1+s)/2) that must stay below Kmax - kap (true env J=1200):
+  s=1.25: 0.0380
+  s=1.5: 0.0397
+  s=2: 0.0427
+  s=2.5: 0.0454
+  s=3: 0.0480
+  s=4: 0.0535
+  s=6: 0.0616
+
+concrete Lean schedules at s = 3 (L = 1): N0=30 K=7j/50 -> theta < 0.14 - kap ; N0=100 K=17j/100 -> theta < 0.17 - kap
+
+best rate gamma = min(1/300, nu*L - theta', 8 kap d^2/(N0 ln 2)), d = 1/108, s = 3, theta' = theta:
+  N0= 30 theta=0.048: gamma=3.034e-06 at k/j=0.0920
+  N0= 30 theta=0.100: gamma=1.318e-06 at k/j=0.0400
+  N0= 30 theta=0.137: gamma=9.697e-08 at k/j=0.0029
+  N0= 30 theta=0.140: gamma=0.000e+00  (infeasible)
+  N0= 30 theta=0.150: gamma=0.000e+00  (infeasible)
+  N0=100 theta=0.048: gamma=1.207e-06 at k/j=0.1220
+  N0=100 theta=0.100: gamma=6.922e-07 at k/j=0.0700
+  N0=100 theta=0.137: gamma=3.263e-07 at k/j=0.0330
+  N0=100 theta=0.140: gamma=2.961e-07 at k/j=0.0299
+  N0=100 theta=0.150: gamma=1.977e-07 at k/j=0.0200

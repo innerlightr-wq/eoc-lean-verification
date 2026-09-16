@@ -1,0 +1,4 @@
+j=300: top shell 475 (1.5833 j); certificate holds for sigma in [437, 475] = [1.4567 j, top], contiguous=True
+j=600: top shell 950 (1.5833 j); certificate holds for sigma in [857, 950] = [1.4283 j, top], contiguous=True
+j=1200: top shell 1901 (1.5842 j); certificate holds for sigma in [1695, 1901] = [1.4125 j, top], contiguous=True
+j=2400: top shell 3803 (1.5846 j); certificate holds for sigma in [3371, 3803] = [1.4046 j, top], contiguous=True

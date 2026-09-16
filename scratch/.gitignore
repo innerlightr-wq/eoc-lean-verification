@@ -81,3 +81,8 @@
 /tao_2026-09-15/src/
 /tao_2026-09-15/tao.tgz
 /ridout_2026-09-15/src/
+
+# Exact pressure corpus raw outputs (> 300 KB; regenerate with `python3 corpus.py J LAMMAX T...`, see REPORT.md).
+/pressure_exact_2026-09-16/corpus_200.json
+/pressure_exact_2026-09-16/corpus_400.json
+/pressure_exact_2026-09-16/corpus_800.json

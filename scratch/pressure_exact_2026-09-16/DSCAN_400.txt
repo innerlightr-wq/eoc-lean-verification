@@ -1,0 +1,9 @@
+d=1/108  max P 0.0180 (lam=17, t=400)  mean 0.0090  certified<0.17 160/160
+d=1/54   max P 0.0292 (lam=29, t=0)  mean 0.0180  certified<0.17 160/160
+d=1/36   max P 0.0398 (lam=29, t=0)  mean 0.0269  certified<0.17 160/160
+d=1/24   max P 0.0512 (lam=29, t=0)  mean 0.0399  certified<0.17 160/160
+d=1/16   max P 0.0700 (lam=51, t=400)  mean 0.0592  certified<0.17 160/160
+d=1/12   max P 0.0888 (lam=51, t=400)  mean 0.0786  certified<0.17 160/160
+d=1/8    max P 0.1251 (lam=51, t=400)  mean 0.1133  certified<0.17 160/160
+d=1/6    max P 0.1577 (lam=61, t=400)  mean 0.1478  certified<0.17 160/160
+d=1/4    max P 0.2150 (lam=33, t=0)  mean 0.2087  certified<0.17 0/160
