@@ -1,0 +1,9 @@
+{"j": 400, "t": 1502, "lam": 1, "K": 18, "W": 11, "certified_safe": 11, "unsafe": [], "worst_rate": 0.09124291283404141, "seconds": 0.1}
+{"j": 400, "t": 1516, "lam": 1, "K": 18, "W": 11, "certified_safe": 11, "unsafe": [], "worst_rate": 0.09124291283404141, "seconds": 0.1}
+{"j": 400, "t": 1540, "lam": 1, "K": 18, "W": 11, "certified_safe": 11, "unsafe": [], "worst_rate": 0.09124291283404141, "seconds": 0.2}
+{"j": 800, "t": 4353, "lam": 1, "K": 20, "W": 20, "certified_safe": 20, "unsafe": [], "worst_rate": 0.08652360066909068, "seconds": 1.7}
+{"j": 800, "t": 4024, "lam": 1, "K": 20, "W": 20, "certified_safe": 20, "unsafe": [], "worst_rate": 0.08317649936564635, "seconds": 1.7}
+{"j": 800, "t": 35284, "lam": 1, "K": 20, "W": 20, "certified_safe": 20, "unsafe": [], "worst_rate": 0.0809465226834277, "seconds": 1.7}
+{"j": 1600, "t": 56425, "lam": 1, "K": 22, "W": 36, "certified_safe": 36, "unsafe": [], "worst_rate": 0.0840669624216575, "seconds": 8.3}
+{"j": 1600, "t": 56430, "lam": 1, "K": 22, "W": 36, "certified_safe": 36, "unsafe": [], "worst_rate": 0.08406696242164716, "seconds": 8.5}
+{"j": 1600, "t": 53301, "lam": 1, "K": 22, "W": 36, "certified_safe": 36, "unsafe": [], "worst_rate": 0.08222953562031679, "seconds": 8.8}

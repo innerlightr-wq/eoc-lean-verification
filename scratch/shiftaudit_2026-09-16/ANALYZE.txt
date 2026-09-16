@@ -1,0 +1,14 @@
+1230 environments
+j=400 lam1 consecutive  n=306 W= 11 K=18: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0594 q90 0.0594 median 0.0496 | max run 0 | worst t=102 (0 bad, rate 0.0594)
+j=400 lam1 scattered    n=294 W= 11 K=18: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0912 q90 0.0665 median 0.0499 | max run 0 | worst t=1502 (0 bad, rate 0.0912)
+j=400 haar              n=100 W= 11 K=18: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0874 q90 0.0622 median 0.0505 | max run 0 | worst t=66 (0 bad, rate 0.0874)
+j=800 lam1 consecutive  n=153 W= 20 K=20: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0600 q90 0.0600 median 0.0600 | max run 0 | worst t=149 (0 bad, rate 0.0600)
+j=800 lam1 scattered    n=147 W= 20 K=20: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0865 q90 0.0709 median 0.0565 | max run 0 | worst t=4353 (0 bad, rate 0.0865)
+j=800 haar              n= 50 W= 20 K=20: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0779 q90 0.0707 median 0.0573 | max run 0 | worst t=133 (0 bad, rate 0.0779)
+j=800 lam1 A=5          n= 40 W=  8 K=49: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0259 q90 0.0259 median 0.0259 | max run 0 | worst t=133 (0 bad, rate 0.0259)
+j=1600 lam1 consecutive  n= 60 W= 36 K=22: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0641 q90 0.0641 median 0.0641 | max run 0 | worst t=270 (0 bad, rate 0.0641)
+j=1600 lam1 scattered    n= 60 W= 36 K=22: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0841 q90 0.0722 median 0.0615 | max run 0 | worst t=56430 (0 bad, rate 0.0841)
+j=1600 haar              n= 20 W= 36 K=22: F max 0.000 mean 0.0000 frac(F>0) 0.000 frac(F>2/9) 0.000 | max rate max 0.0776 q90 0.0762 median 0.0604 | max run 0 | worst t=266 (0 bad, rate 0.0776)
+j=400: autocorrelation of max window rate over consecutive t, lags 1,2,5,10: 1.00, 0.99, 0.96, 0.92
+j=800: autocorrelation of max window rate over consecutive t, lags 1,2,5,10: -0.00, -0.00, -0.00, -0.00
+j=1600: autocorrelation of max window rate over consecutive t, lags 1,2,5,10: -0.05, 0.24, -0.06, -0.06

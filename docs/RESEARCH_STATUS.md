@@ -91,6 +91,22 @@ Lean state: 94 modules imported by `EOC.lean`; `lake build EOC` completes with 8
   K ≳ 4.6–6.3·log₂ j after a union over start states, not yet K = 2 log₂ j, and it is a Haar statement, not a
   statement about the orbit λ·2^{−m}.
 
+**Arithmetic frontier (PROVED (LEAN), `EOC/ArithmeticFrontier.lean`).**
+
+* `PowerOfTwoDangerousWindowSparsity j t U K d a b` names the dangerous-window count as one `Prop`. It is OPEN, not
+  known to follow from equidistribution, and not claimed equivalent to Erdős's ternary-digit conjecture.
+* `lowFreqDecay_of_powerOfTwoSparsity`: the `Prop` implies `LowFreqDecay` for every K ≤ A log₂ j + 1, with
+  C = 2 + (3/5)a + (4/5)A + (2 + (3/5)b + 4/5)/8.
+* Helpers: `dark_shift` (only a = m − z matters), `black_fiftyfourth_iff` (black at η = 1/54 iff the three leading
+  balanced-ternary digits vanish).
+* PROVED (MATH), audit of `weighted_phi_decay_implies_exceptional_bound`: a bad shift t costs ≳ 2^{t/2} against a Haar
+  weight ≲ N^{−1/2}, so the hypothesis is needed pointwise in t; averaging over u, λ or j does not weaken it materially.
+* COMPUTATIONAL (`scratch/shiftaudit_2026-09-16/REPORT.md`): 1230 environments (j = 400, 800, 1600; consecutive and
+  large shifts, Haar controls, A = 5) have no dangerous window; the nine worst shifts are certified exactly, worst
+  rate 0.0912.
+* PROVED (MATH), `scratch/sparsevisits_2026-09-16/REPORT.md`: 2^{Q_D} ≡ 1 + c·3^D (mod 3^{D+1}); no finite
+  transducer for the digit tests (kill condition for that route).
+
 ## Chain after this milestone
 
     ShapeTail (PROVED, LEAN)  +  OddDarkPressure (OPEN)
