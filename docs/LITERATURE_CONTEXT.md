@@ -120,9 +120,11 @@ Three facts make this the closest prior art to the repository's conjectural laye
   gives control of `Σ 1/m_k`, which gives a lower bound — and reaches a **weaker** threshold than both Rozier's
   theorem in its regime and Curry's published `B < 1/β* ≈ 1.0359`. It remains a genuine Lean formalization of an
   elementary argument; it is not a frontier result.
-* The **Global Occupation Conjecture's closest published relative is LBH.** Whether either implies the other was
-  **not** settled by this audit, and no independence is claimed. This is recorded as the repository's principal open
-  provenance question in [`NOVELTY_AND_PROVENANCE.md`](NOVELTY_AND_PROVENANCE.md) §7.
+* The **Global Occupation Conjecture is a weaker consequence of LBH.** Theorem 3.11 of the manuscript proves
+  `LBH ⇒ Conjecture 3.3 ⇒ Conjecture 3.1`, by applying Rozier's own Theorem 4.1 manoeuvre at occupation times rather
+  than at total stopping time; EOC is therefore an occupation-time shadow of LBH rather than an independent
+  conjecture. The **converse is open**, no equivalence is claimed, and Rozier did not formulate the occupation
+  functional. See [`NOVELTY_AND_PROVENANCE.md`](NOVELTY_AND_PROVENANCE.md) §1.2.
 
 ### Sturmian words
 

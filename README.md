@@ -189,14 +189,23 @@ for every odd `m₀` (with quantifiers exactly as stated in the manuscript's
 Conjectures 3.1–3.4). **This conjecture is OPEN** — nothing in this
 repository proves any tier of it.
 
-**Closest published relative.** Rozier's **Lower Bound Hypothesis** (2017)
-conjectures `n ≥ j^(−C)·2^((1−H(q/j))·j)` for the least integer realizing a
-length-`j` parity pattern with `q` odd terms — an entropy-governed placement
-lower bound for the same map, and one that Rozier shows would already imply
-that every trajectory reaches `1`. EOC is an occupation-count formulation of
-a closely related phenomenon. **Neither is known to imply the other**, and
-this repository claims no independence from LBH; the question is recorded as
-open in [`docs/NOVELTY_AND_PROVENANCE.md`](docs/NOVELTY_AND_PROVENANCE.md) §7.
+**EOC is a weaker consequence of Rozier's Lower Bound Hypothesis.** LBH
+(2017) conjectures `n ≥ j^(−C)·2^((1−H(q/j))·j)` for the least integer
+realizing a length-`j` parity pattern with `q` odd terms — an
+entropy-governed placement lower bound for the same map, which Rozier shows
+would already imply that every trajectory reaches `1`.
+
+**Theorem 3.11 of the manuscript proves LBH ⇒ EOC**: assuming LBH,
+`O_c(m₀) ≤ (1/I(α))·log₂ m₀ + O_c(log log m₀)` for every fixed `c > 0`, so
+LBH implies the sharp-leading tier and hence the existence tier. The proof
+applies Rozier's own Theorem 4.1 manoeuvre at occupation times instead of at
+total stopping time. EOC is therefore an **occupation-time shadow** of LBH,
+not an independent conjecture — and no easier to reach, since LBH is itself
+open and arguably harder.
+
+The **converse (EOC ⇒ LBH) is open**; no equivalence is claimed, and Rozier
+did not formulate the occupation functional. Details in
+[`docs/NOVELTY_AND_PROVENANCE.md`](docs/NOVELTY_AND_PROVENANCE.md) §1.2.
 
 Two weaker, related qualitative statements are also discussed in the
 repository's audit trail:

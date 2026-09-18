@@ -95,9 +95,28 @@ Three further facts matter:
 **Action taken.** `Rozier2017` is recorded as the closest prior art for the placement axis,
 for the entropy exponent `H₂(1/α)`, and for the Global Occupation Conjecture itself. The
 repository previously cited Rozier **nowhere**, mentioning him only second-hand through
-Curry's identification of `γ*` with `r_H`. **The precise logical relation between LBH and
-EOC's `O_c(m₀) = O(log m₀)` was not settled by this audit** and is recorded as an open
-question, not as a claim of independence.
+Curry's identification of `γ*` with `r_H`.
+
+**One direction of the logical relation is established, in the manuscript** (`DeJesus2026`,
+Revision 5, §3.3, **Theorem 3.11**): assuming LBH, for every fixed `c > 0`
+
+    O_c(m₀) ≤ (1/I(α))·log₂ m₀ + O_c(log log m₀) ,
+
+i.e. **LBH ⇒ Conjecture 3.3 (sharp-leading EOC) ⇒ Conjecture 3.1 (existence EOC)**. The proof
+applies Rozier's own manoeuvre (`Rozier2017`, Thm. 4.1) at occupation times rather than at total
+stopping time, via the entropy identity `µ(1 − H(1/µ)) = I(µ)`; the manuscript presents it as a
+corollary of Rozier's framework, recorded because the occupation functional had not previously
+been isolated.
+
+So **EOC is a weaker occupation-time shadow of LBH**, not an independent conjecture. Three things
+this does *not* say: it does not make EOC more provable (LBH is itself open, and arguably
+harder); it does not assert equivalence, since **the converse — EOC ⇒ LBH — remains open**, no
+proof of it being known to this review; and it does not suggest that Rozier formulated the
+occupation functional or EOC, which he did not.
+
+An earlier version of this document recorded the relation as unsettled in both directions. That
+was an error of this audit, not of the manuscript, which had proved the forward direction before
+the audit was carried out.
 
 ### 1.3 The 2-adic realizer formula is classical, and two closest sources were uncited
 
@@ -173,7 +192,7 @@ repository's own labels plus **EXTERNAL THEOREM**.
 | 22 | iid `Geom(2)` persistence Chernoff bound | row N, `PersistenceModel.lean` | exponential-rate bound on the abstract iid persistence event | Lagarias–Weiss / Kontorovich–Lagarias stochastic models; standard Chernoff | standard large-deviation computation in a model of a known type | LEAN-PROVED (abstract model) | **CLASSICAL** (technique) | "a Chernoff bound in a standard iid model; not transferred to real orbits" | `LagariasWeiss1992`, `KontorovichLagarias2010` |
 | 23 | Finite Chang-history realizability | row I, `ChangHistory.lean` | every finite binary Chang history is realized by some odd seed | Chang's one-bit mixing framework | **inspired terminology + borrowed observable**; the theorem is the repository's | LEAN-PROVED | **NEW DERIVATION OF KNOWN INGREDIENTS** | "our finite realizability theorem for an observable defined by Chang" | `Chang2026` |
 | 24 | Mechanical/Sturmian word confinement | README §critical Sturmian boundary | `d*_j = ⌊α(j+1)⌋ − ⌊αj⌋` stays below the critical line; least realizers unbounded | López–Stoll, 3x+1 conjugacy over a Sturmian word | **UNCERTAIN**: same map and word class; the question asked may differ | PROVED MATHEMATICALLY (corollary of row G) | **UNCERTAIN — MORE SEARCH NEEDED** | "elementary; cf. prior work on the 3x+1 conjugacy over Sturmian words" | `LopezStoll2009` |
-| 25 | Global Occupation Conjecture, `O_c(m₀) = O(log m₀)` | README §EOC | occupation count at drift level `c` is logarithmic in the seed | **Rozier's LBH** (`Rozier2017`, Hyp. 2.3) | same map, same placement question, same entropy mechanism; logical relation unsettled | OPEN / CONJECTURE | **CONJECTURAL**, with `Rozier2017` as closest prior conjecture | "our occupation formulation of a placement conjecture whose closest published relative is Rozier's Lower Bound Hypothesis; neither is known to imply the other" | `Rozier2017`, `Curry2026` |
+| 25 | Global Occupation Conjecture, `O_c(m₀) = O(log m₀)` | README §EOC | occupation count at drift level `c` is logarithmic in the seed | **Rozier's LBH** (`Rozier2017`, Hyp. 2.3) | **LBH ⇒ EOC**, proved in the manuscript (`DeJesus2026` §3.3, Thm. 3.11) by applying Rozier's Thm. 4.1 manoeuvre at occupation times; the converse is open | the conjecture is OPEN; the implication is PROVED (MATH) in the manuscript | **CONJECTURAL**, and a weaker occupation-time shadow of `Rozier2017`'s LBH | "our occupation formulation of a placement conjecture that is implied by Rozier's Lower Bound Hypothesis (manuscript Thm. 3.11); the converse is open and no equivalence is claimed" | `Rozier2017`, `DeJesus2026`, `Curry2026` |
 | 26 | `CriticalCrossing`, finite occupation | README §EOC | weaker qualitative escape statements | Rozier Lemma 3.1 (LBH ⇒ trajectories reach 1) | weaker than what LBH would give | OPEN | **CONJECTURAL** | keep | `Rozier2017` |
 
 ## 3. Provenance of the Lean development
@@ -260,9 +279,11 @@ covers the distinctions the brief asks for. Two observations:
 
 ## 7. Unresolved novelty questions
 
-1. **Does Rozier's LBH imply EOC, or conversely?** Both are entropy-governed placement
-   statements for the same map. Not settled here. This is the most important open
-   provenance question in the repository.
+1. **Does EOC imply Rozier's LBH?** The forward direction is settled: **LBH ⇒ EOC**, by
+   Theorem 3.11 of the manuscript (`DeJesus2026` §3.3), so EOC is a weaker occupation-time
+   shadow of LBH. The **converse is open**, and no equivalence is claimed. (This item
+   previously recorded both directions as unsettled — an error of this audit, since the
+   manuscript had already proved the forward direction.)
 2. **`LopezStoll2009` vs. the mechanical-word section.** Same map, same word class; full
    text not compared. Read before any Sturmian novelty claim.
 3. **Is `ShapeTail` (row 17) genuinely without precedent?** It is a statement about an
