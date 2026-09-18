@@ -131,6 +131,7 @@ A > 1/α.**
 - [Where the proof currently stops](#where-the-proof-currently-stops)
 - [Natural next questions](#natural-next-questions)
 - [Context: divergent orbits and Banach density](#context-divergent-orbits-and-banach-density)
+- [Relation to prior Collatz literature](#relation-to-prior-collatz-literature)
 - [Current research checkpoint](#current-research-checkpoint)
 - [Repository map](#repository-map)
 - [Formalization status legend](#formalization-status-legend)
@@ -166,6 +167,15 @@ by hand from the repository's exact carry/orbit identities across several
 audit milestones); it is not currently packaged as a single named Lean
 theorem.
 
+**Provenance (corrected, September 2026).** This identity is **not new**: it
+is the base-2 logarithm of the product identity
+`T^(j)(n)/n = 2^(−j)·Π_{k<q}(3 + 1/m_k)`, which is Lemma 2.5 of Rozier
+(2017), itself a generalization of a formula of Eliahou (1993) for cycles.
+The match is term for term, including the correction `E_N`. What belongs to
+this repository is the drift bookkeeping, the confinement framing and the
+formal packaging — not the identity. See
+[`docs/NOVELTY_AND_PROVENANCE.md`](docs/NOVELTY_AND_PROVENANCE.md) §1.1.
+
 ## The Global Occupation Conjecture (EOC)
 
 For fixed `c > 0`, define the **occupation count**
@@ -178,6 +188,15 @@ O_c(m₀) := #{ n ≥ 0 : R_n(m₀) ≤ c }
 for every odd `m₀` (with quantifiers exactly as stated in the manuscript's
 Conjectures 3.1–3.4). **This conjecture is OPEN** — nothing in this
 repository proves any tier of it.
+
+**Closest published relative.** Rozier's **Lower Bound Hypothesis** (2017)
+conjectures `n ≥ j^(−C)·2^((1−H(q/j))·j)` for the least integer realizing a
+length-`j` parity pattern with `q` odd terms — an entropy-governed placement
+lower bound for the same map, and one that Rozier shows would already imply
+that every trajectory reaches `1`. EOC is an occupation-count formulation of
+a closely related phenomenon. **Neither is known to imply the other**, and
+this repository claims no independence from LBH; the question is recorded as
+open in [`docs/NOVELTY_AND_PROVENANCE.md`](docs/NOVELTY_AND_PROVENANCE.md) §7.
 
 Two weaker, related qualitative statements are also discussed in the
 repository's audit trail:
@@ -310,7 +329,7 @@ Only entries confirmed against compiled, tracked source are listed.
 | T. Normalized harmonic law | `TaoLike/NormalizedHarmonicLaw.lean` | FORMALLY VERIFIED / CONDITIONAL* | proves the harmonic window's probability mass genuinely normalizes to 1 (unconditional), then transfers R–S to the normalized law (conditional, inherited) |
 | U. Harmonic exceptional-set summability | `TaoLike/HarmonicExceptionalSetSummability.lean` | CONDITIONAL FORMAL RESULT | dyadic-window summability of the exceptional (persistent) event; **audited explicitly not to yield a pointwise/soft-EOC conclusion** (ensemble statement only) |
 | V. Finite-prefix injective drift-depth bound | `FinitePrefixPacking.lean` | FORMALLY VERIFIED | for `M` odd, injectivity of `orbit M` through `2^L` together with a uniform drift floor `R_j ≥ -g` through `2^L` forces `(3·2^L − 2)·2^(L+1) ≤ 2^g · M · 3^(L+1)` (`finite_prefix_injective_drift_depth_bound`), with a power-form corollary `2^(2(L+1)) ≤ 2^g · M · 3^(L+1)` for `L ≥ 1` (`finite_prefix_injective_drift_depth_power_bound`) — unconditional, no `TaoMixingHypothesis`; a finite-horizon refinement of the packing mechanism behind row G |
-| W. Coprime-six harmonic packing / `8/9` logarithmic-floor exclusion | `HarmonicPacking.lean` | FORMALLY VERIFIED | for `M` odd with injective orbit and every real `B < 8/9`, `R_k ≥ −B·log₂ k` fails for infinitely many `k` (`injective_orbit_not_eventually_log_floor`, `injective_orbit_log_floor_fails_infinitely_often`; manuscript Thm 4.5), via the explicit carry budget `E_N ≤ (1/9)·log₂ N + 7/(9 ln 2)` (`carryE_le`; Lemma 4.3) and the exact carry demand `U_{k+1} − U_k = 2^(R_k)/(3m_0)` (`carryU_succ_sub`; Lemma 4.4) — unconditional, no `TaoMixingHypothesis`; formalizes the elementary fixed-modulus argument of manuscript §4.1 on top of row V's mod-`6` residue facts |
+| W. Coprime-six harmonic packing / `8/9` logarithmic-floor exclusion | `HarmonicPacking.lean` | FORMALLY VERIFIED | for `M` odd with injective orbit and every real `B < 8/9`, `R_k ≥ −B·log₂ k` fails for infinitely many `k` (`injective_orbit_not_eventually_log_floor`, `injective_orbit_log_floor_fails_infinitely_often`; manuscript Thm 4.5), via the explicit carry budget `E_N ≤ (1/9)·log₂ N + 7/(9 ln 2)` (`carryE_le`; Lemma 4.3) and the exact carry demand `U_{k+1} − U_k = 2^(R_k)/(3m_0)` (`carryU_succ_sub`; Lemma 4.4) — unconditional, no `TaoMixingHypothesis`; formalizes the elementary fixed-modulus argument of manuscript §4.1 on top of row V's mod-`6` residue facts. **Prior art:** this uses the mechanism of Rozier (2017) Thm 2.6 — orbit distinctness bounds `Σ 1/m_k`, which bounds the carry budget — and reaches a **weaker** threshold than both that theorem in its regime and Curry's published `B < 1/β* ≈ 1.0359`. A formalization of an elementary argument, not a frontier result |
 | X. Finite valuation words | `FiniteValuationWord.lean` | FORMALLY VERIFIED | finite-word representation `Fin N → ℕ` with prefix sums, total and positivity, and bridge lemmas to the existing valuation-word API: `prefixSum_eq_s` (finite prefix sums agree with `s`) and `paperConfined_alpha_iff_confined` (for `c ≥ 0`, confinement over `1 ≤ j ≤ N` is equivalent to `Confined`) — representation infrastructure only, no new Collatz dynamics |
 | Y. Valuation-shell counting | `CompositionCounting.lean` | FORMALLY VERIFIED | exact cardinality of fixed-sum positive valuation shells, `#{compositions of s into N positive parts} = C(s−1, N−1)` for `1 ≤ N ≤ s` (`valuationShell_card`, classical stars and bars), and the cumulative count `∑_{N ≤ s ≤ B} C(s−1, N−1) = C(B, N)` for `N ≥ 1` (`terminalCount_eq_choose`, hockey-stick identity) — standard combinatorics, no new Collatz dynamics |
 | Z. Chord rotation | `ChordRotation.lean` | FORMALLY VERIFIED | existence of a cyclic rotation whose prefix sums lie on or below the endpoint chord: for `0 < N` and a word of total `s`, some `r < N` has `N · S_j ≤ j · s` for all `j ≤ N` (`chord_rotation_nat`, real form `chord_rotation_real`), via the zero-sum cyclic-list lemma `exists_rotate_take_sum_nonpos` — existence of one rotation index only; the full confined-shell lower bound is **not** proved here, and nothing about EOC or Collatz dynamics is claimed |
@@ -722,10 +741,70 @@ lake env lean EOC/Confinement.lean
 - **Mathlib**: pinned revision in `lake-manifest.json` — do not `lake update`
   without expecting to re-verify.
 
+## Relation to prior Collatz literature
+
+EOC builds on a long classical literature, and a Zotero-assisted provenance
+audit (September 2026) reduced several of this repository's framings
+accordingly. The full claim-by-claim matrix is in
+[`docs/NOVELTY_AND_PROVENANCE.md`](docs/NOVELTY_AND_PROVENANCE.md);
+the narrative provenance is in
+[`docs/LITERATURE_CONTEXT.md`](docs/LITERATURE_CONTEXT.md); the verified
+bibliography is [`references.bib`](references.bib).
+
+**What is classical and used here as input.** The accelerated / Syracuse map
+and the parity-vector encoding (Terras; Everett); the congruence
+"parity vector of length `j` ⇔ residue class mod `2^j`" and its 2-adic
+closed form (Terras; Bernstein 1994; Bernstein–Lagarias 1996); the exact
+product identity relating an orbit's endpoints to its odd terms, whose
+logarithm is this repository's drift identity (Eliahou 1993; Rozier 2017
+Lemma 2.5); composition counting and the cycle lemma (Dvoretzky–Motzkin);
+stochastic/iid models (Lagarias–Weiss; Kontorovich–Lagarias; Sinai);
+almost-all results in logarithmic density (Tao), used only as an explicit
+hypothesis; the p-adic Subspace and Ridout theorems (Schlickewei; Ridout),
+used as external theorems.
+
+**What is closest to this repository's own conjectural layer.** Rozier's
+**Lower Bound Hypothesis** (2017) is an entropy-governed lower bound on the
+least integer realizing a prescribed parity pattern, proved unconditionally
+for ones-ratio `≤ 1/log₂3` under orbit distinctness, and sufficient for the
+absence of divergent trajectories. It is the closest published relative of
+the Global Occupation Conjecture and of this repository's `H₂(1/α)`
+exponent, and it was previously uncited here. Curry (2026) supplies the
+explicit quantitative divergent-orbit sparsity used by the manuscript, and
+is **stronger** than this repository's own `8/9` logarithmic-floor
+exclusion.
+
+**What remains defensibly distinct after the audit.** Only the following,
+and each with its stated scope:
+
+- the **exact confined-word ensemble** and its layered-kernel analysis —
+  `ShapeTail` unconditionally for every even `j ≥ 300` with rate
+  `2·2^{−j/300}`, via an explicit super-eigenvector certificate. No
+  equivalent statement was identified in the literature reviewed;
+- the **formal architecture** itself: the `CriticalWhiteCount ⇒ LowFreqDecay
+  ⇒ WeightedFourier ⇒ exceptional-set bound` chain as machine-checked
+  implications, and the isolation of one named arithmetic hypothesis
+  (`PowerOfTwoDangerousWindowSparsity`);
+- the **Lean formalization of classical results** — the parity-vector
+  congruence, the 2-adic reconstruction, the composition count, the cycle
+  lemma. Known mathematics, and a genuine formalization contribution;
+- the **negative result** internal to the approach: the Rényi-2 /
+  prefix-sharing barrier.
+
+Nothing here proves EOC or Collatz, and the exceptional-set exponent remains
+`H₂(1/α) ≈ 0.949956`.
+
+**Scope note.** Both literature documents list only work that is part of the
+repository's **provenance** — used, depended on, formalized, or required as
+closest prior art. Papers read during exploration without contributing a
+theorem, method, or claim are deliberately not listed.
+
 ## Literature
 
-A verified reference list with context (Terras, Everett, Lagarias, Lagarias–Weiss, Tao, …) is in
-[`docs/LITERATURE_CONTEXT.md`](docs/LITERATURE_CONTEXT.md).
+A verified reference list with context (Terras, Everett, Lagarias, Lagarias–Weiss, Tao, Rozier, Eliahou, Bernstein, …)
+is in [`docs/LITERATURE_CONTEXT.md`](docs/LITERATURE_CONTEXT.md), with machine-readable records in
+[`references.bib`](references.bib) and per-claim provenance in
+[`docs/NOVELTY_AND_PROVENANCE.md`](docs/NOVELTY_AND_PROVENANCE.md).
 
 1. Terence Tao, "Almost all orbits of the Collatz map attain almost bounded
    values," *Forum of Mathematics, Pi* **10** (2022), e12.
@@ -770,6 +849,46 @@ A verified reference list with context (Terras, Everett, Lagarias, Lagarias–We
 
 8. Jeffrey C. Lagarias, "The 3x+1 problem and its generalizations,"
    *American Mathematical Monthly* **92** (1985), 3–23.
+   DOI: [10.1080/00029890.1985.11971528](https://doi.org/10.1080/00029890.1985.11971528).
+
+9. Olivier Rozier, "The 3x+1 problem: a lower bound hypothesis,"
+   *Functiones et Approximatio Commentarii Mathematici* **56** (2017),
+   no. 1, 7–23.
+   DOI: [10.7169/facm/1583](https://doi.org/10.7169/facm/1583).
+   [arXiv:1510.01610](https://arxiv.org/abs/1510.01610).
+   Source for the Lower Bound Hypothesis, for the unconditional entropy
+   bound at ones-ratio `≤ 1/log₂3` under orbit distinctness, and for the
+   product identity (Lemma 2.5) whose logarithm is this repository's drift
+   identity. **Added September 2026**; previously referred to only
+   second-hand through Curry's identification of `γ*` with `r_H`.
+
+10. Shalom Eliahou, "The 3x+1 problem: new lower bounds on nontrivial cycle
+    lengths," *Discrete Mathematics* **118** (1993), 45–56.
+    DOI: [10.1016/0012-365X(93)90052-U](https://doi.org/10.1016/0012-365X(93)90052-U).
+    Origin of the product identity generalized by Rozier's Lemma 2.5.
+
+11. Daniel J. Bernstein, "A noniterative 2-adic statement of the 3N+1
+    conjecture," *Proceedings of the American Mathematical Society* **121**
+    (1994), 405–408.
+    DOI: [10.1090/S0002-9939-1994-1186982-9](https://doi.org/10.1090/S0002-9939-1994-1186982-9).
+    Closed-form 2-adic reconstruction from an exponent (valuation) sequence.
+
+12. Daniel J. Bernstein and Jeffrey C. Lagarias, "The 3x+1 conjugacy map,"
+    *Canadian Journal of Mathematics* **48** (1996), 1154–1169.
+    DOI: [10.4153/CJM-1996-060-x](https://doi.org/10.4153/CJM-1996-060-x).
+    The 2-adic conjugacy behind the valuation-word/residue-class
+    correspondence.
+
+13. Josefina López and Peter Stoll, "The 3x+1 conjugacy map over a Sturmian
+    word," *Integers* **9** (2009), A13.
+    DOI: [10.1515/integ.2009.014](https://doi.org/10.1515/integ.2009.014).
+    Adjacent prior art for the Sturmian material; flagged for close reading.
+
+14. Edward Y. Chang, "A Structural Reduction of the Collatz Conjecture to
+    One-Bit Orbit Mixing," [arXiv:2603.25753](https://arxiv.org/abs/2603.25753)
+    (2026). DOI: [10.48550/arXiv.2603.25753](https://doi.org/10.48550/arXiv.2603.25753).
+    Source of the one-bit mixing observable behind `ChangHistory.lean`. The
+    finite realizability theorem there is this repository's, not Chang's.
 
 ## License, citing, acknowledgments
 
