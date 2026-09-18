@@ -9,7 +9,17 @@ Literature for the Tao-triangle / p-adic Subspace rounds is documented separatel
 [`LITERATURE_SUBSPACE_TRIANGLES.md`](LITERATURE_SUBSPACE_TRIANGLES.md). Labels follow
 [`RESEARCH_STATUS.md`](RESEARCH_STATUS.md).
 
-**How the references were checked (2026-09-16).**
+A Zotero-assisted provenance and novelty audit (September 2026) extended this document. Its claim-by-claim matrix is
+in [`NOVELTY_AND_PROVENANCE.md`](NOVELTY_AND_PROVENANCE.md), and the machine-verified bibliography is
+[`../references.bib`](../references.bib). That audit found four sources bearing directly on this repository's core
+claims that were previously uncited — Eliahou, Rozier, Bernstein, and Bernstein–Lagarias — and they are incorporated
+below.
+
+**Scope of this document.** It records literature that is part of the repository's **provenance**: work that a claim
+here uses, depends on, formalizes, or must be compared against as closest prior art. Papers merely *read during
+exploration* are deliberately **not** listed, because listing them would imply a dependency that does not exist.
+
+**How the references were checked (2026-09-16, extended 2026-09-18).**
 
 * Bibliographic data for [Te76], [Ev77], [La85], [Ta22], [LW92], [KL03] and [DM47] was read from Crossref DOI
   records. [LW92]'s page range comes from its Project Euclid record.
@@ -18,7 +28,12 @@ Literature for the Tao-triangle / p-adic Subspace rounds is documented separatel
 * The descriptions of results rely on the published abstracts ([Ev77], [LW92], [KL03], [Ta22]) and on Lagarias's
   overview [La10].
 * [Ko94] is included only because Tao's abstract cites its result. Its metadata comes from secondary citations and
-  was **not** checked against the journal.
+  was **not** checked against the journal. This remains true after the September 2026 audit: Mathematica Slovaca
+  volumes of that period are not deposited with Crossref.
+* Entries added in the September 2026 audit ([El93], [Be94], [BL96], [Ro17], [LS09], [Cr78], [Ga81], [Te79],
+  [AL95a], [AL95b], [AL95c], [Ri58], [Sc76], [ES02], [Ch26], [GT99], [Cu26]) were obtained by DOI content
+  negotiation against publisher or registry metadata, or via the Crossref transform endpoint. [Ro17]'s full text was
+  read from the openly available arXiv version (1510.01610), because its claims required direct comparison.
 
 ## 1. Stopping times, parity vectors and density one
 
@@ -30,12 +45,91 @@ Terras [Te76] and, independently, Everett [Ev77] studied the accelerated map T(n
   first n iterates is equidistributed over residues mod 2^n. In this sense the initial iterates behave like
   independent fair coin flips.
 
+### The 2-adic realizer formula and the conjugacy map
+
+Two further classical sources bear directly on the repository's realizer arithmetic, and were **not cited before the
+September 2026 audit**.
+
+* **Bernstein [Be94]** gives a noniterative 2-adic formula for the 3N+1 conjugacy: `Q = 2^{d_0} + 2^{d_1} + …` and
+  `N = (−1/3)2^{d_0} + (−1/9)2^{d_1} + (−1/27)2^{d_2} + …` with `0 ≤ d_0 > d_1 > …`. The exponent sequence is this
+  repository's valuation word, and the series is a closed-form realizer reconstruction. The repository's `Carry`
+  closed form and `Realizer` congruence are the same object in different notation.
+* **Bernstein–Lagarias [BL96]** construct the conjugacy `Φ` on `ℤ₂` with `Φ∘S∘Φ⁻¹ = T` and determine the cycle
+  structure of the induced permutation `Φ_n` of `ℤ/2ⁿℤ`. This is the structural statement behind "a valuation word
+  pins exactly one residue class of its realizers", and it is more general than what is needed here.
+
+So the reconstruction direction is **classical**, and the repository's contribution on this axis is the Lean
+formalization, not the formula.
+
 **In this repository.** The exact correspondence between valuation words and residue classes of their realizers is
 formalized and sharpened in `ValuationWord`, `FiniteValuationWord`, `Realizer`, `LiftDigits` and related modules.
 The confinement condition S_i ≤ ⌊iα + c⌋ (α = log₂ 3) packages the "orbit has not yet risen" event as a lattice-path
 constraint on prefix sums. The unconditional baseline exceptional exponent H₂(1/α) (`ExceptionalPowerBound`) is a
 counting statement of this Terras–Everett type. These parts are standard in spirit; the Lean formalization and the
 exact confined-word bookkeeping are this repository's contribution.
+
+## 1a. Rozier's Lower Bound Hypothesis and the Eliahou product identity — closest prior art
+
+This section records the most consequential finding of the September 2026 audit. Both results were previously
+uncited, and both bear on statements the repository treats as its own.
+
+### The product identity behind the drift identity
+
+Eliahou [El93] proved lower bounds on nontrivial cycle lengths using an exact product relation between an orbit's
+endpoints and its odd terms. Rozier [Ro17, Lemma 2.5] states the generalization to arbitrary finite segments:
+
+    T^(j)(n)/n = 2^(−j) · Π_{k<q} (3 + 1/m_k)
+
+with `m_0, …, m_{q−1}` the odd terms among `n, T(n), …, T^(j−1)(n)`. Taking base-2 logarithms and separating the
+`3^q` factor gives
+
+    log₂(T^(j)(n)/n) = −j + q·log₂3 + Σ_{k<q} log₂(1 + 1/(3m_k))
+
+which, with `q` the number of odd steps and `j` the total number of halvings, is **exactly** the repository's drift
+identity `log₂(m_N/m₀) = N·α + E_N − S_N` with `E_N = Σ log₂(1 + 1/(3m_n))`, term for term. The identity is therefore
+**classical**; what belongs to this repository is the logarithmic drift bookkeeping (`R_N`), the confinement framing,
+and the Lean packaging — not the identity.
+
+### The Lower Bound Hypothesis
+
+Rozier [Ro17, Hypothesis 2.3] conjectures that there is a constant `C ≥ 0` with
+
+    n ≥ j^(−C) · 2^((1 − H(q/j))·j)
+
+for all positive `j, n` (not both 1), where `q` is the number of odd terms in `n, T(n), …, T^(j−1)(n)` and `H` is the
+binary entropy function. This is a conjectural **entropy-governed lower bound on the least integer realizing a
+prescribed parity-pattern statistic** — the same question as this repository's residue/arithmetic-placement axis, at
+coarser `(j, q)` resolution rather than per valuation word.
+
+Three facts make this the closest prior art to the repository's conjectural layer:
+
+* **Theorem 2.6 proves the inequality unconditionally** when the ones-ratio satisfies `r = q/j ≤ 1/log₂3 = 0.630…`
+  and the orbit terms `n, T(n), …, T^(j)(n)` are all **distinct**, in the forms `n ≥ j^(−1/6)·2^((1−ρr)j)` with
+  `ρ = log₂3`, and for `r ≤ r_H = 0.6090897…` also `n ≥ j^(−1/6)·2^((1−H(r))j)`. Both the threshold `1/α` and the
+  distinctness hypothesis coincide with this repository's `1/α` and its `injective_orbit` hypotheses (rows V, W).
+* **Lemma 3.1: LBH implies every trajectory reaches 1.** A conjecture of this shape is already known to suffice for
+  the divergence half of the problem.
+* **Theorem 4.1: LBH implies explicit bounds** on total stopping time and maximum excursion, with the same `r_H` that
+  Curry identifies with his `γ*` — which is how Rozier entered this repository's documentation second-hand, before
+  being cited directly.
+
+**Consequences for this repository.**
+
+* The entropy-governed least-realizer lower bound must not be described as specific to this programme.
+* The harmonic-packing exclusion (`HarmonicPacking.lean`, `B < 8/9`) uses the mechanism of Theorem 2.6 — distinctness
+  gives control of `Σ 1/m_k`, which gives a lower bound — and reaches a **weaker** threshold than both Rozier's
+  theorem in its regime and Curry's published `B < 1/β* ≈ 1.0359`. It remains a genuine Lean formalization of an
+  elementary argument; it is not a frontier result.
+* The **Global Occupation Conjecture's closest published relative is LBH.** Whether either implies the other was
+  **not** settled by this audit, and no independence is claimed. This is recorded as the repository's principal open
+  provenance question in [`NOVELTY_AND_PROVENANCE.md`](NOVELTY_AND_PROVENANCE.md) §7.
+
+### Sturmian words
+
+López–Stoll [LS09] study the 3x+1 conjugacy map over a Sturmian word — the same map and the same word class as the
+repository's "critical Sturmian boundary" discussion and the manuscript's Sturmian/Christoffel material. Only the
+bibliographic record and title were verified in the audit; the full text was not compared claim by claim, so this is
+flagged **UNCERTAIN — MORE SEARCH NEEDED** and should be read before any Sturmian-related novelty claim.
 
 ## 2. Surveys and structural perspective
 
@@ -76,8 +170,11 @@ and their exact geometry (`TriangleArray`, `MaxTriangle`, `TriangleHop`) follow 
   C(σ−1, j−1) ≤ j·|shell| rests on a chord-rotation argument of cycle-lemma type (`ChordRotation`,
   `CapacityBounds.shell_choose_le_mul_card`), a classical tool of Dvoretzky–Motzkin type [DM47]. The entropy bound
   C(n,k) ≥ 2^{nH(k/n)}/(n+1) (`BinomialEntropy`) is textbook material. We have **not** verified a specific Collatz
-  paper that uses exactly this entropy/large-deviation formulation for confined words. Contributors aware of one are
-  encouraged to add it here with verified metadata.
+  paper that uses exactly this entropy/large-deviation formulation for **confined** words. The nearest hit found by
+  the September 2026 audit is Rozier [Ro17], whose exponent `1 − H(r)` and threshold `r ≤ 1/α` are the same entropy
+  mechanism at the level of `(length, odd-count)` pairs rather than confined words — close enough that the
+  repository's `H₂(1/α)` baseline should be presented as a Terras–Everett-type count in the Rozier family rather than
+  as an independent discovery. Contributors aware of a closer source are encouraged to add it with verified metadata.
 
 ## 5. Fourier techniques
 
@@ -118,12 +215,45 @@ Nothing here proves the Collatz conjecture, and the exceptional-set exponent of 
 
 ## References
 
+* **[AL95a]** D. Applegate and J. C. Lagarias, "Density bounds for the 3x+1 problem. I. Tree-search method",
+  *Mathematics of Computation* **64** (1995), no. 209, 411–426. DOI:
+  [10.1090/S0025-5718-1995-1270612-0](https://doi.org/10.1090/S0025-5718-1995-1270612-0).
+* **[AL95b]** D. Applegate and J. C. Lagarias, "Density bounds for the 3x+1 problem. II. Krasikov inequalities",
+  *Mathematics of Computation* **64** (1995), no. 209, 427–438. DOI:
+  [10.1090/S0025-5718-1995-1270613-2](https://doi.org/10.1090/S0025-5718-1995-1270613-2).
+* **[AL95c]** D. Applegate and J. C. Lagarias, "The distribution of 3x+1 trees", *Experimental Mathematics* **4**
+  (1995), no. 3, 193–209. DOI: [10.1080/10586458.1995.10504321](https://doi.org/10.1080/10586458.1995.10504321).
+* **[Be94]** D. J. Bernstein, "A noniterative 2-adic statement of the 3N+1 conjecture", *Proceedings of the American
+  Mathematical Society* **121** (1994), no. 2, 405–408. DOI:
+  [10.1090/S0002-9939-1994-1186982-9](https://doi.org/10.1090/S0002-9939-1994-1186982-9).
+* **[BL96]** D. J. Bernstein and J. C. Lagarias, "The 3x+1 conjugacy map", *Canadian Journal of Mathematics* **48**
+  (1996), no. 6, 1154–1169. DOI: [10.4153/CJM-1996-060-x](https://doi.org/10.4153/CJM-1996-060-x).
+* **[Ch26]** E. Y. Chang, "A Structural Reduction of the Collatz Conjecture to One-Bit Orbit Mixing", arXiv:
+  [2603.25753](https://arxiv.org/abs/2603.25753) (2026). DOI:
+  [10.48550/arXiv.2603.25753](https://doi.org/10.48550/arXiv.2603.25753). A copy also carries
+  [10.13140/RG.2.2.28140.22403](https://doi.org/10.13140/RG.2.2.28140.22403). Author string as given by the arXiv
+  metadata; OpenAlex normalizes it to "Edward Yi Chang". Verified 2026-09-18 via DataCite and OpenAlex; note that
+  arXiv's own API does not return this record.
+* **[Cr78]** R. E. Crandall, "On the '3x+1' problem", *Mathematics of Computation* **32** (1978), no. 144, 1281–1292.
+  DOI: [10.2307/2006353](https://doi.org/10.2307/2006353).
+* **[Cu26]** M. J. Curry, "An Explicit Windowed Sparsity Bound for Divergent 3x+1 Orbits, with Logarithmic-Floor
+  Exclusion beyond the Harmonic Barrier", Zenodo, 2026. DOI:
+  [10.5281/zenodo.22087163](https://doi.org/10.5281/zenodo.22087163).
 * **[DM47]** A. Dvoretzky and Th. Motzkin, "A problem of arrangements", *Duke Mathematical Journal* **14** (1947),
   no. 2. DOI: [10.1215/S0012-7094-47-01423-3](https://doi.org/10.1215/S0012-7094-47-01423-3). (Page range not
   recorded in the Crossref record; not re-checked.)
+* **[El93]** S. Eliahou, "The 3x+1 problem: new lower bounds on nontrivial cycle lengths", *Discrete Mathematics*
+  **118** (1993), no. 1–3, 45–56. DOI:
+  [10.1016/0012-365X(93)90052-U](https://doi.org/10.1016/0012-365X(93)90052-U).
 * **[Ev77]** C. J. Everett, "Iteration of the number-theoretic function f(2n) = n, f(2n + 1) = 3n + 2", *Advances in
   Mathematics* **25** (1977), no. 1, 42–45. DOI:
   [10.1016/0001-8708(77)90087-1](https://doi.org/10.1016/0001-8708(77)90087-1).
+* **[Ga81]** L. E. Garner, "On the Collatz 3n+1 algorithm", *Proceedings of the American Mathematical Society* **82**
+  (1981), no. 1, 19–22. DOI:
+  [10.1090/S0002-9939-1981-0603593-2](https://doi.org/10.1090/S0002-9939-1981-0603593-2).
+* **[GT99]** M. V. P. Garcia and F. A. Tal, "A note on the generalized 3n+1 problem", *Acta Arithmetica* **90**
+  (1999), no. 3, 245–250. DOI: [10.4064/aa-90-3-245-250](https://doi.org/10.4064/aa-90-3-245-250). (The DOI was not
+  recorded in this repository before the September 2026 audit.)
 * **[KL03]** I. Krasikov and J. C. Lagarias, "Bounds for the 3x+1 problem using difference inequalities", *Acta
   Arithmetica* **109** (2003), no. 3, 237–258. DOI: [10.4064/aa109-3-4](https://doi.org/10.4064/aa109-3-4).
   arXiv: [math/0205002](https://arxiv.org/abs/math/0205002).
@@ -141,12 +271,35 @@ Nothing here proves the Collatz conjecture, and the exceptional-set exponent of 
   [math/0309224](https://arxiv.org/abs/math/0309224).
 * **[LaB2]** J. C. Lagarias, "The 3x+1 problem: an annotated bibliography, II (2000–2009)". arXiv:
   [math/0608208](https://arxiv.org/abs/math/0608208).
+* **[LS09]** J. López and P. Stoll, "The 3x+1 conjugacy map over a Sturmian word", *Integers* **9** (2009), article
+  A13. DOI: [10.1515/integ.2009.014](https://doi.org/10.1515/integ.2009.014).
 * **[LW92]** J. C. Lagarias and A. Weiss, "The 3x + 1 problem: two stochastic models", *The Annals of Applied
   Probability* **2** (1992), no. 1, 229–261. DOI: [10.1214/aoap/1177005779](https://doi.org/10.1214/aoap/1177005779).
+* **[Ri58]** D. Ridout, "The p-adic generalization of the Thue–Siegel–Roth theorem", *Mathematika* **5** (1958),
+  no. 1, 40–48. DOI: [10.1112/S0025579300001339](https://doi.org/10.1112/S0025579300001339). (Cited by name in
+  [`LITERATURE_SUBSPACE_TRIANGLES.md`](LITERATURE_SUBSPACE_TRIANGLES.md); the locator was added by the September 2026
+  audit.)
+* **[Ro17]** O. Rozier, "The 3x+1 problem: a lower bound hypothesis", *Functiones et Approximatio Commentarii
+  Mathematici* **56** (2017), no. 1, 7–23. DOI: [10.7169/facm/1583](https://doi.org/10.7169/facm/1583). arXiv:
+  [1510.01610](https://arxiv.org/abs/1510.01610). Full text read from the openly available arXiv version; see §1a.
+* **[Sc76]** H. P. Schlickewei, "Die p-adische Verallgemeinerung des Satzes von Thue–Siegel–Roth–Schmidt", *Journal
+  für die reine und angewandte Mathematik* **1976** (1976), no. 288, 86–105. DOI:
+  [10.1515/crll.1976.288.86](https://doi.org/10.1515/crll.1976.288.86). (The Crossref record carries no author field
+  for this volume; the attribution is the standard one and matches
+  [`LITERATURE_SUBSPACE_TRIANGLES.md`](LITERATURE_SUBSPACE_TRIANGLES.md).)
 * **[Ta22]** T. Tao, "Almost all orbits of the Collatz map attain almost bounded values", *Forum of Mathematics,
   Pi* **10** (2022), e12. DOI: [10.1017/fmp.2022.8](https://doi.org/10.1017/fmp.2022.8). arXiv:
   [1909.03562](https://arxiv.org/abs/1909.03562).
 * **[Te76]** R. Terras, "A stopping time problem on the positive integers", *Acta Arithmetica* **30** (1976), no. 3,
   241–252. DOI: [10.4064/aa-30-3-241-252](https://doi.org/10.4064/aa-30-3-241-252).
+* **[Te79]** R. Terras, "On the existence of a density", *Acta Arithmetica* **35** (1979), no. 1, 101–102. DOI:
+  [10.4064/aa-35-1-101-102](https://doi.org/10.4064/aa-35-1-101-102).
 * **[UC10]** J. C. Lagarias (ed.), *The Ultimate Challenge: The 3x+1 Problem*, American Mathematical Society,
   Providence, RI, 2010. ISBN 978-0-8218-4940-8. DOI: [10.1090/mbk/078](https://doi.org/10.1090/mbk/078).
+
+---
+
+Machine-readable versions of all of the above, plus the Diophantine entries of
+[`LITERATURE_SUBSPACE_TRIANGLES.md`](LITERATURE_SUBSPACE_TRIANGLES.md), are in
+[`../references.bib`](../references.bib). Provenance per claim is in
+[`NOVELTY_AND_PROVENANCE.md`](NOVELTY_AND_PROVENANCE.md).
