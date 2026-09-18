@@ -63,6 +63,8 @@ import EOC.LogAbsorb
 import EOC.ShapeUnconditional
 import EOC.AverageOddDark
 import EOC.PressureBridge
+import EOC.DangerousWindows
+import EOC.ArithmeticFrontier
 import EOC.Basic
 import EOC.PeriodicCore
 import EOC.Periodic

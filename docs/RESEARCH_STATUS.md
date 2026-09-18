@@ -41,7 +41,7 @@ is not a proof of Collatz.
 * Full account: [`SHAPETAIL_UNCONDITIONAL.md`](SHAPETAIL_UNCONDITIONAL.md). Literature context:
   [`LITERATURE_CONTEXT.md`](LITERATURE_CONTEXT.md).
 
-Lean state: 93 modules imported by `EOC.lean`; `lake build EOC` completes with 8801 jobs.
+Lean state: 94 modules imported by `EOC.lean`; `lake build EOC` completes with 8802 jobs.
 
 **Pressure-only wrapper — PROVED (LEAN), `EOC/AverageOddDark.lean`.**
 
@@ -72,8 +72,80 @@ Lean state: 93 modules imported by `EOC.lean`; `lake build EOC` completes with 8
   state-only super-eigenvector gives 0.19–0.29. Fixed-K dangerous-window fractions grow linearly in j.
 * OPEN: `SummedOddDarkPressure` for λ·2^{−m} (λ = 1 at every shift is unavoidable, since cshell(0) = {1, 2^m − 1}).
 
+**Dangerous windows (PROVED (LEAN), `EOC/DangerousWindows.lean`).**
+
+* `summedPressure_of_tenth_twoNinths`: split the pair blocks into windows of K ≤ k₁ log₂ j + k₀ blocks. Suppose, for
+  every low frequency, all but (2/9)·W + (a log₂ j + b)/K windows have geometric mass ≤ 2^{K/5} from every state.
+  Then `SummedOddDarkPressure` holds with θ = 1/6 and an explicit C. Dangerous windows are paid for by the proved
+  universal ceiling 2^{(4/5)K} (`val_le_ceiling`; 2/5 bits per step for j ≥ 300).
+* `nodd_companion`: λ and 2^m − λ have identical odd-dark counts, so the u = 0 shell reduces to λ = 1.
+* COMPUTATIONAL (`scratch/logwindows_2026-09-16/REPORT.md`): with K = ⌈2 log₂ j⌉ every window is safe in all 36
+  environments scanned (j ≤ 6400). 1602 windows in 30 distinct environments (λ = 1 at five shifts and λ = 17, per j)
+  are certified by exact integer arithmetic; the worst exact rate is 0.0908 < 1/10. The per-state danger density
+  decays like ≈ 3^{−(2.2 + 0.5K)} (HEURISTIC fit), which explains why K ≍ log j is the right scale.
+* OPEN: the arithmetic local-window statement for λ·2^{−m} at every shift and every j.
+* PROVED (MATH), `scratch/codimension_2026-09-16/REPORT.md`: dark (d = 1/108) implies Tao-black at η = 1/54, i.e. three
+  leading balanced-ternary digits of the phase vanish; each block adds two fresh digits and consecutive rows share one.
+  A 2-state digit operator then gives, for a Haar-random 3-adic environment and any start state,
+  P(K-window mass > 2^{K/5}) ≤ 1.055·3^{−0.100K} (exponent 0.136 with the second moment).  This covers
+  K ≳ 4.6–6.3·log₂ j after a union over start states, not yet K = 2 log₂ j, and it is a Haar statement, not a
+  statement about the orbit λ·2^{−m}.
+
+## Arithmetic frontier — power-of-two digit sparsity (2026-09-16)
+
+Full account: [`ARITHMETIC_FRONTIER.md`](ARITHMETIC_FRONTIER.md). Lean: `EOC/ArithmeticFrontier.lean`.
+
+### PROVED (LEAN)
+
+* `ArithmeticFrontier.summedPressure_of_powerOfTwoSparsity`: `PowerOfTwoDangerousWindowSparsity ⇒
+  SummedOddDarkPressure` (θ = 1/6, C = 2 + (3/5)a + (4/5)A + (2 + (3/5)b + 4/5)/8, any window size K ≤ A log₂ j + 1).
+* `ArithmeticFrontier.lowFreqDecay_of_powerOfTwoSparsity`: `PowerOfTwoDangerousWindowSparsity ⇒ LowFreqDecay`. The
+  route goes through summed pressure, the proved `ShapeTail`, and the frequency-summed white-count split
+  `AverageOddDark.lowFreqDecay_of_shape_and_summedPressure` (the summed form of the `CriticalWhiteCount` argument).
+* Helpers: `dark_iff_distZ`, `uInv_modEq_shift`, `dark_shift` (shift translation: only a = m − z matters), and
+  `black_fiftyfourth_iff` (black at η = 1/54 iff the three leading balanced-ternary digits vanish).
+* Axioms of all of these: `propext`, `Classical.choice`, `Quot.sound`.
+
+### OPEN
+
+`PowerOfTwoDangerousWindowSparsity` itself is unproved. It asserts that, for the true low-frequency arithmetic
+environments, logarithmic windows whose geometric odd-dark pressure exceeds the dangerous threshold (rate 1/10 per
+step) cannot occupy more than the allowed 2/9 fraction plus the explicit logarithmic allowance (a log₂ j + b)/K. The
+u = 0 shell {1, 2^m − 1} is present at every shift and reduces to λ = 1 (`DangerousWindows.nodd_companion`). There the
+hypothesis is a restriction on leading ternary digit patterns of 2^{−a} mod 3^b along the EOC diagonal. This lies in
+the same general family as classical unresolved digit-distribution questions for powers of 2. No equivalence with any
+named conjecture is claimed.
+
+### PROVED (MATH) — negative audit of the current architecture
+
+* Pointwise control in the shift t is essentially required by `weighted_phi_decay_implies_exceptional_bound`. A bad
+  shift costs ≳ 2^{t/2} (trivial branch, or ε from the collision bound) against a Haar share of ≈ N^{−1/2}.
+* Averaging over t does not remove the arithmetic blocker. Full-period averages need ≈ 3^{4K} = j^{O(1)} shifts, and
+  bad shifts cannot be paid for.
+* Averaging over u, λ or j does not substantially weaken the needed input. Uniformity in u is only an API convenience;
+  the exponential moments tolerate only exponentially rare bad λ; one j₀ per K gives no new environments.
+* u = 0 reduces to the λ = 1 dark environment by the proved companion symmetry.
+* The exponent lift 2^{Q_D} ≡ 1 + c·3^D (mod 3^{D+1}) is triangular, but the digit tests admit no finite transducer
+  (`scratch/sparsevisits_2026-09-16/REPORT.md`).
+
+These are results about the **current proof architecture**, not impossibility theorems for every conceivable future
+EOC approach.
+
+### COMPUTATIONAL
+
+`scratch/shiftaudit_2026-09-16/REPORT.md`: 1230 environments (j = 400, 800, 1600; K = ⌈2 log₂ j⌉; consecutive and
+scattered shifts up to t = 77702; Haar controls; 40 shifts at K = ⌈5 log₂ j⌉).
+* No window has rate above the formal threshold 1/10, so there are zero dangerous windows.
+* The nine worst λ = 1 shifts (201 windows) were certified by exact integer arithmetic. Worst exact rate **0.09124**,
+  about 9% below 1/10.
+* Worst Haar-control rates are 0.0874 / 0.0779 / 0.0776.
+
+These finite computations support the hypothesis but do not prove it.
+
 ## Chain after this milestone
 
+    PowerOfTwoDangerousWindowSparsity (OPEN)  ⇒  SummedOddDarkPressure   ArithmeticFrontier.summedPressure_of_powerOfTwoSparsity (PROVED (LEAN))
+    SummedOddDarkPressure + ShapeTail  ⇒  LowFreqDecay   AverageOddDark.lowFreqDecay_of_summedPressure (PROVED (LEAN))
     ShapeTail (PROVED, LEAN)  +  OddDarkPressure (OPEN)
         ⇒ CriticalWhiteCount        OddBlack.criticalWhiteCount_of_shape_and_oddPressure   (implication PROVED (LEAN))
         ⇒ LowFreqDecay              WhiteContraction.lowFreqDecay_of_criticalWhiteCount     (implication PROVED (LEAN))
@@ -91,8 +163,9 @@ Lean state: 93 modules imported by `EOC.lean`; `lake build EOC` completes with 8
 | statement | status |
 |---|---|
 | `ShapeTail` (Collatz barrier, every even j ≥ 300, rate 2·2^{−j/300}) | PROVED (LEAN) |
-| `OddDarkPressure` / averaged pressure control for the true environment | OPEN — **the current blocker** |
-| `CriticalWhiteCount`, `LowFreqDecay` | OPEN (follow from `AverageOddDarkPressure` alone by PROVED (LEAN) implications) |
+| `PowerOfTwoDangerousWindowSparsity` (named arithmetic input, `ArithmeticFrontier`) | OPEN — **the current blocker** |
+| `SummedOddDarkPressure` / `OddDarkPressure` for the true environment | OPEN (follows from `PowerOfTwoDangerousWindowSparsity` by a PROVED (LEAN) implication) |
+| `CriticalWhiteCount`, `LowFreqDecay` | OPEN (`LowFreqDecay` follows by a PROVED (LEAN) implication from the OPEN `PowerOfTwoDangerousWindowSparsity`; both follow from `AverageOddDarkPressure`) |
 | lower shells σ < ⌊jα⌋ and barrier offsets U > 0 for ShapeTail (needed by the exceptional-set chain) | OPEN (the certificate holds exactly for σ ≥ ~1.40j at j = 300…2400, COMPUTATIONAL) |
 | `WeightedFourier` beyond the fresh-bit boundary (A > 1/α) | OPEN |
 | exceptional-set exponent below H₂(1/α) ≈ 0.949956 | OPEN (baseline H₂(1/α) is PROVED (LEAN)) |

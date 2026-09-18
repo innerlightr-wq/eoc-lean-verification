@@ -1,0 +1,8 @@
+{"j": 400, "t": 1, "5": {"K": 44, "W": 4, "max": 0.0199, "bad": 0, "remainder_blocks": 24}, "7": {"K": 61, "W": 3, "max": 0.0181, "bad": 0, "remainder_blocks": 17}}
+{"j": 400, "t": 66, "5": {"K": 44, "W": 4, "max": 0.0177, "bad": 0, "remainder_blocks": 24}, "7": {"K": 61, "W": 3, "max": 0.0137, "bad": 0, "remainder_blocks": 17}}
+{"j": 800, "t": 1, "5": {"K": 49, "W": 8, "max": 0.0279, "bad": 0, "remainder_blocks": 8}, "7": {"K": 68, "W": 5, "max": 0.0191, "bad": 0, "remainder_blocks": 60}}
+{"j": 800, "t": 133, "5": {"K": 49, "W": 8, "max": 0.0259, "bad": 0, "remainder_blocks": 8}, "7": {"K": 68, "W": 5, "max": 0.0191, "bad": 0, "remainder_blocks": 60}}
+{"j": 1600, "t": 1, "5": {"K": 54, "W": 14, "max": 0.0273, "bad": 0, "remainder_blocks": 44}, "7": {"K": 75, "W": 10, "max": 0.0241, "bad": 0, "remainder_blocks": 50}}
+{"j": 1600, "t": 266, "5": {"K": 54, "W": 14, "max": 0.0308, "bad": 0, "remainder_blocks": 44}, "7": {"K": 75, "W": 10, "max": 0.0233, "bad": 0, "remainder_blocks": 50}}
+{"j": 3200, "t": 1, "5": {"K": 59, "W": 27, "max": 0.0345, "bad": 0, "remainder_blocks": 7}, "7": {"K": 82, "W": 19, "max": 0.0252, "bad": 0, "remainder_blocks": 42}}
+{"j": 3200, "t": 533, "5": {"K": 59, "W": 27, "max": 0.0395, "bad": 0, "remainder_blocks": 7}, "7": {"K": 82, "W": 19, "max": 0.0282, "bad": 0, "remainder_blocks": 42}}

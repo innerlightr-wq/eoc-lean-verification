@@ -47,8 +47,24 @@ accordingly — see the [status legend](#formalization-status-legend).
 - **Pressure-only chain (PROVED (LEAN), `EOC/AverageOddDark.lean`):** `AverageOddDarkPressure ⇒ CriticalWhiteCount ⇒
   LowFreqDecay` with no ShapeTail hypothesis; at s = 3 the averaged pressure must stay below ≈ 0.14 (N₀ = 30) or
   ≈ 0.17 (N₀ = 100).
-- **Main remaining analytic blocker:** `AverageOddDarkPressure` for the true environment (OPEN). This is **not** a
-  proof of `CriticalWhiteCount`, of an improved exceptional exponent, or of Collatz.
+- **Main remaining analytic blocker:** the arithmetic input below (OPEN). Nothing here proves `CriticalWhiteCount` or
+  `LowFreqDecay` unconditionally, improves the exceptional exponent, or proves EOC or Collatz.
+
+### Current arithmetic frontier
+
+The formal chain now isolates one explicit OPEN hypothesis, `PowerOfTwoDangerousWindowSparsity`
+(`EOC/ArithmeticFrontier.lean`). Lean proves (PROVED (LEAN), standard axioms only):
+
+    PowerOfTwoDangerousWindowSparsity  ⇒  SummedOddDarkPressure  ⇒  LowFreqDecay
+      (summedPressure_of_powerOfTwoSparsity; lowFreqDecay_of_powerOfTwoSparsity, using the proved ShapeTail and the
+       frequency-summed form of the CriticalWhiteCount argument)
+
+So `LowFreqDecay` follows by a PROVED (LEAN) implication from the OPEN `PowerOfTwoDangerousWindowSparsity` hypothesis.
+The hypothesis bounds how many logarithmic windows can carry odd-dark pressure above rate 1/10. For the lowest
+frequency shell (λ = 1) it is a statement about leading ternary digit patterns of powers of 2, in the same general
+family as classical unresolved digit questions; it is **not** known and **not** claimed equivalent to any named
+conjecture. A 1230-environment scan found no dangerous window, and the worst exact certified rate is 0.09124
+(COMPUTATIONAL; evidence, not proof). Details: [`docs/ARITHMETIC_FRONTIER.md`](docs/ARITHMETIC_FRONTIER.md).
 
 Details: [`docs/SHAPETAIL_UNCONDITIONAL.md`](docs/SHAPETAIL_UNCONDITIONAL.md). How this relates to the literature:
 [`docs/LITERATURE_CONTEXT.md`](docs/LITERATURE_CONTEXT.md).
@@ -58,7 +74,7 @@ Details: [`docs/SHAPETAIL_UNCONDITIONAL.md`](docs/SHAPETAIL_UNCONDITIONAL.md). H
 A dated, detailed account is in [`docs/RESEARCH_STATUS.md`](docs/RESEARCH_STATUS.md). Labels there: PROVED (LEAN),
 PROVED (MATH), EXTERNAL THEOREM, COMPUTATIONAL, HEURISTIC, CONJECTURAL, REFUTED, OPEN.
 
-**Formally verified** (Lean, `lake build` passes, 93 modules, no `sorry`, standard axioms only):
+**Formally verified** (Lean, `lake build` passes, 94 modules, no `sorry`, standard axioms only):
 
 - pair-valuation, transport and survivor-counting results (`PairValuation`, `SuffixTransport`, `TransportCollapse`,
   `UpperEscape`, `SurvivorCounting`, …) and the baseline exceptional exponent H₂(1/α) ≈ 0.949956
@@ -93,9 +109,9 @@ A > 1/α.**
 
 **Open:**
 
-- exponentially concentrated control of Tao-black triangle occupation under the critical confined law, now in the
-  form `OddDarkPressure` / averaged pressure control (the current bottleneck; `ShapeTail`, the other input of
-  `CriticalWhiteCount`, is proved);
+- exponentially concentrated control of Tao-black triangle occupation under the critical confined law, now reduced
+  to the named hypothesis `PowerOfTwoDangerousWindowSparsity` (the current bottleneck; `ShapeTail`, the other input
+  of `CriticalWhiteCount`, is proved);
 - any fixed low-frequency decay exponent γ > 0;
 - any proof of A > 1/α (the exceptional exponent stays at H₂(1/α) ≈ 0.949956);
 - EOC and the Collatz conjecture themselves (see below).
