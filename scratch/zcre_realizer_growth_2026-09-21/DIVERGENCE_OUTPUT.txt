@@ -1,0 +1,14 @@
+m0=6171, real word (40 digits): [1, 2, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 3, 1, 1, 1, 1, 1, 3, 4, 3, 3, 1, 1, 1, 4]
+real r_N: [3, 11, 27, 27, 27, 27, 27, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171, 6171]
+
+deviate at step 8 by +1 (digit 1->2): word len 40
+r_N after deviation: [3, 11, 27, 27, 27, 27, 27, 6171, 14363, 47131, 47131, 47131, 309275, 833563, 1882139, 3979291, 3979291, 12367899, 12367899, 45922331, 113031195, 113031195, 113031195, 113031195, 113031195, 113031195, 113031195, 8702965787, 25882834971, 60242573339, 128962050075, 266401003547, 266401003547, 266401003547, 1365912631323, 1365912631323, 5763959142427, 5763959142427, 23356145186843, 23356145186843]
+  matches m0? [False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
+
+deviate at step 8 by +2 (digit 1->2): word len 40
+r_N after deviation: [3, 11, 27, 27, 27, 27, 27, 6171, 14363, 47131, 47131, 47131, 309275, 833563, 1882139, 3979291, 3979291, 12367899, 12367899, 45922331, 113031195, 113031195, 113031195, 113031195, 113031195, 113031195, 113031195, 8702965787, 25882834971, 60242573339, 128962050075, 266401003547, 266401003547, 266401003547, 1365912631323, 1365912631323, 5763959142427, 5763959142427, 23356145186843, 23356145186843]
+  matches m0? [False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
+
+deviate at step 8 by +3 (digit 1->2): word len 40
+r_N after deviation: [3, 11, 27, 27, 27, 27, 27, 6171, 14363, 47131, 47131, 47131, 309275, 833563, 1882139, 3979291, 3979291, 12367899, 12367899, 45922331, 113031195, 113031195, 113031195, 113031195, 113031195, 113031195, 113031195, 8702965787, 25882834971, 60242573339, 128962050075, 266401003547, 266401003547, 266401003547, 1365912631323, 1365912631323, 5763959142427, 5763959142427, 23356145186843, 23356145186843]
+  matches m0? [False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]

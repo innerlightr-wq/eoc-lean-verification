@@ -1,0 +1,13 @@
+=== Test 1 (fixed): r_N for real seeds vs m0 ===
+m0=       3  all r_N<=m0: True  stabilizes at N=1  r_1..r_12=[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+m0=       7  all r_N<=m0: True  stabilizes at N=2  r_1..r_12=[3, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+m0=       9  all r_N<=m0: True  stabilizes at N=2  r_1..r_12=[1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+m0=      11  all r_N<=m0: True  stabilizes at N=2  r_1..r_12=[3, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11]
+m0=      13  all r_N<=m0: True  stabilizes at N=1  r_1..r_12=[13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13]
+m0=      15  all r_N<=m0: True  stabilizes at N=3  r_1..r_12=[3, 7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15]
+m0=      27  all r_N<=m0: True  stabilizes at N=3  r_1..r_12=[3, 11, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27]
+m0=      31  all r_N<=m0: True  stabilizes at N=4  r_1..r_12=[3, 7, 15, 31, 31, 31, 31, 31, 31, 31, 31, 31]
+m0=      63  all r_N<=m0: True  stabilizes at N=5  r_1..r_12=[3, 7, 15, 31, 63, 63, 63, 63, 63, 63, 63, 63]
+m0=     127  all r_N<=m0: True  stabilizes at N=6  r_1..r_12=[3, 7, 15, 31, 63, 127, 127, 127, 127, 127, 127, 127]
+m0=  837799  all r_N<=m0: True  stabilizes at N=16  r_1..r_12=[3, 7, 7, 39, 167, 167, 167, 167, 2215, 2215, 18599, 51367]
+m0=    6171  all r_N<=m0: True  stabilizes at N=8  r_1..r_12=[3, 11, 27, 27, 27, 27, 27, 6171, 6171, 6171, 6171, 6171]
