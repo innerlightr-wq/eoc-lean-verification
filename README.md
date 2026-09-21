@@ -576,6 +576,22 @@ repository's maintainer — see [Literature](#literature), item 3), built on
 top of the García–Tal mechanism, not a result of García and Tal's own 1999
 paper, and is not (yet) formalized in this repository.
 
+## Divergent-orbit reduction
+
+Curry's theorem was independently audited (proof reconstructed line by line, its two lemmas
+and main bound stress-tested computationally; see `docs/CURRY_FOUNDATION.md`) and gives
+reciprocal summability, `Σ 1/m_n < ∞`, for every divergent accelerated orbit. Elementary
+consequences of this — proved and Lean-formalized in `EOC/CurryFoundation.lean`, not stated by
+Curry himself — give `R_n → -∞`. Every hypothetical Type-II (divergent) accelerated orbit
+therefore has a tail, past its last global drift maximum, whose valuation word is
+**zero-corridor** (`S_k ≤ ⌊αk⌋` for all `k ≥ 1`, `α = log₂3`) with **diverging deficit**
+(`⌊αk⌋ - S_k → ∞`). Excluding positive-integer realization of such tails — the **zero-corridor
+realizability frontier**, `docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md` — would eliminate
+Type-II divergence entirely. Nontrivial cycles (Type I) remain a fully separate, untouched
+exclusion problem. **This reduction does not prove the Collatz conjecture**, does not prove
+EOC, and does not by itself exclude any orbit — it narrows and precisely specifies what
+excluding divergence would require.
+
 ## Current research checkpoint
 
 **FORMALLY VERIFIED** (rows A–K, N, Q, V of the table above):
@@ -641,6 +657,12 @@ positive cycles; the Collatz conjecture itself.
 `LogCorridor.lean` · `UpperEscape.lean` · `UpperCertificates.lean` · `SurvivorCounting.lean` ·
 `CapacityBounds.lean` · `SurvivorDensity.lean` · `EntropyBounds.lean` · `SurvivorClusters.lean` ·
 `ExceptionalPowerBound.lean` · `SplitPrefix.lean` · `LiftDigits.lean` · `ResidueDiscrepancy.lean`
+
+**Curry foundation / zero-corridor tail (2026-09-21)**
+`CurryFoundation.lean` — the audited-external-theorem chain from reciprocal summability
+(`ReciprocalSummable`, the sole external hypothesis) through `R_n → -∞`, `Σ 2^{R_n} < ∞`, a
+generic last-global-maximum lemma, and the Zero-Corridor Tail Theorem; see
+`docs/CURRY_FOUNDATION.md`.
 
 **Fourier / exponent chain (2026-09-14/15)**
 `ShellWeyl.lean` · `PrefixSuffixBilinear.lean` · `PrefixCollision.lean` · `PrefixStateFormula.lean` ·
