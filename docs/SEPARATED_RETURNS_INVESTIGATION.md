@@ -180,18 +180,43 @@ Two further facts supply one, and both are proved:
 > ```
 
 The middle bound inverts to `B ≥ (log₂m₀ − 2e₀ − 3)/6`: along this family the episode count is
-**at least linear in `log₂m₀`** — a theorem, not a measurement. Hence:
+**at least linear in `log₂m₀`** — a theorem, not a measurement.
 
-> **Proved obstruction, entirely about the finite prefix.** Summing the coarse per-episode estimate
-> charges `≥ (B+1)(log₂m₀ − c) = Ω((log m₀)²)`, while the prefix occupation it bounds is
-> `≤ e₀ + 2B = O(log m₀)`. The per-episode single-window accounting is **lossy by a factor
-> `Ω(log m₀)`**, and no choice of constants repairs it.
+**An inference that does not follow.** The seed estimate bounds `m₀` from *above*, hence `B` from
+*below*, and gives no upper bound on `B`. So `O_prefix ≤ e₀ + 2B` may **not** be read as
+`O(log m₀)`; that would require `B = O(log m₀)`, the opposite direction. That step is withdrawn.
+
+**What replaces it — a ratio, in which the `B`'s cancel.** With `Q ≥ (B+1)(log₂m₀ − c)` the
+surrogate charge and `O_prefix ≤ e₀ + 2B` the proved bound, `(2+e₀)(B+1) ≥ e₀ + 2B` gives
+(Lean: `surrogate_ratio_lower`)
+
+```
+Q / O_prefix  ≥  (log₂m₀ − c) / (2 + e₀) ,        e₀ depending only on c.
+```
+
+**The seeds are unbounded, by construction.** Realizers of a fixed prefix form a full residue class
+mod `2^{S_N+1}`, so `leastRealizer + t·2^{S_N+1}` realizes the same prefix, stays odd, and exceeds
+any prescribed `M` (Lean: `exists_large_realizer`); the re-entry count and prefix occupation depend
+only on the word and are unchanged (Lean: `many_reentries_with_large_seed`). So `log₂m₀` really does
+grow, and the ratio bound is not vacuous.
+
+> **Proved obstruction.** On the constructed prefixes the coarse per-episode accounting
+> overestimates the actual prefix occupation by a factor `Ω(log m₀)`, along an **unbounded** sequence
+> of realizing seeds, and no choice of constants repairs it.
+
+*(Checked at `c = 1`, `B = 5,10`, `t` up to `10³⁰`: the enlarged seed is odd and reproduces every
+valuation; measured ratios `75.4`, `93.6` against proved lower bounds `25.1`, `28.9`.)*
+
+*(Not formalized, and not needed above: by `boundedPrefixRealizers_iff_positiveRealizer`, the
+**least** realizers are bounded iff some integer realizes the whole infinite word — which by §D
+could never reach `1`. So either they are unbounded, and then `Q = Ω((log m₀)²)` along them, or a
+positive orbit never reaches `1`.)*
 
 **Scope.** Only the lower bound `P = Ω(log m₀)` is proved — the direction the argument needs;
-`P = Θ(log m₀)` is not. The obstruction concerns **prefix** occupation; the **total** occupation of
-these seeds depends on the orbit beyond `N` and is not controlled here, so the `O₁` column above
-remains a measurement. And it is an obstruction to one accounting route, not to EOC and not to
-arguments that do not decompose per episode.
+`P = Θ(log m₀)` is not, and nothing bounds `O_prefix` by `O(log m₀)`. The obstruction concerns
+**prefix** occupation; the **total** occupation of these seeds depends on the orbit beyond `N` and
+is not controlled here, so the `O₁` column above remains a measurement. And it is an obstruction to
+one accounting route, not to EOC and not to arguments that do not decompose per episode.
 
 ## G. The up-crossing band: what it does and does not say
 
@@ -257,12 +282,13 @@ size per bucket**, since a maximum over a larger sample is larger for trivial re
 formalized; the entry lemma pinning every re-entry threshold below `α−1`; that occupation ends at
 arrival at `1` for **every** seed, hence the bridge from a stopping bound to an occupation bound;
 that **bounded episode count is false**, with episode counts `Ω(log m₀)` realized by seeds of
-controlled size; and that the per-episode single-window accounting is lossy by `Ω(log m₀)` on the
-prefix of an explicit family.
+controlled size; and that the per-episode single-window accounting overestimates prefix occupation
+by a factor `Ω(log m₀)` along an unbounded sequence of realizing seeds.
 
 **Does not establish.** It does not prove or disprove EOC at any tier. The step **(U) ⟹ `O(log m)`
 stopping time** is imported, not formalized, so "(U) ⟹ EOC" is a proved bridge on top of an
-unformalized layer. `P = Θ(log m₀)` is not proved — only `Ω`. Nothing is proved about the **total**
+unformalized layer. `P = Θ(log m₀)` is not proved — only `Ω` — and prefix occupation is **not**
+shown to be `O(log m₀)`; only the accounting *ratio* is controlled. Nothing is proved about the **total**
 occupation of the constructed seeds, only about their prefixes; the constants `0.28`, `0.42`, `1.4`
 are computational. It gives no bound on `σ_c(p)`. It does not show per-episode accounting is the
 only route. The flatness of mean `P` on random seeds is a diagnostic only — §E shows it is not a

@@ -586,16 +586,19 @@ Writing `e₀ = exitTime c 0` (a constant depending on `c` alone):
 * at least `B` re-entries before the horizon `N`;
 * `m₀ < 2^{6B + 2e₀ + 3}`, so `B ≥ (log₂ m₀ − 2e₀ − 3)/6` — the episode count of these seeds grows
   **at least linearly in `log₂ m₀`**;
-* the number of corridor times *within the realized prefix* is at most `e₀ + 2B`, i.e. `O(log m₀)`.
+* the number of corridor times *within the realized prefix* is at most `e₀ + 2B`.
 
-Together these make the failure of the per-episode accounting a theorem rather than a measurement:
-summing a coarse per-episode bound charges `≥ (B+1)·(log₂m₀ − c) = Ω((log m₀)²)`, while the prefix
-occupation it is bounding is `O(log m₀)`.
+**Scope — three things that are deliberately not claimed.**
 
-**Scope.** Every statement here is about the **finite prefix** `[0, N)`. Nothing is claimed about
-the *total* occupation of these seeds, which depends on the orbit beyond `N` and is not controlled
-here; the measured values in the companion report are computational only. Nor is `P = Θ(log m₀)`
-claimed: only the lower bound `Ω` is proved, which is the direction the argument needs. -/
+* The last bound is `O(B)`, **not** `O(log m₀)`. The seed estimate bounds `m₀` from *above*, which
+  bounds `B` from *below*; it gives no upper bound on `B`, so it does not license replacing
+  `e₀ + 2B` by `O(log m₀)`. The accounting loss is instead stated as a *ratio*, in
+  `surrogate_ratio_lower`.
+* Every statement here is about the **finite prefix** `[0, N)`. Nothing is claimed about the
+  *total* occupation of these seeds, which depends on the orbit beyond `N`; the measured values in
+  the companion report are computational only.
+* `P = Θ(log m₀)` is **not** claimed — only the lower bound `Ω`, which is the direction the argument
+  needs. -/
 theorem many_reentries_with_small_seed (c B : ℕ) :
     ∃ N m0 : ℕ, 1 ≤ N ∧ Odd m0 ∧
       (∀ i < N, a (orbit m0 i) = oscD c i) ∧
@@ -649,6 +652,89 @@ theorem many_reentries_with_small_seed (c B : ℕ) :
     rw [Finset.card_range] at hsplit
     omega
   exact ⟨N, m0, hN1, hodd, hreal.2, hcard, hsize, hocc⟩
+
+/-! ## 4e. Unbounded realizing seeds, and the accounting ratio
+
+`many_reentries_with_small_seed` bounds the realizing seed from **above**. That gives
+`B = Ω(log₂ m₀)`, but it does **not** bound `B` from above, so it does *not* license concluding
+that the prefix occupation `≤ e₀ + 2B` is `O(log m₀)`. That inference is withdrawn.
+
+What replaces it is a **ratio** statement, and for it to be non-vacuous the realizing seeds must be
+unbounded. That is established here unconditionally: realizers of a fixed prefix form a full
+residue class, so arbitrarily large ones exist. -/
+
+/-- **Realizers of a prefix are a full residue class, so arbitrarily large ones exist.**
+
+If `m₀` realizes a prefix then so does `m₀ + t·2^{S_N+1}` for every `t`, since `Realizes` depends
+only on the residue mod `2^{S_N+1}` (`realizerCongruence`) and adding a multiple of the modulus
+preserves both the congruence and oddness. -/
+theorem exists_large_realizer (d : ℕ → ℕ) (N M : ℕ) (hN : 1 ≤ N) (hd : ∀ i < N, 1 ≤ d i) :
+    ∃ m0, M < m0 ∧ Odd m0 ∧ Realizes d N m0 := by
+  obtain ⟨w, hw⟩ := leastRealizer_odd d N hN hd
+  obtain ⟨j, hj⟩ : ∃ j, (2 : ℕ) ^ (S d N + 1) = 2 * j := ⟨2 ^ S d N, by rw [pow_succ]; ring⟩
+  have hodd : Odd (leastRealizer d N + 2 ^ (S d N + 1) * (M + 1)) :=
+    ⟨w + j * (M + 1), by rw [hw, hj]; ring⟩
+  refine ⟨leastRealizer d N + 2 ^ (S d N + 1) * (M + 1), ?_, hodd, ?_⟩
+  · have h1 : M + 1 ≤ 2 ^ (S d N + 1) * (M + 1) :=
+      Nat.le_mul_of_pos_left _ (Nat.two_pow_pos _)
+    omega
+  · refine (realizerCongruence d N _ hodd hd).mpr ?_
+    have hexp : 3 ^ N * (leastRealizer d N + 2 ^ (S d N + 1) * (M + 1)) + q d N
+        = (3 ^ N * leastRealizer d N + q d N) + 2 ^ (S d N + 1) * (3 ^ N * (M + 1)) := by ring
+    show (3 ^ N * (leastRealizer d N + 2 ^ (S d N + 1) * (M + 1)) + q d N) % 2 ^ (S d N + 1)
+        = 2 ^ S d N % 2 ^ (S d N + 1)
+    rw [hexp, Nat.add_mul_mod_self_left]
+    exact leastRealizer_modEq d N
+
+/-- **The same episode data, in arbitrarily large seeds.**
+
+Identical to `many_reentries_with_small_seed` except that the seed is bounded **below** by an
+arbitrary `M` instead of above. Both the re-entry count and the prefix occupation depend only on the
+word, which any realizer of the prefix reproduces, so they are unchanged.
+
+This is what makes the accounting-ratio statement below non-vacuous: it exhibits an *unbounded*
+sequence of realizing seeds, rather than inferring unboundedness from an upper bound. -/
+theorem many_reentries_with_large_seed (c B M : ℕ) :
+    ∃ N m0 : ℕ, 1 ≤ N ∧ Odd m0 ∧ M < m0 ∧
+      (∀ i < N, a (orbit m0 i) = oscD c i) ∧
+      B ≤ (reentries c N).card ∧
+      ((Finset.range N).filter (InC c)).card ≤ exitTime c 0 + 2 * B := by
+  obtain ⟨N, m0, hN, -, hword, hcard, -, hocc⟩ := many_reentries_with_small_seed c B
+  obtain ⟨m1, hM, hodd1, hreal1⟩ :=
+    exists_large_realizer (oscD c) N M hN (fun i _ => oscD_pos c i)
+  exact ⟨N, m1, hN, hodd1, hM, hreal1.2, hcard, hocc⟩
+
+/-- **The accounting ratio.**
+
+Suppose a coarse per-episode estimate charges at least `B + 1` episodes a cost of at least
+`L − c` each, so the surrogate total is `Q ≥ (B+1)(L−c)`, while the quantity it is bounding is
+`O ≤ e₀ + 2B`. Then
+
+```
+O · (L − c)  ≤  (2 + e₀) · Q ,        i.e.        Q / O  ≥  (L − c) / (2 + e₀) ,
+```
+
+because `(2+e₀)(B+1) ≥ e₀ + 2B` for all `B, e₀ ≥ 0`. (Stated multiplicatively, so it holds without
+a positivity side condition on `O`.) The bound is independent of `B`, so along the
+seeds of `many_reentries_with_large_seed` — where `L = log₂ m₀` is unbounded and `e₀` depends only
+on `c` — the overestimate factor is `Ω(log m₀)`.
+
+Note what is *not* claimed: nothing here bounds `O` by `O(log m₀)`. `O ≤ e₀ + 2B` bounds it in terms
+of the episode count, and the episode count is bounded below, not above. Only the *ratio* is
+controlled. -/
+theorem surrogate_ratio_lower (L c e0 B Q O : ℝ)
+    (hB : 0 ≤ B) (he0 : 0 ≤ e0) (hLc : c ≤ L)
+    (hQ : (B + 1) * (L - c) ≤ Q) (hOle : O ≤ e0 + 2 * B) :
+    O * (L - c) ≤ (2 + e0) * Q := by
+  have hD : 0 ≤ L - c := by linarith
+  have h1 : O * (L - c) ≤ (e0 + 2 * B) * (L - c) := mul_le_mul_of_nonneg_right hOle hD
+  have h2 : (e0 + 2 * B) * (L - c) ≤ ((2 + e0) * (B + 1)) * (L - c) := by
+    refine mul_le_mul_of_nonneg_right ?_ hD
+    nlinarith
+  have h3 : ((2 + e0) * (B + 1)) * (L - c) ≤ (2 + e0) * Q := by
+    rw [mul_assoc]
+    exact mul_le_mul_of_nonneg_left hQ (by linarith)
+  linarith
 
 /-! ## 5. What the counting fact does and does not say -/
 

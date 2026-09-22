@@ -227,10 +227,53 @@ Packaging them (`many_reentries_with_small_seed`), with `N = exitTime(B)+1 ≤ e
 The middle bound inverts to **`B ≥ (log₂m₀ − 2e₀ − 3)/6`**: along this family the episode count is
 **at least linear in `log₂m₀`**, and that is now a theorem rather than a measurement.
 
-> **Proved obstruction, entirely about the finite prefix.** Summing the coarse per-episode estimate
-> charges `≥ (B+1)(log₂m₀ − c) = Ω((log m₀)²)`, while the prefix occupation it is bounding is
-> `≤ e₀ + 2B = O(log m₀)`. So the per-episode single-window accounting is **lossy by a factor
-> `Ω(log m₀)`**, and no choice of constants repairs it.
+### A rate inference that does *not* follow, and its replacement
+
+The seed estimate bounds `m₀` from **above**, which bounds `B` from **below**. It gives *no upper*
+bound on `B`. So from `O_prefix ≤ e₀ + 2B` one may **not** conclude `O_prefix = O(log m₀)` — that
+would need `B = O(log m₀)`, the opposite direction. **This inference is withdrawn.**
+
+The accounting-loss result survives without it, as a **ratio**. If the prefix has at least `B+1`
+episodes, the surrogate charges `Q ≥ (B+1)(log₂m₀ − c)`, while the proved prefix bound gives
+`O_prefix ≤ e₀ + 2B`. Since `(2+e₀)(B+1) ≥ e₀ + 2B` for all `B, e₀ ≥ 0` (`surrogate_ratio_lower`,
+stated multiplicatively as `O·(L−c) ≤ (2+e₀)·Q` so that no positivity side condition is needed),
+
+```
+Q / O_prefix  ≥  (log₂m₀ − c) / (2 + e₀) ,
+```
+
+with `e₀` depending only on `c`. **The `B`'s cancel** — no bound on the episode count is needed in
+either direction.
+
+### The seeds must be, and are, unbounded
+
+A ratio `Ω(log m₀)` is vacuous unless `log₂m₀` actually grows, and an exponential *upper* bound on
+`m₀` does not establish that. It is established directly instead. By `realizerCongruence` the
+realizers of a fixed prefix are a **full residue class** mod `2^{S_N+1}`, so
+`leastRealizer + t·2^{S_N+1}` realizes the same prefix for every `t`, stays odd, and exceeds any
+prescribed `M` (`exists_large_realizer`). Since the re-entry count and the prefix occupation depend
+only on the word, they are unchanged:
+
+> **Theorem** (`many_reentries_with_large_seed`). For every `c`, every `B` and every `M` there is an
+> odd `m₀ > M` whose genuine orbit follows the word for `N` steps, with `≥ B` re-entries before `N`
+> and prefix occupation `≤ e₀ + 2B`.
+
+> **The defensible conclusion.** On the constructed prefixes, the coarse per-episode accounting
+> overestimates the actual prefix occupation by a factor `Ω(log m₀)`, along an **unbounded** sequence
+> of realizing seeds — and no choice of constants repairs it.
+
+*(Verified at `c = 1`: for `B = 5, 10` and `t = 0, 1, 10⁶, 10³⁰` the enlarged seed is odd and
+reproduces every valuation of the prefix; the measured ratio `75.4` and `93.6` at `t = 10³⁰`
+exceeds the proved lower bounds `25.1` and `28.9`.)*
+
+**Remark (not formalized): the least-realizer family separately.** Whether `log₂m₀ → ∞` along the
+*least* realizers is a different question, and it has a clean answer. By
+`ZCRERealizerGrowth.boundedPrefixRealizers_iff_positiveRealizer`, `leastRealizer(oscD c, N)` is
+bounded in `N` **iff** some positive odd integer realizes the entire infinite word. Such an orbit
+would have infinitely many corridor times, so by `occupation_le_of_reaches_one_general` it could
+never reach `1`. Hence: *either* the least realizers are unbounded — and then `Q = Ω((log m₀)²)`
+along them, exceeding the EOC target outright — *or* there is a positive integer whose accelerated
+orbit never reaches `1`. The main conclusion above does not depend on resolving this.
 
 **Three scope lines that must not be dropped.**
 
@@ -359,7 +402,7 @@ reformulation.
 
 ## H. Deliverables and verification
 
-* **Lean.** `EOC/SeparatedReturns.lean`, 35 theorems (34 public, 1 private), builds clean under Lean
+* **Lean.** `EOC/SeparatedReturns.lean`, 38 theorems (37 public, 1 private), builds clean under Lean
   `4.34.0-rc1` + Mathlib. Every theorem checked with `#print axioms`:
   `[propext, Classical.choice, Quot.sound]`, several needing only `[propext, Quot.sound]`. No
   `sorry`, `admit`, `axiom`, `opaque`, `native_decide`.
@@ -371,8 +414,9 @@ reformulation.
 * **New — refutation of (P):** `oscS`/`oscD`/`InC`, `S_oscD`, `osc_invariant`, `reentry_immediate`,
   `bernoulli_four_three`, `exists_exit_ge`, `exitTime` with `exitTime_not_mem`, `exitTime_lt_succ`,
   `exitTime_strictMono`, `exists_horizon_many_reentries`, `exists_odd_seed_with_many_reentries`.
-* **New — the rate:** `post_exit_lower`, `exit_within_three`, `exitTime_le_add_three`,
-  `exitTime_le_linear`, `oscS_le`, `many_reentries_with_small_seed`.
+* **New — the rate and the accounting ratio:** `post_exit_lower`, `exit_within_three`,
+  `exitTime_le_add_three`, `exitTime_le_linear`, `oscS_le`, `many_reentries_with_small_seed`,
+  `exists_large_realizer`, `many_reentries_with_large_seed`, `surrogate_ratio_lower`.
 * **Retained, docstrings corrected:** `sum_concat`, `count_le_of_summands_ge`, `upcrossing_band`.
 * **Paper-level, explicitly not formalized.** (i) **(U) ⟹ `O(log m)` stopping time** — imported from
   the lifetime audit; its real-analytic absorption step was never formalized, and this is the one
@@ -390,4 +434,4 @@ reformulation.
   every index it touches lies within the realized prefix, so there is no off-by-one gap).
 
 Scripts: `scratch/correct.py`, `scratch/correct2.py`, `scratch/refuteP.py`, `scratch/sigma.py`,
-`scratch/joint.py`, `scratch/conventions.py`, `scratch/family_eoc.py`, `scratch/quant.py`.
+`scratch/joint.py`, `scratch/conventions.py`, `scratch/family_eoc.py`, `scratch/quant.py`, `scratch/largeseed.py`.
