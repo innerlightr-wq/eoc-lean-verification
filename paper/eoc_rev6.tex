@@ -1,0 +1,1323 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{openproblem}{Open Problem}
+\renewcommand{\theopenproblem}{\Alph{openproblem}}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+
+\newcommand{\Occ}{\mathcal{O}}
+\newcommand{\Edep}{\mathsf{E}}          % endpoint depth, distinct from carry excess E_n
+\newcommand{\Zt}{\mathbb{Z}_2}
+\newcommand{\Zpos}{\mathbb{Z}_{>0}}
+\newcommand{\al}{\alpha}
+\newcommand{\rmin}{r_{\min}}
+\newcommand{\status}[1]{\textsf{\footnotesize[#1]}}
+
+\title{A Global Occupation Conjecture for the Accelerated $3x+1$ Map:\\
+Residue--Time Duality, Divergent-Orbit Sparsity,\\ and the Pointwise Realizer Problem}
+\author{Elias De Jes\'us\\ Independent Researcher\\ ORCID: 0009-0007-0190-9143\\ \texttt{dejesuselias10@gmail.com}}
+\date{Revision 6, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study the Effective Occupation Conjecture (EOC) for the accelerated $3x+1$ map
+$T(m)=(3m+1)/2^{a(m)}$, $a(m)=\nu_2(3m+1)$. Writing $R_n=S_n-n\log_2 3$ for the drift of the
+accumulated $2$-adic valuation and $\Occ_c(m_0)=\#\{n\ge 0: R_n\le c\}$, EOC asserts
+$\Occ_c(m_0)=O(\log m_0)$ for every seed and every corridor width~$c$.
+
+This revision reorganizes the programme around four axes --- occupation, residue, time, and
+divergence --- and the exact bridges between them. Record chronology identifies the residue and
+time axes precisely: the least-realizer frontier $\rmin(N,c)$ is the inverse function of the
+single-window confinement lifetime $L_c(m)$, so every pointwise lifetime bound transfers to a
+realizer floor, on a graded scale that we tabulate. On the divergence side we retain the strongest
+unconditional input: via Garcia--Tal's collision-free window theorem and Curry's explicit
+quantitative form, every divergent orbit has summable reciprocals and admits no eventual
+logarithmic drift floor $R_n\ge -B\log_2 n+O(1)$ for any $B<1/\beta_*\approx 1.0358567$. Curry's
+input plays a second, qualitative role: after the last global maximum of $R$, a hypothetical
+divergent orbit has an infinite zero-corridor tail, so \emph{universal drift exit} --- every
+positive seed eventually attains $R_n>0$ --- is equivalent to the exclusion of divergent orbits,
+while remaining compatible with hypothetical nontrivial cycles and hence strictly weaker than the
+Collatz conjecture.
+
+We then record what a sustained programme of structural audits has closed. Finite information
+cannot decide infinite realization: every exact-realizer cylinder contains arbitrarily large
+positive integers, so $\forall N\,\exists m_N$ is free and all content lies in $\exists m\,\forall N$.
+Global valuation-word information cannot decide it either: we exhibit an explicitly indexed
+uncountable family of zero-confined words with linear negative drift, summable $\sum 2^{R_n}$ and
+$O(G)$ occupation shadow, of which all but countably many have no positive-integer realizer.
+Several apparently independent coordinates --- normalized carry, lift digits, terminal zero gap,
+transport budgets --- are invertible reparameterizations of the exact realizer, and the Archimedean
+and $2$-adic readings of the natural divisibility object are complementary factors of one identity
+rather than independent constraints. Launch renormalization remains a valid bridge from finite
+words to actual positive-orbit dynamics, but its corridor-uniform closing hypothesis is, once the
+corridor width is computed rather than assumed, essentially an $O(\log n)$ stopping-time
+conjecture; and deep negative drift is self-financing, since the ordinary height it creates is
+exactly the resource that permits the recovery valuations repaying it.
+
+Neither EOC nor the Collatz conjecture is proved here. The surviving frontier is actual
+positive-orbit arithmetic at three nested levels: qualitative exclusion of an infinite
+zero-corridor tail, quantitative control of single-window lifetime, and control of separated
+returns sufficient for full occupation.
+\end{abstract}
+
+\noindent\textbf{Non-claims.} This paper proves neither the Collatz conjecture nor any tier of EOC.
+It does not prove an exponential realizer floor for arbitrary confined words. It does not promote
+any computational finding to a theorem: every claim is labelled with its status
+(\S\ref{sec:status}). Where a statement reorganizes or reclassifies earlier work rather than
+proving something new, this is said explicitly.
+
+\tableofcontents
+
+\section{Introduction}\label{sec:intro}
+
+The accelerated $3x+1$ map sends an odd positive integer to the next odd term of its Collatz
+trajectory,
+\[
+T(m)=\frac{3m+1}{2^{a(m)}},\qquad a(m)=\nu_2(3m+1)\ge 1 .
+\]
+Writing $S_n$ for the accumulated $2$-adic valuation after $n$ accelerated steps and
+$R_n=S_n-n\al$ with $\al=\log_2 3$ for its drift below the critical slope, the \emph{Effective
+Occupation Conjecture} asserts that the time an orbit spends at or below any fixed drift level is
+logarithmic in the seed. This single pointwise statement forces every orbit to be eventually
+periodic and reduces Collatz to a finite cycle search (Theorem~\ref{thm:reduction}).
+
+\subsection{Four axes, not three layers}
+
+Revision~5 of this work was organized in three layers: EOC and its logical status; unconditional
+drift-axis progress; and the residue-axis reformulation. That organization is no longer adequate,
+for a specific reason: the residue axis and the confinement-lifetime question are not two problems
+but two coordinates on one problem, and a fourth, genuinely qualitative question --- exclusion of
+divergent orbits --- sits beside both. Revision~6 is therefore organized around four axes.
+
+\begin{description}[leftmargin=2.2em,style=nextline]
+\item[Occupation axis (\S\ref{sec:occupation})] The functional $\Occ_c(m_0)=\#\{n\ge 0:R_n\le c\}$,
+  counting \emph{all} times in the corridor, including separated later returns. EOC lives here, and
+  it is the strongest of the four.
+\item[Residue axis (\S\ref{sec:residue})] The exact realizer congruence: which integers realize a
+  given valuation word, and how small the least such integer, $\rmin(N,c)$, can be.
+\item[Time axis (\S\ref{sec:time})] The single-window lifetime $L_c(m)$ and the drift exit time
+  $\tau_c(m)$. Record chronology makes the residue and time axes \emph{exactly} dual.
+\item[Divergence axis (\S\ref{sec:divergence})] What is unconditionally known about a hypothetical
+  divergent orbit: sparsity of its value set, summability of reciprocals, and exclusion of
+  logarithmic drift floors.
+\end{description}
+
+\noindent The programme map in Figure~\ref{fig:map} records the exact bridges. Every arrow in it is
+a theorem, and \S\ref{sec:map} gives the reference for each.
+
+\begin{figure}[t]
+\centering
+\begin{minipage}{0.92\textwidth}
+\small
+\[
+\begin{array}{c}
+\textbf{EOC}\ \ \Occ_c(m_0)=O(\log m_0)\\[2pt]
+\big\downarrow\ \text{\scriptsize$\Occ_c\ge L_c$, strict (Rem.~\ref{rem:LvsO})}\\[2pt]
+\text{single-window lifetime } L_c(m)
+\qquad\Big|\qquad
+\text{separated returns (uncontrolled)}\\[2pt]
+\big\updownarrow\ \text{\scriptsize record chronology (Prop.~\ref{prop:inversion})}\\[2pt]
+\text{least-realizer frontier } \rmin(N,c)\\[2pt]
+\big\updownarrow\ \text{\scriptsize exact congruence (Prop.~\ref{prop:congruence})}\\[2pt]
+\text{arithmetic placement of } r(D)
+\end{array}
+\]
+\[
+\begin{array}{c}
+\text{hypothetical divergent orbit}
+\ \xrightarrow{\ \text{Prop.~\ref{prop:recip}}\ } R_n\to-\infty
+\ \xrightarrow{\ \text{last global max}\ } \text{infinite zero-corridor tail}\\[2pt]
+\xrightarrow{\qquad} \tau_0(m^*)=\infty
+\ \xrightarrow{\ \text{Thm.~\ref{thm:DEequiv}}\ }
+\text{failure of universal drift exit}
+\end{array}
+\]
+\end{minipage}
+\caption{The programme map. Vertical double arrows are exact equivalences; the lower chain is the
+qualitative divergence reduction. Every implication is referenced in \S\ref{sec:map}.}
+\label{fig:map}
+\end{figure}
+
+\subsection{What this revision adds}
+
+Revision~6 is primarily a \emph{synthesis}. Its main additions are:
+
+\begin{enumerate}[leftmargin=1.6em]
+\item A general transfer principle (\S\ref{sec:transfer}) turning any pointwise lifetime bound into
+  a realizer floor, with the exponents worked out: logarithmic, polylogarithmic, polynomial and
+  linear lifetime bounds give exponential, stretched-exponential, polynomial and linear frontiers
+  respectively. EOC thereby becomes a \emph{graded} programme rather than an all-or-nothing one.
+\item The qualitative time axis (\S\ref{sec:driftexit}): the drift exit time $\tau_0$, its exact
+  integral characterisation $R_n>0\iff 3^n<2^{S_n}$, and the equivalence between universal drift
+  exit and the exclusion of divergent orbits.
+\item A boundaries section (\S\ref{sec:boundaries}) collecting the strongest no-go results: the
+  finite-cylinder barrier, the coordinate-collapse ledger, and the word-shadow cardinality barrier.
+\item A corrected reading of the launch-renormalization closing hypothesis (\S\ref{sec:launch}) and
+  the self-financing obstruction to temporal impossibility arguments (\S\ref{sec:selffin}).
+\item A closed-route map (\S\ref{sec:closed}) recording, for each mechanism tried, what it achieved
+  and where it stops.
+\end{enumerate}
+
+We are explicit about provenance throughout. Several statements that read as new are in fact
+consequences of identities already in Revision~5 --- the future-minimum theorem
+(Prop.~\ref{prop:futuremin}) follows from the Eliahou--Rozier identity, and the positive cycle
+drift (Lemma~\ref{lem:cycledrift}) is Revision~5's Lemma on terminal and cyclic drift. Where this
+happens we say so and record only the new proof or the new role.
+
+\section{Preliminaries}\label{sec:prelim}
+
+Let $m_0$ be a positive odd integer, $m_{n+1}=T(m_n)$, $d_n=a(m_n)$, $S_n=\sum_{i<n}d_i$,
+$\al=\log_2 3$, $R_n=S_n-n\al$, so $R_0=0$ and each step changes $R$ by $d_n-\al$.
+
+\begin{remark}
+If every accelerated orbit reaches $1$ then Collatz holds: every positive integer's odd part has an
+accelerated orbit, and the classical trajectory interleaves accelerated iterates with halvings. We
+work exclusively with $T$. \status{standard}
+\end{remark}
+
+For fixed $c>0$, $\Occ_c(m_0)=\#\{n\ge0:R_n\le c\}\in\mathbb{Z}_{\ge1}\cup\{\infty\}$. This is a
+global sojourn count: it neither halts at first passage nor counts time far above the critical line.
+
+\begin{lemma}[Eliahou--Rozier identity]\label{lem:ER}
+For every odd $m_0\ge1$ and every $n\ge0$,
+\[
+m_n\,2^{R_n}=m_0\prod_{i<n}\Bigl(1+\tfrac{1}{3m_i}\Bigr),
+\qquad\text{equivalently}\qquad
+R_n=\log_2\frac{m_0}{m_n}+E_n,\quad
+E_n=\sum_{i<n}\log_2\Bigl(1+\tfrac{1}{3m_i}\Bigr)\ge0 .
+\]
+\status{due to Eliahou \cite{Eliahou} and Rozier \cite{Rozier}; no novelty claimed}
+\end{lemma}
+
+\begin{remark}[Notation warning: two quantities called $E$]\label{rem:twoE}
+Throughout, $E_n=\log_2 Q_n$ denotes the \emph{carry excess} of Lemma~\ref{lem:ER}. The
+\emph{endpoint depth} of a word, elsewhere written $E(D)$, is a different quantity and is written
+$\Edep(D)=S-\log_2 r(D)$ here (\S\ref{sec:gap}). The two are unrelated and were a genuine source of
+confusion in earlier drafts.
+\end{remark}
+
+There is a second, purely integral form of the same information, used whenever real logarithms
+would be inconvenient.
+
+\begin{lemma}[Aggregate identity]\label{lem:aggregate}
+With $C_n=\sum_{j<n}3^{\,n-1-j}2^{S_j}$ (so $C_0=0$, $C_{n+1}=3C_n+2^{S_n}>0$ for $n\ge0$),
+\[
+2^{S_n}m_n=3^n m_0+C_n \qquad\text{for all }n\ge0 .
+\]
+\status{elementary; formalized, \S\ref{sec:lean}}
+\end{lemma}
+
+\begin{proof}
+Induction on $n$. The case $n=0$ is $m_0=m_0$. If $2^{S_n}m_n=3^nm_0+C_n$ then, multiplying
+$2^{d_n}m_{n+1}=3m_n+1$ by $2^{S_n}$,
+$2^{S_{n+1}}m_{n+1}=3\cdot 2^{S_n}m_n+2^{S_n}=3^{n+1}m_0+(3C_n+2^{S_n})=3^{n+1}m_0+C_{n+1}$.
+\end{proof}
+
+\begin{lemma}[Integral corridor]\label{lem:integral}
+Since $S_n\in\mathbb{Z}$ and $n\al=\log_2(3^n)$,
+\[
+R_n\le 0\iff 2^{S_n}\le 3^n,\qquad R_n>0\iff 3^n<2^{S_n},\qquad R_n\le0\iff S_n\le\lfloor n\al\rfloor .
+\]
+\status{elementary}
+\end{lemma}
+
+\begin{lemma}[Wedge]\label{lem:wedge}
+If $m_i\ge m_0$ for all $0\le i\le n$, then $R_i\le E_i\le i/(3m_0\ln2)$ for $0\le i\le n$. In
+particular $R_i\le c$ for $0\le i\le\min\{n,\lfloor 3c\ln2\cdot m_0\rfloor\}$.
+\status{Revision 5}
+\end{lemma}
+
+\section{The occupation axis: EOC and its logical status}\label{sec:occupation}
+
+\subsection{Four tiers}
+
+\begin{conjecture}[Existence EOC]\label{conj:exist}
+For every fixed $c>0$ there exist constants $K_c,C_c$ such that every positive odd $m_0$ satisfies
+$\Occ_c(m_0)\le K_c\log_2 m_0+C_c$.
+\end{conjecture}
+
+\begin{conjecture}[Effective EOC at $(c,K,C)$]\label{conj:eff}
+For stated $c>0$ and stated numerical $K,C$, every positive odd $m_0$ satisfies
+$\Occ_c(m_0)\le K\log_2 m_0+C$.
+\end{conjecture}
+
+\begin{conjecture}[Sharp-leading EOC]\label{conj:sharp}
+For every fixed $c>0$, $\Occ_c(m_0)\le K\log_2 m_0+O_c(\log\log m_0)$ with $K=1/I(\al)$, where
+$I(\mu)=\mu-\mu\log_2\mu+(\mu-1)\log_2(\mu-1)$.
+\end{conjecture}
+
+\begin{conjecture}[Strong sharp EOC]\label{conj:strong}
+For every fixed $c>0$ there is $C_c$ with $\Occ_c(m_0)\le K\log_2 m_0+C_c$.
+\end{conjecture}
+
+Conjecture~\ref{conj:strong}$\Rightarrow$\ref{conj:sharp}$\Rightarrow$\ref{conj:exist}, and
+Conjecture~\ref{conj:eff} at any constants implies Conjecture~\ref{conj:exist} at that $c$.
+Crucially, Conjecture~\ref{conj:exist} does \emph{not} imply Conjecture~\ref{conj:eff} at any
+stated constants: it asserts existence without a bound. All four tiers are pointwise statements
+about every seed, not almost-every-seed statements.
+
+\subsection{The Collatz reduction}
+
+\begin{definition}\label{def:mstar}
+For $c>0$ and constants $K,C$, let $m^*=m^*(K,C,c)$ be least such that
+$3c\ln2\cdot m>K\log_2 m+C+1$ for all $m\ge m^*$; it exists and is computable by finitely many
+exact comparisons.
+\end{definition}
+
+\begin{theorem}\label{thm:reduction}
+Fix $c>0$ and suppose Conjecture~\ref{conj:exist} holds at $(c,K,C)$; put $m^*=m^*(K,C,c)$. Then
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+\item no accelerated orbit is injective; every orbit is eventually periodic;
+\item every odd $m_0\ge m^*$ has an iterate $m_i<m_0$ with $i\le\lfloor 3c\ln2\cdot m_0\rfloor$;
+\item if some seed's orbit does not reach $1$, there is a nontrivial accelerated cycle with minimum
+  member below $m^*$;
+\item if additionally no nontrivial cycle has minimum member below $m^*$, the Collatz conjecture
+  holds.
+\end{enumerate}
+\status{Revision 5, retained unchanged}
+\end{theorem}
+
+\begin{corollary}[Explicit instance]\label{cor:explicit}
+Assume Conjecture~\ref{conj:eff} at $c=1$, $K=13$, $C=100$. Then $m^*(13,100,1)=90$; every odd
+$m<90$ reaches $1$ by direct inspection (longest: $m=27$, $41$ accelerated steps); hence Collatz
+holds. \status{Revision 5}
+\end{corollary}
+
+\begin{remark}[Why effective constants are genuinely needed]
+$m^*$ is computable from $(K,C,c)$, but Conjecture~\ref{conj:exist} supplies no bound on $(K,C)$
+themselves. Minimal-counterexample reasoning does not repair this: Theorem~\ref{thm:reduction}(ii)
+localizes a counterexample below $m^*$ but does not eliminate it. Since Ba\v{r}ina's
+verification~\cite{Barina} settles all seeds below $2^{71}$, any nontrivial cycle's minimum member
+exceeds $2^{71}$, and the wedge forces $\Occ_1(m_{\min})\gtrsim 3\ln2\cdot2^{71}\approx4.9\times10^{21}$
+--- a value Conjecture~\ref{conj:exist} can accommodate at unspecified constants but which is
+wildly larger than anything the record table of \S\ref{sec:comp} suggests. \status{Revision 5}
+\end{remark}
+
+\subsection{The entropy scale}\label{sec:entropy}
+
+The natural population constant is the per-odd-step entropy deficit
+\[
+I_{\mathrm{Collatz}}\;=\;\al\bigl(1-H_2(1/\al)\bigr)\;=\;\frac{1-H_2(\rho)}{\rho},
+\qquad \rho=\frac{1}{\al}=0.6309297\ldots,
+\]
+with $H_2$ the binary entropy. Numerically $I_{\mathrm{Collatz}}=0.0793186127748554\ldots$, and
+$1/I(\al)=12.6074\ldots$ is the predicted asymptotic slope in Conjecture~\ref{conj:sharp}. The
+parenthesization matters: the constant is $\bigl(1-H_2(\rho)\bigr)/\rho$, \emph{not}
+$1-H_2(\rho)/\rho$. \status{arithmetic; a known typesetting hazard in earlier drafts}
+
+This constant calibrates the population scale and supplies, by itself, no pointwise
+anti-concentration. That distinction is one of the recurring themes of \S\ref{sec:boundaries}.
+
+\subsection{EOC as an occupation-time shadow of Rozier's hypothesis}\label{sec:rozier}
+
+\begin{theorem}\label{thm:rozier}
+Assume Rozier's Lower Bound Hypothesis \cite[Hyp.~2.3]{Rozier}. Then for every fixed $c>0$,
+$\Occ_c(m_0)\le \frac{1}{I(\al)}\log_2 m_0+O_c(\log\log m_0)$; that is, LBH implies
+Conjecture~\ref{conj:sharp}, hence Conjecture~\ref{conj:exist}. \status{Revision 5}
+\end{theorem}
+
+The proof applies Rozier's own manoeuvre \cite[Thm.~4.1]{Rozier} at occupation times rather than at
+total stopping time, via the entropy identity $\mu(1-H_2(1/\mu))=I(\mu)$. We regard it as a
+corollary of his framework, recorded because the occupation functional had not previously been
+isolated. It does not advance the provability of EOC --- LBH is itself open, and arguably harder ---
+but positions EOC precisely as a weaker occupation-time shadow of LBH. Making the additive term
+explicit would supply Conjecture~\ref{conj:eff} and, with it, Collatz via
+Corollary~\ref{cor:explicit}; this is Open Problem~\ref{op:A}.
+
+\section{The divergence axis}\label{sec:divergence}
+
+This section is unconditional throughout; nothing here assumes EOC.
+
+\begin{definition}
+An orbit $(m_n)$ is \emph{injective} if $m_0,m_1,\dots$ are pairwise distinct.
+\end{definition}
+
+\begin{lemma}[Terminal and cyclic drift]\label{lem:cycledrift}
+If an orbit reaches $1$, or enters a nontrivial positive cycle, then $R_N\to+\infty$. Consequently
+every non-injective orbit has $R_N\to+\infty$. In particular, closure of a cycle of length $L$ with
+total valuation $S$ forces $2^S>3^L$: strictly positive drift per period.
+\status{Revision 5; the integral form $2^S>3^L$ is immediate from Lemma~\ref{lem:aggregate} and is
+formalized, \S\ref{sec:lean}}
+\end{lemma}
+
+\subsection{An elementary $8/9$ bound and its terminality}
+
+\begin{lemma}[Carry budget]\label{lem:carrybudget}
+Every accelerated iterate $m_k$, $k\ge1$, satisfies $m_k\not\equiv0\pmod 3$. Hence for $k\ge1$ the
+states lie in the density-$1/3$ set of integers coprime to $6$, and for every injective orbit
+$E_N\le\frac19\log_2 N+O(1)$, so $2^{E_N}\ll N^{1/9}$. \status{Revision 5}
+\end{lemma}
+
+\begin{theorem}[Logarithmic-floor exclusion, $8/9$]\label{thm:89}
+Let $m_0$ have an injective accelerated orbit. For every $B<8/9$, $R_k\ge-B\log_2 k$ fails for
+infinitely many $k$. \status{Revision 5}
+\end{theorem}
+
+\begin{corollary}\label{cor:injocc}
+For every injective orbit and fixed $c>0$, $\#\{0\le j<N:R_j>c\}\ll_{m_0,c}N^{1/9}$; hence
+$\Occ_c(m_0)=\infty$ at density-one rate, and Conjecture~\ref{conj:exist} directly excludes
+injective orbits. This is what Theorem~\ref{thm:reduction}(i) uses. \status{Revision 5}
+\end{corollary}
+
+\begin{remark}[Terminality of the mod-$3$ mechanism]\label{rem:terminal}
+For a prime $p>3$, both $2$ and $3$ are units mod $p$, so $3m+1\equiv0\pmod p$ is solvable and no
+annihilation analogous to the mod-$3$ case occurs. This one-step fixed-modulus packing mechanism
+supplies no further density reduction at any other fixed modulus; pushing past $8/9$ requires a
+genuinely different mechanism. \status{Revision 5}
+\end{remark}
+
+\subsection{Garcia--Tal/Curry sparsity}
+
+\begin{theorem}[Garcia--Tal \cite{GarciaTal}; explicit form, Curry \cite{Curry}]\label{thm:GTC}
+Let $\Occ$ be the value set of an infinite aperiodic orbit of the raw map. For every
+$\beta>\beta_*$ there is $C_\beta$ with
+$\#(\Occ\cap[a,a+X))\le C_\beta X^\beta\log(2X)$ uniformly in $a$, where
+$\beta_*=\gamma_*\log_2 3\approx0.9653844$ and $\gamma_*\approx0.6090897$ is the unique root of
+$H(\gamma)=\gamma\log_2 3$. \status{external, cited}
+\end{theorem}
+
+\begin{proposition}[Reciprocal summability]\label{prop:recip}
+Every divergent (equivalently, injective) orbit satisfies $\sum_{x\in\Occ}1/x<\infty$, hence
+$\sum_{n\ge0}1/m_n<\infty$ for its accelerated iterates. Consequently $Q_n\uparrow Q_\infty<\infty$,
+$E_n\uparrow E_\infty<\infty$, $m_n\to\infty$, and $R_n\to-\infty$. \status{Revision 5, from
+Theorem~\ref{thm:GTC}}
+\end{proposition}
+
+\begin{theorem}[Occupation bound and the $1/\beta_*$ threshold]\label{thm:betastar}
+Fix $\beta\in(\beta_*,1)$. There are constants $c_1,c_2$ depending on $\beta$ and on the orbit with
+$\#\{n\ge0:R_n\ge-G\}\le c_1 2^{\beta G}(G+c_2)$ for all $G\ge1$. Consequently no divergent orbit
+satisfies $R_n\ge-B\log_2 n+O(1)$ eventually, for any $B<1/\beta_*\approx1.0358567$. The endpoint
+$B=1/\beta_*$ is not excluded. \status{Revision 5}
+\end{theorem}
+
+\subsection{Curry's second, qualitative role}\label{sec:curryqual}
+
+Revision~5 treated Theorem~\ref{thm:GTC} purely as quantitative divergence sparsity. It has a
+second role, which organizes the whole time axis.
+
+\begin{proposition}[Last-maximum reduction]\label{prop:lastmax}
+Let $m_0$ have a divergent orbit. By Proposition~\ref{prop:recip}, $R_n\to-\infty$, so $R$ attains
+a global maximum at finitely many indices; let $n_0$ be the \emph{last}. Put $m^*=m_{n_0}$, an
+actual positive odd integer, and $R'_k=R_{n_0+k}-R_{n_0}$ its relative drift. Then $R'_k<0$ for
+every $k\ge1$, hence $S'_k\le\lfloor k\al\rfloor$ for every $k\ge1$: the restarted orbit has an
+infinite zero-corridor tail. \status{companion work; already formalized in the repository}
+\end{proposition}
+
+This reduction is not new to Revision~6 --- it is the zero-corridor tail theorem of the Curry
+foundation notes, where it is proved and formalized, and where it is also recorded that the step
+requires no irrationality of $\al$. Its role here is to make the divergence axis and the time axis
+meet.
+
+\begin{remark}[Scope]
+Nothing in this section constrains hypothetical nontrivial cycles, proves any tier of EOC, or
+touches the occupation of convergent orbits. \status{Revision 5}
+\end{remark}
+
+\section{The residue axis}\label{sec:residue}
+
+\begin{definition}
+A valuation word $D=(d_0,\dots,d_{N-1})$ has $d_i\ge1$; $s_0=0$, $s_j=\sum_{i<j}d_i$,
+$S_N(D)=s_N$, and carry sum $C_N(D)=\sum_{j=0}^{N-1}3^{\,N-1-j}2^{s_j}$. An odd $m_0$
+\emph{realizes} $D$ if $a(m_i)=d_i$ for all $i<N$.
+\end{definition}
+
+\begin{proposition}[Exact realizer congruence]\label{prop:congruence}
+The exact realizers of $D$ form a single residue class modulo $2^{S_N(D)+1}$, not $2^{S_N(D)}$.
+Writing $r(D)$ for the least positive representative,
+\[
+r(D)\equiv\bigl(2^{S_N(D)}-C_N(D)\cdot3^{-N}\bigr)\pmod{2^{S_N(D)+1}} .
+\]
+\status{Revision 5}
+\end{proposition}
+
+\begin{definition}[Coarse anchor versus exact lift]
+For $S\le S_N(D)$ the \emph{coarse anchor} at depth $S$ is
+$a_S(D):=\bigl(-C_N(D)3^{-N}\bigr)\bmod 2^S$. Proposition~\ref{prop:congruence} shows $r(D)$
+reduces mod $2^{S_N}$ to $a_{S_N}(D)$ and is one of $\{a_{S_N}(D),a_{S_N}(D)+2^{S_N}\}$, terminal
+parity selecting which. Unconditionally $r(D)\ge a_{S_N}(D)$; this inequality, not the equality, is
+what every floor argument below uses. \status{Revision 5}
+\end{definition}
+
+\subsection{Proved sectors}
+
+\begin{theorem}[Periodic realizer floor]\label{thm:periodic}
+For a fixed block $X$ put $\xi_X=-C(X)/\delta_X\in\Zt$ with $\delta_X=3^{q_X}-2^{S_X}$ odd. If
+$\xi_X\notin\Zpos$, there is a finite $B_X$ with
+$r(X^n)\ge 2^{nS_X-B_X}$ for all large $n$, hence $\log_2 r(X^n)/(nS_X)\to1$. \status{Revision 5;
+full proof in companion note \cite{DJperiodic}}
+\end{theorem}
+
+\begin{theorem}[Eventually periodic words]\label{thm:evperiodic}
+For a fixed prefix $Y$ the same mechanism applies to $YX^n$ with transformed anchor
+$\xi_{X,Y}$; outside the same exceptional case, $r(YX^n)\ge2^{S_Y+nS_X-B_{X,Y}}$. \status{Revision 5}
+\end{theorem}
+
+\begin{proposition}[Bulk-defect anchor stability]\label{prop:bulkdefect}
+For $D=X^aEX^b$ (fixed $X$, arbitrary finite defect $E$, arbitrary $b$), the coarse anchor satisfies
+$a_{aS_X}(D)=\xi_X\bmod2^{aS_X}$ exactly, independent of $E$ and $b$. Hence, outside the
+exceptional case, $r(D)\ge2^{aS_X-B_X}$. \status{Revision 5}
+\end{proposition}
+
+\begin{remark}[Arbitrary irregular words: open]\label{rem:moving}
+For a general confined word the coarse anchor $\xi_N(D)=-C_N(D)3^{-N}$ changes with $N$: there is
+no single fixed rational whose periodicity can be invoked. This is the moving-anchor sector, and it
+is where actual Collatz orbits live. \status{Revision 5}
+\end{remark}
+
+\subsection{What the height invariant actually separates}\label{sec:height}
+
+Revision~5 framed the split as periodic versus irregular. Later audits sharpened it. Every realizer
+condition can be written
+\[
+2^{S_N}\ \big|\ A+\chi\Lambda
+\]
+for integers $A,\Lambda$ \emph{generated by the word}: for a general word $(A,\Lambda)=(C_N,3^N)$,
+while for a purely periodic word of period $p$ the carry collapses to
+$C_{Np}\cdot\Delta=c_0(3^{Np}-2^{N\sigma})$ with $c_0,\Delta$ independent of $N$. The only general
+tool converting divisibility into a size statement is that a nonzero multiple of $2^m$ has absolute
+value at least $2^m$, which gives a \emph{dichotomy}: either $A+\chi\Lambda=0$, pinning $\chi$ to
+the single rational $-A/\Lambda$, or
+\[
+|\chi|\ \ge\ 2^{S_N}/H-1,\qquad H=\max(|A|,|\Lambda|).
+\]
+Writing $\rho_N=\log_2 H/S_N$, the second branch is useful exactly when $\rho_N$ is bounded away
+from $1$.
+
+\begin{observation}[Height amortization, not complexity]\label{obs:height}
+Periodic, eventually periodic and one-defect words have $\rho_N\to0$, at rate $1/(\text{number of
+repetitions})$: a fixed height is amortized over unboundedly many periods. Arbitrary confined words
+supply only $(C_N,3^N)$, with $\log_2 H=\al N\ge S_N$, so $\rho_N\ge1$ and the second branch is
+vacuous. The separating invariant is therefore height amortization, not symbolic complexity: the
+Beatty/Sturmian zero-corridor word, of minimal aperiodic subword complexity $p(n)=n+1$, already has
+$\rho_N>1$ at every depth examined, while its periodic continued-fraction approximants keep
+$\rho_N\approx0.26$. \status{structural interpretation, supported by exact identities and by
+computation; not a theorem about all words}
+\end{observation}
+
+\subsection{Endpoint depth and the frontier defect}\label{sec:gap}
+
+Write $\Edep(D)=S-\log_2 r(D)$ for the endpoint depth (Remark~\ref{rem:twoE}) and
+$g(D)=S-\lfloor\log_2 r(D)\rfloor$ for the discrete terminal gap. Then
+\[
+\Edep(D)\ \le\ g(D)\ <\ \Edep(D)+1,\qquad\text{i.e. } g=\lceil \Edep\rceil ,
+\]
+the two agreeing only when $r(D)$ is a power of $2$. \status{proved; formalized, \S\ref{sec:lean}}
+
+\begin{remark}[Correction to Revision~5's Open Problem E]\label{rem:OPE}
+Revision~5 asked whether the frontier-defect target
+$\Edep(D)\le H_2(\rho_c)S+\Phi(N)$, $\Phi=o(N)$, is genuinely easier than an exponential floor, and
+recorded that question as open. It is not easier in any useful sense: by the bracket above the
+statement is equivalent, up to an additive $1$, to $g(D)\le H_2(\rho_c)S+\Phi(N)$, and under
+confinement $S\le\lfloor\al N\rfloor$ this is an exponential floor with
+$\varepsilon=I_{\mathrm{Collatz}}+o(1)$. Open Problem~E of Revision~5 is therefore the
+sharp-leading form of Open Problem~C, not an independent weaker route, and is restated as such in
+\S\ref{sec:open}. \status{correction to Revision 5}
+\end{remark}
+
+\section{The time axis}\label{sec:time}
+
+\subsection{Three temporal scales}
+
+\begin{definition}\label{def:times}
+Fix $c\ge0$ and an odd seed $m$.
+\begin{align*}
+L_c(m)&=\max\{N\ge0: R_j(m)\le c\ \text{for all }0\le j\le N\} &&\text{(single-window lifetime)},\\
+\Occ_c(m)&=\#\{n\ge0:R_n(m)\le c\} &&\text{(total occupation)},\\
+\tau_c(m)&=\inf\{n\ge1:R_n(m)>c\} &&\text{(drift exit time)} .
+\end{align*}
+\end{definition}
+
+These answer different questions. $L_c$ measures the initial confined episode; $\Occ_c$ sums all
+episodes, including separated later returns; $\tau_c$ asks only whether the corridor is ever left.
+Always $L_c(m)\le\Occ_c(m)$ and $\tau_c(m)=L_c(m)+1$ when finite.
+
+\begin{remark}[Single window does not control occupation]\label{rem:LvsO}
+The inequality $\Occ_c\ge L_c$ is strict in general, and dramatically so: $m_0=285175$ has
+$L_1=14$ but $\Occ_1=97$. Consequently a complete single-window theory --- even an optimal one ---
+does not yield EOC. \status{Revision 5, computational example retained}
+\end{remark}
+
+\subsection{Residue--time duality}\label{sec:duality}
+
+\begin{definition}
+Fix $c>0$. A word $D$ of length $N$ is \emph{$c$-confined} if $R_j(D)\le c$ for $0\le j\le N$. For
+the $c$-confined family at depth $N$, $\rmin(N,c):=\min_D r(D)$.
+\end{definition}
+
+\begin{proposition}[Record-chronology inversion]\label{prop:inversion}
+$\rmin(N,c)=\min\{m\ \text{odd}: L_c(m)\ge N\}$. \status{Revision 5, Proposition 5.6}
+\end{proposition}
+
+\begin{proposition}[Single-window equivalence]\label{prop:window}
+Fix $c>0$ and $\varepsilon\in(0,2]$. The following are equivalent:
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+\item $r(D)\ge2^{\varepsilon N}$ for every $c$-confined $D$ of length $N$ with $r(D)\ge3$;
+\item $L_c(m_0)\le\varepsilon^{-1}\log_2 m_0$ for every odd $m_0\ge3$.
+\end{enumerate}
+\status{Revision 5, Proposition 5.7}
+\end{proposition}
+
+Revision~5 presented Propositions~\ref{prop:inversion} and~\ref{prop:window} as technical
+observations inside the residue section. They deserve a more prominent role: together they say that
+\emph{the residue and time axes are the same axis in two coordinates}. Every statement about how
+small a realizer can be is a statement about how long an orbit can stay confined, and conversely.
+Revision~6 takes this as an organizing principle rather than a lemma.
+
+\subsection{The general transfer principle}\label{sec:transfer}
+
+Proposition~\ref{prop:window} matches one specific pair of scales. The inversion is general.
+
+\begin{proposition}[Lifetime--frontier transfer]\label{prop:transfer}
+Let $F:\mathbb{Z}_{>0}\to\mathbb{Z}_{>0}$ be nondecreasing and suppose $L_c(m)\le F(m)$ for every
+odd $m$. Then
+\[
+\rmin(N,c)\ \ge\ \min\{m: F(m)\ge N\}\;=\;F^{-1}(N).
+\]
+\status{proved here; the finite form is formalized, \S\ref{sec:lean}}
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:inversion}, $\rmin(N,c)$ is the least odd $m$ with $L_c(m)\ge N$. If
+$m<F^{-1}(N)$ then $F(m)<N$ by monotonicity, so $L_c(m)\le F(m)<N$; hence no such $m$ qualifies.
+\end{proof}
+
+Writing the hypothesis in terms of $x=\log_2 m$ gives the scales of interest.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Lifetime hypothesis & Frontier obtained & Character \\
+\midrule
+$L_c(m)\le K\log_2 m$ & $\log_2\rmin(N,c)\ge N/K$ & exponential (Open Problem~C) \\
+$L_c(m)\le K(\log_2 m)^p$, $p>1$ & $\log_2\rmin(N,c)\ge(N/K)^{1/p}$ & stretched exponential \\
+$L_c(m)\le K m^{\theta}$, $\theta>0$ & $\rmin(N,c)\ge(N/K)^{1/\theta}$ & polynomial \\
+$L_c(m)\le K m$ & $\rmin(N,c)\ge N/K$ & linear \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[A graded programme]\label{rem:graded}
+This table is the most constructive consequence of the recent audits. EOC's residue axis has
+usually been posed all-or-nothing --- prove an exponential floor or prove nothing. Transfer shows
+otherwise: \emph{any} unconditional pointwise lifetime bound, however weak, yields a corresponding
+unconditional frontier bound. A bound as weak as $L_c(m)\le Km$ would already give a linear
+frontier, and none is currently known. We record this as Open Problem~\ref{op:intermediate}.
+\status{proved; the assessment of what is currently known is in \S\ref{sec:nounconditional}}
+\end{remark}
+
+\begin{remark}[No unconditional lifetime bound can be easy]\label{sec:nounconditional}
+No unconditional bound $L_0(m)\le F(m)$ is currently known, and none can be proved without
+excluding divergent orbits: applied to the restarted seed $m^*$ of
+Proposition~\ref{prop:lastmax}, which has $L_0(m^*)=\infty$, any such bound is immediately
+contradicted. The transfer table therefore grades a programme whose every entry is open.
+\status{proved}
+\end{remark}
+
+\subsection{Drift exit and the future-minimum theorem}\label{sec:driftexit}
+
+\begin{proposition}[Future minimum]\label{prop:futuremin}
+If $R_n\le0$ then $m_n>m_0$. Hence an orbit with $R_n\le0$ for all $n\ge1$ has its seed as a
+\emph{strict minimum of its entire future}. Contrapositively, $m_n\le m_0$ already forces
+$R_n>0$.
+\end{proposition}
+
+\begin{proof}
+Two proofs. Analytically, Lemma~\ref{lem:ER} gives $R_n=\log_2(m_0/m_n)+E_n$ with $E_n>0$ for
+$n\ge1$, so $m_n\le m_0$ implies $R_n\ge E_n>0$. Integrally, Lemma~\ref{lem:aggregate} and
+$C_n>0$ give $2^{S_n}m_n=3^nm_0+C_n>3^nm_0\ge2^{S_n}m_0$ when $2^{S_n}\le3^n$, so $m_n>m_0$.
+\end{proof}
+
+\begin{remark}[Provenance]
+This is \emph{not} a new theorem. The analytic proof is an immediate consequence of the
+Eliahou--Rozier identity already in Revision~5 (Lemma~\ref{lem:ER}), and is close in content to
+Revision~5's wedge (Lemma~\ref{lem:wedge}). What is new is only the second proof, which uses no
+logarithms and is therefore convenient to formalize, and the role the statement plays below.
+\status{reclassification}
+\end{remark}
+
+\begin{proposition}[Drift exit is weaker than ordinary descent]\label{prop:weaker}
+Let $\sigma(m)=\inf\{n\ge1:m_n<m\}$ be the (Terras) stopping time. Then $m_n<m_0\iff R_n>E_n$,
+whence $\tau_0(m)\le\sigma(m)$, and $\sigma(m)<\infty\Rightarrow\tau_0(m)<\infty$. The inequality
+is strict at cycle minima: for $m=1$, $R_n=E_n=(2-\al)n$ exactly, so $\tau_0(1)=1$ while
+$\sigma(1)=\infty$. \status{proved}
+\end{proposition}
+
+\begin{remark}[How much weaker, quantitatively]\label{rem:howweak}
+Off cycle minima the gap is small. At $n=\tau_0$, strictness needs $R_n\le E_n$; under confinement
+for $j<n$, Proposition~\ref{prop:futuremin} gives $m_j>m_0$, so
+$E_n\le(3\ln2)^{-1}\sum_{j<n}1/m_j\le 0.4809\,n/m_0$, while integrality of $S_n$ with $R_n>0$
+forces $R_n\ge1-\{\al n\}$. Strictness at depth $n$ therefore requires
+\[
+\rmin(n,0)\ \le\ m_0\ \le\ 0.4809\,n/(1-\{\al n\}),
+\]
+whose right side is polynomial in $n$ because $\al$ has finite irrationality measure. So
+\emph{any} superpolynomial realizer floor forces $\tau_0=\sigma$ away from cycle minima.
+An exhaustive search of every odd $m$ below this size bound at every depth $n<200$ where the bound
+is not already violated found no strict example. \status{the inequality is proved; the search is a
+computational diagnostic}
+\end{remark}
+
+\subsection{Universal drift exit and divergence}\label{sec:DE}
+
+\begin{definition}[Universal drift exit]
+\[
+(\mathrm{DE})\qquad\text{for every odd }m\ge1\text{ there is }n\ge1\text{ with } 3^n<2^{S_n(m)} .
+\]
+Equivalently, by Lemma~\ref{lem:integral}, $\tau_0(m)<\infty$ for every $m$. The phrase ``drift
+exit time'' is terminology used here; we found no standard name for this quantity in the
+literature (\S\ref{sec:prior}).
+\end{definition}
+
+\begin{theorem}[Divergence equivalence]\label{thm:DEequiv}
+$(\mathrm{DE})$ holds if and only if there is no divergent positive accelerated orbit.
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$, contrapositive.) If a divergent orbit exists, Proposition~\ref{prop:lastmax}
+produces an actual positive odd integer $m^*$ with $R'_k<0$ for every $k\ge1$, so
+$\tau_0(m^*)=\infty$ and $(\mathrm{DE})$ fails.
+
+($\Rightarrow$, contrapositive.) Suppose $(\mathrm{DE})$ fails at $m$, so $2^{S_n}\le3^n$ for all
+$n\ge1$. The orbit cannot repeat a state: a repeat makes it eventually periodic, and
+Lemma~\ref{lem:cycledrift} then gives $R_N\to+\infty$, contradicting $R_n\le0$. So the orbit is
+injective, hence divergent.
+\end{proof}
+
+\begin{corollary}[Cycle compatibility]\label{cor:cycles}
+$(\mathrm{DE})$ is compatible with hypothetical nontrivial positive cycles: by
+Lemma~\ref{lem:cycledrift} every point of a cycle, and every transient point entering one, has
+finite $\tau_0$. Hence $(\mathrm{DE})$ is \emph{strictly weaker} than the Collatz conjecture, which
+also excludes cycles.
+\end{corollary}
+
+\begin{remark}[Provenance, emphatically]\label{rem:DEprov}
+Neither direction is new mathematics. The forward direction is the zero-corridor tail theorem of
+the companion Curry foundation, already proved and formalized there; the reverse direction is
+Revision~5's Lemma~\ref{lem:cycledrift}. Moreover the \emph{statement} $(\mathrm{DE})$ is, in
+negated form, exactly the frontier already posed in that companion work: ``determine whether an
+infinite zero-confined valuation word can be realized by a positive ordinary integer.'' Revision~6
+contributes the reclassification --- recognising this as the qualitative endpoint of the
+\emph{time} axis rather than an isolated realizability question --- together with the integral form
+and its exact position in the hierarchy of \S\ref{sec:hierarchy}. We do not coin a new acronym for
+it; in particular it is distinct from the repository's ZCRE statement, which is an equivalence
+about bounded prefix realizers. \status{reclassification, not a new theorem}
+\end{remark}
+
+\section{Launch renormalization: the bridge to actual orbits}\label{sec:launch}
+
+Finite word and residue analysis becomes powerful exactly when it produces an \emph{actual}
+positive-orbit segment. Launch renormalization does this. We summarize only what the programme map
+needs; the full treatment is the companion note \cite{DJlaunch}.
+
+\begin{theorem}[Launch-state collapse, {\cite{DJlaunch}}]\label{thm:launch}
+Let $D$ be a word and $j$ any index with $2^{S_j}>r(D)$. Then
+$m^*_j:=(3^j r(D)+C_j(D))/2^{S_j}$ is a positive integer, in fact the genuine $j$-th accelerated
+iterate of $r(D)$, and the letters $(d_{j+1},\dots,d_N)$ are exactly the accelerated valuation word
+of $m^*_j$. \status{companion work}
+\end{theorem}
+
+Call $D$ of length $N$ \emph{$\varepsilon$-dangerous} if it is $c$-confined with
+$\log_2 r(D)<\varepsilon N$. For such a word the pinning index $t_1$ and the launch data satisfy
+\[
+t_1\le\varepsilon N+O(1),\qquad
+L\ \ge\ (1-\varepsilon)N-O(1),\qquad
+\log_2 m^*_{t_1}\le \al\varepsilon N+O(\log N),
+\]
+with inherited \emph{relative} corridor $A\le c+(\al-1)\varepsilon N+O(1)$. The leading coefficient
+in the launch-size bound is $\al\varepsilon$, not $\varepsilon$. The residual irregular class is
+renormalization-stable: the forced suffix of a dangerous word in that class is again a small
+integer with a long, near-critically confined injective orbit segment, so finite structural
+enumeration cannot close the programme \cite{DJlaunch}.
+
+\subsection{Reclassifying the corridor-uniform hypothesis}\label{sec:Uall}
+
+The companion note closes the route conditionally on a corridor-uniform lifetime hypothesis: for
+some $K<\infty$, every injective initial segment of $m$ with $R_i\le A$ for $0\le i\le L$ has
+$L\le K(\log_2 m+A)$. This reads as a mild statement about corridors. It is not.
+
+\begin{proposition}[The corridor is automatic]\label{prop:corridorauto}
+For every positive orbit and every $n$, $2^{S_n}\le3^nm_0+C_n$, i.e.
+$R_n\le\log_2 m_0+E_n$; and equality holds as soon as the orbit reaches $1$. Hence the least valid
+corridor width for a full orbit is exactly $\log_2 m_0+E$, not merely bounded by it.
+\status{proved; formalized, \S\ref{sec:lean}}
+\end{proposition}
+
+\begin{proof}
+Immediate from Lemma~\ref{lem:aggregate} and $m_n\ge1$, with equality when $m_n=1$.
+\end{proof}
+
+\begin{corollary}[Reclassification]\label{cor:Uall}
+Instantiating the corridor-uniform hypothesis at its own automatic corridor gives
+$L\le K(2\log_2 m+E)$. For an injective segment the iterates are distinct odd integers, so
+$E_L\le(3\ln2)^{-1}\sum_{j<L}1/m_j\le0.2404\ln L+O(1)$, which grows slower than $L$ and therefore
+bounds $L$. Consequently the hypothesis implies that no accelerated orbit is injective forever ---
+i.e. it implies the absence of divergent orbits --- and, with that, an $O(\log m)$ bound on
+accelerated total stopping time. Conversely a bound $L\le K'\log_2 m$ returns the hypothesis for
+every $A\ge0$. \status{proved}
+\end{corollary}
+
+So the corridor-uniform hypothesis is \emph{noncircular} with respect to Open Problem~C --- it is
+not a repackaging of the realizer floor --- but it is substantially \emph{stronger} than the
+Collatz conjecture. It should not be presented as a plausibly easier closing hypothesis. The
+companion note's weakened variant, which exempts segments majority-covered by a bounded-period
+terminal repetition, does not change this: over all odd $m<60001$ the exemption applies to none of
+the $29\,999$ orbits tested. \status{computational diagnostic only}
+
+\section{Self-financing recovery}\label{sec:selffin}
+
+A natural strategy for the time axis is to argue that a deep negative drift excursion cannot be
+repaid, because the recovery would demand an impossibly large valuation. This fails at its source.
+
+\begin{proposition}[Self-financing]\label{prop:selffin}
+A single step of valuation $d$ from state $m_n$ achieves drift exit as soon as
+$2^{d}\,m_0>3\,m_n$. The available valuation is capped by $2^{d_n}\le 3m_n+1$, since
+$2^{d_n}\mid 3m_n+1$. \status{proved; formalized, \S\ref{sec:lean}}
+\end{proposition}
+
+\begin{proof}
+For the cap, $2^{d_n}m_{n+1}=3m_n+1$ with $m_{n+1}\ge1$. For the sufficient condition, multiply the
+target $3^{n+1}<2^{S_{n+1}}$ by $m_n$: by Lemma~\ref{lem:aggregate},
+$2^{S_{n+1}}m_n=2^{d}\,2^{S_n}m_n\ge 2^{d}3^nm_0>3\cdot3^nm_n=3^{n+1}m_n$ whenever
+$2^dm_0>3m_n$.
+\end{proof}
+
+The cap therefore exceeds the sufficient threshold $3m_n/m_0$ by a factor of about $m_0$. The
+underlying reason is the identity $\log_2 m_n=\log_2 m_0-R_n+E_n$ of Lemma~\ref{lem:ER}: sustained
+negative drift makes the ordinary iterate \emph{larger}, and the ordinary height so created is
+exactly the resource that permits the large valuations needed to repay the deficit.
+
+\begin{remark}\label{rem:selffin}
+What this rules out is a class of arguments, not a theorem: any argument of the form ``a
+sufficiently deep drift excursion cannot recover, because the required valuation exceeds what the
+current iterate can supply'' is blocked before it starts. Over all odd $m<200001$, the minimum over
+all steps of $\log_2(3m_n+1)-(\al-R_n)$ --- available valuation minus what a one-step return to
+$R=0$ requires --- is $+1.83$, never negative. \status{the inequality is proved; the margin is a
+computational diagnostic}
+\end{remark}
+
+\section{Boundaries of the programme}\label{sec:boundaries}
+
+This section collects the strongest no-go results. Their scope is deliberately narrow: each says
+that a specific class of information cannot distinguish positive-integer realization. None says
+that Collatz or EOC is unprovable.
+
+\subsection{Finite cylinders do not encode infinite realization}\label{sec:cylinder}
+
+\begin{proposition}\label{prop:cylinder}
+For $k\ge1$, every odd residue class mod $2^k$ contains arbitrarily large positive odd integers.
+Consequently every exact-realizer cylinder is nonempty and unbounded, and no property of integers
+determined by finitely many $2$-adic digits can be equivalent to positivity.
+\status{proved; formalized, \S\ref{sec:lean}}
+\end{proposition}
+
+\begin{proof}
+$r+2^k(B+1)$ lies in the class and exceeds $B$; oddness is preserved since $2\mid 2^k$. For the
+second claim, $1$ and $1-2^k$ share a class mod $2^k$ and differ in sign.
+\end{proof}
+
+The consequence is a quantifier distinction that should be displayed:
+\[
+\boxed{\ \forall N\ \exists m_N\ \text{(free)}\qquad\text{versus}\qquad \exists m\ \forall N\ \text{(the whole problem)}\ }
+\]
+A valuation prefix of length $N$ pins exactly one odd class mod $2^{S_N+1}$, which contains
+unboundedly many positive integers; so finite-prefix realizability never obstructs. The content
+lies entirely in whether \emph{one} integer works for all $N$, which is the bounded-prefix-realizer
+equivalence of the companion work.
+
+\begin{remark}[Scope]
+This does \emph{not} say finite information is useless. Finite data can still prove quantitative
+lower bounds --- Open Problem~C is precisely such a statement at each finite $N$. The claim is only
+about \emph{deciding} the infinite realization property. \status{scope statement}
+\end{remark}
+
+\subsection{Coordinate sufficiency is not independent information}\label{sec:collapse}
+
+Several coordinates introduced in the programme turn out to be invertible reparameterizations of
+the exact realizer. The ledger below records each, with the reference where the collapse is proved.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.30\textwidth}p{0.62\textwidth}@{}}
+\toprule
+Coordinate & Status \\
+\midrule
+Normalized carry $Z_N$ & Same moving-anchor information as $-C_N3^{-N}$; no independent obstruction. \\
+Lift digits $t_N$ & Exactly the binary digits of a fixed realizer, read in blocks cut at the valuation sums. \\
+Eventually-zero lift tail & Equivalent to eventual constancy of the prefix realizers, hence to positive-integer realization. \\
+Terminal zero gap $g(D)$ & $\lceil \Edep(D)\rceil$; a restatement of the target, not a mechanism (\S\ref{sec:gap}). \\
+Transport depths $F,M,H$ & Exact bookkeeping. On a genuine orbit the matching precision $M_j$ is the length of the zero-run of the \emph{seed}'s binary expansion beginning at bit $S_j$. \\
+Cumulative excess regeneration & Bit intervals at distinct failures are disjoint, so the total is at most $\lfloor\log_2 m_0\rfloor+1$. \\
+$B_N=C_N+3^N\chi$ & Equals $2^{S_N}m_N$ exactly for a realizing $\chi$; hence $v_2(B_N)=S_N$ exactly and $\log_2|B_N|-v_2(B_N)=\log_2 m_N$. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The last row deserves emphasis. The Archimedean size and the $2$-adic valuation of $B_N$ are
+\emph{complementary factors of one exact identity}, not two independent constraints; knowing the
+word and either one determines the other. This is why attempts to intersect a $p$-adic condition
+with an Archimedean one at this object produced nothing: there was only ever one condition. It also
+explains why the product formula yields exactly the trivial bound $v_2(B)\le\log_2|B|$ here, and
+why the odd-prime support of $B_N$ --- being that of the arbitrary odd integer $m_N$ --- is
+unconstrained. \status{proved in companion audits; identities verified computationally without
+exception}
+
+\subsection{Global word shadows do not characterize positive realization}\label{sec:cardinality}
+
+\begin{theorem}[Word-shadow cardinality barrier]\label{thm:cardinality}
+For $b\subseteq\mathbb{N}$ define the valuation word (digits indexed from $0$)
+\[
+w_b(i)=\begin{cases} 2 & \text{if } i\equiv2\ (\mathrm{mod}\ 3)\ \text{and}\ \lfloor i/3\rfloor\in b,\\
+1 & \text{otherwise.}\end{cases}
+\]
+Then every $w_b$ is an admissible valuation word satisfying
+\begin{enumerate}[label=(\alph*),leftmargin=2em]
+\item $\sum_{i<n}w_b(i)\le n+\lfloor n/3\rfloor$, hence $2^{S_n}\le3^n$ for every $n$: zero
+  confinement, in the integral form of Lemma~\ref{lem:integral};
+\item $R_n\le(4/3-\al)n=-0.2516\ldots n\to-\infty$ linearly;
+\item $\sum_n 2^{R_n}<\infty$;
+\item $\#\{n:R_n\ge-G\}=O(G)$.
+\end{enumerate}
+The map $b\mapsto w_b$ is injective, so the family has cardinality $2^{\aleph_0}$. Since one
+positive integer realizes at most one infinite valuation word, all but countably many members have
+\emph{no} positive-integer realizer. \status{proved; formalized, \S\ref{sec:lean}}
+\end{theorem}
+
+\begin{proof}
+(a) At most one digit in three is a $2$, so $S_n\le n+\lfloor n/3\rfloor$; and
+$2^{n+\lfloor n/3\rfloor}\le3^n$ follows by cubing both sides, since
+$3(n+\lfloor n/3\rfloor)\le4n$ and $16\le27$. (b) $4/3<\al$. (c) The bound in (b) makes
+$2^{R_n}$ dominated by a geometric series. (d) $R_n\ge-G$ forces $n\le G/0.2516$. Injectivity:
+evaluate $w_b$ at $i=3k+2$. The last sentence is Cantor's theorem: a realizing assignment would
+give an injection $\mathcal{P}(\mathbb{N})\to\mathbb{N}$.
+\end{proof}
+
+\begin{remark}[What this does and does not establish]\label{rem:cardscope}
+Every global condition expressible from the valuation word alone --- zero confinement, linear
+negative drift, summability of $\sum2^{R_n}$, Curry-scale occupation shadows, aperiodicity,
+subword complexity --- is satisfied by all members of this family, while all but countably many are
+unrealizable. Hence \emph{no collection of word-level global properties can characterize
+positive-integer realization}. This is a statement about characterization, not about quantitative
+bounds: it does not preclude word-level information yielding realizer lower bounds. \status{scope
+statement}
+\end{remark}
+
+\begin{remark}[Explicit small witnesses]
+The barrier is not an artefact of uncountability. The all-ones word (realizer $-1$) and the word
+$1,2,1,2,\dots$ (realizer $-5$) are both zero-confined with $R_n\to-\infty$ linearly, and neither
+has a positive-integer realizer. \status{computational verification of an exact statement}
+\end{remark}
+
+\subsection{Population sparsity is not pointwise placement}
+
+Theorem~\ref{thm:GTC} and the entropy constant of \S\ref{sec:entropy} are population statements:
+they count, respectively, orbit values in a window and words in a shell. Open Problem~C is a
+statement about the \emph{minimum} over a family. A density-zero exceptional set may contain every
+least-realizer champion, and no argument currently rules this out. The same gap defeats
+density-one results in the literature (\S\ref{sec:prior}) as applied to launch integers, which by
+construction form an exceptional set. \status{structural interpretation}
+
+\subsection{Deep drift creates its own recovery capacity}
+
+\S\ref{sec:selffin}. \status{proved}
+
+\subsection{Single-window lifetime does not control occupation}
+
+Remark~\ref{rem:LvsO}. \status{Revision 5, computational example}
+
+\begin{remark}[Net effect]
+These boundaries narrow the remaining search to actual positive-orbit arithmetic and to genuinely
+pointwise or cross-scale mechanisms. They do not constitute an argument that the programme cannot
+succeed.
+\end{remark}
+
+\section{The programme hierarchy}\label{sec:hierarchy}
+
+\begin{center}
+\small
+\begin{tabular}{@{}llp{0.42\textwidth}@{}}
+\toprule
+Level & Statement & Status \\
+\midrule
+0 & Finite word realizability & Solved exactly (Prop.~\ref{prop:congruence}); every cylinder is
+    nonempty and unbounded (Prop.~\ref{prop:cylinder}). \\
+1 & Universal drift exit $(\mathrm{DE})$ & Equivalent to excluding divergent orbits
+    (Thm.~\ref{thm:DEequiv}); compatible with nontrivial cycles; \emph{open}. \\
+2 & Quantitative single-window: bounds on $L_c(m)$ & Transfers to frontier bounds
+    (Prop.~\ref{prop:transfer}); no unconditional bound known (Rem.~\ref{sec:nounconditional}). \\
+3 & Exponential single-window floor & Open Problem~\ref{op:C}; equivalent to
+    $L_c(m)=O(\log m)$ (Prop.~\ref{prop:window}). \\
+4 & Total occupation $\Occ_c(m)=O(\log m)$ & Full EOC (Conjecture~\ref{conj:exist}); strictly
+    stronger than Level~3 (Rem.~\ref{rem:LvsO}). \\
+5 & Effective EOC $+$ finite cycle verification & Collatz (Thm.~\ref{thm:reduction},
+    Cor.~\ref{cor:explicit}). \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Levels $5\Rightarrow4\Rightarrow3\Rightarrow2$ and $3\Rightarrow1$ hold; $2\Rightarrow1$ holds by
+Remark~\ref{sec:nounconditional}. No converse holds in general. Level~1 is strictly weaker than
+Collatz (Cor.~\ref{cor:cycles}), and Level~4 is strictly stronger than Level~3.
+
+\section{The programme map}\label{sec:map}
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}p{0.085\textwidth}p{0.125\textwidth}p{0.155\textwidth}p{0.185\textwidth}p{0.145\textwidth}p{0.18\textwidth}@{}}
+\toprule
+Axis & Object & Exact bridge & Strongest proved & Open target & Closed routes \\
+\midrule
+Occupation & $\Occ_c(m)$ & Thm.~\ref{thm:reduction} to Collatz & Reduction to a finite cycle
+search, given effective constants & Separated-return control & --- \\
+Time & $L_c(m)$, $\tau_0(m)$ & Record chronology (Prop.~\ref{prop:inversion}); transfer
+(Prop.~\ref{prop:transfer}) & $(\mathrm{DE})\iff$ no divergence (Thm.~\ref{thm:DEequiv}) &
+Any unconditional bound on $L_c$ & Self-financing recovery blocks excursion arguments
+(\S\ref{sec:selffin}) \\
+Residue & $\rmin(N,c)$, $r(D)$ & Exact congruence (Prop.~\ref{prop:congruence}) + inversion &
+Fixed-anchor sectors (Thms.~\ref{thm:periodic}--\ref{thm:evperiodic},
+Prop.~\ref{prop:bulkdefect}) & Arbitrary irregular floor & Coordinate collapse
+(\S\ref{sec:collapse}) \\
+Divergence & $R_n$, $Q_n$, value set & Curry sparsity; last-maximum reduction
+(Prop.~\ref{prop:lastmax}) & Reciprocal summability; $B<1/\beta_*$ (Thm.~\ref{thm:betastar}) &
+Exclude divergence & Word shadows insufficient (Thm.~\ref{thm:cardinality}) \\
+Symbolic & Valuation words; return labels & Realizer correspondence & Finite and infinite symbolic
+freedom & Positive realization & Cardinality barrier (Thm.~\ref{thm:cardinality}) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Symbolic freedom, finite and infinite}\label{sec:symbolic}
+
+Revision~5 established that no \emph{finite} forbidden-pattern mechanism can settle pointwise
+balance for a natural mod-$32$ return observable: every finite binary history is realizable by a
+genuine orbit, with prescribed events consecutive, and this was formally verified. The symbolic
+conclusion is now stronger. A machine-checked construction produces an infinite zero-confined
+valuation sequence carrying arbitrary prescribed binary labels at designated event positions: a
+\emph{full shift} at the word level, inside the zero corridor.
+
+The distinction that matters is therefore sharper than ``no finite forbidden patterns'': even
+substantial \emph{infinite} symbolic freedom coexists with zero confinement. Positive-integer
+realization of such words remains open and, by Theorem~\ref{thm:cardinality}, cannot be decided by
+word-level information at all. The missing restriction is not local symbolic dynamics.
+\status{finite universality: Revision 5, formalized; infinite full shift: companion formalization}
+
+\section{Closed routes}\label{sec:closed}
+
+For each mechanism, what it achieved and where it stops. Status codes: \textsf{T} formal
+result, \textsf{C} computational diagnostic, \textsf{I} interpretive closure.
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}rp{0.30\textwidth}p{0.48\textwidth}c@{}}
+\toprule
+& Mechanism & Where it stops & \\
+\midrule
+1 & Fixed-modulus drift packing & Terminal at $8/9$ (Rem.~\ref{rem:terminal}); surpassed by a
+different mechanism & \textsf{T} \\
+2 & Bulk entropy / $I_{\mathrm{Collatz}}$ & Population scale only; no pointwise
+anti-concentration & \textsf{I} \\
+3 & Shell injectivity & Counts, does not place & \textsf{I} \\
+4 & Moving-anchor collision law & Symbolic prefix geometry only & \textsf{I} \\
+5 & Chang finite/local exclusions & Finite \emph{and} infinite symbolic freedom
+(\S\ref{sec:symbolic}) & \textsf{T} \\
+6 & Lift digits & Binary blocks of the realizer (\S\ref{sec:collapse}) & \textsf{T} \\
+7 & Terminal zero gap & $\lceil\Edep\rceil$: target, not mechanism (\S\ref{sec:gap}) & \textsf{T} \\
+8 & Normalized carry & Same anchor information & \textsf{T} \\
+9 & Transport survival budget & Exact bookkeeping; on genuine orbits matching precision collapses
+to seed bits, cumulative excess $O(\log m_0)$ & \textsf{T} \\
+10 & External $p$-adic arithmetic & Wrong complexity scale (\S\ref{sec:external}) & \textsf{I} \\
+11 & Global word shadows & Cardinality barrier (Thm.~\ref{thm:cardinality}) & \textsf{T} \\
+12 & Corridor-uniform lifetime hypothesis & Equivalent in strength to $O(\log n)$ stopping
+(Cor.~\ref{cor:Uall}) & \textsf{T} \\
+13 & Deep-drift recovery impossibility & Self-financing (\S\ref{sec:selffin}) & \textsf{T} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{External arithmetic}\label{sec:external}
+
+We record only the durable conclusion. The natural cleared-denominator object attached to a
+confined word is $B_N(D,\chi)=C_N+3^N\chi$, an $(N{+}1)$-term sum of $\{2,3\}$-units whose
+$2$-adic valuation one would like to bound. Three families of deep results were examined against
+it. $p$-adic lower bounds for linear forms in logarithms bound $\alpha_1^{b_1}\cdots\alpha_n^{b_n}-1$,
+a \emph{product} minus one, never a sum of three or more terms; their constants are at best
+geometric in the number of logarithms; and at $p=2$ with $2$ among the bases the hypotheses fail
+and the quantity is identically zero. Quantitative results on $S$-unit equations bound the
+\emph{number} of non-degenerate solutions, not their size, and are ineffective beyond two
+variables; moreover explicit lower bounds for that count forbid any bound uniform in the number of
+variables. The $p$-adic Subspace Theorem does apply formally and yields a bound of the right shape,
+but it is ineffective, its subspace count and height threshold depend on the dimension, and here
+the dimension is $N{+}1$. In every case the obstruction is the same: the number of additive terms
+grows with $N$, while the available theorems are quantified ``for each fixed dimension'' with
+constants that provably blow up. \status{applicability audit; external theorems cited but not
+reproved}
+
+\section{Open problems}\label{sec:open}
+
+\begin{openproblem}[Effective EOC constants]\label{op:A}
+Establish Conjecture~\ref{conj:eff} at any explicit $(c,K,C)$, or any explicit upper bound on
+admissible constants in Conjecture~\ref{conj:exist}. This closes the Collatz implication outright
+(Corollary~\ref{cor:explicit}).
+\end{openproblem}
+
+\begin{openproblem}[Cycle exclusion below threshold]\label{op:B}
+Show no nontrivial accelerated cycle has minimum member below $m^*(K,C,c)$. Settled for
+$m^*\le2^{71}$ by \cite{Barina}; open beyond.
+\end{openproblem}
+
+\begin{openproblem}[Exponential realizer floor / logarithmic lifetime]\label{op:C}
+Find $\varepsilon>0$ with, equivalently (Proposition~\ref{prop:window}),
+\[
+\text{(residue) } \rmin(N,c)\ \ge\ 2^{\varepsilon N-O(1)}
+\qquad\Longleftrightarrow\qquad
+\text{(time) } L_c(m)\ \le\ \varepsilon^{-1}\log_2 m+O(1),
+\]
+for all relevant $c$-confined words. This is the residue--time core of EOC. Revision~5's separate
+Open Problems C and D are the same question at two levels of precision and are merged here;
+Revision~5's Open Problem~E (frontier defect) is its sharp-leading form, not an independent weaker
+target (Remark~\ref{rem:OPE}).
+\end{openproblem}
+
+\begin{openproblem}[Intermediate time-axis bounds]\label{op:intermediate}
+Prove \emph{any} unconditional pointwise upper bound on $L_c(m)$. By
+Proposition~\ref{prop:transfer} even $L_c(m)\le Km$ yields a linear frontier, and
+$L_c(m)\le K(\log_2 m)^2$ yields a stretched-exponential one. Nothing of this kind is known
+(Remark~\ref{sec:nounconditional}), and any such bound would be new.
+\end{openproblem}
+
+\begin{openproblem}[Universal drift exit]\label{op:DE}
+Show that for every positive odd $m$ there is $n\ge1$ with $3^n<2^{S_n(m)}$. By
+Theorem~\ref{thm:DEequiv} this is equivalent to excluding divergent orbits and is strictly weaker
+than Collatz. This is the previously posed zero-corridor realizability frontier, reclassified as
+the qualitative endpoint of the time axis (Remark~\ref{rem:DEprov}); it is not newly invented here.
+\end{openproblem}
+
+\begin{openproblem}[Separated returns]\label{op:F}
+Control the number of separated confined episodes. Single-window theory does not capture this
+(Remark~\ref{rem:LvsO}); full EOC requires both episode length and episode count.
+\end{openproblem}
+
+\begin{openproblem}[Density-one EOC]\label{op:G}
+Can a density-one form of EOC be proved by the methods of Tao \cite{Tao}? This remains meaningful:
+divergent-orbit sparsity says nothing about the occupation of orbits that do converge.
+\end{openproblem}
+
+\begin{openproblem}[Pointwise return balance]\label{op:H}
+For an infinite aperiodic orbit, does the natural mod-$32$ return label equidistribute along the
+orbit? By \S\ref{sec:symbolic} no finite --- and no word-level infinite --- symbolic restriction
+settles this. Demoted here from a top-level EOC problem to an auxiliary one.
+\end{openproblem}
+
+\section{Formal verification status}\label{sec:lean}
+
+The accompanying Lean~4 development (Mathlib) formalizes the elementary bridges of this paper. The
+following are machine-checked, with no \texttt{sorry}, \texttt{admit}, added axiom, or
+\texttt{opaque} escape; each depends only on the standard axioms \texttt{propext},
+\texttt{Classical.choice}, \texttt{Quot.sound} (several on a strict subset).
+
+\begin{center}
+\small
+\begin{tabular}{@{}llp{0.42\textwidth}@{}}
+\toprule
+Module & Paper reference & Content \\
+\midrule
+\texttt{CurryFoundation} & Prop.~\ref{prop:lastmax} & Curry identities; last-global-maximum
+existence; zero-corridor tail; deficit recurrence. \\
+\texttt{ChangHistory}, \texttt{ChangFullShift} & \S\ref{sec:symbolic} & Finite return-history
+universality; infinite zero-corridor full shift. \\
+\texttt{ZCRERealizerGrowth} & \S\ref{sec:cylinder} & Bounded prefix realizers $\iff$
+positive-integer realizability. \\
+\texttt{RealizerLiftDigit}, \texttt{TerminalZeroGap} & \S\ref{sec:collapse}, \S\ref{sec:gap} &
+Lift digits are binary blocks; discrete gap and its bracket $g=\lceil\Edep\rceil$. \\
+\texttt{TransportRegeneration}, \texttt{SuperBudgetCancellation} & \S\ref{sec:collapse} &
+Transport bookkeeping; forced/excess split; disjoint-run bound. \\
+\texttt{ConstraintHeight} & \S\ref{sec:height} & Height inequality and the separation criterion. \\
+\texttt{GlobalSeparation} & Prop.~\ref{prop:cylinder}, Thm.~\ref{thm:cardinality} & Cylinder
+positivity; finite-precision sign impossibility; the family $w_b$, its confinement and
+injectivity; the countability barrier. \\
+\texttt{OrbitLifetime} & Lem.~\ref{lem:aggregate}, Prop.~\ref{prop:corridorauto} & Aggregate
+identity; growth envelope; automatic corridor. \\
+\texttt{DriftExit} & Props.~\ref{prop:futuremin}, \ref{prop:selffin}, \ref{prop:transfer} &
+Future-minimum theorem; cycle drift; self-financing inequality; frontier inversion. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Statements in this paper that are \emph{not} formalized include Theorem~\ref{thm:GTC} and
+Proposition~\ref{prop:recip} (external input), the proved-sector floors of \S\ref{sec:residue}
+(companion note), and every conjecture.
+
+\section{Computational calibration}\label{sec:comp}
+
+We retain only computations that materially support interpretation, and label each as a
+diagnostic.
+
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Frontier records.} A direct seed scan, justified by Proposition~\ref{prop:inversion},
+  produces the least realizers of confined words at each depth. The maximum observed ratio of
+  occupation to $\log_2$ seed remains under $10$ in the scanned range.
+\item \emph{Identity verification.} The identities of Lemmas~\ref{lem:ER},~\ref{lem:aggregate} and
+  \ref{lem:integral}, the future-minimum theorem, the descent criterion $m_n<m_0\iff R_n>E_n$, and
+  the factorization $B_N=2^{S_N}m_N$ were each verified without exception over the ranges scanned.
+\item \emph{Self-financing margin.} \S\ref{sec:selffin}, Remark~\ref{rem:selffin}.
+\item \emph{Drift-exit diagnostics.} $\tau_0=\sigma$ held for every odd seed tested away from cycle
+  minima, consistent with Remark~\ref{rem:howweak}.
+\end{itemize}
+
+\begin{remark}[Discipline]\label{rem:compdiscipline}
+We make no empirical saturation claims. In particular we do not assert that any normalized
+stopping-time or lifetime ratio is bounded: a comparison of a limited scan against published record
+tables corrected an earlier such claim in the underlying audits. Where a ratio is quoted, the
+scanned range is stated and no trend is inferred beyond it. Units also require care: the classical
+total stopping time $\sigma_\infty$ counts \emph{even} steps --- equivalently the valuation depth
+$S_L$ --- whereas $L$ counts \emph{odd} accelerated steps; the two must not be compared without
+conversion. \status{methodological}
+\end{remark}
+
+\section{Relation to prior work}\label{sec:prior}
+
+The occupation functional and its four tiers are, to our knowledge, not isolated elsewhere; the
+Collatz reduction of Theorem~\ref{thm:reduction} is ours. Lemma~\ref{lem:ER} is due to
+Eliahou~\cite{Eliahou} and Rozier~\cite{Rozier}. Theorem~\ref{thm:GTC} is Garcia--Tal
+\cite{GarciaTal} with Curry's explicit form \cite{Curry}. The $2$-adic conjugacy underlying the
+realizer correspondence is Bernstein \cite{Bernstein} and Bernstein--Lagarias
+\cite{BernsteinLagarias}; cycle-structure bounds are Steiner \cite{Steiner}, Simons--de Weger
+\cite{SimonsdeWeger} and Hercher \cite{Hercher}; verification is Ba\v{r}ina \cite{Barina};
+stochastic models are Lagarias--Weiss \cite{LagariasWeiss} and Kontorovich--Lagarias
+\cite{KontorovichLagarias}. Sturmian words are treated in Lothaire \cite{Lothaire}. The return
+observable and its structural reduction are Chang's \cite{Chang1,Chang2}.
+
+On the time axis specifically: the condition ``$\exists n:S_n>\al n$'' does not appear in the
+surveyed literature under a standard name. It is not Terras's stopping time \cite{Terras}, which is
+the condition $m_n<m_0$, i.e. $R_n>E_n$ (Proposition~\ref{prop:weaker}). The classical results on
+stopping time --- Terras \cite{Terras}, Everett \cite{Everett}, and in a different framework Tao
+\cite{Tao} --- are density statements and carry no pointwise content; none bounds the number of
+steps an orbit may spend at or above its starting value in terms of that value, and such a bound
+would prove Collatz by strong induction. \status{literature audit}
+
+\section{Conclusion}\label{sec:conclusion}
+
+EOC is best viewed as a programme with an exact residue--time duality and a strictly stronger
+global occupation layer. The residue axis is solved for finite realizability and for several
+fixed-anchor sectors, and remains open at the arbitrary-word frontier. The time axis separates into
+a qualitative drift-exit problem --- equivalent, under the current divergence theory, to excluding
+divergent orbits, and strictly weaker than Collatz --- and quantitative lifetime bounds that invert
+directly to realizer floors on a graded scale. Garcia--Tal/Curry supplies strong unconditional
+divergence-side sparsity and the last-maximum reduction, but not drift exit.
+
+A sustained programme of structural audits has narrowed what can supply the missing information.
+Finite cylinders cannot encode infinite realization; several apparently independent coordinates are
+invertible reparameterizations of the exact realizer, and the Archimedean and $2$-adic readings of
+the natural divisibility object are complementary factors of one identity; global valuation-word
+shadows cannot characterize positive realization, by an explicit uncountable family; launch
+renormalization validly reaches actual positive-orbit dynamics, but its original corridor-uniform
+closure is essentially an $O(\log n)$ stopping-time conjecture; and deep negative drift is
+self-financing with respect to the recovery valuations it requires.
+
+The surviving frontier is therefore actual positive-orbit arithmetic, at three nested levels:
+qualitative exclusion of an infinite zero-corridor tail; quantitative control of single-window
+lifetime, at any scale; and, beyond that, recurrence control sufficient for total occupation.
+Neither EOC nor the Collatz conjecture is proved here.
+
+\begin{thebibliography}{99}
+\bibitem{Eliahou} S. Eliahou, \emph{The $3x+1$ problem: new lower bounds on nontrivial cycle
+lengths}, Discrete Mathematics \textbf{118} (1993), 45--56.
+\bibitem{Rozier} O. Rozier, \emph{The $3x+1$ problem: a lower bound hypothesis}, Functiones et
+Approximatio Commentarii Mathematici \textbf{56} (2017), no.~1, 7--23.
+\bibitem{Terras} R. Terras, \emph{A stopping time problem on the positive integers}, Acta
+Arithmetica \textbf{30} (1976), 241--252.
+\bibitem{Everett} C. J. Everett, \emph{Iteration of the number-theoretic function $f(2n)=n$,
+$f(2n+1)=3n+2$}, Advances in Mathematics \textbf{25} (1977), 42--45.
+\bibitem{GarciaTal} M. V. P. Garcia and F. A. Tal, \emph{A note on the generalized $3n+1$ problem},
+Acta Arithmetica \textbf{90} (1999), no.~3, 245--250.
+\bibitem{Curry} M. J. Curry, \emph{An Explicit Windowed Sparsity Bound for Divergent $3x+1$ Orbits,
+with Logarithmic-Floor Exclusion beyond the Harmonic Barrier}, Zenodo, 2026.
+\bibitem{LagariasWeiss} J. C. Lagarias and A. Weiss, \emph{The $3x+1$ problem: two stochastic
+models}, Annals of Applied Probability \textbf{2} (1992), 229--261.
+\bibitem{KontorovichLagarias} A. V. Kontorovich and J. C. Lagarias, \emph{Stochastic models for the
+$3x+1$ and $5x+1$ problems and related problems}, in: The Ultimate Challenge: The $3x+1$ Problem,
+Amer. Math. Soc., 2010, 131--188.
+\bibitem{Tao} T. Tao, \emph{Almost all orbits of the Collatz map attain almost bounded values},
+Forum of Mathematics, Pi \textbf{10} (2022), e12.
+\bibitem{Steiner} R. P. Steiner, \emph{A theorem on the Syracuse problem}, Proc. Seventh Manitoba
+Conf. Numer. Math. and Computing, 1977, 553--559.
+\bibitem{SimonsdeWeger} J. Simons and B. de Weger, \emph{Theoretical and computational bounds for
+$m$-cycles of the $3n+1$ problem}, Acta Arithmetica \textbf{117} (2005), 51--70.
+\bibitem{Hercher} C. Hercher, \emph{There are no Collatz $m$-cycles with $m\le91$}, Journal of
+Integer Sequences \textbf{26} (2023), Article 23.3.5.
+\bibitem{Barina} D. Ba\v{r}ina, \emph{Improved verification limit for the convergence of the
+Collatz conjecture}, The Journal of Supercomputing \textbf{77} (2021), 2681--2688; and
+\textbf{81} (2025), 810.
+\bibitem{Lothaire} M. Lothaire, \emph{Algebraic Combinatorics on Words}, Cambridge University
+Press, 2002. (Sturmian words: Chapter~2, by J. Berstel and P. S\'e\'ebold.)
+\bibitem{DJperiodic} E. De Jes\'us, \emph{Periodic and Eventually Periodic Realizer Floors in the
+Accelerated Collatz Word Model}, companion note.
+\bibitem{DJentropy} E. De Jes\'us, \emph{The Entropy-Deficit Identity in the Accelerated Collatz
+Word Model}, Zenodo, 2026.
+\bibitem{DJlaunch} E. De Jes\'us, \emph{Conditional Obstructions and Launch Renormalization in
+Accelerated Collatz Dynamics}, companion note, 2026.
+\bibitem{DJtransport} E. De Jes\'us, \emph{Transport Deficits and $2$-Adic Survival Budgets in
+Accelerated Collatz Words}, companion note, 2026.
+\bibitem{Bernstein} D. J. Bernstein, \emph{A non-iterative $2$-adic statement of the $3N+1$
+conjecture}, Proc. Amer. Math. Soc. \textbf{121} (1994), 405--408.
+\bibitem{BernsteinLagarias} D. J. Bernstein and J. C. Lagarias, \emph{The $3x+1$ conjugacy map},
+Canadian Journal of Mathematics \textbf{48} (1996), 1154--1169.
+\bibitem{Chang1} E. Y. Chang, \emph{A Structural Reduction of the Collatz Conjecture to One-Bit
+Orbit Mixing}, preprint.
+\bibitem{Chang2} E. Y. Chang, \emph{Exploring Collatz Dynamics with Human--LLM Collaboration},
+preprint.
+\end{thebibliography}
+
+\appendix
+
+\section{Band rigidity}\label{sec:band}
+
+We retain the following structural observation from Revision~5, which constrains how a drift path
+may sit inside a unit band.
+
+\begin{theorem}[Band rigidity]\label{thm:band}
+Let $\theta=\al-1$. If a word's drift path satisfies $\beta\le R_j<\beta+1$ for all $j$ in a window,
+then the valuation letters in that window are determined up to the Beatty structure of $\theta$: the
+admissible letters are confined to $\{1,2\}$ and their placement follows the Beatty gap sequence of
+$\al$. \status{Revision 5, retained}
+\end{theorem}
+
+The relevance to this revision is limited but worth recording: band rigidity says that a
+\emph{narrow} corridor forces near-Sturmian structure, which is exactly the regime where
+Observation~\ref{obs:height} shows height amortization fails. Narrow corridors are therefore not
+automatically easier.
+
+\section{Claim-status conventions}\label{sec:status}
+
+Every substantive statement carries a bracketed status:
+\textsf{[Revision 5]} retained unchanged from the previous revision;
+\textsf{[proved]} proved in this paper;
+\textsf{[companion work]} proved in a cited companion note;
+\textsf{[external, cited]} a cited theorem of others, used but not reproved;
+\textsf{[formalized]} machine-checked, see \S\ref{sec:lean};
+\textsf{[computational diagnostic]} supported by computation only, never promoted to a theorem;
+\textsf{[structural interpretation]} an organizing reading of proved facts;
+\textsf{[reclassification]} a previously known statement placed in a new role;
+\textsf{[correction to Revision 5]} a superseded claim, corrected here.
+
+\end{document}
