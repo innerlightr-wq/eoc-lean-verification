@@ -63,7 +63,7 @@ Collatz conjecture.
 We then record what a sustained programme of structural audits has closed. Finite information
 cannot decide infinite realization: every exact-realizer cylinder contains arbitrarily large
 positive integers, so $\forall N\,\exists m_N$ is free and all content lies in $\exists m\,\forall N$.
-Global valuation-word information cannot decide it either: we exhibit an explicitly indexed
+Nor do the natural global valuation-word shadows decide it: we exhibit an explicitly indexed
 uncountable family of zero-confined words with linear negative drift, summable $\sum 2^{R_n}$ and
 $O(G)$ occupation shadow, of which all but countably many have no positive-integer realizer.
 Several apparently independent coordinates --- normalized carry, lift digits, terminal zero gap,
@@ -778,8 +778,10 @@ every $A\ge0$. \status{proved}
 \end{corollary}
 
 So the corridor-uniform hypothesis is \emph{noncircular} with respect to Open Problem~C --- it is
-not a repackaging of the realizer floor --- but it is substantially \emph{stronger} than the
-Collatz conjecture. It should not be presented as a plausibly easier closing hypothesis. The
+not a repackaging of the realizer floor --- but it is a substantially stronger \emph{quantitative}
+hypothesis than is required merely to exclude divergence. In particular, once the automatic
+corridor is inserted it is essentially an $O(\log m)$-scale pointwise stopping/lifetime hypothesis,
+and it should not be presented as a plausibly easier closing hypothesis. The
 companion note's weakened variant, which exempts segments majority-covered by a bounded-period
 terminal repetition, does not change this: over all odd $m<60001$ the exemption applies to none of
 the $29\,999$ orbits tested. \status{computational diagnostic only}
@@ -913,13 +915,12 @@ give an injection $\mathcal{P}(\mathbb{N})\to\mathbb{N}$.
 \end{proof}
 
 \begin{remark}[What this does and does not establish]\label{rem:cardscope}
-Every global condition expressible from the valuation word alone --- zero confinement, linear
-negative drift, summability of $\sum2^{R_n}$, Curry-scale occupation shadows, aperiodicity,
-subword complexity --- is satisfied by all members of this family, while all but countably many are
-unrealizable. Hence \emph{no collection of word-level global properties can characterize
-positive-integer realization}. This is a statement about characterization, not about quantitative
-bounds: it does not preclude word-level information yielding realizer lower bounds. \status{scope
-statement}
+The shared global word-level shadows established in Theorem~\ref{thm:cardinality} --- zero
+confinement, linear negative drift, summability of $\sum2^{R_n}$, and the stated occupation bound
+--- therefore do not characterize positive-integer realization. More generally, any proposed
+criterion depending only on properties shared by this family cannot do so. This is a statement
+about characterization, not about quantitative bounds: it does not preclude finite or word-level
+information yielding realizer lower bounds. \status{scope statement}
 \end{remark}
 
 \begin{remark}[Explicit small witnesses]
@@ -1017,8 +1018,9 @@ valuation sequence carrying arbitrary prescribed binary labels at designated eve
 
 The distinction that matters is therefore sharper than ``no finite forbidden patterns'': even
 substantial \emph{infinite} symbolic freedom coexists with zero confinement. Positive-integer
-realization of such words remains open and, by Theorem~\ref{thm:cardinality}, cannot be decided by
-word-level information at all. The missing restriction is not local symbolic dynamics.
+realization of such words remains open and, by Theorem~\ref{thm:cardinality}, is not decided by the
+global word-level shadows established there. The missing restriction is not local symbolic
+dynamics.
 \status{finite universality: Revision 5, formalized; infinite full shift: companion formalization}
 
 \section{Closed routes}\label{sec:closed}
