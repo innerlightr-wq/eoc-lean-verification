@@ -4,6 +4,13 @@
 Branch `divergence-exclusion-survey`, base `f5ef74e` (verified against `origin`). 36 remote branches
 fetched and inspected. Revision 6 frozen, `main` and the dirty ordinary checkout untouched.*
 
+> **SCOPE CORRECTED.** Four logical distinctions in this report were wrong and are corrected in
+> `docs/DIVERGENCE_SURVEY_SCOPE_NOTE.md`, which supersedes this file wherever they conflict:
+> divergence does **not** imply linear negative drift (only `R_n → −∞`, plus a *limsup* log bound);
+> summability is not eventual superlinear growth; improving floor constants **does** remove more
+> behaviours; the "must not use value-counting" conclusion was an unsupported universal; and the
+> restricted target is **equivalent**, not strictly weaker. The verdict — no new mechanism — stands.
+
 **Objective:** qualitative exclusion of divergence only. Hypothetical nontrivial cycles remain a
 separate problem throughout, and nothing here assumes them away.
 
@@ -50,12 +57,13 @@ compatible with nontrivial cycles and is therefore strictly weaker than Collatz.
 | 1 | **Universal drift exit (DE):** `∀` odd `m`, `∃ n ≥ 1` with `3^n < 2^{S_n(m)}` | — |
 | 2 | No infinite zero-confined positive orbit | **Equivalent to 1** (¬DE at `m` *is* zero confinement of `m`) |
 | 3 | Unbounded least realizers for every infinite zero-confined word | **Equivalent to 2**, by `ZCRERealizerGrowth.boundedPrefixRealizers_iff_positiveRealizer` |
-| 4 | Same, restricted to words also satisfying the *necessary* divergent-orbit conditions | **Strictly weaker — the only genuinely easier target** |
+| 4 | Same, restricted to words also satisfying the *necessary* divergent-orbit conditions | **Equivalent**, not weaker — a zero-confined seed is automatically injective, hence divergent, hence already in the restricted class (scope note §D). It supplies more usable *hypotheses*, not a weaker *theorem*. |
 
 1 ≡ 2 ≡ 3 are the same statement in three vocabularies. **A result phrased in vocabulary 3 is not
 an advance over vocabulary 1**, and the repository's own closed-route audit already records this
-(ZCRE "is a restatement of realization, not an independent handle"). Only target 4 is weaker, and
-the extra conditions available there are enumerated in §4.
+(ZCRE "is a restatement of realization, not an independent handle"). **Target 4 is equivalent to
+them as well** — see scope note §D; what it offers is extra hypotheses inside a proof, not a weaker
+goal.
 
 ---
 
@@ -157,15 +165,19 @@ integers, so `max ≥ N+1`. A contradiction therefore needs
 N^{0.4150375} > (3/2)·m₀·2^G        ⟺        G < 0.4150375·log₂ N − O(1) .
 ```
 
-> **The packing engine tolerates a drift floor only up to `G(n) = O(log n)`.** With a *linear* floor
+> **The packing engine tolerates a drift floor only up to `G(n) = O(log n)`.** With a floor
 > `G(n) = δn` the ceiling is `2^{δn}` against a floor of `n`: no contradiction arises at any `n`, for
 > any `δ > 0`, with any constants.
 
-This is a structural cap, not a technical one, and it explains the whole inventory: `BoundedDrift`
-takes `G` constant; `FinitePrefixPacking` takes `G` constant on a horizon; the `8/9` logarithmic
-floor sits at the same `log n` scale (with a better constant from mod-6 counting). **Divergent
-orbits have `R_n ≍ −δn`.** The distance from the repository's reach to the target is not a
-constant — it is the gap between `log n` and `n`.
+This is a cap on **that estimate**, and it explains the inventory: `BoundedDrift` takes `G`
+constant; `FinitePrefixPacking` takes `G` constant on a horizon; the `8/9` logarithmic floor sits at
+the same `log n` scale.
+
+> **CORRECTION.** The original text continued "**Divergent orbits have `R_n ≍ −δn`** … the gap is
+> `log n` vs `n`". That is **unsupported**: all that is established is `R_n → −∞`, plus Curry's
+> *limsup* bound `limsup g_n/log₂n ≥ 1/β*`. Divergent orbits may a priori have **logarithmic**
+> `g_n` (polynomial `y_n`), sublinear, or linear. The open range and the corrected statement are in
+> `docs/DIVERGENCE_SURVEY_SCOPE_NOTE.md` §A.
 
 ### The `8/9` logarithmic floor is superseded *for this application*
 
@@ -180,7 +192,12 @@ gives `Σ 1/m_n < ∞`, and if `m_n = O(n^B)` with `B ≤ 1` then `Σ1/m_n ≥ c
 Two honest riders. (i) `exceptional_class` is *Curry-independent*, so it remains the live route for
 anyone wanting a Curry-free argument — but then one would need every `B`, not `B < 8/9`. (ii) It is
 a lower bound on growth, i.e. a **structure** theorem; it contradicts nothing, since the growth
-envelope permits `m_n` up to `(3/2)^n`. Improving the constant enlarges no exclusion.
+envelope permits `m_n` up to `(3/2)^n`.
+
+> **CORRECTION.** The original text ended "Improving the constant enlarges no exclusion." That is
+> **wrong**, and Curry's own note is the counterexample: Thm 4.1 reaches `B ≤ 1` and Cor 4.3 reaches
+> `B < 1/β* = 1.0358567…`, each removing a new family of hypothetical polynomial growth rates `y_n ≍
+> n^c`. What is true is that no finite `B` touches super-polynomial growth. See scope note §B.
 
 ---
 
@@ -254,11 +271,16 @@ lemma `ReciprocalSummable M → orbit M injective` (currently an informal remark
 
 The missing arithmetic input, stated precisely:
 
-> Every exclusion mechanism in the repository routes through **counting orbit values** — a drift
-> floor gives a ceiling, injectivity gives a floor, and the two collide only when the drift floor is
-> `O(log n)`. Divergent orbits have a linear drift floor. What is needed is a mechanism that does
-> **not** route through value-counting: one that uses the *specific residues* the exact realizer
-> congruence pins down, rather than mere distinctness of orbit values.
+> The counting mechanisms **audited here** — the repository's packing engine and Curry's windowed
+> parity-class pigeonhole — do not close the gap: the first caps at `O(log n)` drift floors, the
+> second at `β*`. Both discard the same thing, namely the *specific residue class* the exact
+> realizer congruence pins down; the first keeps only distinctness of values, the second only the
+> parity-prefix weight. The open problem is to **combine counting with that discarded residue
+> information**.
+
+> **CORRECTION.** The original text read "What is needed is a mechanism that does **not** route
+> through value-counting." That universal claim is unsupported — a future counting argument with
+> added residue restrictions remains possible, and Curry's §5 says so. See scope note §C.
 
 Nothing in the repository currently supplies that, and this survey did not find it. Also open, and
 unchanged: Curry's theorem is external and unrefereed; the whole chain is conditional on it; link

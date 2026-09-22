@@ -107,3 +107,30 @@ Both are recorded in `docs/DIVERGENCE_EXCLUSION_SURVEY.md` and fixed or correcte
   `refine \<0, ?_\>` --- at `n_0 = 0`, where the companion `deficit_nonneg` need not hold. The
   statement is true (bare `\exists`) but is not that combination. The two are now available at the
   same seed via `exists_zero_confined_seed_tendsto`. The docstring should be corrected in place.
+
+## 8. Curry's input: cite the audited version, and separate the two roles
+
+Revision 6 cites Curry's note. An independent audit from the source text is now on file
+(`docs/CURRY_INDEPENDENT_AUDIT.md`; PDF archived at `docs/sources/Curry_WindowedSparsity.pdf`,
+sha256 `67daa37d...`, dated 24 August 2026). The proof is correct; two local defects were found and
+repaired in the audit (a typo in Thm 2.3's light case, and a missing integrality/ceiling step in
+Thm 4.2). Neither affects Proposition 3.1.
+
+**Proposed for Revision 7.**
+
+- Cite the version and date explicitly, and record that the note is unrefereed as far as anything in
+  it or in this repository shows --- the repository's own provenance note already says so.
+- Keep Curry's two roles apart in the text: Proposition 3.1 (reciprocal summability) is the *only*
+  input the divergence-to-zero-confined-seed reduction consumes; Theorem 4.1 / Corollary 4.3 (the
+  logarithmic-floor exclusion, reaching `B < 1/\beta^* = 1.0358567`) sit beside the chain and sharpen
+  what a divergent orbit must look like, superseding the manuscript's 8/9 threshold for that purpose.
+- Note that `\beta^* < 1` is the load-bearing numerical fact.
+
+**Status:** citation precision and role separation; no mathematics of Revision 6 changes.
+
+## 9. Do not assert a drift rate for divergent orbits
+
+Any wording suggesting a divergent orbit has linear (or any specific) negative drift should be
+avoided. What is established is `R_n \to -\infty`, together with Curry's *limsup* bound
+`limsup g_n / \log_2 n \ge 1/\beta^*`. Logarithmic, sublinear and linear regimes are all open ---
+see `docs/DIVERGENCE_SURVEY_SCOPE_NOTE.md` A. **Status:** scope wording.

@@ -18,8 +18,9 @@ integer-to-real bridge for the upper wall, and the conclusion.
 
 **This is a restricted observation, not progress on excluding divergence.** The theorem applies
 precisely because `oscD c` has drift bounded *below* by a constant. A divergent orbit's word has
-`R_n → −∞` (Curry ⟹ bounded carry ⟹ linear negative drift), so it has **no** lower wall and this
-machinery says nothing whatever about it. See `docs/DIVERGENCE_EXCLUSION_SURVEY.md` §5.
+`R_n → −∞` (Curry ⟹ bounded carry ⟹ `R_n → −∞`; **no rate is known** — see
+`docs/DIVERGENCE_SURVEY_SCOPE_NOTE.md` §A), so it has no constant lower wall and this machinery says
+nothing whatever about it. See `docs/DIVERGENCE_EXCLUSION_SURVEY.md` §5.
 
 No `sorry`, `admit`, `axiom`, or `opaque`.
 -/
