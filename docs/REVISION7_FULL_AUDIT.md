@@ -81,9 +81,20 @@ So (DE) is strictly weaker *precisely when* a nontrivial cycle exists — an ope
 expected answer is **no**, in which case the two are **equivalent**. The claim is therefore not
 merely unproved; the expected state of affairs makes it false.
 
-What `cor:cycles` does establish is about **entailment**: (DE) does not entail the absence of
-cycles, so no proof of (DE) alone can deliver Collatz. That is the content the programme actually
-uses, and it is what the corrected text now says.
+**Correction to this finding, second pass.** The first correction replaced "strictly weaker" with
+"(DE) does not entail cycle-freeness". *That is also unproved*, and for the same reason: if no
+nontrivial cycle exists, the entailment holds trivially, so non-entailment would be false in the
+expected case. The finding is therefore about what has been **established**, not about what is true.
+
+What is established, and no more:
+
+1. Collatz ⟹ (DE);
+2. (DE) excludes divergence (`thm:DEequiv`);
+3. (DE) together with exclusion of nontrivial positive cycles ⟹ Collatz;
+4. every point of a cycle has finite `τ₀`, so the drift-exit argument supplies no cycle exclusion.
+
+The correct phrasing, now used throughout, is: **no implication from (DE) to cycle-freeness is
+established here.** Neither "strictly weaker" nor "does not entail" is claimed.
 
 > **This is the same error of form that the reviewer identified for Level 3 vs Level 4** — a
 > non-implication of *mechanism* being read as strictness of *content*. It survived that correction
@@ -146,7 +157,9 @@ is reproducible but not self-evidencing from the source tree.
 | `prop:cylinder` | both claims correct, including the sign witness $1$ vs $1-2^k$ |
 | `prop:corridorvalue` | correct, including at $n=0$ |
 
-**Numerical constants — all verified.**
+**Numerical constants — all verified.** Everything in this subsection is a *finite computation over
+a stated range*; none of it is a proof of a universally quantified statement, and none is
+extrapolated beyond the range given.
 
 * $I_{\mathrm{Collatz}}=\al(1-H_2(1/\al))=(1-H_2(\rho))/\rho=I(\al)$: the three expressions are
   **algebraically identical** (verified symbolically and to 25 digits). Value
@@ -157,7 +170,10 @@ is reproducible but not self-evidencing from the source tree.
 * $\beta_*=0.9653844$, $\gamma_*=0.6090897$, $1/\beta_*=1.0358567$ ✓ (checked in the Curry audit).
 * `lem:carrybudget` $m_k\not\equiv0\pmod3$ for $k\ge1$: **0 violations** over odd $m<20000$.
 * Frontier ratio "under 10": max $\Occ_1(m)/\log_2m=8.4124$ at $m=27$ over odd $m<200001$ ✓.
-* $\tau_0=\sigma$ away from cycle minima: **0 exceptions** over odd $3\le m<60001$ ✓.
+* $\tau_0=\sigma$ away from cycle minima: **observed** with 0 exceptions over odd $3\le m<60001$ —
+  a **computational check over a finite range, not a proof**. What is proved is $\tau_0\le\sigma$
+  in general (`prop:weaker`) plus the polynomial window confining any strict example
+  (`rem:howweak`); the equality itself is not proved for all seeds.
 
 **`thm:cardinality` — proof checked line by line and correct.** The digit count
 $\#\{i<n:i\equiv2\ (3)\}=\lfloor n/3\rfloor$ is right (checked at $n=2,3,4,5,6$); the cubing step

@@ -54,6 +54,13 @@ remark in `CurryFoundation.lean`, **not a Lean lemma**. Cycles are needed only f
 `Periodic.not_confined_forever_of_evPeriodic_orbit` handle them. `cor:cycles` records that (DE) is
 compatible with nontrivial cycles and is therefore strictly weaker than Collatz.
 
+> **CORRECTED (Revision 7 audit).** The claim that `(DE)` is *strictly weaker* than Collatz is
+> **not established**, and neither is the weaker-sounding "(DE) does not entail cycle-freeness":
+> `(DE) ⟹ Collatz` holds iff no nontrivial cycle exists, which is open with expected answer *no*,
+> in which case the two are equivalent. The correct statement is **"no implication from (DE) to
+> cycle-freeness is established here"**. See `paper/eoc_rev7.tex` Rem. `rem:strictlyweaker`.
+
+
 ### The weakest sufficient target, and three restatements of it
 
 | | Target | Relation |

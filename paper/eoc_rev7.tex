@@ -60,8 +60,8 @@ input plays a second, qualitative role: after the last global maximum of $R$, a 
 divergent orbit has an infinite zero-corridor tail, so \emph{universal drift exit} --- every
 positive seed eventually attains $R_n>0$ --- is equivalent to the exclusion of divergent orbits,
 while not excluding hypothetical nontrivial cycles, so that a proof of it alone would not yield the
-Collatz conjecture. (Whether it is \emph{strictly} weaker than Collatz is itself open ---
-Rem.~\ref{rem:strictlyweaker}.)
+Collatz conjecture --- no implication from it to cycle-freeness is established here
+(Rem.~\ref{rem:strictlyweaker}).
 
 We then record what a sustained programme of structural audits has closed. Finite information
 cannot decide infinite realization: every exact-realizer cylinder contains arbitrarily large
@@ -769,10 +769,10 @@ injective, hence divergent.
 \end{proof}
 
 \begin{corollary}[Cycle compatibility]\label{cor:cycles}
-$(\mathrm{DE})$ does not exclude hypothetical nontrivial positive cycles: by
-Lemma~\ref{lem:cycledrift} every point of a cycle, and every transient point entering one, has
-finite $\tau_0$. Hence a proof of $(\mathrm{DE})$ alone would not yield the Collatz conjecture,
-which also excludes cycles.
+By Lemma~\ref{lem:cycledrift} every point of a nontrivial positive cycle, and every transient point
+entering one, has finite $\tau_0$; so such a cycle is consistent with the defining condition of
+$(\mathrm{DE})$ holding at every seed. Hence the drift-exit argument supplies no cycle exclusion,
+and $(\mathrm{DE})$ alone does not reach the Collatz conjecture, which also excludes cycles.
 \end{corollary}
 
 \begin{remark}[``Strictly weaker'' is itself open]\label{rem:strictlyweaker}
@@ -785,11 +785,24 @@ if} no nontrivial cycle exists. So $(\mathrm{DE})$ is strictly weaker precisely 
 cycle exists --- an open question whose expected answer is \emph{no}, in which case the two are
 equivalent.
 
-What Corollary~\ref{cor:cycles} does establish is a statement about \emph{entailment}, not about
-strictness: $(\mathrm{DE})$ does not entail the absence of cycles, so no proof of $(\mathrm{DE})$
-can by itself deliver Collatz. That is the useful content, and it is what the programme actually
-relies on. This is the same error of form corrected in Remark~\ref{rem:strictness}: a
-non-implication of \emph{mechanism} does not give strictness of \emph{content}.
+What is established, precisely, is this list and no more:
+
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+\item Collatz $\Rightarrow(\mathrm{DE})$;
+\item $(\mathrm{DE})$ excludes divergence (Thm.~\ref{thm:DEequiv});
+\item $(\mathrm{DE})$ together with the exclusion of nontrivial positive cycles $\Rightarrow$
+  Collatz;
+\item every point of a cycle has finite $\tau_0$ (Lem.~\ref{lem:cycledrift}), so the drift-exit
+  argument itself supplies no cycle exclusion.
+\end{enumerate}
+
+Accordingly: \textbf{no implication from $(\mathrm{DE})$ to cycle-freeness is established here.}
+We claim neither that $(\mathrm{DE})$ is strictly weaker than Collatz nor that $(\mathrm{DE})$
+fails to entail cycle-freeness --- the latter is \emph{also} unproved, and would be false if no
+nontrivial cycle exists, which is the expected case. Item~(iv) is a statement about what this
+argument delivers, not about what is true. This is the same error of form corrected in
+Remark~\ref{rem:strictness}: a non-implication of \emph{mechanism} is neither strictness nor
+non-entailment of \emph{content}.
 \status{Revision 7, correction of scope}
 \end{remark}
 
@@ -1193,10 +1206,11 @@ Proposition~\ref{prop:occstop} converts that into Level~4 \emph{given cycle excl
 (Rem.~\ref{rem:Uallscope}(i)). So corridor-uniform Level~3 implies Level~4 under that additional
 assumption, and for that form strictness is at best unproved rather than established.
 
-What survives: Level~4 implies Level~3 (immediately, since $L_c\le\Occ_c$); Level~1 does not
-entail the absence of cycles, so no proof of it alone yields Collatz (Cor.~\ref{cor:cycles}) ---
-though, as Remark~\ref{rem:strictlyweaker} records, \emph{strict} weakness there is open too; and
-for a \emph{fixed} corridor the converse Level~$3\Rightarrow$~Level~4 is open. \status{Revision 7, correction of scope}
+What survives: Level~4 implies Level~3 (immediately, since $L_c\le\Occ_c$); no implication from
+Level~1 to cycle-freeness is established here, so the drift-exit route alone does not reach Collatz
+(Cor.~\ref{cor:cycles}, Rem.~\ref{rem:strictlyweaker}) --- while \emph{neither} strictness
+\emph{nor} non-entailment is claimed; and for a \emph{fixed} corridor the converse
+Level~$3\Rightarrow$~Level~4 is open. \status{Revision 7, correction of scope}
 \end{remark}
 
 \section{The programme map}\label{sec:map}
@@ -1332,9 +1346,8 @@ $L_c(m)\le K(\log_2 m)^2$ yields a stretched-exponential one. Nothing of this ki
 
 \begin{openproblem}[Universal drift exit]\label{op:DE}
 Show that for every positive odd $m$ there is $n\ge1$ with $3^n<2^{S_n(m)}$. By
-Theorem~\ref{thm:DEequiv} this is equivalent to excluding divergent orbits; it does not exclude
-cycles, though whether it is \emph{strictly} weaker than Collatz is open
-(Rem.~\ref{rem:strictlyweaker}). This is the previously posed zero-corridor realizability frontier, reclassified as
+Theorem~\ref{thm:DEequiv} this is equivalent to excluding divergent orbits; no implication from it
+to cycle-freeness is established here (Rem.~\ref{rem:strictlyweaker}). This is the previously posed zero-corridor realizability frontier, reclassified as
 the qualitative endpoint of the time axis (Remark~\ref{rem:DEprov}); it is not newly invented here.
 \end{openproblem}
 
@@ -1502,8 +1515,11 @@ diagnostic.
   \ref{lem:integral}, the future-minimum theorem, the descent criterion $m_n<m_0\iff R_n>E_n$, and
   the factorization $B_N=2^{S_N}m_N$ were each verified without exception over the ranges scanned.
 \item \emph{Self-financing margin.} \S\ref{sec:selffin}, Remark~\ref{rem:selffin}.
-\item \emph{Drift-exit diagnostics.} $\tau_0=\sigma$ held for every odd seed tested away from cycle
-  minima, consistent with Remark~\ref{rem:howweak}.
+\item \emph{Drift-exit diagnostics.} $\tau_0=\sigma$ was \emph{observed} for every odd seed tested
+  away from cycle minima ($3\le m<60001$; $0$ exceptions), consistent with
+  Remark~\ref{rem:howweak}. What is \emph{proved} there is only $\tau_0\le\sigma$ in general,
+  together with the polynomial window to which any strict example is confined; the equality is
+  not proved for all seeds.
 \end{itemize}
 
 \begin{remark}[Discipline]\label{rem:compdiscipline}
@@ -1544,7 +1560,8 @@ layer above it --- one that implies the single-window layer, and whose converse 
 is open rather than refuted (Rem.~\ref{rem:strictness}). The residue axis is solved for finite realizability and for several
 fixed-anchor sectors, and remains open at the arbitrary-word frontier. The time axis separates into
 a qualitative drift-exit problem --- equivalent, under the current divergence theory, to excluding
-divergent orbits, and not excluding cycles --- and quantitative lifetime bounds that invert
+divergent orbits, with no implication to cycle-freeness established --- and quantitative lifetime
+bounds that invert
 directly to realizer floors on a graded scale. Garcia--Tal/Curry supplies strong unconditional
 divergence-side sparsity and the last-maximum reduction, but not drift exit.
 

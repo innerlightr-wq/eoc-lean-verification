@@ -104,8 +104,15 @@ New material in the paper, reclassified rather than newly proved:
 - `τ_c(m) = inf{n ≥ 1 : R_n > c}`, with the **integral** characterisation
   `R_n ≤ 0 ⟺ 2^{S_n} ≤ 3^n`. The entire time axis needs no real analysis.
 - `(DE)`: every odd `m` has some `n ≥ 1` with `3^n < 2^{S_n}`.
-- **Theorem: `(DE)` ⟺ no divergent positive orbit**, compatible with nontrivial cycles, hence
-  strictly weaker than Collatz.
+- **Theorem: `(DE)` ⟺ no divergent positive orbit.** Cycle points have finite `τ_0`, so the
+  drift-exit argument supplies no cycle exclusion.
+
+> **CORRECTED (Revision 7 audit).** The claim that `(DE)` is *strictly weaker* than Collatz is
+> **not established**, and neither is the weaker-sounding "(DE) does not entail cycle-freeness":
+> `(DE) ⟹ Collatz` holds iff no nontrivial cycle exists, which is open with expected answer *no*,
+> in which case the two are equivalent. The correct statement is **"no implication from (DE) to
+> cycle-freeness is established here"**. See `paper/eoc_rev7.tex` Rem. `rem:strictlyweaker`.
+
 
 **Provenance, stated in the paper.** The forward direction is the companion Curry foundation's
 zero-corridor tail theorem (already proved and formalized there). The reverse direction is
@@ -394,7 +401,7 @@ EOC is best viewed as a programme with an exact residue–time duality and a str
 occupation layer. The residue axis is solved for finite realizability and several fixed-anchor
 sectors and remains open at the arbitrary-word frontier. The time axis separates into a qualitative
 drift-exit problem — equivalent, under the current divergence theory, to excluding divergent orbits,
-and strictly weaker than Collatz because it tolerates cycles — and quantitative lifetime bounds that
+with no implication to cycle-freeness established (see the correction above) — and quantitative lifetime bounds that
 invert directly to realizer floors on a graded scale. Garcia–Tal/Curry supplies strong unconditional
 divergence-side sparsity and the last-maximum reduction, but not drift exit. Later structural audits
 show that finite cylinders, invertible realizer coordinates, transport budgets and even strong
