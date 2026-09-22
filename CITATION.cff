@@ -22,11 +22,12 @@ references:
   - type: generic
     title: >-
       A Global Occupation Conjecture for the Accelerated 3x + 1 Map:
-      Divergent-Orbit Sparsity, Exact Realizers, and the Moving-Anchor Problem
+      Residue-Time Duality, Divergent-Orbit Sparsity, and the Pointwise
+      Realizer Problem
     authors:
       - family-names: "De Jesús"
         given-names: "Elias"
     year: 2026
     publisher:
       name: Zenodo
-    doi: "10.5281/zenodo.22286812"
+    doi: "10.5281/zenodo.22903860"

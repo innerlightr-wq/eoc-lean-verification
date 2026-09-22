@@ -17,10 +17,15 @@ arithmetic, confinement, and Tao-style almost-all estimates.
 This repository is a companion artifact to the current manuscript revision:
 
 > Elias De Jesús (2026). *A Global Occupation Conjecture for the Accelerated
-> 3x + 1 Map: Divergent-Orbit Sparsity, Exact Realizers, and the
-> Moving-Anchor Problem.* Zenodo.
-> [doi:10.5281/zenodo.22286812](https://doi.org/10.5281/zenodo.22286812)
+> 3x + 1 Map: Residue–Time Duality, Divergent-Orbit Sparsity, and the
+> Pointwise Realizer Problem.* Zenodo.
+> [doi:10.5281/zenodo.22903860](https://doi.org/10.5281/zenodo.22903860)
 > (all-versions DOI: [10.5281/zenodo.20569293](https://doi.org/10.5281/zenodo.20569293))
+
+**Revision 6 (September 2026)** reorganizes the manuscript around four axes —
+occupation, residue, time, and divergence — with the residue–time duality as
+the organizing bridge. The LaTeX source is in `paper/`. The section below
+describes Revision 5 and has not yet been rewritten.
 
 **Revision 5 (September 2026)** reorganized the manuscript around two axes:
 the **drift/Archimedean axis** (sparsity and drift behavior of a
