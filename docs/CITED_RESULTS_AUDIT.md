@@ -171,3 +171,53 @@ not load-bearing — it positions EOC rather than supporting it. It remains cite
 
 `thm:rozier` (Rozier's LBH ⟹ `conj:sharp`) is cited to an external paper not held locally, and is
 not load-bearing for the main chain — it positions EOC rather than supporting it.
+
+---
+
+## 5. Closing assessment, corrected
+
+An earlier summary of this work said *"not one was an error in the underlying mathematics."* That
+is too flattering and is withdrawn. The evidence supports something narrower and more useful:
+
+> **Several checked source results remain sound, while transcription errors, unsupported claims,
+> and incorrect statements entered the manuscript.**
+
+Three distinctions the earlier phrasing blurred:
+
+* **Some failures were mathematical errors in the statements as written**, not mistranscriptions.
+  `prop:futuremin` ("if `R_n ≤ 0` then `m_n > m_0`") is *false* at `n = 0`. `cor:explicit`'s
+  witness was a *false* numerical claim. `thm:band` named the *wrong slope*. These are wrong
+  statements, whatever their provenance.
+* **An unproved proposition is not thereby false — its correctness is unsettled.**
+  `prop:bulkdefect` has no proof on file anywhere; that makes it an open claim, not a refuted one,
+  and the paper now says exactly that.
+* **What the audits do support** is that the *checked source results* — Curry's Thm 2.3 and
+  Prop 3.1, \cite{DJperiodic} Thms 6.2 and 9.1, \cite{DJlaunch} Thm 5.4, and the Revision 5 items
+  re-derived here — are sound as stated in their sources.
+
+## 6. Final dependency check
+
+Run after the corrections, to confirm no argument still relies on a withdrawn status:
+
+| Check | Result |
+|---|---|
+| Is `prop:bulkdefect` used as an input anywhere? | **No.** Its only cross-reference is its own correction remark |
+| Does the programme map still list it under "strongest proved"? | **No.** Moved to the open-target column, pointing at §\ref{sec:bulkdefect} |
+| Does "Proved sectors" still contain it? | **No.** That subsection now contains exactly `thm:periodic` and `thm:evperiodic`, both proved unconditionally in the source |
+| Is the launch-size bound used anywhere without injectivity? | **No.** It appears only in its own passage, immediately followed by `rem:launchhyp` stating the hypothesis |
+| Does any downstream argument cite `thm:launch` or the dangerous-word bounds? | **No** — 0 references; that material is self-contained |
+| Is the carry-budget proof reachable? | **Yes** — Appendix `app:carrybudget`, referenced from `lem:carrybudget` |
+
+## 7. Presentation changes made
+
+* **`prop:bulkdefect` moved out of the proved sectors** into its own subsection,
+  "The finite-defect sector: an unproved claim inherited from Revision 5", which opens by saying
+  nothing in the paper depends on it and that it is retained only because Revision 5 recorded it.
+  It is not omitted because a reader of Revision 5 will look for it.
+* **The carry-budget bound now has a complete proof** (Appendix `app:carrybudget`), with every step
+  elementary and the constant explicit: `E_N ≤ (1/9)log₂(3N−5) + 2/(3ln2) ≤ (1/9)log₂N + 1.138`.
+  The one step Revision 5 left implicit — that the `j`-th integer coprime to 6 is at least `3j−2` —
+  is proved by the residue count, using that `3j−3 ≡ 0` or `3 (mod 6)` so the awkward cases do not
+  arise. Sharpness is flagged as a computational observation, not folded into the theorem.
+* **`thm:rozier` remains marked unaudited**: its source is not held locally and it is not
+  load-bearing.

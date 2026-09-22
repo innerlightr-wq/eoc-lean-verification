@@ -418,7 +418,8 @@ Every accelerated iterate $m_k$, $k\ge1$, satisfies $m_k\not\equiv0\pmod 3$. Hen
 states lie in the density-$1/3$ set of integers coprime to $6$, and for every injective orbit
 $E_N\le\frac19\log_2 N+O(1)$, so $2^{E_N}\ll N^{1/9}$.
 \status{Revision 5, Lem.~4.3 --- where it carries a proof \emph{sketch} only. Theorem~\ref{thm:89}
-below rests on it}
+below rests on it, so a complete elementary proof with an explicit constant is given in
+Appendix~\ref{app:carrybudget}}
 \end{lemma}
 
 \begin{theorem}[Logarithmic-floor exclusion, $8/9$]\label{thm:89}
@@ -515,7 +516,7 @@ parity selecting which. Unconditionally $r(D)\ge a_{S_N}(D)$; this inequality, n
 what every floor argument below uses. \status{Revision 5}
 \end{definition}
 
-\subsection{Proved sectors, and one that is not}
+\subsection{Proved sectors}
 
 \begin{theorem}[Periodic realizer floor]\label{thm:periodic}
 For a fixed block $X$ put $\xi_X=-C(X)/\delta_X\in\Zt$ with $\delta_X=3^{q_X}-2^{S_X}$ odd. If
@@ -534,6 +535,13 @@ $\log_2 r(YX^n)/(S_Y+nS_X)\to1$.
 block, whereas $\xi_{X,Y}\ne0$ is proved in \cite{DJperiodic} only when $b_X>1$ (Cor.~10.2), the
 boundary case $b_X=1$ being checked directly when it arises}
 \end{theorem}
+
+\subsection{The finite-defect sector: an unproved claim inherited from Revision 5}
+\label{sec:bulkdefect}
+
+Nothing in this paper depends on the statement below. It is retained only because Revision~5
+recorded it and a reader of that revision will look for it; it is \textbf{not} a result of this
+programme, and it is placed outside \S\ref{sec:residue}'s proved sectors deliberately.
 
 \begin{proposition}[Bulk-defect anchor stability --- \textbf{stated, not proved}]\label{prop:bulkdefect}
 For $D=X^aEX^b$ (fixed $X$, arbitrary finite defect $E$, arbitrary $b$), the coarse anchor satisfies
@@ -1284,8 +1292,8 @@ Time & $L_c(m)$, $\tau_0(m)$ & Record chronology (Prop.~\ref{prop:inversion}); t
 Any unconditional bound on $L_c$ & Self-financing recovery blocks excursion arguments
 (\S\ref{sec:selffin}) \\
 Residue & $\rmin(N,c)$, $r(D)$ & Exact congruence (Prop.~\ref{prop:congruence}) + inversion &
-Fixed-anchor sectors (Thms.~\ref{thm:periodic}--\ref{thm:evperiodic},
-Prop.~\ref{prop:bulkdefect}) & Arbitrary irregular floor & Coordinate collapse
+Fixed-anchor sectors (Thms.~\ref{thm:periodic}--\ref{thm:evperiodic}) & Finite-defect
+(\S\ref{sec:bulkdefect}) and arbitrary irregular floors & Coordinate collapse
 (\S\ref{sec:collapse}) \\
 Divergence & $R_n$, $Q_n$, value set & Curry sparsity; last-maximum reduction
 (Prop.~\ref{prop:lastmax}) & Reciprocal summability; $B<1/\beta_*$ (Thm.~\ref{thm:betastar}) &
@@ -1636,6 +1644,70 @@ The surviving frontier is therefore actual positive-orbit arithmetic, at three n
 qualitative exclusion of an infinite zero-corridor tail; quantitative control of single-window
 lifetime, at any scale; and, beyond that, recurrence control sufficient for total occupation.
 Neither EOC nor the Collatz conjecture is proved here.
+
+
+\appendix
+
+\section{A complete proof of the carry budget, with an explicit constant}\label{app:carrybudget}
+
+Lemma~\ref{lem:carrybudget} carries only a proof sketch in Revision~5, and
+Theorem~\ref{thm:89} rests on it, which in turn feeds Corollary~\ref{cor:injocc} and
+Theorem~\ref{thm:reduction}(i). Since that is a load-bearing chain, we give the argument in full.
+Nothing here is new mathematics; it is the sketch completed, with the constant made explicit so a
+reader can check it.
+
+\begin{proposition}\label{prop:carryexplicit}
+Let $m_0$ be a positive odd integer whose accelerated orbit is injective. Then for every $N\ge2$,
+\[
+E_N\ \le\ \tfrac19\log_2(3N-5)+\frac{2}{3\ln2}\ \le\ \tfrac19\log_2 N+1.138 .
+\]
+\end{proposition}
+
+\begin{proof}
+\emph{Step 1: the iterates avoid $3$.} For $k\ge1$, $2^{d_{k-1}}m_k=3m_{k-1}+1\equiv1\pmod 3$, and
+$2$ is a unit mod $3$, so $m_k\not\equiv0\pmod3$. Each $m_k$ is odd, so $\gcd(m_k,6)=1$ for every
+$k\ge1$. (The seed $m_0$ is excluded: it may be divisible by $3$.)
+
+\emph{Step 2: linearise the logarithm.} From $\ln(1+x)\le x$ for $x\ge0$,
+\[
+E_N=\sum_{k<N}\log_2\Bigl(1+\frac{1}{3m_k}\Bigr)\ \le\ \frac{1}{3\ln2}\sum_{k<N}\frac{1}{m_k}.
+\]
+
+\emph{Step 3: injectivity turns the sum into a reciprocal sum over distinct admissible values.}
+Let $a_1<a_2<\cdots$ enumerate the positive integers coprime to $6$, and put
+$A_M=\sum_{j\le M}1/a_j$. By Step~1 and injectivity, $m_1,\dots,m_{N-1}$ are $N-1$ \emph{distinct}
+positive integers coprime to $6$, so
+$\sum_{1\le k<N}1/m_k\le A_{N-1}$, whence $\sum_{k<N}1/m_k\le 1+A_{N-1}$ using $m_0\ge1$.
+
+\emph{Step 4: $a_j\ge3j-2$.} Equivalently $\#\{n\le3j-3:\gcd(n,6)=1\}\le j-1$. Each block of six
+consecutive integers contains exactly two integers coprime to $6$ (residues $1$ and $5$). Write
+$3j-3=6q+s$ with $0\le s<6$. Since $3j\equiv0$ or $3\pmod 6$, we have $s\in\{0,3\}$ --- the cases
+$s\in\{1,2,4,5\}$ do not occur. If $s=0$ the count is $2q=(3j-3)/3=j-1$; if $s=3$ the count is
+$2q+1=(3j-3)/3=j-1$. In both cases the bound holds.
+
+\emph{Step 5: sum.} Since $t\mapsto1/(3t-2)$ is decreasing on $t>2/3$,
+\[
+A_M\ =\ 1+\sum_{j=2}^{M}\frac1{a_j}\ \le\ 1+\sum_{j=2}^{M}\frac1{3j-2}
+\ \le\ 1+\int_1^M\frac{dt}{3t-2}\ =\ 1+\tfrac13\ln(3M-2).
+\]
+
+\emph{Step 6: combine.} With $M=N-1$, Steps 2, 3 and 5 give
+\[
+E_N\ \le\ \frac{1}{3\ln2}\Bigl(2+\tfrac13\ln(3N-5)\Bigr)
+\ =\ \tfrac19\log_2(3N-5)+\frac{2}{3\ln2},
+\]
+and $\tfrac19\log_2(3N-5)\le\tfrac19\log_2 N+\tfrac19\log_23$ with
+$\tfrac19\log_23+\tfrac{2}{3\ln2}=0.1761\ldots+0.9618\ldots<1.138$.
+\end{proof}
+
+\begin{remark}
+The constant is not optimal. Numerically $A_M-\tfrac13\ln M$ increases to $0.9728\ldots$, with
+maximum $1$ at $M=1$, so $A_M\le\tfrac13\ln M+1$ and the additive constant can be taken below
+$0.97$; Step~5's integral comparison loses $\tfrac13\ln3$. The exponent $\tfrac19$ --- the only part
+Theorem~\ref{thm:89} uses --- is unaffected. Over odd $m_0<60001$ the largest observed value of
+$E_N-(\tfrac19\log_2 N+1.138)$ is $-1.004$, so the stated bound is comfortable but not tight.
+\status{the bound is proved; the remark on sharpness is a computational observation}
+\end{remark}
 
 \begin{thebibliography}{99}
 \bibitem{Eliahou} S. Eliahou, \emph{The $3x+1$ problem: new lower bounds on nontrivial cycle
