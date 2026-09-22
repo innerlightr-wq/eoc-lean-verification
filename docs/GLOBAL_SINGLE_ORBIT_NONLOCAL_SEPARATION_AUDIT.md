@@ -622,11 +622,12 @@ scratch/gate23_family.py                                (new)
 
 ## AU. Commits
 
-*(filled at commit time)*
+`69df8b3` — *Close the global word-shadow route by a cardinality barrier*, on top of base
+`43c9798`, plus a follow-up commit recording this hash and the push status. `main` untouched.
 
 ## AV. Push status
 
-*(filled at push time)*
+Pushed to `origin/global-single-orbit-nonlocal-separation-audit`. **No PR opened.**
 
 ## AW. Research verdict
 
