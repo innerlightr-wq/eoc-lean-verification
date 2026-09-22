@@ -1,0 +1,678 @@
+{
+ "mode": "semantic_only",
+ "results": [
+  {
+   "external_subjects": [
+    "Riemann hypothesis"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood01",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 155,
+   "question": "Does the Riemann hypothesis imply anything here?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "Birch and Swinnerton-Dyer"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood02",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 159,
+   "question": "What does this repository prove about the Birch and Swinnerton-Dyer conjecture?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "Navier-Stokes"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood03",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 150,
+   "question": "How do the Navier-Stokes regularity results apply?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "Yang-Mills"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood04",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 143,
+   "question": "Is the Yang-Mills mass gap addressed?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "modular forms",
+    "elliptic curves"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood05",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 148,
+   "question": "What about modular forms and elliptic curves?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "twin primes"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood06",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 151,
+   "question": "Summarize the twin prime conjecture progress.",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "Goldbach"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood07",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 143,
+   "question": "Does Goldbach factor into the argument?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "Langlands"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood08",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 149,
+   "question": "Which Langlands functoriality results are formalized?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "P versus NP"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood09",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 159,
+   "question": "Is P versus NP relevant to the decision problem here?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "Hodge conjecture"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood10",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 155,
+   "question": "What is the Hodge conjecture status in this work?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "elliptic curves",
+    "K3 surfaces"
+   ],
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood11",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 0,
+   "n_nodes_returned": 0,
+   "packet_words": 156,
+   "question": "Do the K3 surface computations here use Neron-Severi lattices?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [],
+   "ranked_node_sources": [],
+   "refused": true,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "machine learning"
+   ],
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "ood12",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 6,
+   "n_nodes_returned": 6,
+   "packet_words": 789,
+   "question": "Can a neural network be trained to predict the valuation word?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [
+    "dynamic-deficit-feedback-closed",
+    "zcre-realizer-equivalence",
+    "deficit-recursion",
+    "finite-valuation-word",
+    "coordinate-change-gate",
+    "chain-a-bottleneck"
+   ],
+   "ranked_node_sources": [
+    "docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md",
+    "EOC/ZCRERealizerGrowth.lean",
+    "EOC/CurryFoundation.lean",
+    "EOC/FiniteValuationWord.lean",
+    "research-index/research_protocol.md",
+    "docs/ARITHMETIC_FRONTIER.md"
+   ],
+   "refused": false,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [
+    "Riemann hypothesis"
+   ],
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf01",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 4,
+   "n_nodes_returned": 6,
+   "packet_words": 737,
+   "question": "Could a technique from the Riemann hypothesis literature help the EOC arithmetic bottleneck?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [
+    "realizer-eventually-constant",
+    "zcre-realizer-equivalence",
+    "chain-a-bottleneck",
+    "tao-mixing-conditional",
+    "curry-hypothesis",
+    "curry-zero-corridor"
+   ],
+   "ranked_node_sources": [
+    "EOC/ZCRERealizerGrowth.lean",
+    "EOC/ZCRERealizerGrowth.lean",
+    "docs/ARITHMETIC_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "EOC/CurryFoundation.lean",
+    "EOC/CurryFoundation.lean"
+   ],
+   "refused": false,
+   "transfer_intent": true
+  },
+  {
+   "external_subjects": [
+    "modular forms"
+   ],
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf02",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 6,
+   "n_nodes_returned": 6,
+   "packet_words": 790,
+   "question": "Is there an analogy between modular forms and the valuation word structure?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [
+    "dynamic-deficit-feedback-closed",
+    "zcre-realizer-equivalence",
+    "deficit-recursion",
+    "finite-valuation-word",
+    "coordinate-change-gate",
+    "chain-a-bottleneck"
+   ],
+   "ranked_node_sources": [
+    "docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md",
+    "EOC/ZCRERealizerGrowth.lean",
+    "EOC/CurryFoundation.lean",
+    "EOC/FiniteValuationWord.lean",
+    "research-index/research_protocol.md",
+    "docs/ARITHMETIC_FRONTIER.md"
+   ],
+   "refused": false,
+   "transfer_intent": true
+  },
+  {
+   "external_subjects": [
+    "elliptic curves"
+   ],
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf03",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 3,
+   "n_nodes_returned": 6,
+   "packet_words": 674,
+   "question": "Could methods from elliptic curve descent be adapted to the realizer problem?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [
+    "realizer-eventually-constant",
+    "zcre-realizer-equivalence",
+    "chain-a-bottleneck",
+    "closed-bounded-defect-only",
+    "closed-entropy-counting",
+    "closed-fixed-modulus-packing"
+   ],
+   "ranked_node_sources": [
+    "EOC/ZCRERealizerGrowth.lean",
+    "EOC/ZCRERealizerGrowth.lean",
+    "docs/ARITHMETIC_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md"
+   ],
+   "refused": false,
+   "transfer_intent": true
+  },
+  {
+   "external_subjects": [
+    "Navier-Stokes"
+   ],
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf04",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 4,
+   "n_nodes_returned": 6,
+   "packet_words": 722,
+   "question": "What lessons transfer from Navier-Stokes blowup analysis to Type-II divergence?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [
+    "type-ii-divergence",
+    "curry-zero-corridor",
+    "deficit-diverges",
+    "drift-to-minus-infinity",
+    "chain-a-bottleneck",
+    "closed-bounded-defect-only"
+   ],
+   "ranked_node_sources": [
+    "docs/RESEARCH_STATUS.md",
+    "EOC/CurryFoundation.lean",
+    "EOC/CurryFoundation.lean",
+    "EOC/CurryFoundation.lean",
+    "docs/ARITHMETIC_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md"
+   ],
+   "refused": false,
+   "transfer_intent": true
+  },
+  {
+   "external_subjects": [],
+   "guard_verdict": "IN_DOMAIN",
+   "id": "ctl01",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 2,
+   "n_nodes_returned": 6,
+   "packet_words": 634,
+   "question": "What is the current arithmetic bottleneck in Chain A?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [
+    "chain-a-bottleneck",
+    "tao-mixing-conditional",
+    "closed-bounded-defect-only",
+    "closed-entropy-counting",
+    "closed-fixed-modulus-packing",
+    "closed-pell-continued-fraction"
+   ],
+   "ranked_node_sources": [
+    "docs/ARITHMETIC_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md"
+   ],
+   "refused": false,
+   "transfer_intent": false
+  },
+  {
+   "external_subjects": [],
+   "guard_verdict": "IN_DOMAIN",
+   "id": "ctl02",
+   "mode": "semantic_only",
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 3,
+   "n_nodes_returned": 6,
+   "packet_words": 660,
+   "question": "Is the Tao mixing hypothesis assumed anywhere?",
+   "ranked_declaration_files": [],
+   "ranked_declarations": [],
+   "ranked_node_ids": [
+    "closed-pell-continued-fraction",
+    "chain-a-bottleneck",
+    "tao-mixing-conditional",
+    "curry-hypothesis",
+    "closed-bounded-defect-only",
+    "closed-entropy-counting"
+   ],
+   "ranked_node_sources": [
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ARITHMETIC_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "EOC/CurryFoundation.lean",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md"
+   ],
+   "refused": false,
+   "transfer_intent": false
+  }
+ ],
+ "scores": [
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood01",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood02",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood03",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood04",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood05",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood06",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood07",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood08",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood09",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood10",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "out_of_domain",
+   "expected": "refusal, or at minimum no ranked repository material",
+   "false_positive_nodes": 0,
+   "guard_verdict": "OUT_OF_DOMAIN",
+   "id": "ood11",
+   "mode": "semantic_only",
+   "refused": true,
+   "refused_explicitly": true
+  },
+  {
+   "correct": true,
+   "domain": "transfer",
+   "expected": "pass through as TRANSFER_REQUEST",
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "ood12",
+   "mode": "semantic_only",
+   "refused": false
+  },
+  {
+   "correct": true,
+   "domain": "transfer",
+   "expected": "pass through as TRANSFER_REQUEST",
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf01",
+   "mode": "semantic_only",
+   "refused": false
+  },
+  {
+   "correct": true,
+   "domain": "transfer",
+   "expected": "pass through as TRANSFER_REQUEST",
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf02",
+   "mode": "semantic_only",
+   "refused": false
+  },
+  {
+   "correct": true,
+   "domain": "transfer",
+   "expected": "pass through as TRANSFER_REQUEST",
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf03",
+   "mode": "semantic_only",
+   "refused": false
+  },
+  {
+   "correct": true,
+   "domain": "transfer",
+   "expected": "pass through as TRANSFER_REQUEST",
+   "guard_verdict": "TRANSFER_REQUEST",
+   "id": "trf04",
+   "mode": "semantic_only",
+   "refused": false
+  },
+  {
+   "domain": "in_domain",
+   "guard_verdict": "IN_DOMAIN",
+   "id": "ctl01",
+   "irrelevant_nodes_above_gold": 0,
+   "mode": "semantic_only",
+   "mrr_nodes": 1.0,
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 2,
+   "n_nodes_returned": 6,
+   "packet_words": 634,
+   "rank_of_first_decisive_source": 1,
+   "rank_of_first_gold_node": 1,
+   "recall_at_1_nodes": true,
+   "recall_at_1_sources": true,
+   "recall_at_3_nodes": true,
+   "recall_at_3_sources": true,
+   "recall_at_5_nodes": true,
+   "recall_at_5_sources": true,
+   "refused": false
+  },
+  {
+   "domain": "in_domain",
+   "guard_verdict": "IN_DOMAIN",
+   "id": "ctl02",
+   "irrelevant_nodes_above_gold": 2,
+   "mode": "semantic_only",
+   "mrr_nodes": 0.3333,
+   "n_declarations_returned": 0,
+   "n_distinct_files_returned": 3,
+   "n_nodes_returned": 6,
+   "packet_words": 660,
+   "rank_of_first_decisive_source": 1,
+   "rank_of_first_gold_node": 3,
+   "recall_at_1_nodes": false,
+   "recall_at_1_sources": true,
+   "recall_at_3_nodes": true,
+   "recall_at_3_sources": true,
+   "recall_at_5_nodes": true,
+   "recall_at_5_sources": true,
+   "refused": false
+  }
+ ],
+ "set_id": "ood-v1",
+ "summary": {
+  "mean_irrelevant_above_gold": 1.0,
+  "mean_packet_words": 647.0,
+  "mean_rank_of_first_gold_node": 2.0,
+  "mode": "semantic_only",
+  "mrr_nodes": 0.6666,
+  "n_gold_never_returned": 0,
+  "n_in_domain": 2,
+  "n_out_of_domain": 11,
+  "n_transfer": 5,
+  "ood_accuracy": 1.0,
+  "ood_explicit_refusals": 11,
+  "ood_false_positive_nodes_total": 0,
+  "ood_false_positives": 0,
+  "ood_no_misleading_material": 11,
+  "recall_at_1_nodes": 0.5,
+  "recall_at_1_sources": 1.0,
+  "recall_at_3_nodes": 1.0,
+  "recall_at_3_sources": 1.0,
+  "recall_at_5_nodes": 1.0,
+  "recall_at_5_sources": 1.0,
+  "transfer_accuracy": 1.0,
+  "transfer_correct_passthrough": 5
+ }
+}

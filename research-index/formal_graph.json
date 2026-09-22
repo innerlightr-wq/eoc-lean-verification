@@ -86970,13 +86970,13 @@
    "generated": true,
    "has_body": false,
    "kind": "theorem",
-   "module": "EOC.FiniteValuationWord",
+   "module": "EOC.SurvivorClusters",
    "name": "EOC.R.eq_1",
    "pagerank_viewB": 0.0,
    "rev_deps_eoc": [],
    "source": {
     "end_line": 0,
-    "file": "EOC/FiniteValuationWord.lean",
+    "file": "EOC/SurvivorClusters.lean",
     "start_line": 0
    },
    "view_A": {
@@ -121728,13 +121728,13 @@
    "generated": true,
    "has_body": false,
    "kind": "theorem",
-   "module": "EOC.SwapCollatz",
+   "module": "EOC.TwistExpansion",
    "name": "EOC.SwapBound.ee.eq_1",
    "pagerank_viewB": 0.0,
    "rev_deps_eoc": [],
    "source": {
     "end_line": 0,
-    "file": "EOC/SwapCollatz.lean",
+    "file": "EOC/TwistExpansion.lean",
     "start_line": 0
    },
    "view_A": {
@@ -189103,13 +189103,13 @@
    "generated": true,
    "has_body": false,
    "kind": "theorem",
-   "module": "EOC.FiniteValuationWord",
+   "module": "EOC.SurvivorClusters",
    "name": "EOC.s.eq_1",
    "pagerank_viewB": 0.0,
    "rev_deps_eoc": [],
    "source": {
     "end_line": 0,
-    "file": "EOC/FiniteValuationWord.lean",
+    "file": "EOC/SurvivorClusters.lean",
     "start_line": 0
    },
    "view_A": {
@@ -192974,58 +192974,6 @@
    "wrapped_tokens_approx": 70,
    "wrapped_tokens_body_approx": 26,
    "wrapped_tokens_sig_approx": 42
-  },
-  "ZMod.stdAddChar.congr_simp": {
-   "I0_approx": 0.0,
-   "T0_viewB": null,
-   "deps_eoc": {},
-   "deps_external_count": 24,
-   "deps_external_distinct": 16,
-   "generated": false,
-   "has_body": false,
-   "kind": "theorem",
-   "module": "EOC.ShellWeyl",
-   "name": "ZMod.stdAddChar.congr_simp",
-   "pagerank_viewB": 0.0,
-   "rev_deps_eoc": [],
-   "source": {
-    "end_line": 0,
-    "file": "EOC/ShellWeyl.lean",
-    "start_line": 0
-   },
-   "view_A": {
-    "depth": 85,
-    "unwrapped": {
-     "bit_length": 93,
-     "exact": "9172277367773427982233367241",
-     "exact_omitted": false,
-     "log2": 92
-    }
-   },
-   "view_B": {
-    "depth": 1,
-    "unwrapped": {
-     "bit_length": 5,
-     "exact": "24",
-     "exact_omitted": false,
-     "log2": 4
-    },
-    "unwrapped_body": {
-     "bit_length": 1,
-     "exact": "1",
-     "exact_omitted": false,
-     "log2": 0
-    },
-    "unwrapped_sig": {
-     "bit_length": 5,
-     "exact": "24",
-     "exact_omitted": false,
-     "log2": 4
-    }
-   },
-   "wrapped_tokens_approx": 0,
-   "wrapped_tokens_body_approx": 0,
-   "wrapped_tokens_sig_approx": 0
   },
   "_private.EOC.BinomialEntropy.0.EOC.BinomialEntropy.cast_pos": {
    "I0_approx": 0.0,
@@ -201277,8 +201225,8 @@
  },
  "schema": "eoc-research-index/formal_graph/1",
  "totals": {
-  "closure_nodes": 7409,
-  "eoc_declarations": 3626,
-  "eoc_declarations_human": 1688
+  "closure_nodes": 7408,
+  "eoc_declarations": 3625,
+  "eoc_declarations_human": 1687
  }
 }

@@ -1,0 +1,73 @@
+{
+ "baseline_id": "mvp-baseline-v1",
+ "baseline_packets_dir": "research-index/evaluation/regression/baseline/",
+ "benchmark_contaminated": true,
+ "benchmark_query_ids": [
+  "reg1",
+  "reg2",
+  "reg3",
+  "reg4",
+  "reg5"
+ ],
+ "evaluation_branch": "compression-index-evaluation",
+ "file_hashes_sha256": {
+  "research-index/AI_RESEARCH_BOOTSTRAP.md": "18a21b94b6b2faa5abd58155d305f92e6f72b9ef0a3a83f3e51a685450de83f2",
+  "research-index/formal_graph.json": "6f348a55297aae3461e9f2fa264a0175e9098e52d6c89d4ed0f2e6225d635d5b",
+  "research-index/raw_decls.jsonl": "f7581e6a04f09c6e55700c19e681c5b6d8dae6249f57d82ba5be020646c754d8",
+  "research-index/repo_inventory.json": "2278ce58dac3c76d9f485dd35274be50c8950d73b888df844293c97eb1a7fcb7",
+  "research-index/research_graph.json": "da6cc58ab95d67d55d53971d2a9398dc4edf3410d3c547a9ebf582de5c912495",
+  "research-index/research_protocol.md": "93078fb1f624008d7b17f483f849f34fe4626fae3cbf9dd36d8e9d14d837a80a",
+  "tools/research_context/__main__.py": "571e004cf4a136f01345e4bdece12f131361fa9a6870085b5d371b7ae7e73c0a",
+  "tools/research_context/formal.py": "462f2c52a778c9ef142f79b6e0cbb45693e0e4007dbcfa36964c5c172a5bc0d8",
+  "tools/research_context/lean/ExtractDeps.lean": "1bdb5e36eda9341c052454b61eb41a005c057b840159166ff8e0af6e4a8b55a0",
+  "tools/research_context/plots.py": "93aa7b681ef665b91b16111f2a3a187dc3286f2623effa2f6b9cddd2db291fa1",
+  "tools/research_context/retrieve.py": "60570af3f9d4c4e5f23f328b035c7e71dee5afdf5bc19f2ff6e2b7ecad3d06aa",
+  "tools/research_context/semantic.py": "c2ffd8b1526a815ba0bb54fef3e306f1d3593d8eded2b3c8efad6b737ce29187"
+ },
+ "graph_totals": {
+  "closure_nodes": 7409,
+  "eoc_declarations": 3626,
+  "eoc_declarations_human": 1688
+ },
+ "purpose": "Frozen pre-tuning baseline for the compression-index evaluation round (Gate 0).",
+ "retrieval_settings_at_baseline": {
+  "compression_note": "compression_bits_per_token, depth and log2_unwrapped are COMPUTED AND DISPLAYED at baseline but carry zero scoring weight. Only PageRank centrality enters any score, and only in the formal-declaration table.",
+  "compression_used_in_scoring": false,
+  "depth_used_in_scoring": false,
+  "domain_guard": null,
+  "embeddings": false,
+  "formal_composite": "query_relevance + 0.5*pagerank_viewB_normalized",
+  "limit_formal_declarations": 8,
+  "limit_semantic_nodes": 6,
+  "mode": "single hardcoded mode (no modes existed at baseline)",
+  "semantic_composite": "query_relevance + 0.5*(keyword_hits/|q|) + status_prior, status_prior applied only if lexical or keyword hit",
+  "semantic_status_priors": {
+   "BOTTLENECK": 0.25,
+   "CLOSED_ROUTE": 0.3,
+   "COMPUTATIONAL_ONLY": 0.05,
+   "CONDITIONAL_FOUNDATION": 0.2,
+   "CURRENT_FRONTIER": 0.25,
+   "EQUIVALENCE": 0.3,
+   "FOUNDATIONAL": 0.15,
+   "HEURISTIC": 0.05,
+   "MAJOR_REDUCTION": 0.15,
+   "REFUTED_ROUTE": 0.3
+  },
+  "semantic_uses_formal_metrics": false,
+  "stopwords": 37,
+  "synonym_groups": 12
+ },
+ "semantic_totals": {
+  "edges": 19,
+  "known_gaps": 2,
+  "nodes": 21
+ },
+ "starting_branch_parent": "compression-guided-research-index",
+ "starting_commit": "6b59fd6a61011d0189d263b2135c2c73192247dc",
+ "timestamp_utc": "2026-09-22T01:40:23Z",
+ "toolchain": {
+  "dependencies": "standard library only",
+  "lean": "Lean 4.34.0-rc1 (Lake 5.0.0-src+3447a66)",
+  "python": "Python 3.14.7"
+ }
+}

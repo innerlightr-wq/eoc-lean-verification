@@ -1,0 +1,787 @@
+{
+ "generated_from": "tools/research_context/coverage.py derive_registry",
+ "modules": {
+  "EOC.ArithmeticFrontier": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 2,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.AverageOddDark": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 12,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.Basic": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 125,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.BinomialEntropy": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 6,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.BlockCube": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 1,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.BlockCubeInstance": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 279,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.BoundedDrift": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.BoundedDriftCore": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 38,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.CapacityBounds": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 154,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.Carry": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 58,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ChangHistory": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 46,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ChordRotation": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 24,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.CompositionCounting": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 31,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.Confinement": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 162,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.CurryFoundation": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 12,
+   "rules_fired": [
+    "R1",
+    "R2"
+   ]
+  },
+  "EOC.DangerousWindows": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.DecayInterface": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 15,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.DirectDescent": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 12,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.EntropyBounds": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 23,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ExceptionalPowerBound": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 4,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.FinitePrefixPacking": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 11,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.FiniteValuationWord": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 695,
+   "rules_fired": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.FirstDivergence": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.GoodAngles": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 13,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.HarmonicFloor": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.HarmonicPacking": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 84,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.IntervalSieve": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 9,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.LiftDigits": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 11,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.LiftGap": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.LocalWindow": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 33,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.LogAbsorb": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.LogCorridor": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 9,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.MaxTriangle": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 50,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.OddBlack": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 62,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PairValuation": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.Periodic": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PeriodicCore": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 50,
+   "rules_fired": []
+  },
+  "EOC.PowerOrbit": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 4,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PrefixCollision": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 246,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.PrefixStateFormula": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PrefixSuffixBilinear": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 9,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PrescribedMatching": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 22,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PressureBridge": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 19,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PsiShellBound": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 4,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.PsiSieve": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 42,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.Realizer": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 154,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.RealizerLift": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 16,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.RenyiBarrier": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 11,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.RenyiInstance": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 7,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ResidueDiscrepancy": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShapeBridge": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 12,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShapeCertificate": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 2,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShapeTail": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 34,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShapeUnconditional": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 16,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShellDecomposition": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 45,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShellRefined": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShellWeyl": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 21,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ShellwiseChain": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 19,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.SignedBlock": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": []
+  },
+  "EOC.SignedRealizer": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 15,
+   "rules_fired": []
+  },
+  "EOC.SpacingChain": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 19,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.SplitPrefix": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 31,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.SuffixTransport": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 23,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.SurvivorClusters": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 29,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.SurvivorCounting": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 7,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.SurvivorDensity": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.SwapBound": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 203,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.SwapCollatz": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 26,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TaoLike.AllShiftsAveragedPersistence": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 3,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.ConditionalMixing": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 35,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.Cylinder": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TaoLike.CylinderAppend": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 5,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.CylinderDigitCounting": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.EarlyLate": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 38,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.HarmonicAP": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.HarmonicExceptionalSetSummability": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 2,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.LateShiftPersistence": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.NormalizedHarmonicLaw": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 30,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.PersistenceModel": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 162,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.TaoLike.PersistenceRateCramer": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 13,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.PrefixPartition": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 29,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TaoLike.ResidueTV": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 11,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.RestartLawAlignment": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 25,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TaoLike.ShiftedPersistence": {
+   "category": "SUPPORT_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": []
+  },
+  "EOC.TaoLike.TaoInterface": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 544,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.ThreeBlock": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 21,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TransportCollapse": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 26,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TriangleArray": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 55,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TriangleHop": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 41,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.TwistExpansion": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 49,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.UpperCertificates": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 2,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.UpperEscape": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 4,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ValuationWord": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 629,
+   "rules_fired": [
+    "R2",
+    "R3"
+   ]
+  },
+  "EOC.WeightedChain": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 91,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.WhiteContraction": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 43,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.WhiteRun": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 7,
+   "rules_fired": [
+    "R2"
+   ]
+  },
+  "EOC.ZCRERealizerGrowth": {
+   "category": "REQUIRED_RESEARCH_MODULE",
+   "reason": null,
+   "rev_deps_eoc": 0,
+   "rules_fired": [
+    "R1",
+    "R2"
+   ]
+  }
+ },
+ "policy": {
+  "categories": [
+   "REQUIRED_RESEARCH_MODULE",
+   "SUPPORT_MODULE",
+   "EXPERIMENTAL",
+   "GENERATED_OR_EXCLUDED",
+   "UNKNOWN"
+  ],
+  "must_be_indexed": [
+   "REQUIRED_RESEARCH_MODULE",
+   "SUPPORT_MODULE"
+  ],
+  "note": "REQUIRED vs SUPPORT expresses research salience, not coverage: BOTH must be indexed. Any physical module absent from this registry is UNKNOWN and fails the build until classified. To exclude a module, set its category to GENERATED_OR_EXCLUDED and give a 'reason'; an empty reason is itself an error.",
+  "r3_threshold": 100,
+  "required_rules": {
+   "R1": "cited by a node in research-index/research_graph.json",
+   "R2": "named (word-boundary, by module basename) in any docs/*.md",
+   "R3": "at least 100 reverse dependencies inside EOC (formal spine load-bearer)"
+  },
+  "unknown_is_fatal": true
+ },
+ "registry_id": "eoc-module-registry-v1"
+}

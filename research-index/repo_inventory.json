@@ -1,5 +1,5 @@
 {
- "branch": "compression-guided-research-index",
+ "branch": "compression-index-evaluation",
  "docs": [
   {
    "lines": 204,
@@ -10,6 +10,11 @@
    "lines": 136,
    "path": "docs/ARITHMETIC_FRONTIER.md",
    "title": "Arithmetic frontier \u2014 power-of-two digit sparsity (2026-09-16)"
+  },
+  {
+   "lines": 361,
+   "path": "docs/COMPRESSION_GUIDED_CONTEXT_REPORT.md",
+   "title": "Compression-guided research index \u2014 MVP report"
   },
   {
    "lines": 209,
@@ -1691,7 +1696,7 @@
   "status_registry": false,
   "theorem_registry": false
  },
- "repo_head": "1d087e20b72faaf7a4d13ee03c44b0858990f238",
+ "repo_head": "6b59fd6a61011d0189d263b2135c2c73192247dc",
  "schema": "eoc-research-index/repo_inventory/1",
  "scratch_dirs": [
   "scratch/avgpressure_2026-09-16",
@@ -1726,8 +1731,8 @@
   "scratch/zcre_realizer_growth_2026-09-21"
  ],
  "totals": {
-  "commits": 76,
-  "docs": 13,
+  "commits": 78,
+  "docs": 14,
   "lean_lines": 30095,
   "lean_modules": 97,
   "scratch_dirs": 30

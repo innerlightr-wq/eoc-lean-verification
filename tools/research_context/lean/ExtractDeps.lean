@@ -24,11 +24,110 @@ Output: newline-delimited JSON on stdout, one object per declaration.
     lake env lean tools/research_context/lean/ExtractDeps.lean \
       > research-index/raw_decls.jsonl
 -/
-import EOC
--- EOC.lean does not import these two research modules; without them the two
--- most research-relevant modules would be absent from the extracted closure.
+-- BEGIN GENERATED IMPORTS -- python3 -m tools.research_context imports
+-- Every Lean module physically present under EOC/ is imported below, so the
+-- extractor sees the whole library regardless of what `EOC.lean` imports. In
+-- the MVP round EOC.CurryFoundation and EOC.ZCRERealizerGrowth were silently
+-- absent from the closure for exactly that reason: a module is missing from
+-- EOC.lean precisely when it is new, which is when it matters most.
+import EOC.ArithmeticFrontier
+import EOC.AverageOddDark
+import EOC.Basic
+import EOC.BinomialEntropy
+import EOC.BlockCube
+import EOC.BlockCubeInstance
+import EOC.BoundedDrift
+import EOC.BoundedDriftCore
+import EOC.CapacityBounds
+import EOC.Carry
+import EOC.ChangHistory
+import EOC.ChordRotation
+import EOC.CompositionCounting
+import EOC.Confinement
 import EOC.CurryFoundation
+import EOC.DangerousWindows
+import EOC.DecayInterface
+import EOC.DirectDescent
+import EOC.EntropyBounds
+import EOC.ExceptionalPowerBound
+import EOC.FinitePrefixPacking
+import EOC.FiniteValuationWord
+import EOC.FirstDivergence
+import EOC.GoodAngles
+import EOC.HarmonicFloor
+import EOC.HarmonicPacking
+import EOC.IntervalSieve
+import EOC.LiftDigits
+import EOC.LiftGap
+import EOC.LocalWindow
+import EOC.LogAbsorb
+import EOC.LogCorridor
+import EOC.MaxTriangle
+import EOC.OddBlack
+import EOC.PairValuation
+import EOC.Periodic
+import EOC.PeriodicCore
+import EOC.PowerOrbit
+import EOC.PrefixCollision
+import EOC.PrefixStateFormula
+import EOC.PrefixSuffixBilinear
+import EOC.PrescribedMatching
+import EOC.PressureBridge
+import EOC.PsiShellBound
+import EOC.PsiSieve
+import EOC.Realizer
+import EOC.RealizerLift
+import EOC.RenyiBarrier
+import EOC.RenyiInstance
+import EOC.ResidueDiscrepancy
+import EOC.ShapeBridge
+import EOC.ShapeCertificate
+import EOC.ShapeTail
+import EOC.ShapeUnconditional
+import EOC.ShellDecomposition
+import EOC.ShellRefined
+import EOC.ShellWeyl
+import EOC.ShellwiseChain
+import EOC.SignedBlock
+import EOC.SignedRealizer
+import EOC.SpacingChain
+import EOC.SplitPrefix
+import EOC.SuffixTransport
+import EOC.SurvivorClusters
+import EOC.SurvivorCounting
+import EOC.SurvivorDensity
+import EOC.SwapBound
+import EOC.SwapCollatz
+import EOC.TaoLike.AllShiftsAveragedPersistence
+import EOC.TaoLike.ConditionalMixing
+import EOC.TaoLike.Cylinder
+import EOC.TaoLike.CylinderAppend
+import EOC.TaoLike.CylinderDigitCounting
+import EOC.TaoLike.EarlyLate
+import EOC.TaoLike.HarmonicAP
+import EOC.TaoLike.HarmonicExceptionalSetSummability
+import EOC.TaoLike.LateShiftPersistence
+import EOC.TaoLike.NormalizedHarmonicLaw
+import EOC.TaoLike.PersistenceModel
+import EOC.TaoLike.PersistenceRateCramer
+import EOC.TaoLike.PrefixPartition
+import EOC.TaoLike.ResidueTV
+import EOC.TaoLike.RestartLawAlignment
+import EOC.TaoLike.ShiftedPersistence
+import EOC.TaoLike.TaoInterface
+import EOC.ThreeBlock
+import EOC.TransportCollapse
+import EOC.TriangleArray
+import EOC.TriangleHop
+import EOC.TwistExpansion
+import EOC.UpperCertificates
+import EOC.UpperEscape
+import EOC.ValuationWord
+import EOC.WeightedChain
+import EOC.WhiteContraction
+import EOC.WhiteRun
 import EOC.ZCRERealizerGrowth
+-- END GENERATED IMPORTS
 import Lean
 
 open Lean

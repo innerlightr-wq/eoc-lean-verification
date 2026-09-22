@@ -1,0 +1,135 @@
+{
+ "commit_at_round_start": "6b59fd6a61011d0189d263b2135c2c73192247dc",
+ "determinism": {
+  "formal_graph_byte_identical_across_full_reextract_and_rebuild": true,
+  "note": "Deterministic for a fixed import order. The generated import block is alphabetical and mechanically derived, so it is a more stable basis than the previous hand-maintained list.",
+  "raw_extractor_output_byte_identical_across_runs": true
+ },
+ "file_hash_changes": {
+  "research-index/AI_RESEARCH_BOOTSTRAP.md": {
+   "baseline": "18a21b94b6b2faa5abd58155d305f92e6f72b9ef0a3a83f3e51a685450de83f2",
+   "now": "37fad06701a5e394ce08be01b90946b035c5abb1a60083883af109dfb681ddfc"
+  },
+  "research-index/formal_graph.json": {
+   "baseline": "6f348a55297aae3461e9f2fa264a0175e9098e52d6c89d4ed0f2e6225d635d5b",
+   "now": "591dc4b5ab6d2b969bc5dd602acae9108e7d19499a6ddc25dee20815b2308e16"
+  },
+  "research-index/raw_decls.jsonl": {
+   "baseline": "f7581e6a04f09c6e55700c19e681c5b6d8dae6249f57d82ba5be020646c754d8",
+   "now": "e3abf6dcce9764c70aa5e2c95c56e9b5fdabeed4b9a18e1aeaec2218f9b06f31"
+  },
+  "research-index/repo_inventory.json": {
+   "baseline": "2278ce58dac3c76d9f485dd35274be50c8950d73b888df844293c97eb1a7fcb7",
+   "now": "4663a302e0138163ea0585e0a2ceb1240e71ed25ebb7684640c0f2c5ef957865"
+  },
+  "tools/research_context/__main__.py": {
+   "baseline": "571e004cf4a136f01345e4bdece12f131361fa9a6870085b5d371b7ae7e73c0a",
+   "now": "91db63b4ee98da422f78276eb8ebd18c3afdff2b959aa5bbfa43666205f055a3"
+  },
+  "tools/research_context/lean/ExtractDeps.lean": {
+   "baseline": "1bdb5e36eda9341c052454b61eb41a005c057b840159166ff8e0af6e4a8b55a0",
+   "now": "ea7c27173a8cc0bad0c51120bbf3f821319b4a248b7fdca84a17ed64ddb8d2f5"
+  },
+  "tools/research_context/retrieve.py": {
+   "baseline": "60570af3f9d4c4e5f23f328b035c7e71dee5afdf5bc19f2ff6e2b7ecad3d06aa",
+   "now": "298f78486ba76d91e1f24d10315d1863c8e650ff39be897f39492751fcdf292f"
+  }
+ },
+ "file_hashes_sha256_now": {
+  "research-index/AI_RESEARCH_BOOTSTRAP.md": "37fad06701a5e394ce08be01b90946b035c5abb1a60083883af109dfb681ddfc",
+  "research-index/formal_graph.json": "591dc4b5ab6d2b969bc5dd602acae9108e7d19499a6ddc25dee20815b2308e16",
+  "research-index/raw_decls.jsonl": "e3abf6dcce9764c70aa5e2c95c56e9b5fdabeed4b9a18e1aeaec2218f9b06f31",
+  "research-index/repo_inventory.json": "4663a302e0138163ea0585e0a2ceb1240e71ed25ebb7684640c0f2c5ef957865",
+  "research-index/research_graph.json": "da6cc58ab95d67d55d53971d2a9398dc4edf3410d3c547a9ebf582de5c912495",
+  "research-index/research_protocol.md": "93078fb1f624008d7b17f483f849f34fe4626fae3cbf9dd36d8e9d14d837a80a",
+  "tools/research_context/__main__.py": "91db63b4ee98da422f78276eb8ebd18c3afdff2b959aa5bbfa43666205f055a3",
+  "tools/research_context/formal.py": "462f2c52a778c9ef142f79b6e0cbb45693e0e4007dbcfa36964c5c172a5bc0d8",
+  "tools/research_context/lean/ExtractDeps.lean": "ea7c27173a8cc0bad0c51120bbf3f821319b4a248b7fdca84a17ed64ddb8d2f5",
+  "tools/research_context/plots.py": "93aa7b681ef665b91b16111f2a3a187dc3286f2623effa2f6b9cddd2db291fa1",
+  "tools/research_context/retrieve.py": "298f78486ba76d91e1f24d10315d1863c8e650ff39be897f39492751fcdf292f",
+  "tools/research_context/semantic.py": "c2ffd8b1526a815ba0bb54fef3e306f1d3593d8eded2b3c8efad6b737ce29187"
+ },
+ "files_changed_since_baseline": [
+  "research-index/AI_RESEARCH_BOOTSTRAP.md",
+  "research-index/formal_graph.json",
+  "research-index/raw_decls.jsonl",
+  "research-index/repo_inventory.json",
+  "tools/research_context/__main__.py",
+  "tools/research_context/lean/ExtractDeps.lean",
+  "tools/research_context/retrieve.py"
+ ],
+ "formal_graph_delta": {
+  "cause": "The extractor's import list changed from `import EOC` plus two ad-hoc imports to a generated, alphabetical import of all 97 physical modules. Auto-generated equation lemmas (.eq_1) and simp-congruence lemmas are attributed to whichever module's elaboration first creates them, which depends on import order.",
+  "count": 4,
+  "declarations_reattributed": [
+   {
+    "declaration": "EOC.s.eq_1",
+    "from": "EOC.FiniteValuationWord",
+    "to": "EOC.SurvivorClusters"
+   },
+   {
+    "declaration": "EOC.R.eq_1",
+    "from": "EOC.FiniteValuationWord",
+    "to": "EOC.SurvivorClusters"
+   },
+   {
+    "declaration": "EOC.SwapBound.ee.eq_1",
+    "from": "EOC.SwapCollatz",
+    "to": "EOC.TwistExpansion"
+   }
+  ],
+  "declarations_removed": [
+   "ZMod.stdAddChar.congr_simp"
+  ],
+  "fraction_of_declarations": "4 / 3626 = 0.11%",
+  "research_impact": "None. All four are auto-generated, carry no source range (start_line 0), are excluded from every plotted metric, are cited by no semantic node, and are not sentinels. The five frozen regression packets reproduce byte-for-byte against the rebuilt graph."
+ },
+ "graph_totals_baseline": {
+  "closure_nodes": 7409,
+  "eoc_declarations": 3626,
+  "eoc_declarations_human": 1688
+ },
+ "graph_totals_now": {
+  "closure_nodes": 7408,
+  "eoc_declarations": 3625,
+  "eoc_declarations_human": 1687
+ },
+ "manifest_id": "post-round-v1",
+ "purpose": "State after the evaluation round. The baseline manifest is frozen and its hashes intentionally no longer match; this records what changed and why.",
+ "structural_metrics_reproduced": {
+  "centrality_vs_compression": {
+   "mvp": {
+    "r2": 0.002,
+    "slope": 0.0009
+   },
+   "r2": 0.0018,
+   "slope": 0.0009
+  },
+  "log2_unwrapped_vs_depth_viewA": {
+   "mvp": {
+    "r2": 0.991,
+    "slope": 0.906
+   },
+   "r2": 0.9913,
+   "slope": 0.9061
+  },
+  "log2_unwrapped_vs_wrapped_viewB": {
+   "mvp": {
+    "r2": 0.125,
+    "slope": 0.0031
+   },
+   "r2": 0.1246,
+   "slope": 0.0031
+  },
+  "n": 1676,
+  "wrapped_vs_depth_viewB": {
+   "mvp": {
+    "r2": 0.037,
+    "slope": 23.8
+   },
+   "r2": 0.0367,
+   "slope": 23.8372
+  }
+ },
+ "timestamp_utc": "2026-09-22T02:09:13Z"
+}

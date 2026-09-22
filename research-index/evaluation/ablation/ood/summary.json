@@ -1,0 +1,26 @@
+[
+ {
+  "mean_irrelevant_above_gold": 0.0,
+  "mean_packet_words": 419.0,
+  "mean_rank_of_first_gold_node": 1.0,
+  "mode": "baseline_mvp",
+  "mrr_nodes": 1.0,
+  "n_gold_never_returned": 0,
+  "n_in_domain": 2,
+  "n_out_of_domain": 11,
+  "n_transfer": 5,
+  "ood_accuracy": 0.2727,
+  "ood_explicit_refusals": 0,
+  "ood_false_positive_nodes_total": 16,
+  "ood_false_positives": 8,
+  "ood_no_misleading_material": 3,
+  "recall_at_1_nodes": 1.0,
+  "recall_at_1_sources": 1.0,
+  "recall_at_3_nodes": 1.0,
+  "recall_at_3_sources": 1.0,
+  "recall_at_5_nodes": 1.0,
+  "recall_at_5_sources": 1.0,
+  "transfer_accuracy": 0.0,
+  "transfer_correct_passthrough": 0
+ }
+]

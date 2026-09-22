@@ -21,7 +21,8 @@ import statistics
 import sys
 from pathlib import Path
 
-from . import formal, plots, retrieve, semantic
+from . import coverage, evaluate as ev, formal, plots, retrieve, semantic
+from .modes import ABLATION_ORDER, DEFAULT_MODE, MODES
 
 REPO = Path(__file__).resolve().parents[2]
 IDX = REPO / "research-index"
@@ -57,6 +58,100 @@ def cmd_build(_args) -> int:
     t = g["totals"]
     print(f"  closure {t['closure_nodes']}, EOC declarations {t['eoc_declarations']} "
           f"({t['eoc_declarations_human']} human-written)")
+    # Gate 1/2: a build that produced an incomplete index must not look successful.
+    print("checking coverage…")
+    return cmd_check(None)
+
+
+def cmd_check(_args) -> int:
+    """Gates 1 and 2: coverage must hold or the build fails loudly."""
+    g = coverage.load_json(IDX / "formal_graph.json")
+    sem = semantic.load(IDX / "research_graph.json")
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    errors += coverage.check_imports_in_sync(REPO)
+
+    reg_path = IDX / "module_registry.json"
+    if not reg_path.is_file():
+        errors.append(f"module registry missing: {reg_path}. "
+                      "Run `python3 -m tools.research_context registry`.")
+    else:
+        e, w = coverage.check_modules(REPO, g, coverage.load_json(reg_path))
+        errors += e
+        warnings += w
+
+    sent_path = IDX / "sentinel_declarations.json"
+    if not sent_path.is_file():
+        errors.append(f"sentinel file missing: {sent_path}")
+    else:
+        errors += coverage.check_sentinels(REPO, g, sem, coverage.load_json(sent_path))
+
+    errors += semantic.validate(sem, REPO, g)
+
+    for w in warnings:
+        print(f"  warning: {w}")
+    if errors:
+        print()
+        print("ERROR: research-index coverage incomplete", file=sys.stderr)
+        print(file=sys.stderr)
+        for e in errors:
+            print(f"  {e}", file=sys.stderr)
+        print(file=sys.stderr)
+        print(f"{len(errors)} check(s) failed. The index would be confidently wrong; "
+              "refusing to report success.", file=sys.stderr)
+        return 1
+    phys = len(coverage.physical_modules(REPO))
+    n_sent = len(coverage.load_json(sent_path)["sentinels"])
+    print(f"  OK — {phys}/{phys} physical EOC modules indexed and classified, "
+          f"{n_sent} sentinel declarations resolve, "
+          f"{len(sem['nodes'])} semantic nodes with valid provenance")
+    return 0
+
+
+def cmd_registry(_args) -> int:
+    g = coverage.load_json(IDX / "formal_graph.json")
+    sem = semantic.load(IDX / "research_graph.json")
+    reg = coverage.derive_registry(REPO, g, sem)
+    existing = coverage.load_json(IDX / "module_registry.json") \
+        if (IDX / "module_registry.json").is_file() else None
+    if existing:
+        # never clobber a hand-written category or reason
+        for m, e in existing["modules"].items():
+            if m in reg["modules"] and (e.get("reason") or e.get("category")
+                                        not in ("REQUIRED_RESEARCH_MODULE", "SUPPORT_MODULE")):
+                reg["modules"][m] = e
+    _write(IDX / "module_registry.json", reg)
+    from collections import Counter
+    c = Counter(v["category"] for v in reg["modules"].values())
+    print("  " + ", ".join(f"{k}={v}" for k, v in sorted(c.items())))
+    return 0
+
+
+def cmd_imports(_args) -> int:
+    print("  " + coverage.write_import_block(REPO))
+    return 0
+
+
+def cmd_evaluate(args) -> int:
+    g = coverage.load_json(IDX / "formal_graph.json")
+    sem = semantic.load(IDX / "research_graph.json")
+    qs = ev.load_questions(Path(args.questions))
+    modes = ABLATION_ORDER if args.mode == "all" else [args.mode]
+    outdir = Path(args.out) if args.out else None
+    allsum = []
+    for m in modes:
+        res = ev.evaluate(qs, sem, g, m, outdir, hide_gold=args.hide_gold)
+        allsum.append(res["summary"])
+        if outdir:
+            _write(outdir / f"results_{m}.json",
+                   {k: v for k, v in res.items() if k != "results"} | {"results": res["results"]})
+        print(f"\n  mode {m}:")
+        for k, v in res["summary"].items():
+            if k != "mode":
+                print(f"    {k}: {v}")
+    if outdir:
+        _write(outdir / "summary.json", allsum)
     return 0
 
 
@@ -125,7 +220,7 @@ def cmd_plots(_args) -> int:
 def cmd_query(args) -> int:
     g = json.loads((IDX / "formal_graph.json").read_text(encoding="utf-8"))
     sem = semantic.load(IDX / "research_graph.json")
-    out = retrieve.render_query_packet(args.question, sem, g)
+    out = retrieve.render_query_packet(args.question, sem, g, args.mode)
     if args.out:
         _write(Path(args.out), out)
     else:
@@ -227,10 +322,24 @@ def main(argv=None) -> int:
     sub.add_parser("bootstrap", help="write AI_RESEARCH_BOOTSTRAP.md").set_defaults(fn=cmd_bootstrap)
     sub.add_parser("stats", help="Aksenov-style summary numbers").set_defaults(fn=cmd_stats)
     sub.add_parser("plots", help="Aksenov-style exploratory SVG plots").set_defaults(fn=cmd_plots)
+    sub.add_parser("check", help="coverage + sentinel + provenance checks (fails loudly)") \
+        .set_defaults(fn=cmd_check)
+    sub.add_parser("registry", help="regenerate research-index/module_registry.json") \
+        .set_defaults(fn=cmd_registry)
+    sub.add_parser("imports", help="regenerate the extractor's generated import block") \
+        .set_defaults(fn=cmd_imports)
     q = sub.add_parser("query", help="question-specific context packet")
     q.add_argument("-q", "--question", required=True)
+    q.add_argument("--mode", default=DEFAULT_MODE, choices=sorted(MODES))
     q.add_argument("--out", default=None)
     q.set_defaults(fn=cmd_query)
+    e = sub.add_parser("evaluate", help="score a question set against one or all retrieval modes")
+    e.add_argument("--questions", required=True)
+    e.add_argument("--mode", default="all", choices=sorted(MODES) + ["all"])
+    e.add_argument("--out", default=None, help="directory for packets and results")
+    e.add_argument("--hide-gold", action="store_true",
+                   help="write packets without scoring (retrieval and scoring by separate parties)")
+    e.set_defaults(fn=cmd_evaluate)
     args = p.parse_args(argv)
     return args.fn(args)
 

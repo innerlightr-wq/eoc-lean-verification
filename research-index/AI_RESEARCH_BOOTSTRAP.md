@@ -6,7 +6,7 @@ Compressed entry point for a researcher or AI starting a session in this reposit
 
 ## Repository purpose
 
-Formal (Lean 4 + Mathlib) and documentary investigation of the Collatz problem via the accelerated map, aimed at excluding Type-II divergent orbits. 1688 human-written declarations across 97 modules; dependency closure 7409 nodes.
+Formal (Lean 4 + Mathlib) and documentary investigation of the Collatz problem via the accelerated map, aimed at excluding Type-II divergent orbits. 1687 human-written declarations across 97 modules; dependency closure 7408 nodes.
 
 ## Mathematical spine
 

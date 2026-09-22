@@ -1,0 +1,75 @@
+{
+ "set_id": "regression-v1",
+ "contaminated": true,
+ "contamination_note": "These five questions were known to the author while research_graph.json was being written in the MVP round. They CANNOT measure generalization. Retained solely to detect behavioral regressions.",
+ "purpose": "regression-only",
+ "questions": [
+  {
+   "id": "reg1",
+   "question": "Can unbounded prefix-realizer growth provide a weaker route than EOC?",
+   "domain": "in_domain",
+   "expected_source_type": "lean_declaration",
+   "gold_sources": [
+    "EOC/ZCRERealizerGrowth.lean",
+    "EOC.ZCRERealizerGrowth.boundedPrefixRealizers_iff_positiveRealizer"
+   ],
+   "gold_semantic_nodes": [
+    "zcre-realizer-equivalence"
+   ],
+   "notes": "Decisive fact is the equivalence collapse; must not be presented as an open weaker route."
+  },
+  {
+   "id": "reg2",
+   "question": "Can the feedback between deficit, state size, and next valuation constrain a Type-II orbit?",
+   "domain": "in_domain",
+   "expected_source_type": "document",
+   "gold_sources": [
+    "docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md"
+   ],
+   "gold_semantic_nodes": [
+    "dynamic-deficit-feedback-closed"
+   ],
+   "notes": "Closed as a reparameterization; deficit_succ is provable by ring."
+  },
+  {
+   "id": "reg3",
+   "question": "Can continued fractions or Pell-type approximation control the realizer denominator?",
+   "domain": "in_domain",
+   "expected_source_type": "document",
+   "gold_sources": [
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md"
+   ],
+   "gold_semantic_nodes": [
+    "closed-pell-continued-fraction"
+   ],
+   "notes": "Documented reason is weaker than 'decoupling'; see known_gaps."
+  },
+  {
+   "id": "reg4",
+   "question": "What is the current arithmetic bottleneck in Chain A?",
+   "domain": "in_domain",
+   "expected_source_type": "document",
+   "gold_sources": [
+    "docs/ARITHMETIC_FRONTIER.md"
+   ],
+   "gold_semantic_nodes": [
+    "chain-a-bottleneck"
+   ],
+   "notes": "Must name the specific sparsity target, not generic Collatz difficulty."
+  },
+  {
+   "id": "reg5",
+   "question": "What does Curry contribute to excluding Type-II divergence?",
+   "domain": "in_domain",
+   "expected_source_type": "lean_declaration",
+   "gold_sources": [
+    "EOC/CurryFoundation.lean"
+   ],
+   "gold_semantic_nodes": [
+    "curry-hypothesis",
+    "curry-zero-corridor"
+   ],
+   "notes": "Conditionality on ReciprocalSummable must be explicit."
+  }
+ ]
+}

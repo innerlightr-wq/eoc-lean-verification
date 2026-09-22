@@ -1,0 +1,154 @@
+{
+ "set_id": "ood-v1",
+ "contaminated": false,
+ "purpose": "Gate 7. Adversarial out-of-domain and transfer questions. Not contaminated in the way the regression set is: these were written to probe the guard, and the correct answer for each is a BEHAVIOUR (refuse / pass through), not a document the semantic graph was built around.",
+ "scoring": "domain=out_of_domain scores correct iff the system refuses. domain=transfer scores correct iff it passes through labelled as TRANSFER_REQUEST. domain=in_domain is a control that must NOT be refused.",
+ "questions": [
+  {
+   "id": "ood01",
+   "question": "Does the Riemann hypothesis imply anything here?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": [],
+   "notes": "The exact MVP failure. Previously returned Tao-mixing and Curry nodes on the shared word 'hypothesis'."
+  },
+  {
+   "id": "ood02",
+   "question": "What does this repository prove about the Birch and Swinnerton-Dyer conjecture?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": [],
+   "notes": "Presupposes a result that does not exist; must not be humoured."
+  },
+  {
+   "id": "ood03",
+   "question": "How do the Navier-Stokes regularity results apply?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": [],
+   "notes": "Contains 'apply', a transfer word, but asserts the results exist here."
+  },
+  {
+   "id": "ood04",
+   "question": "Is the Yang-Mills mass gap addressed?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": []
+  },
+  {
+   "id": "ood05",
+   "question": "What about modular forms and elliptic curves?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": [],
+   "notes": "Degraded correctly even at MVP; kept as a non-regression check."
+  },
+  {
+   "id": "ood06",
+   "question": "Summarize the twin prime conjecture progress.",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": []
+  },
+  {
+   "id": "ood07",
+   "question": "Does Goldbach factor into the argument?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": []
+  },
+  {
+   "id": "ood08",
+   "question": "Which Langlands functoriality results are formalized?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": []
+  },
+  {
+   "id": "ood09",
+   "question": "Is P versus NP relevant to the decision problem here?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": [],
+   "notes": "'decision problem' shares vocabulary with complexity theory but not with EOC."
+  },
+  {
+   "id": "ood10",
+   "question": "What is the Hodge conjecture status in this work?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": []
+  },
+  {
+   "id": "ood11",
+   "question": "Do the K3 surface computations here use Neron-Severi lattices?",
+   "domain": "out_of_domain",
+   "expected_source_type": "none",
+   "gold_sources": [],
+   "notes": "Deliberately drawn from an UNRELATED repository of the same author. Vocabulary overlap across a researcher's own projects is a realistic false-positive source."
+  },
+  {
+   "id": "ood12",
+   "question": "Can a neural network be trained to predict the valuation word?",
+   "domain": "transfer",
+   "expected_source_type": "none",
+   "gold_sources": [],
+   "notes": "Hard case, relabelled during this round: names an external subject (machine learning) AND two real repository terms ('valuation', 'word'). The correct behaviour is to pass through labelled, not to refuse; the original 'out_of_domain' label contradicted this item's own note."
+  },
+  {
+   "id": "trf01",
+   "question": "Could a technique from the Riemann hypothesis literature help the EOC arithmetic bottleneck?",
+   "domain": "transfer",
+   "expected_source_type": "document",
+   "gold_sources": [],
+   "notes": "The brief's explicit requirement: must NOT be refused."
+  },
+  {
+   "id": "trf02",
+   "question": "Is there an analogy between modular forms and the valuation word structure?",
+   "domain": "transfer",
+   "expected_source_type": "document",
+   "gold_sources": []
+  },
+  {
+   "id": "trf03",
+   "question": "Could methods from elliptic curve descent be adapted to the realizer problem?",
+   "domain": "transfer",
+   "expected_source_type": "document",
+   "gold_sources": []
+  },
+  {
+   "id": "trf04",
+   "question": "What lessons transfer from Navier-Stokes blowup analysis to Type-II divergence?",
+   "domain": "transfer",
+   "expected_source_type": "document",
+   "gold_sources": []
+  },
+  {
+   "id": "ctl01",
+   "question": "What is the current arithmetic bottleneck in Chain A?",
+   "domain": "in_domain",
+   "expected_source_type": "document",
+   "gold_sources": [
+    "docs/ARITHMETIC_FRONTIER.md"
+   ],
+   "gold_semantic_nodes": [
+    "chain-a-bottleneck"
+   ],
+   "notes": "Control: the guard must not start refusing real questions."
+  },
+  {
+   "id": "ctl02",
+   "question": "Is the Tao mixing hypothesis assumed anywhere?",
+   "domain": "in_domain",
+   "expected_source_type": "document",
+   "gold_sources": [
+    "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md"
+   ],
+   "gold_semantic_nodes": [
+    "tao-mixing-conditional"
+   ],
+   "notes": "Control containing the word 'hypothesis' legitimately. The generic-term fix must not break this."
+  }
+ ]
+}

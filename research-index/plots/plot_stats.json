@@ -109,9 +109,9 @@
  },
  "sample": {
   "excluded_generated": 1938,
-  "excluded_no_source_range": 12,
+  "excluded_no_source_range": 11,
   "human_written_with_source": 1676,
-  "total_eoc": 3626
+  "total_eoc": 3625
  },
  "top_by_pagerank_components_separate": [
   {
