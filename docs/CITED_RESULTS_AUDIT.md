@@ -101,12 +101,73 @@ Revision 7.
 
 ---
 
-## 4. Still open in this audit
+## 4. Companion notes: 4 of 5 faithful, **1 citation-integrity failure**
 
-The companion notes `\cite{DJperiodic}` (for `thm:periodic`, `thm:evperiodic`, `prop:bulkdefect`)
-and `\cite{DJlaunch}` (for `thm:launch` and the four `ε`-dangerous bounds) are **archived and
-hashed but not yet audited**. Those results are presented in Revision 7 as proved, and the audit is
-in progress; until it reports, they should be treated as cited-not-verified.
+| Rev 7 item | Source | Verdict |
+|---|---|---|
+| `thm:periodic` | \cite{DJperiodic} Thm. 6.2 | **Faithful**, proved unconditionally |
+| `thm:evperiodic` | \cite{DJperiodic} Thm. 9.1 | **Faithful in substance**; two hypotheses were dropped |
+| `prop:bulkdefect` | *nowhere in \cite{DJperiodic}* | **NOT IN THE CITED SOURCE** — see below |
+| `thm:launch` | \cite{DJlaunch} Thm. 5.4 | **Faithful**, essentially word for word, proved unconditionally |
+| the four `ε`-dangerous bounds | \cite{DJlaunch} Prop. 6.3 | **Numerically faithful**; one hypothesis dropped |
+
+### 4.1 `prop:bulkdefect` was listed under "Proved sectors" and is not proved anywhere
+
+Verified by reading the source directly. `DJ_PeriodicRealizerFloors.pdf` contains **no** statement
+about defect words `X^a E X^b`. Its epistemic ledger (§15, p. 10) reads:
+
+> Finite-defect words | **Open, major** | natural next step
+
+and §16 (p. 11), of exactly this class:
+
+> "The natural next frontier is a periodic background with finitely many defects… The open
+> question is whether such defects preserve a single fixed anchor, force a transition between
+> finitely many fixed anchors, or destroy the fixed-anchor property altogether… **This note does
+> not attempt to resolve this question.**"
+
+The same page warns: *"this note does not establish `r(D) ≥ 2^{S(D)−O(1)}` for arbitrary confined
+words, and **no such claim should be inferred from the results proved here**."*
+
+The actual origin is **Revision 5, Prop. 5.10**, which states it with a one-paragraph mechanism and
+**no proof** — and carries the qualifier *"for `a` sufficiently large"* that Revision 7 had dropped.
+
+**Not a contradiction, but not proved either.** 5.10's content concerns the coarse anchor at depth
+`aS_X`, fixed by the `X^a` prefix alone, and its floor is exponential in `a` only, not in `|D|`. So
+it is *weaker* than what the note calls open. Weaker-and-unproved is still unproved.
+
+**Fixed**: the statement is retained as a recorded Revision 5 claim, relabelled "stated, not
+proved", the dropped qualifier restored, and the subsection renamed. `thm:periodic` and
+`thm:evperiodic` are unaffected — both are proved unconditionally in the note.
+
+### 4.2 Hypotheses dropped from `thm:evperiodic` and the `ε`-dangerous bounds
+
+* `thm:evperiodic` lost the largeness condition (`S_Y + nS_X ≥ P_{X,Y} + B_{X,Y}`) and the fact
+  that "the same exceptional case" is **not literally the same**: `ξ_X ≠ 0` holds for every block,
+  whereas `ξ_{X,Y} ≠ 0` is proved only for `b_X > 1`, with `b_X = 1` checked case by case.
+* The **launch-size bound** holds in \cite{DJlaunch} Prop. 6.3(d) only *"if the orbit segment
+  `r(D_N) = m_0,…,m_{t_1}` is injective"*. Revision 7 stated it flatly.
+
+That hypothesis is the material one, because the note is explicit that it cannot be discharged.
+Remark 8.3 (p. 10), verbatim:
+
+> "An earlier draft of this note claimed that existing cycle exclusions render a hypothetical
+> nontrivial-cycle tail 'incompatible with danger at any fixed ε once N is large.' **That claim was
+> incorrect**, with the asymptotics running in the wrong direction, and **is retracted**. … the
+> cycle branch is closed unconditionally (and sharply, by Theorem 8.2) for the trivial cycle, and
+> **open for hypothetical nontrivial cycles at large N**. **Rather than assume nonexistence
+> silently**, the conditional theorem of §11 carries the hypothesis explicitly."
+
+Revision 7 did exactly what the note declines to do. **Fixed**: the hypothesis is restored, along
+with `r(D) ≥ 3` in the definition of `ε`-dangerous, and the renormalization-stability sentence now
+inherits `N > N_c`, the period cap `q₀`, and `ε < (2−α)/(2+α) ≈ 0.1158`.
+
+**Neither note contains an unproved assumption that damages `thm:periodic`, `thm:evperiodic` or
+`thm:launch`** — all three are proved outright in their sources, and \cite{DJlaunch} states plainly
+that its own closing hypotheses `U_all`/`U_half` "remain unproved", which Revision 7 already
+reflects.
+
+`thm:rozier` (Rozier's LBH ⟹ `conj:sharp`) is cited to an external paper not held locally, and is
+not load-bearing — it positions EOC rather than supporting it. It remains cited-not-verified.
 
 `thm:rozier` (Rozier's LBH ⟹ `conj:sharp`) is cited to an external paper not held locally, and is
 not load-bearing for the main chain — it positions EOC rather than supporting it.

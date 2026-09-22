@@ -515,7 +515,7 @@ parity selecting which. Unconditionally $r(D)\ge a_{S_N}(D)$; this inequality, n
 what every floor argument below uses. \status{Revision 5}
 \end{definition}
 
-\subsection{Proved sectors}
+\subsection{Proved sectors, and one that is not}
 
 \begin{theorem}[Periodic realizer floor]\label{thm:periodic}
 For a fixed block $X$ put $\xi_X=-C(X)/\delta_X\in\Zt$ with $\delta_X=3^{q_X}-2^{S_X}$ odd. If
@@ -525,15 +525,48 @@ full proof in companion note \cite{DJperiodic}}
 \end{theorem}
 
 \begin{theorem}[Eventually periodic words]\label{thm:evperiodic}
-For a fixed prefix $Y$ the same mechanism applies to $YX^n$ with transformed anchor
-$\xi_{X,Y}$; outside the same exceptional case, $r(YX^n)\ge2^{S_Y+nS_X-B_{X,Y}}$. \status{Revision 5}
+For a fixed prefix $Y$ the same mechanism applies to $YX^n$ with transformed anchor $\xi_{X,Y}$:
+if $\xi_{X,Y}\notin\Zpos\cup\{0\}$ then
+$r(YX^n)\ge2^{S_Y+nS_X-B_{X,Y}}$ \emph{for every $n$ with $S_Y+nS_X\ge P_{X,Y}+B_{X,Y}$}, and
+$\log_2 r(YX^n)/(S_Y+nS_X)\to1$.
+\status{Revision 5; proved unconditionally in \cite{DJperiodic}, Thm.~9.1. The exceptional case is
+\emph{not} literally the same as in Thm.~\ref{thm:periodic}: there $\xi_X\ne0$ holds for every
+block, whereas $\xi_{X,Y}\ne0$ is proved in \cite{DJperiodic} only when $b_X>1$ (Cor.~10.2), the
+boundary case $b_X=1$ being checked directly when it arises}
 \end{theorem}
 
-\begin{proposition}[Bulk-defect anchor stability]\label{prop:bulkdefect}
+\begin{proposition}[Bulk-defect anchor stability --- \textbf{stated, not proved}]\label{prop:bulkdefect}
 For $D=X^aEX^b$ (fixed $X$, arbitrary finite defect $E$, arbitrary $b$), the coarse anchor satisfies
 $a_{aS_X}(D)=\xi_X\bmod2^{aS_X}$ exactly, independent of $E$ and $b$. Hence, outside the
-exceptional case, $r(D)\ge2^{aS_X-B_X}$. \status{Revision 5}
+exceptional case, $r(D)\ge2^{aS_X-B_X}$ \emph{for $a$ sufficiently large}.
+\status{Revision 5, Prop.~5.10. \textbf{No proof is on file} --- see Rem.~\ref{rem:bulkdefectopen}}
 \end{proposition}
+
+\begin{remark}[The finite-defect sector is open, and this proposition is not a proved
+sector]\label{rem:bulkdefectopen}
+Revision~6 and the first draft of Revision~7 listed Proposition~\ref{prop:bulkdefect} under
+``proved sectors''. An audit of the sources withdraws that classification.
+
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+\item The companion note \cite{DJperiodic}, which this subsection cites for the periodic sector,
+  contains \emph{no} statement about defect words. Its epistemic ledger lists ``Finite-defect
+  words --- \textbf{Open, major}'', and its limitations section says of exactly this class: ``This
+  note does not attempt to resolve this question.'' It further warns that it ``does not establish
+  $r(D)\ge2^{S(D)-O(1)}$ for arbitrary confined words, and no such claim should be inferred from
+  the results proved here.''
+\item Revision~5 states Proposition~5.10 with a one-paragraph mechanism and \emph{no proof}, and
+  carries the qualifier ``for $a$ sufficiently large'', which Revision~7 had dropped and which is
+  genuinely needed (the analogue in Thm.~\ref{thm:periodic} holds only once $nS_X\ge P_X+B_X$).
+\item The statement is not contradicted by (i): its content concerns the coarse anchor at depth
+  $aS_X$, fixed by the $X^a$ prefix alone, and its floor is exponential in $a$ only, not in
+  $|D|=aS_X+|E|+bS_X$. It is weaker than what the note calls open. But weaker-and-unproved is not
+  proved.
+\end{enumerate}
+
+We therefore retain the statement, as a recorded Revision~5 claim, and remove it from the proved
+sectors. Theorems~\ref{thm:periodic} and~\ref{thm:evperiodic} are unaffected: both are proved
+unconditionally in \cite{DJperiodic} (Thms.~6.2 and~9.1). \status{Revision 7, correction of status}
+\end{remark}
 
 \begin{remark}[Arbitrary irregular words: open]\label{rem:moving}
 For a general confined word the coarse anchor $\xi_N(D)=-C_N(D)3^{-N}$ changes with $N$: there is
@@ -836,15 +869,34 @@ iterate of $r(D)$, and the letters $(d_{j+1},\dots,d_N)$ are exactly the acceler
 of $m^*_j$. \status{companion work}
 \end{theorem}
 
-Call $D$ of length $N$ \emph{$\varepsilon$-dangerous} if it is $c$-confined with
-$\log_2 r(D)<\varepsilon N$. For such a word the pinning index $t_1$ and the launch data satisfy
+Call $D$ of length $N$ \emph{$\varepsilon$-dangerous} if it is $c$-confined, has $r(D)\ge3$, and
+satisfies $\log_2 r(D)<\varepsilon N$ (with $c\ge1$ and $\varepsilon\in(0,1)$). For such a word the
+pinning index $t_1$ and the launch data satisfy
 \[
 t_1\le\varepsilon N+O(1),\qquad
 L\ \ge\ (1-\varepsilon)N-O(1),\qquad
 \log_2 m^*_{t_1}\le \al\varepsilon N+O(\log N),
 \]
 with inherited \emph{relative} corridor $A\le c+(\al-1)\varepsilon N+O(1)$. The leading coefficient
-in the launch-size bound is $\al\varepsilon$, not $\varepsilon$. The residual irregular class is
+in the launch-size bound is $\al\varepsilon$, not $\varepsilon$.
+
+\begin{remark}[Hypotheses the launch-size bound carries]\label{rem:launchhyp}
+The third bound --- the launch-size bound --- holds in \cite{DJlaunch} (Prop.~6.3(d)) only
+\emph{if the orbit segment $r(D)=m_0,\dots,m_{t_1}$ is injective}. That hypothesis is not free. The
+note closes the trivial-cycle branch unconditionally and sharply for $N>N_c$, but records, in a
+retraction worth quoting, that the other branch is open: an earlier draft's claim that cycle
+exclusions render a nontrivial-cycle tail incompatible with danger ``was incorrect, with the
+asymptotics running in the wrong direction, and is retracted \dots\ the cycle branch is closed
+unconditionally \dots\ for the trivial cycle, and open for hypothetical nontrivial cycles at large
+$N$.'' The note then carries the hypothesis explicitly rather than, in its own words, assuming
+nonexistence silently.
+
+Revision~6 and the first draft of Revision~7 stated the launch-size bound flatly. It is restated
+here with its hypothesis. The renormalization-stability sentence below inherits the same condition,
+together with \cite{DJlaunch}'s $N>N_c$, its period cap $q_0$, and the threshold
+$\varepsilon<(2-\al)/(2+\al)\approx0.1158$ below which its terminal-repetition bound is useful.
+\status{Revision 7, restored hypotheses}
+\end{remark} The residual irregular class is
 renormalization-stable: the forced suffix of a dangerous word in that class is again a small
 integer with a long, near-critically confined injective orbit segment, so finite structural
 enumeration cannot close the programme \cite{DJlaunch}.
