@@ -59,15 +59,18 @@ logarithmic drift floor $R_n\ge -B\log_2 n+O(1)$ for any $B<1/\beta_*\approx 1.0
 input plays a second, qualitative role: after the last global maximum of $R$, a hypothetical
 divergent orbit has an infinite zero-corridor tail, so \emph{universal drift exit} --- every
 positive seed eventually attains $R_n>0$ --- is equivalent to the exclusion of divergent orbits,
-while remaining compatible with hypothetical nontrivial cycles and hence strictly weaker than the
-Collatz conjecture.
+while not excluding hypothetical nontrivial cycles, so that a proof of it alone would not yield the
+Collatz conjecture. (Whether it is \emph{strictly} weaker than Collatz is itself open ---
+Rem.~\ref{rem:strictlyweaker}.)
 
 We then record what a sustained programme of structural audits has closed. Finite information
 cannot decide infinite realization: every exact-realizer cylinder contains arbitrarily large
 positive integers, so $\forall N\,\exists m_N$ is free and all content lies in $\exists m\,\forall N$.
-Nor do the natural global valuation-word shadows decide it: we exhibit an explicitly indexed
+Nor do the \emph{known divergent-orbit} valuation-word shadows decide it: we exhibit an explicitly
+indexed
 uncountable family of zero-confined words with linear negative drift, summable $\sum 2^{R_n}$ and
-$O(G)$ occupation shadow, of which all but countably many have no positive-integer realizer.
+$O(G)$ occupation shadow, of which all but countably many have no positive-integer realizer. Word-level
+criteria in general are not excluded, and one is exact (Rem.~\ref{rem:zcrecounter}).
 Several apparently independent coordinates --- normalized carry, lift digits, terminal zero gap,
 transport budgets --- are invertible reparameterizations of the exact realizer, and the Archimedean
 and $2$-adic readings of the natural divisibility object are complementary factors of one identity
@@ -314,7 +317,8 @@ $I(\mu)=\mu-\mu\log_2\mu+(\mu-1)\log_2(\mu-1)$.
 \end{conjecture}
 
 \begin{conjecture}[Strong sharp EOC]\label{conj:strong}
-For every fixed $c>0$ there is $C_c$ with $\Occ_c(m_0)\le K\log_2 m_0+C_c$.
+With $K=1/I(\al)$ as in Conjecture~\ref{conj:sharp}: for every fixed $c>0$ there is $C_c$ with
+$\Occ_c(m_0)\le K\log_2 m_0+C_c$ for every positive odd $m_0$. (Revision~6 left $K$ unbound here.)
 \end{conjecture}
 
 Conjecture~\ref{conj:strong}$\Rightarrow$\ref{conj:sharp}$\Rightarrow$\ref{conj:exist}, and
@@ -346,8 +350,8 @@ Fix $c>0$ and suppose Conjecture~\ref{conj:exist} holds at $(c,K,C)$; put $m^*=m
 
 \begin{corollary}[Explicit instance]\label{cor:explicit}
 Assume Conjecture~\ref{conj:eff} at $c=1$, $K=13$, $C=100$. Then $m^*(13,100,1)=90$; every odd
-$m<90$ reaches $1$ by direct inspection (longest: $m=27$, $41$ accelerated steps); hence Collatz
-holds. \status{Revision 5}
+$m<90$ reaches $1$ by direct inspection (longest: $m=73$, $42$ accelerated steps; $m=27$ and
+$m=55$ take $41$); hence Collatz holds. \status{Revision 5; witness corrected in Revision 7}
 \end{corollary}
 
 \begin{remark}[Why effective constants are genuinely needed]
@@ -467,7 +471,10 @@ Let $m_0$ have a divergent orbit. By Proposition~\ref{prop:recip}, $R_n\to-\inft
 a global maximum at finitely many indices; let $n_0$ be the \emph{last}. Put $m^*=m_{n_0}$, an
 actual positive odd integer, and $R'_k=R_{n_0+k}-R_{n_0}$ its relative drift. Then $R'_k<0$ for
 every $k\ge1$, hence $S'_k\le\lfloor k\al\rfloor$ for every $k\ge1$: the restarted orbit has an
-infinite zero-corridor tail. \status{companion work; already formalized in the repository}
+infinite zero-corridor tail. \status{companion work. Formalized as
+\texttt{exists\_zero\_confined\_seed\_tendsto}, but under the hypothesis
+\texttt{ReciprocalSummable}\,---\,i.e. conditional on Theorem~\ref{thm:GTC}, which is external and
+unformalized. It is \emph{not} formalized from ``divergent orbit'' directly}
 \end{proposition}
 
 This reduction is not new to Revision~6 --- it is the zero-corridor tail theorem of the Curry
@@ -568,7 +575,9 @@ $g(D)=S-\lfloor\log_2 r(D)\rfloor$ for the discrete terminal gap. Then
 \[
 \Edep(D)\ \le\ g(D)\ <\ \Edep(D)+1,\qquad\text{i.e. } g=\lceil \Edep\rceil ,
 \]
-the two agreeing only when $r(D)$ is a power of $2$. \status{proved; formalized, \S\ref{sec:lean}}
+the two agreeing only when $r(D)$ is a power of $2$.
+\status{proved; the inequalities are formalized
+(\texttt{discreteGap\_bracket}); the equality clause is not}
 
 \begin{remark}[Correction to Revision~5's Open Problem E]\label{rem:OPE}
 Revision~5 asked whether the frontier-defect target
@@ -688,9 +697,13 @@ contradicted. The transfer table therefore grades a programme whose every entry 
 \subsection{Drift exit and the future-minimum theorem}\label{sec:driftexit}
 
 \begin{proposition}[Future minimum]\label{prop:futuremin}
-If $R_n\le0$ then $m_n>m_0$. Hence an orbit with $R_n\le0$ for all $n\ge1$ has its seed as a
-\emph{strict minimum of its entire future}. Contrapositively, $m_n\le m_0$ already forces
-$R_n>0$.
+For $n\ge1$: if $R_n\le0$ then $m_n>m_0$. Hence an orbit with $R_n\le0$ for all $n\ge1$ has its
+seed as a \emph{strict minimum of its entire future}. Contrapositively, for $n\ge1$, $m_n\le m_0$
+already forces $R_n>0$.
+
+The restriction $n\ge1$ is necessary, not cosmetic: at $n=0$ we have $R_0=0\le0$ while
+$m_0>m_0$ fails. Both proofs below use it --- the first through $E_n>0$, the second through
+$C_n>0$, and $E_0=C_0=0$. \status{Revision 5; hypothesis $n\ge1$ made explicit in Revision 7}
 \end{proposition}
 
 \begin{proof}
@@ -756,11 +769,29 @@ injective, hence divergent.
 \end{proof}
 
 \begin{corollary}[Cycle compatibility]\label{cor:cycles}
-$(\mathrm{DE})$ is compatible with hypothetical nontrivial positive cycles: by
+$(\mathrm{DE})$ does not exclude hypothetical nontrivial positive cycles: by
 Lemma~\ref{lem:cycledrift} every point of a cycle, and every transient point entering one, has
-finite $\tau_0$. Hence $(\mathrm{DE})$ is \emph{strictly weaker} than the Collatz conjecture, which
-also excludes cycles.
+finite $\tau_0$. Hence a proof of $(\mathrm{DE})$ alone would not yield the Collatz conjecture,
+which also excludes cycles.
 \end{corollary}
+
+\begin{remark}[``Strictly weaker'' is itself open]\label{rem:strictlyweaker}
+Revisions~5--7 up to this point wrote that $(\mathrm{DE})$ is \emph{strictly weaker} than Collatz.
+That is \textbf{not established}, and the argument just given does not establish it. Since
+$(\mathrm{DE})$ is equivalent to the absence of divergent orbits (Thm.~\ref{thm:DEequiv}) and
+Collatz is the conjunction of that with the absence of nontrivial cycles, Collatz
+$\Rightarrow(\mathrm{DE})$ always, while $(\mathrm{DE})\Rightarrow$ Collatz holds \emph{if and only
+if} no nontrivial cycle exists. So $(\mathrm{DE})$ is strictly weaker precisely when a nontrivial
+cycle exists --- an open question whose expected answer is \emph{no}, in which case the two are
+equivalent.
+
+What Corollary~\ref{cor:cycles} does establish is a statement about \emph{entailment}, not about
+strictness: $(\mathrm{DE})$ does not entail the absence of cycles, so no proof of $(\mathrm{DE})$
+can by itself deliver Collatz. That is the useful content, and it is what the programme actually
+relies on. This is the same error of form corrected in Remark~\ref{rem:strictness}: a
+non-implication of \emph{mechanism} does not give strictness of \emph{content}.
+\status{Revision 7, correction of scope}
+\end{remark}
 
 \begin{remark}[Provenance, emphatically]\label{rem:DEprov}
 Neither direction is new mathematics. The forward direction is the zero-corridor tail theorem of
@@ -871,9 +902,15 @@ The hypotheses $n^*\ge1$ and $m_0>2^{c}$ (rather than $m_0\ge2^{c}$) are both ne
 boundary case shows why: for $m_0=1$, $c=0$ we have $n^*=0$, yet $R_0=0\le c$, so time $0$ lies in
 the corridor and $\Occ_0(1)=1>n^*$. Proposition~\ref{prop:corridorvalue} diagnoses this exactly ---
 at $m_0=1,c=0$ the criterion $m_n\ge m_02^{-c}$ is satisfied by the value $1$ itself. Revision~6's
-formulation omitted these hypotheses; the Lean statement carries them.
+formulation omitted these hypotheses.
+
+What the Lean statement carries is $1\le n^*$ together with the \emph{non-strict} $2^{c}\le m_0$;
+that pair suffices, and it is not the same pair as stated above. Revision~7 first claimed the Lean
+hypothesis was $m_0>2^{c}$; it is not.
 \end{remark*}
-\status{Revision 7; formalized, \S\ref{sec:lean}}
+\status{Revision 7. The reaches-$1$ corollary is formalized
+(\texttt{occupation\_le\_of\_reaches\_one}); the general eventually-periodic
+display is \emph{not} formalized}
 \end{proposition}
 
 \begin{remark}[What Corollary~\ref{cor:Uall} does and does not settle]\label{rem:Uallscope}
@@ -908,7 +945,9 @@ that way.
 \emph{(iii) Do not conflate corridor-uniformity with a fixed corridor.} The hypothesis quantifies
 over \emph{every} corridor width $A$ simultaneously; it is that uniformity which permits
 instantiation at the automatic corridor $A=\log_2m_0+E$ and hence the collapse in (i). A bound on
-$L_c$ at one fixed $c$ carries none of this and is a strictly weaker assumption. Remarks elsewhere
+$L_c$ at one fixed $c$ carries none of this: it is implied by the corridor-uniform form, and the
+converse is not known. (We avoid ``strictly weaker'' here for the reason given in
+Rem.~\ref{rem:strictlyweaker}.) Remarks elsewhere
 in this paper about ``single-window'' bounds refer to the fixed-corridor form.
 \status{Revision 7}
 \end{remark}
@@ -950,7 +989,9 @@ What this rules out is a class of arguments, not a theorem: any argument of the 
 sufficiently deep drift excursion cannot recover, because the required valuation exceeds what the
 current iterate can supply'' is blocked before it starts. Over all odd $m<200001$, the minimum over
 all steps of $\log_2(3m_n+1)-(\al-R_n)$ --- available valuation minus what a one-step return to
-$R=0$ requires --- is $+1.83$, never negative. \status{the inequality is proved; the margin is a
+$R=0$ requires --- is $+1.7370$, attained at the seed step of $m_0=3$, and is never negative.
+(Revision~6 reported $+1.8301$; that is the minimum over steps $n\ge1$ only, and silently omitted
+the seed step. The qualitative conclusion is unaffected.) \status{the inequality is proved; the margin is a
 computational diagnostic}
 \end{remark}
 
@@ -1038,7 +1079,10 @@ Then every $w_b$ is an admissible valuation word satisfying
 \end{enumerate}
 The map $b\mapsto w_b$ is injective, so the family has cardinality $2^{\aleph_0}$. Since one
 positive integer realizes at most one infinite valuation word, all but countably many members have
-\emph{no} positive-integer realizer. \status{proved; formalized, \S\ref{sec:lean}}
+\emph{no} positive-integer realizer. \status{proved. Formalized: item (a) (as
+\texttt{famWord\_sum\_le} with \texttt{famWord\_confined}), injectivity, and the abstract
+countability argument. Items (b), (c), (d) are proved here but \emph{not} formalized, and the final
+sentence is not instantiated at $w_b$ in Lean}
 \end{theorem}
 
 \begin{proof}
@@ -1149,10 +1193,10 @@ Proposition~\ref{prop:occstop} converts that into Level~4 \emph{given cycle excl
 (Rem.~\ref{rem:Uallscope}(i)). So corridor-uniform Level~3 implies Level~4 under that additional
 assumption, and for that form strictness is at best unproved rather than established.
 
-What survives: Level~4 implies Level~3 (immediately, since $L_c\le\Occ_c$); Level~1 is strictly
-weaker than Collatz, which \emph{is} established, because $(\mathrm{DE})$ is compatible with
-nontrivial cycles (Cor.~\ref{cor:cycles}); and for a \emph{fixed} corridor the converse
-Level~$3\Rightarrow$~Level~4 is open. \status{Revision 7, correction of scope}
+What survives: Level~4 implies Level~3 (immediately, since $L_c\le\Occ_c$); Level~1 does not
+entail the absence of cycles, so no proof of it alone yields Collatz (Cor.~\ref{cor:cycles}) ---
+though, as Remark~\ref{rem:strictlyweaker} records, \emph{strict} weakness there is open too; and
+for a \emph{fixed} corridor the converse Level~$3\Rightarrow$~Level~4 is open. \status{Revision 7, correction of scope}
 \end{remark}
 
 \section{The programme map}\label{sec:map}
@@ -1288,8 +1332,9 @@ $L_c(m)\le K(\log_2 m)^2$ yields a stretched-exponential one. Nothing of this ki
 
 \begin{openproblem}[Universal drift exit]\label{op:DE}
 Show that for every positive odd $m$ there is $n\ge1$ with $3^n<2^{S_n(m)}$. By
-Theorem~\ref{thm:DEequiv} this is equivalent to excluding divergent orbits and is strictly weaker
-than Collatz. This is the previously posed zero-corridor realizability frontier, reclassified as
+Theorem~\ref{thm:DEequiv} this is equivalent to excluding divergent orbits; it does not exclude
+cycles, though whether it is \emph{strictly} weaker than Collatz is open
+(Rem.~\ref{rem:strictlyweaker}). This is the previously posed zero-corridor realizability frontier, reclassified as
 the qualitative endpoint of the time axis (Remark~\ref{rem:DEprov}); it is not newly invented here.
 \end{openproblem}
 
@@ -1369,6 +1414,16 @@ following are machine-checked, with no \texttt{sorry}, \texttt{admit}, added axi
 \texttt{opaque} escape; each depends only on the standard axioms \texttt{propext},
 \texttt{Classical.choice}, \texttt{Quot.sound} (several on a strict subset).
 
+Two procedural notes, added in Revision~7 after an audit of this table. First, every module named
+below is now imported by the library root, so the default build target checks them; previously all
+but one were reachable only by building them individually by name, and ``machine-checked'' was not
+evidenced by the repository's default target. Second, the axiom claim is established by
+\texttt{\#print axioms} run on each theorem; those commands are not themselves committed, so the
+claim is reproducible but not self-evidencing from the source tree. Descriptions below name the
+hypotheses each formalization actually carries --- several are conditional on
+\texttt{ReciprocalSummable}, which is Theorem~\ref{thm:GTC}'s conclusion and is \emph{not}
+formalized.
+
 \begin{center}
 \small
 \begin{tabular}{@{}p{0.25\textwidth}p{0.16\textwidth}p{0.535\textwidth}@{}}
@@ -1376,15 +1431,18 @@ following are machine-checked, with no \texttt{sorry}, \texttt{admit}, added axi
 Module & Paper reference & Content \\
 \midrule
 \texttt{CurryFoundation} & Prop.~\ref{prop:lastmax} & Curry identities; last-global-maximum
-existence; zero-corridor tail; deficit recurrence. \\
+existence (unconditional); zero-corridor tail and deficit results, these under
+\texttt{ReciprocalSummable}. \\
 \texttt{ChangHistory},\\ \texttt{ChangFullShift} & \S\ref{sec:symbolic} & Finite return-history
 universality; infinite zero-corridor full shift. \\
 \texttt{ZCRERealizerGrowth} & \S\ref{sec:cylinder} & Bounded prefix realizers $\iff$
 positive-integer realizability. \\
 \texttt{RealizerLiftDigit},\\ \texttt{TerminalZeroGap} & \S\ref{sec:collapse}, \S\ref{sec:gap} &
-Lift digits are binary blocks; discrete gap and its bracket $g=\lceil\Edep\rceil$. \\
+Lift digits are binary blocks; the discrete gap. (The bracket $g=\lceil\Edep\rceil$ is in
+\texttt{TransportRegeneration}, not here.) \\
 \texttt{TransportRegen\-eration},\\ \texttt{SuperBudgetCan\-cellation} & \S\ref{sec:collapse} &
-Transport bookkeeping; forced/excess split; disjoint-run bound. \\
+Transport bookkeeping; the gap bracket; disjoint-run bound (disjointness is a hypothesis, not a
+conclusion). The forced/excess split is \emph{not} formalized. \\
 \texttt{ConstraintHeight} & \S\ref{sec:height} & Height inequality and the separation criterion. \\
 \texttt{GlobalSeparation} & Prop.~\ref{prop:cylinder}, Thm.~\ref{thm:cardinality} & Cylinder
 positivity; finite-precision sign impossibility; the family $w_b$, its confinement and
@@ -1393,12 +1451,14 @@ injectivity; the countability barrier. \\
 identity; growth envelope; automatic corridor. \\
 \texttt{DriftExit} & Props.~\ref{prop:futuremin}, \ref{prop:selffin}, \ref{prop:transfer} &
 Future-minimum theorem; cycle drift; self-financing inequality; frontier inversion. \\
-\texttt{SeparatedReturns} & Props.~\ref{prop:entry}, \ref{prop:episodes},
-Rem.~\ref{rem:episodescope} & Restart relation; entry lemma; occupation ends at arrival
-(Prop.~\ref{prop:occstop}); the oscillating word, its exit structure and unbounded realizable
-episode counts. \\
+\texttt{SeparatedReturns} & Props.~\ref{prop:entry}, \ref{prop:corridorvalue},
+\ref{prop:episodes} & Restart relation; entry lemma; the corridor value criterion
+(\texttt{corridor\_value\_lower}); occupation bounded by the arrival time, \emph{assuming} arrival
+at $1$; the oscillating word and unbounded realizable episode counts. \\
 \texttt{ZeroConfinedSeed} & Prop.~\ref{prop:lastmax} & The restart at the last drift maximum, as an
-\emph{actual positive odd seed}: zero-confined at every horizon, with drift $\to-\infty$. \\
+\emph{actual positive odd seed}: zero-confined at every horizon, with drift $\to-\infty$ ---
+\emph{under the hypothesis} \texttt{ReciprocalSummable}, i.e. conditional on the external
+Theorem~\ref{thm:GTC}. \\
 \texttt{CurryInterface} & \S\ref{sec:divergence}, Thm.~\ref{thm:DEequiv} & Injective $\iff$
 divergent; the external inputs as explicit hypotheses; divergence $\Rightarrow$ a zero-confined
 positive seed; universal drift exit $\Rightarrow$ no divergent orbit. \\
@@ -1484,7 +1544,7 @@ layer above it --- one that implies the single-window layer, and whose converse 
 is open rather than refuted (Rem.~\ref{rem:strictness}). The residue axis is solved for finite realizability and for several
 fixed-anchor sectors, and remains open at the arbitrary-word frontier. The time axis separates into
 a qualitative drift-exit problem --- equivalent, under the current divergence theory, to excluding
-divergent orbits, and strictly weaker than Collatz --- and quantitative lifetime bounds that invert
+divergent orbits, and not excluding cycles --- and quantitative lifetime bounds that invert
 directly to realizer floors on a graded scale. Garcia--Tal/Curry supplies strong unconditional
 divergence-side sparsity and the last-maximum reduction, but not drift exit.
 

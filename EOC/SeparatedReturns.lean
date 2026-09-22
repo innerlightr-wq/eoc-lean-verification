@@ -143,6 +143,24 @@ theorem entry_threshold_real (α c Rprev R : ℝ)
 
 /-! ## 3. Arrival at `1` ends occupation, so a stopping bound already bounds occupation -/
 
+/-- **Corridor times are large-value times.** If `R_n ≤ c` then `m_n ≥ m₀·2^{-c}`, in the integral
+form `m₀ ≤ 2^c · m_n`.
+
+From the aggregate identity `2^{S_n}m_n = 3^n m₀ + C_n ≥ 3^n m₀` together with the corridor bound
+`2^{S_n} ≤ 2^c·3^n`. **No cycle hypothesis, and none is needed** — this is the only statement of its
+kind available unconditionally, and it is what `paper/eoc_rev7.tex` Prop. `prop:corridorvalue`
+asserts. It specialises to `corridor_excludes_one` when the value is `1`, and diagnoses the
+boundary case `m₀ = 1, c = 0`, where the criterion is met by the value `1` itself. -/
+theorem corridor_value_lower {m d S C : ℕ → ℕ} (h : Orbit m d S C) (c n : ℕ)
+    (hin : 2 ^ S n ≤ 2 ^ c * 3 ^ n) : m 0 ≤ 2 ^ c * m n := by
+  have hid := aggregate_identity h n
+  have h1 : 3 ^ n * m 0 ≤ 2 ^ S n * m n := by omega
+  have h2 : 2 ^ S n * m n ≤ 2 ^ c * 3 ^ n * m n := Nat.mul_le_mul_right _ hin
+  have h3 : 3 ^ n * m 0 ≤ 3 ^ n * (2 ^ c * m n) := by
+    calc 3 ^ n * m 0 ≤ 2 ^ c * 3 ^ n * m n := le_trans h1 h2
+      _ = 3 ^ n * (2 ^ c * m n) := by ring
+  exact Nat.le_of_mul_le_mul_left h3 (by positivity)
+
 /-- **The corridor excludes every time at which the orbit equals `1`** (for `2^c ≤ m₀`).
 
 From the aggregate identity `2^{S_{n+1}}·m_{n+1} = 3^{n+1}m₀ + C_{n+1}` with `m_{n+1} = 1`,

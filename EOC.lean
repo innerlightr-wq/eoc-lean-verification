@@ -93,3 +93,23 @@ import EOC.TaoLike.NormalizedHarmonicLaw
 import EOC.TaoLike.HarmonicExceptionalSetSummability
 import EOC.TaoLike.PersistenceRateCramer
 import EOC.TaoLike.CylinderDigitCounting
+
+-- Modules cited in the manuscript's formal-verification table (§14).
+-- Imported here so the default build target (`lake build`) actually checks them.
+import EOC.CurryFoundation
+import EOC.CurryDivergenceProfile
+import EOC.ChangFullShift
+import EOC.ZCRERealizerGrowth
+import EOC.RealizerLiftDigit
+import EOC.TerminalZeroGap
+import EOC.TransportRegeneration
+import EOC.SuperBudgetCancellation
+import EOC.ConstraintHeight
+import EOC.GlobalSeparation
+import EOC.OrbitLifetime
+import EOC.DriftExit
+import EOC.SeparatedReturns
+import EOC.ZeroConfinedSeed
+import EOC.CurryInterface
+import EOC.PowerSavingSummable
+import EOC.OscillatingEscape
