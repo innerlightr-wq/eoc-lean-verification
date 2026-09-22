@@ -180,10 +180,18 @@ theorem corridor_time_lt_of_reaches_one {m d S C : ℕ → ℕ} (h : Orbit m d S
 /-- **A total-stopping-time bound bounds occupation.** Occupation over any horizon `N` is at most
 the arrival time `n*` at `1`.
 
-Consequently the corridor-uniform single-window hypothesis `(U)`, which the lifetime audit shows is
-equivalent to an `O(log m)` total-stopping-time bound, **already implies an `O(log m₀)` occupation
-bound** for every seed with `m₀ ≥ 2^c`. No extra hypothesis bounding the number of returns is
-required — and the earlier claim that `(U)` alone is insufficient is withdrawn. -/
+Note the hypothesis: arrival at `1` is **assumed**, via `hone`. That matters for how this is used
+downstream.
+
+**Scope correction.** An earlier reading had `(U)` implying an `O(log m)` bound on the total
+stopping time *to `1`*, and hence an `O(log m₀)` occupation bound outright. What `(U)` actually
+bounds is the length of an **injective** initial segment — the pre-period plus the period — so it
+gives only that the orbit repeats a value, i.e. enters *a* cycle, within `O(log m)` steps. Arrival
+at `1` additionally needs **cycle exclusion**, which `(U)` does not visibly supply. So this theorem
+delivers an occupation bound from `(U)` only *given* that the sole positive cycle is `{1}`; see
+`paper/eoc_rev7.tex` Rem. `rem:cyclegap` and `rem:Uallscope`(i). What survives unconditionally is
+`corridor_excludes_one` together with the value criterion `m_n ≥ m₀·2^{-c}` on every corridor
+time. No extra hypothesis bounding the *number of returns* is required either way. -/
 theorem occupation_le_of_reaches_one {m d S C : ℕ → ℕ} (h : Orbit m d S C)
     (c nstar N : ℕ) (hnstar : 1 ≤ nstar) (hone : ∀ k, nstar ≤ k → m k = 1)
     (hm0 : 2 ^ c ≤ m 0) :
@@ -397,7 +405,8 @@ theorem exists_odd_seed_with_many_reentries (c B : ℕ) :
 
 /-! ## 4b. The genuine orbit stays at `1`, and the post-arrival tail is short
 
-Two gaps in the chain "(U) ⟹ EOC" are closed here. The third is *not*, and is named in §4c. -/
+Two gaps in the chain "(U) ⟹ EOC (given cycle exclusion)" are closed here. Two are *not*, and both
+are named in §4c. -/
 
 /-- `T 1 = 1`: the accelerated map fixes `1`, since `a 1 = ν₂(4) = 2` and `4/2² = 1`. -/
 theorem a_one : a 1 = 2 := by
@@ -499,11 +508,15 @@ theorem occupation_le_of_reaches_one_general {m d S C : ℕ → ℕ} (h : Orbit 
       ≤ (Finset.range (nstar + 3 * 2 ^ c + 1)).card := Finset.card_le_card hsub
     _ = nstar + 3 * 2 ^ c + 1 := Finset.card_range _
 
-/-! ## 4c. What is **not** formalized in "(U) ⟹ EOC"
+/-! ## 4c. What is **not** formalized, and what is not even true as stated
 
-The implication has three layers, and only two of them are in this file.
+The implication has three layers plus a side condition, and only two layers are in this file.
 
-1. **(U) ⟹ an `O(log m)` total-stopping-time bound.** *Not formalized.* It is imported from
+0. **`(U)` does not by itself give arrival at `1`.** It bounds the *injective* initial segment, so
+   the orbit enters *a* cycle within `O(log m)` steps; reaching `1` needs **cycle exclusion**. This
+   is a genuine gap in the chain, not a formalization gap, and it is the reason every theorem below
+   takes arrival at `1` as an explicit hypothesis rather than deriving it.
+1. **(U) ⟹ an `O(log m)` bound on the injective segment.** *Not formalized.* It is imported from
    `docs/POSITIVE_ORBIT_CONFINEMENT_LIFETIME_AUDIT.md`, whose argument instantiates `U_all` at the
    automatic corridor and then absorbs an `E_L = O(log L)` term. `OrbitLifetime.no_unbounded_injective`
    records only the endpoint; its docstring states explicitly that the absorption step "is elementary
@@ -515,8 +528,8 @@ The implication has three layers, and only two of them are in this file.
    for the abstract `Orbit` structure it is taken as the hypothesis `hone`, since that structure
    does not force oddness and so admits `1 ↦ 2`.
 
-So "(U) ⟹ EOC" is a **proved bridge plus an imported, unformalized first layer** — not a single
-formalized implication. -/
+So "(U) ⟹ EOC" is a **proved bridge, on an imported unformalized layer, under an unstated cycle
+assumption** — not a single formalized implication, and not unconditional even on paper. -/
 
 /-! ## 4d. From unboundedly many episodes to a linear rate
 

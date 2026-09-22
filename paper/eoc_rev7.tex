@@ -22,6 +22,7 @@
 \renewcommand{\theopenproblem}{\Alph{openproblem}}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
 \newtheorem{observation}[theorem]{Observation}
 
 \newcommand{\Occ}{\mathcal{O}}
@@ -180,10 +181,15 @@ divergence exclusion or any tier of EOC.
   accounting is shown lossy by a factor $\Omega(\log m_0)$ on the realized prefix
   (Rem.~\ref{rem:episodescope}). Finite-prefix statements are kept separate from total occupation
   throughout.
-\item \textbf{The corridor-uniform hypothesis, clarified} (Rem.~\ref{rem:Uallscope}). It implies
-  Existence EOC outright, via Proposition~\ref{prop:occstop}, not merely a lifetime bound; the
-  analytic absorption inside Corollary~\ref{cor:Uall} is identified as the unformalized layer; and
-  it must not be conflated with a bound at one fixed corridor.
+\item \textbf{The corridor-uniform hypothesis, clarified --- and a gap in it closed}
+  (Rems.~\ref{rem:cyclegap}, \ref{rem:Uallscope}). Revision~6 read the hypothesis as giving an
+  $O(\log m)$ bound on the total stopping time \emph{to $1$}. It does not: it bounds the
+  \emph{injective} initial segment, so the orbit enters \emph{a} cycle within $O(\log m)$ steps,
+  and arrival at $1$ needs cycle exclusion, which the hypothesis does not visibly supply. The EOC
+  consequence is restated with that assumption explicit, and what survives without it is stated
+  separately. Also: the analytic absorption inside Corollary~\ref{cor:Uall} is identified as the
+  unformalized layer, and corridor-uniformity must not be conflated with a bound at one fixed
+  corridor.
 \item \textbf{Scope overstatements corrected.} The closed-route table no longer labels
   fixed-modulus \emph{terminality} as a formal result; and the cardinality barrier is stated for
   the \emph{known divergent-orbit} shadows, not for word-level criteria in general --- one such
@@ -739,11 +745,11 @@ $(\mathrm{DE})$ holds if and only if there is no divergent positive accelerated 
 \end{theorem}
 
 \begin{proof}
-($\Leftarrow$, contrapositive.) If a divergent orbit exists, Proposition~\ref{prop:lastmax}
+($\Rightarrow$, contrapositive.) If a divergent orbit exists, Proposition~\ref{prop:lastmax}
 produces an actual positive odd integer $m^*$ with $R'_k<0$ for every $k\ge1$, so
 $\tau_0(m^*)=\infty$ and $(\mathrm{DE})$ fails.
 
-($\Rightarrow$, contrapositive.) Suppose $(\mathrm{DE})$ fails at $m$, so $2^{S_n}\le3^n$ for all
+($\Leftarrow$, contrapositive.) Suppose $(\mathrm{DE})$ fails at $m$, so $2^{S_n}\le3^n$ for all
 $n\ge1$. The orbit cannot repeat a state: a repeat makes it eventually periodic, and
 Lemma~\ref{lem:cycledrift} then gives $R_N\to+\infty$, contradicting $R_n\le0$. So the orbit is
 injective, hence divergent.
@@ -817,35 +823,80 @@ Instantiating the corridor-uniform hypothesis at its own automatic corridor give
 $L\le K(2\log_2 m+E)$. For an injective segment the iterates are distinct odd integers, so
 $E_L\le(3\ln2)^{-1}\sum_{j<L}1/m_j\le0.2404\ln L+O(1)$, which grows slower than $L$ and therefore
 bounds $L$. Consequently the hypothesis implies that no accelerated orbit is injective forever ---
-i.e. it implies the absence of divergent orbits --- and, with that, an $O(\log m)$ bound on
-accelerated total stopping time. Conversely a bound $L\le K'\log_2 m$ returns the hypothesis for
-every $A\ge0$. \status{proved}
+i.e. it implies the absence of divergent orbits --- and, more precisely, that \emph{every} orbit
+repeats a value, and so enters a cycle, within $O(\log m)$ steps. Conversely a bound
+$L\le K'\log_2 m$ returns the hypothesis for every $A\ge0$. \status{proved}
 \end{corollary}
 
-\begin{proposition}[Occupation ends at arrival]\label{prop:occstop}
-Let $m_0$ be a positive odd seed whose orbit reaches $1$ at time $n^*$. Then
-\[
-\Occ_c(m_0)\ \le\ n^*+3\cdot2^{c}+1 ,
-\]
-and if moreover $m_0\ge2^{c}$ the tail contributes nothing, so $\Occ_c(m_0)\le n^*$.
+\begin{remark}[What the injective-segment bound does \emph{not} give]\label{rem:cyclegap}
+The quantity bounded is the length of an \emph{injective} initial segment, which is the pre-period
+plus the period: the orbit repeats a value within $O(\log m)$ steps and is thereafter periodic. It
+does \emph{not} follow that the orbit reaches $1$: a hypothetical nontrivial positive cycle is
+entirely consistent with the bound, and the corridor-uniform hypothesis does not visibly exclude
+one. (Applied to a cycle point it bounds that cycle's \emph{period} by $O(\log m^*)$, which is a
+strong constraint but not a contradiction.)
 
-\emph{Proof.} Once $m_n=1$ the map fixes it and every subsequent valuation digit is $2$, so
-$S_{n^*+k}=S_{n^*}+2k$, while $2^{S_{n^*}}=3^{n^*}m_0+C_{n^*}\ge3^{n^*}$ by
-Lemma~\ref{lem:aggregate}. Corridor membership at $n^*+k$ therefore forces $4^k\le2^{c}3^k$, which
-bounds $k$. If $m_0\ge2^{c}$ the same identity gives $2^{S_n}=3^nm_0+C_n>2^{c}3^n$ whenever
-$m_n=1$ and $n\ge1$, so no such time lies in the corridor at all. \qed
+Revision~6 wrote ``and, with that, an $O(\log m)$ bound on accelerated total stopping time'', where
+the total stopping time is the time to reach $1$. That step is \textbf{withdrawn}: it silently
+assumed cycle exclusion. Everything downstream that used arrival at $1$ is restated in
+Remark~\ref{rem:Uallscope} with the assumption made explicit. \status{Revision 7, correction}
+\end{remark}
+
+\begin{proposition}[Corridor times are large-value times]\label{prop:corridorvalue}
+For every positive odd seed and every $n$, if $R_n\le c$ then $m_n\ge m_02^{-c}$.
+
+\emph{Proof.} By Lemma~\ref{lem:aggregate}, $2^{S_n}m_n=3^nm_0+C_n\ge3^nm_0$, while $R_n\le c$
+reads $2^{S_n}\le2^{c}3^n$. Hence $3^nm_0\le2^{c}3^nm_n$. \qed
+
+No cycle hypothesis is used, and none is available: this is the only statement of its kind we can
+make unconditionally. \status{Revision 7; formalized, \S\ref{sec:lean}}
+\end{proposition}
+
+\begin{proposition}[Occupation after the orbit becomes periodic]\label{prop:occstop}
+Suppose the orbit of $m_0$ is eventually periodic, entering a cycle at time $T$ with value set
+$\mathcal{C}$. Then
+\[
+\Occ_c(m_0)\ \le\ T+\#\{n\ge T:\ m_n\ge m_02^{-c}\},
+\]
+and the second term is $0$ as soon as $\max\mathcal{C}<m_02^{-c}$.
+
+In particular, if the orbit reaches $1$ at time $n^*\ge1$ and $m_0>2^{c}$, then
+$\Occ_c(m_0)\le n^*$.
+
+\emph{Proof.} Immediate from Proposition~\ref{prop:corridorvalue}; for the last clause,
+$\mathcal{C}=\{1\}$ and $1<m_02^{-c}$ exactly when $m_0>2^{c}$. \qed
+
+\begin{remark*}
+The hypotheses $n^*\ge1$ and $m_0>2^{c}$ (rather than $m_0\ge2^{c}$) are both needed, and the
+boundary case shows why: for $m_0=1$, $c=0$ we have $n^*=0$, yet $R_0=0\le c$, so time $0$ lies in
+the corridor and $\Occ_0(1)=1>n^*$. Proposition~\ref{prop:corridorvalue} diagnoses this exactly ---
+at $m_0=1,c=0$ the criterion $m_n\ge m_02^{-c}$ is satisfied by the value $1$ itself. Revision~6's
+formulation omitted these hypotheses; the Lean statement carries them.
+\end{remark*}
 \status{Revision 7; formalized, \S\ref{sec:lean}}
 \end{proposition}
 
 \begin{remark}[What Corollary~\ref{cor:Uall} does and does not settle]\label{rem:Uallscope}
 Three points, kept apart.
 
-\emph{(i) The hypothesis implies EOC, not merely a lifetime bound.} Combining
-Corollary~\ref{cor:Uall} with Proposition~\ref{prop:occstop}: the corridor-uniform hypothesis gives
-an $O(\log m)$ total-stopping-time bound, and occupation is confined to the times before arrival at
-$1$, so $\Occ_c(m)=O(\log m)$. The hypothesis therefore already implies Existence EOC at every
-$c$, with no auxiliary recurrence assumption. This relocates the difficulty rather than reducing
-it, since the hypothesis also implies the Collatz conjecture.
+\emph{(i) The hypothesis implies EOC --- given cycle exclusion.} Corollary~\ref{cor:Uall} bounds
+the injective initial segment, i.e. the time $T$ at which the orbit first repeats a value, by
+$O(\log m_0)$. Proposition~\ref{prop:occstop} then gives
+\[
+\Occ_c(m_0)\ \le\ T+\#\{n\ge T:\ m_n\ge m_02^{-c}\} ,
+\]
+whose second term vanishes once every value of the cycle entered is below $m_02^{-c}$. If the only
+positive cycle is $\{1\}$ --- that is, \emph{given cycle exclusion} --- this holds for every
+$m_0>2^{c}$, and the corridor-uniform hypothesis implies Existence EOC at every $c$. It then
+relocates the difficulty rather than reducing it, since it also implies the Collatz conjecture.
+
+\emph{Without} cycle exclusion the conclusion is weaker and should be stated as such: occupation is
+bounded by $O(\log m_0)$ plus the corridor time spent inside whatever cycle the orbit enters. That
+residual is finite for each fixed cycle --- a cycle has strictly positive period drift
+(Lem.~\ref{lem:cycledrift}), so its drift exceeds $c$ after finitely many periods --- but we have no
+bound on it that is uniform over hypothetical nontrivial cycles, whose period and values are
+unconstrained above. Supplying such a uniform bound, or excluding the cycles, is a genuine
+additional obligation. Revision~6 stated (i) without it. \status{Revision 7, correction}
 
 \emph{(ii) One layer is not formalized.} Proposition~\ref{prop:occstop} and the aggregate identity
 it rests on are machine-checked. The passage from the corridor-uniform hypothesis to the
@@ -1069,7 +1120,7 @@ Level & Statement & Status \\
 3 & Exponential single-window floor & Open Problem~\ref{op:C}; equivalent to
     $L_c(m)=O(\log m)$ (Prop.~\ref{prop:window}). \\
 4 & Total occupation $\Occ_c(m)=O(\log m)$ & Full EOC (Conjecture~\ref{conj:exist}); implies
-    Level~3, and implied by its corridor-uniform form; strictness at a fixed corridor is
+    Level~3, and implied by its corridor-uniform form \emph{given cycle exclusion}; strictness is
     \emph{open} (Rem.~\ref{rem:strictness}). \\
 5 & Effective EOC $+$ finite cycle verification & Collatz (Thm.~\ref{thm:reduction},
     Cor.~\ref{cor:explicit}). \\
@@ -1093,9 +1144,10 @@ argument is given here or known to us.
 
 Moreover the evidence points the other way for one natural form of Level~3. If the lifetime bound
 is assumed \emph{corridor-uniformly} --- for every $c'\ge0$ simultaneously, not at one fixed
-corridor --- then Corollary~\ref{cor:Uall} converts it into an $O(\log m)$ total-stopping-time
-bound, and Proposition~\ref{prop:occstop} converts that into Level~4. So corridor-uniform
-Level~3 \emph{implies} Level~4, and for that form strictness is false.
+corridor --- then Corollary~\ref{cor:Uall} bounds the injective initial segment, and
+Proposition~\ref{prop:occstop} converts that into Level~4 \emph{given cycle exclusion}
+(Rem.~\ref{rem:Uallscope}(i)). So corridor-uniform Level~3 implies Level~4 under that additional
+assumption, and for that form strictness is at best unproved rather than established.
 
 What survives: Level~4 implies Level~3 (immediately, since $L_c\le\Occ_c$); Level~1 is strictly
 weaker than Collatz, which \emph{is} established, because $(\mathrm{DE})$ is compatible with
@@ -1319,19 +1371,19 @@ following are machine-checked, with no \texttt{sorry}, \texttt{admit}, added axi
 
 \begin{center}
 \small
-\begin{tabular}{@{}llp{0.42\textwidth}@{}}
+\begin{tabular}{@{}p{0.25\textwidth}p{0.16\textwidth}p{0.535\textwidth}@{}}
 \toprule
 Module & Paper reference & Content \\
 \midrule
 \texttt{CurryFoundation} & Prop.~\ref{prop:lastmax} & Curry identities; last-global-maximum
 existence; zero-corridor tail; deficit recurrence. \\
-\texttt{ChangHistory}, \texttt{ChangFullShift} & \S\ref{sec:symbolic} & Finite return-history
+\texttt{ChangHistory},\\ \texttt{ChangFullShift} & \S\ref{sec:symbolic} & Finite return-history
 universality; infinite zero-corridor full shift. \\
 \texttt{ZCRERealizerGrowth} & \S\ref{sec:cylinder} & Bounded prefix realizers $\iff$
 positive-integer realizability. \\
-\texttt{RealizerLiftDigit}, \texttt{TerminalZeroGap} & \S\ref{sec:collapse}, \S\ref{sec:gap} &
+\texttt{RealizerLiftDigit},\\ \texttt{TerminalZeroGap} & \S\ref{sec:collapse}, \S\ref{sec:gap} &
 Lift digits are binary blocks; discrete gap and its bracket $g=\lceil\Edep\rceil$. \\
-\texttt{TransportRegeneration}, \texttt{SuperBudgetCancellation} & \S\ref{sec:collapse} &
+\texttt{TransportRegen\-eration},\\ \texttt{SuperBudgetCan\-cellation} & \S\ref{sec:collapse} &
 Transport bookkeeping; forced/excess split; disjoint-run bound. \\
 \texttt{ConstraintHeight} & \S\ref{sec:height} & Height inequality and the separation criterion. \\
 \texttt{GlobalSeparation} & Prop.~\ref{prop:cylinder}, Thm.~\ref{thm:cardinality} & Cylinder

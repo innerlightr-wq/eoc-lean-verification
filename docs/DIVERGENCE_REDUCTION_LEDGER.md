@@ -73,6 +73,7 @@ Do not re-make these. Full derivations in `docs/DIVERGENCE_SURVEY_SCOPE_NOTE.md`
 
 | Claim once made here | Status | Correct statement |
 |---|---|---|
+| "(U) alone implies EOC" | **overstated** | `(U)` bounds the *injective* initial segment, so the orbit enters **a cycle** within `O(log m)` — arrival at `1` needs **cycle exclusion**, which `(U)` does not visibly supply. The EOC conclusion holds *given* cycle exclusion. Unconditionally: every corridor time has `m_n ≥ m₀2^{−c}` |
 | Divergent orbits have `R_n ≍ −δn` | **false** | Only `R_n → −∞` is known, plus Curry's *limsup* `limsup g_n/log₂n ≥ 1/β*`. Logarithmic, sublinear and linear regimes are all open |
 | "the gap is `log n` vs `n`" | **false framing** | The logarithmic regime is itself the live frontier |
 | Summability ⟹ `y_n/n → ∞` | **false** | Only: `y_n = O(n)` impossible, and `limsup y_n/n = ∞` |
