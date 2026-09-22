@@ -700,11 +700,13 @@ scratch/creep.py                                      (new)
 
 ## AZ. Commits
 
-*(filled at commit time)*
+`dcd9490` — *Reclassify `U_all`: the corridor is automatic, so it is the `O(log n)` conjecture*, on
+top of base `171995c`, plus a follow-up commit recording this hash and the push status. `main`
+untouched.
 
 ## BA. Push status
 
-*(filled at push time)*
+Pushed to `origin/positive-orbit-confinement-lifetime-audit`. **No PR opened.**
 
 ## BB. Research verdict
 
