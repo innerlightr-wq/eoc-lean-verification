@@ -54,12 +54,14 @@ From `docs/SEPARATED_RETURNS_CORRECTION_AUDIT.md`:
 - the number of episodes is **not** uniformly bounded: for every `c` and every `B` there is an odd
   seed whose genuine orbit has more than `B` corridor episodes (formalized,
   `EOC/SeparatedReturns.lean`);
-- `Θ(log m₀)` episodes actually occur, so the target is `P_c(m₀) = O(log m₀)`, not `O(1)`;
+- episode counts `Ω(log m_0)` are *realized* — there are seeds with `B` episodes and
+  `m_0 < 2^{6B+2e_0+3}` — so the target is `P_c(m_0) = O(\log m_0)`, not `O(1)`;
 - at a re-entry the local threshold is pinned: `d_{a-1} = 1` and `0 ≤ c − R_a < α − 1`. This is a
   small, clean structural fact that Revision 6 does not state anywhere and that belongs near
   Remark `rem:LvsO`;
 - episode count alone would still not suffice, because the per-episode single-window accounting is
-  lossy by a factor `Θ(log m₀)` on an explicit family. The needed estimate is joint.
+  provably lossy by a factor `Ω(\log m_0)` on the prefix of an explicit family. The needed estimate
+  is joint.
 
 **Proposed for Revision 7:** restate Open Problem F as a bound `P_c(m) = O(\log m)` together with an
 aggregate length estimate, and add the entry lemma as a numbered remark. **Status:** sharpening,
@@ -68,6 +70,9 @@ not correction.
 ## 5. §7.1 — (U) implies EOC outright
 
 Revision 6 treats the corridor-uniform hypothesis (U) as controlling single-window lifetime. It in
-fact implies full Existence EOC directly: occupation ends at arrival at `1` (for `m_0 \ge 2^c`), so
-a total-stopping-time bound bounds occupation (`occupation_le_of_reaches_one`). Worth one sentence,
-with the caveat that this is a relocation rather than a reduction, since (U) implies Collatz.
+fact implies full Existence EOC: occupation ends at arrival at `1`, so a total-stopping-time bound
+bounds occupation --- `occupation_le_of_reaches_one` for `m_0 \ge 2^c`, and
+`occupation_le_of_reaches_one_general` for every seed, the post-arrival tail contributing at most
+`3 \cdot 2^c`. Worth one sentence, with two caveats: this is a relocation rather than a reduction,
+since (U) implies Collatz; and the step from (U) to the stopping-time bound is imported from the
+lifetime audit and is *not* formalized, so the chain is a proved bridge on an unformalized layer.

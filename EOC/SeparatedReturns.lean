@@ -395,6 +395,261 @@ theorem exists_odd_seed_with_many_reentries (c B : ℕ) :
       hword i (lt_of_lt_of_le (Finset.mem_range.mp hi) hn)
   rw [this, S_oscD]
 
+/-! ## 4b. The genuine orbit stays at `1`, and the post-arrival tail is short
+
+Two gaps in the chain "(U) ⟹ EOC" are closed here. The third is *not*, and is named in §4c. -/
+
+/-- `T 1 = 1`: the accelerated map fixes `1`, since `a 1 = ν₂(4) = 2` and `4/2² = 1`. -/
+theorem a_one : a 1 = 2 := by
+  have h4 : 3 * 1 + 1 = 2 ^ 2 := by norm_num
+  unfold a
+  rw [h4]
+  exact padicValNat.prime_pow 2
+
+theorem T_one : T 1 = 1 := by
+  unfold T
+  rw [a_one]
+  norm_num
+
+/-- **Once the genuine orbit reaches `1` it stays there.** This discharges, for the actual
+accelerated map, the hypothesis `∀ k ≥ n*, m k = 1` used by the occupation bounds below. -/
+theorem orbit_one_of_one (m0 n : ℕ) (h : orbit m0 n = 1) : ∀ k, n ≤ k → orbit m0 k = 1 := by
+  intro k hk
+  induction k, hk using Nat.le_induction with
+  | base => exact h
+  | succ j _ ih => rw [orbit_succ, ih, T_one]
+
+/-- On the tail at `1` every valuation digit is `2`, since `2^{d}·1 = 3·1+1 = 4`. -/
+theorem tail_digit_two {m d S C : ℕ → ℕ} (h : Orbit m d S C) (k : ℕ)
+    (hk : m k = 1) (hk1 : m (k + 1) = 1) : d k = 2 := by
+  have hstep := h.step k
+  rw [hk, hk1, Nat.mul_one] at hstep
+  have : (2 : ℕ) ^ d k = 2 ^ 2 := by omega
+  exact Nat.pow_right_injective (le_refl 2) this
+
+/-- **The post-arrival tail contributes at most `3·2^c` corridor times.**
+
+Once `m_n = 1` the digits are all `2`, so `2^{S}` gains a factor `4` per step while the bound
+`2^c·3^n` gains only `3`. Since `2^{S_{n*}} = 3^{n*}m₀ + C_{n*} ≥ 3^{n*}`, being in the corridor at
+`n* + k` forces `4^k ≤ 2^c·3^k`, and Bernoulli bounds `k`.
+
+The bound `3·2^c` is far from sharp (the truth is about `2.41·c`), but it is a **constant in `m₀`**,
+which is what an occupation statement at fixed `c` needs. Crucially this holds for *every* seed
+reaching `1`, with **no** hypothesis `m₀ ≥ 2^c`: it is what removes the finitely many small seeds
+that `corridor_excludes_one` cannot reach. -/
+theorem tail_corridor_bound {m d S C : ℕ → ℕ} (h : Orbit m d S C) (c nstar k : ℕ)
+    (hone : ∀ j, nstar ≤ j → m j = 1)
+    (hin : 2 ^ S (nstar + k) ≤ 2 ^ c * 3 ^ (nstar + k)) : k ≤ 3 * 2 ^ c := by
+  have hS : ∀ j, S (nstar + j) = S nstar + 2 * j := by
+    intro j
+    induction j with
+    | zero => simp
+    | succ j ih =>
+        have hd : d (nstar + j) = 2 :=
+          tail_digit_two h _ (hone _ (Nat.le_add_right _ _)) (hone _ (by omega))
+        rw [show nstar + (j + 1) = (nstar + j) + 1 from by omega, h.Ssucc, hd, ih]
+        ring
+  have hbase : (3 : ℕ) ^ nstar ≤ 2 ^ S nstar := by
+    have hid := aggregate_identity h nstar
+    rw [hone nstar le_rfl, Nat.mul_one] at hid
+    have : (1 : ℕ) ≤ m 0 := h.mpos 0
+    have : (3 : ℕ) ^ nstar * 1 ≤ 3 ^ nstar * m 0 := Nat.mul_le_mul_left _ this
+    omega
+  rw [hS k] at hin
+  have hsplit : (2 : ℕ) ^ (S nstar + 2 * k) = 2 ^ S nstar * 4 ^ k := by
+    rw [pow_add, pow_mul]; norm_num
+  have hbnd : (2 : ℕ) ^ c * 3 ^ (nstar + k) = 3 ^ nstar * (2 ^ c * 3 ^ k) := by
+    rw [pow_add]; ring
+  have hkey : (3 : ℕ) ^ nstar * 4 ^ k ≤ 3 ^ nstar * (2 ^ c * 3 ^ k) := by
+    calc (3 : ℕ) ^ nstar * 4 ^ k ≤ 2 ^ S nstar * 4 ^ k := Nat.mul_le_mul_right _ hbase
+      _ = 2 ^ (S nstar + 2 * k) := hsplit.symm
+      _ ≤ 2 ^ c * 3 ^ (nstar + k) := hin
+      _ = 3 ^ nstar * (2 ^ c * 3 ^ k) := hbnd
+  have h4 : (4 : ℕ) ^ k ≤ 2 ^ c * 3 ^ k :=
+    Nat.le_of_mul_le_mul_left hkey (by positivity)
+  have hber := bernoulli_four_three k
+  have hpos : 0 < (3 : ℕ) ^ k := by positivity
+  have : 3 ^ k * (3 + k) ≤ 3 ^ k * (3 * 2 ^ c) := by
+    calc 3 ^ k * (3 + k) ≤ 3 * 4 ^ k := hber
+      _ ≤ 3 * (2 ^ c * 3 ^ k) := Nat.mul_le_mul_left _ h4
+      _ = 3 ^ k * (3 * 2 ^ c) := by ring
+  have := Nat.le_of_mul_le_mul_left this hpos
+  omega
+
+/-- **Occupation is bounded by the arrival time, for every seed reaching `1`.**
+
+No hypothesis `m₀ ≥ 2^c`: the small seeds are covered by `tail_corridor_bound`. This is the
+*bridge* — it converts a total-stopping-time bound into an occupation bound. It is not by itself
+the implication from `(U)`; see §4c. -/
+theorem occupation_le_of_reaches_one_general {m d S C : ℕ → ℕ} (h : Orbit m d S C)
+    (c nstar N : ℕ) (hone : ∀ j, nstar ≤ j → m j = 1) :
+    ((Finset.range N).filter (fun n => 2 ^ S n ≤ 2 ^ c * 3 ^ n)).card
+      ≤ nstar + 3 * 2 ^ c + 1 := by
+  have hsub : ((Finset.range N).filter (fun n => 2 ^ S n ≤ 2 ^ c * 3 ^ n))
+      ⊆ Finset.range (nstar + 3 * 2 ^ c + 1) := by
+    intro n hn
+    rw [Finset.mem_filter] at hn
+    rw [Finset.mem_range]
+    rcases lt_or_ge n nstar with hlt | hge
+    · omega
+    · obtain ⟨k, rfl⟩ : ∃ k, n = nstar + k := ⟨n - nstar, by omega⟩
+      have := tail_corridor_bound h c nstar k hone hn.2
+      omega
+  calc ((Finset.range N).filter (fun n => 2 ^ S n ≤ 2 ^ c * 3 ^ n)).card
+      ≤ (Finset.range (nstar + 3 * 2 ^ c + 1)).card := Finset.card_le_card hsub
+    _ = nstar + 3 * 2 ^ c + 1 := Finset.card_range _
+
+/-! ## 4c. What is **not** formalized in "(U) ⟹ EOC"
+
+The implication has three layers, and only two of them are in this file.
+
+1. **(U) ⟹ an `O(log m)` total-stopping-time bound.** *Not formalized.* It is imported from
+   `docs/POSITIVE_ORBIT_CONFINEMENT_LIFETIME_AUDIT.md`, whose argument instantiates `U_all` at the
+   automatic corridor and then absorbs an `E_L = O(log L)` term. `OrbitLifetime.no_unbounded_injective`
+   records only the endpoint; its docstring states explicitly that the absorption step "is elementary
+   but needs a real-analytic step, so it is not formalized here".
+2. **A stopping bound ⟹ an occupation bound.** *Formalized*, twice:
+   `occupation_le_of_reaches_one` (sharp, needs `m₀ ≥ 2^c`, tail contributes nothing) and
+   `occupation_le_of_reaches_one_general` (every seed, tail contributes `≤ 3·2^c`).
+3. **The orbit stays at `1` after arrival.** *Formalized* for the genuine map (`orbit_one_of_one`);
+   for the abstract `Orbit` structure it is taken as the hypothesis `hone`, since that structure
+   does not force oddness and so admits `1 ↦ 2`.
+
+So "(U) ⟹ EOC" is a **proved bridge plus an imported, unformalized first layer** — not a single
+formalized implication. -/
+
+/-! ## 4d. From unboundedly many episodes to a linear rate
+
+`exists_odd_seed_with_many_reentries` gives *unboundedly many* episodes and nothing more. To say
+anything about the **rate** in `log₂ m₀` one needs two quantitative facts: that exits recur at a
+bounded gap, and that the realizing seed is not too large. Both are proved below. -/
+
+/-- After an exit, the drift is at least `log₂(3/2)` below the level: `2·(2^c3^{e+1}) < 3·2^{S_{e+1}}`.
+This is the oscillating-word instance of `entry_threshold_pinned`. -/
+theorem post_exit_lower {c e : ℕ} (h : ¬ InC c e) :
+    2 * (2 ^ c * 3 ^ (e + 1)) < 3 * 2 ^ oscS c (e + 1) := by
+  have hA : 2 ^ oscS c (e + 1) = 2 * 2 ^ oscS c e := by
+    rw [oscS_succ, oscD_eq_one h, pow_add]; ring
+  have hB : 2 ^ c * 3 ^ (e + 1) = 3 * (2 ^ c * 3 ^ e) := by rw [pow_succ]; ring
+  have hout : 2 ^ c * 3 ^ e < 2 ^ oscS c e := by
+    have : ¬ (2 ^ oscS c e ≤ 2 ^ c * 3 ^ e) := h
+    omega
+  omega
+
+/-- **Exits recur within three steps.** After an exit at `e` the word re-enters at `e+1`
+(`reentry_immediate`) with the drift pinned `> log₂(3/2)` below the level, and two digit-`2` steps
+raise it by `2·log₂(4/3) > log₂(3/2)`. So it cannot still be inside at both `e+2` and `e+3`. -/
+theorem exit_within_three {c e : ℕ} (h : ¬ InC c e) :
+    ¬ InC c (e + 2) ∨ ¬ InC c (e + 3) := by
+  by_contra hcon
+  push_neg at hcon
+  obtain ⟨h2, h3⟩ := hcon
+  have h1 : InC c (e + 1) := reentry_immediate h
+  have hA : 2 ^ oscS c (e + 2) = 4 * 2 ^ oscS c (e + 1) := by
+    rw [show e + 2 = (e + 1) + 1 from rfl, oscS_succ, oscD_eq_two h1, pow_add]; ring
+  have hB : 2 ^ oscS c (e + 3) = 4 * 2 ^ oscS c (e + 2) := by
+    rw [show e + 3 = (e + 2) + 1 from rfl, oscS_succ, oscD_eq_two h2, pow_add]; ring
+  have hC : 2 ^ c * 3 ^ (e + 3) = 9 * (2 ^ c * 3 ^ (e + 1)) := by
+    rw [show e + 3 = (e + 1) + 1 + 1 from rfl, pow_succ, pow_succ]; ring
+  have hlow := post_exit_lower h
+  have hin3 : 2 ^ oscS c (e + 3) ≤ 2 ^ c * 3 ^ (e + 3) := h3
+  have hYpos : 0 < 2 ^ c * 3 ^ (e + 1) := by positivity
+  omega
+
+theorem exitTime_le_add_three (c i : ℕ) : exitTime c (i + 1) ≤ exitTime c i + 3 := by
+  have hspec := exit_within_three (exitTime_not_mem c i)
+  show Nat.find (exists_exit_ge c (exitTime c i + 1)) ≤ exitTime c i + 3
+  rcases hspec with h2 | h3
+  · exact le_trans (Nat.find_le ⟨by omega, h2⟩) (by omega)
+  · exact Nat.find_le ⟨by omega, h3⟩
+
+theorem exitTime_le_linear (c i : ℕ) : exitTime c i ≤ exitTime c 0 + 3 * i := by
+  induction i with
+  | zero => omega
+  | succ i ih => have := exitTime_le_add_three c i; omega
+
+theorem oscS_le (c n : ℕ) : oscS c n ≤ 2 * n := by
+  induction n with
+  | zero => simp [oscS]
+  | succ n ih =>
+      have : oscD c n ≤ 2 := by
+        by_cases h : InC c n
+        · rw [oscD_eq_two h]
+        · rw [oscD_eq_one h]; omega
+      rw [oscS_succ]; omega
+
+/-- **The quantitative form: many episodes, in a seed that is only exponentially large in `B`, with
+prefix occupation only linear in `B`.**
+
+Writing `e₀ = exitTime c 0` (a constant depending on `c` alone):
+
+* at least `B` re-entries before the horizon `N`;
+* `m₀ < 2^{6B + 2e₀ + 3}`, so `B ≥ (log₂ m₀ − 2e₀ − 3)/6` — the episode count of these seeds grows
+  **at least linearly in `log₂ m₀`**;
+* the number of corridor times *within the realized prefix* is at most `e₀ + 2B`, i.e. `O(log m₀)`.
+
+Together these make the failure of the per-episode accounting a theorem rather than a measurement:
+summing a coarse per-episode bound charges `≥ (B+1)·(log₂m₀ − c) = Ω((log m₀)²)`, while the prefix
+occupation it is bounding is `O(log m₀)`.
+
+**Scope.** Every statement here is about the **finite prefix** `[0, N)`. Nothing is claimed about
+the *total* occupation of these seeds, which depends on the orbit beyond `N` and is not controlled
+here; the measured values in the companion report are computational only. Nor is `P = Θ(log m₀)`
+claimed: only the lower bound `Ω` is proved, which is the direction the argument needs. -/
+theorem many_reentries_with_small_seed (c B : ℕ) :
+    ∃ N m0 : ℕ, 1 ≤ N ∧ Odd m0 ∧
+      (∀ i < N, a (orbit m0 i) = oscD c i) ∧
+      B ≤ (reentries c N).card ∧
+      m0 < 2 ^ (6 * B + 2 * exitTime c 0 + 3) ∧
+      ((Finset.range N).filter (InC c)).card ≤ exitTime c 0 + 2 * B := by
+  set N : ℕ := exitTime c B + 1 with hNdef
+  have hNle : N ≤ exitTime c 0 + 3 * B + 1 := by
+    have := exitTime_le_linear c B; omega
+  have hN1 : 1 ≤ N := by omega
+  have hd_pos : ∀ i < N, 1 ≤ oscD c i := fun i _ => oscD_pos c i
+  set m0 : ℕ := leastRealizer (oscD c) N with hm0def
+  have hodd : Odd m0 := leastRealizer_odd (oscD c) N hN1 hd_pos
+  have hreal : Realizes (oscD c) N m0 :=
+    (realizerCongruence (oscD c) N m0 hodd hd_pos).mpr (leastRealizer_modEq (oscD c) N)
+  -- (i) at least `B` re-entries
+  have hmaps : ∀ i ∈ Finset.range B, exitTime c i ∈ reentries c N := by
+    intro i hi
+    rw [Finset.mem_range] at hi
+    rw [reentries, Finset.mem_filter, Finset.mem_range]
+    refine ⟨?_, exitTime_not_mem c i, reentry_immediate (exitTime_not_mem c i)⟩
+    have := exitTime_strictMono c hi; omega
+  have hcard : B ≤ (reentries c N).card := by
+    calc B = (Finset.range B).card := (Finset.card_range B).symm
+      _ ≤ (reentries c N).card :=
+          Finset.card_le_card_of_injOn _ hmaps
+            (fun x _ y _ hxy => (exitTime_strictMono c).injective hxy)
+  -- (ii) the seed is at most exponentially large in `B`
+  have hsize : m0 < 2 ^ (6 * B + 2 * exitTime c 0 + 3) := by
+    have h1 : m0 < 2 ^ (S (oscD c) N + 1) := leastRealizer_lt (oscD c) N
+    have h2 : S (oscD c) N ≤ 2 * N := by rw [S_oscD]; exact oscS_le c N
+    exact lt_of_lt_of_le h1 (Nat.pow_le_pow_right (by norm_num) (by omega))
+  -- (iii) prefix occupation is linear in `B`
+  have hexits : B + 1 ≤ ((Finset.range N).filter (fun n => ¬ InC c n)).card := by
+    have hmaps' : ∀ i ∈ Finset.range (B + 1),
+        exitTime c i ∈ (Finset.range N).filter (fun n => ¬ InC c n) := by
+      intro i hi
+      rw [Finset.mem_range] at hi
+      rw [Finset.mem_filter, Finset.mem_range]
+      refine ⟨?_, exitTime_not_mem c i⟩
+      rcases Nat.lt_or_ge i B with h | h
+      · have := exitTime_strictMono c h; omega
+      · have : i = B := by omega
+        subst this; omega
+    calc B + 1 = (Finset.range (B + 1)).card := (Finset.card_range (B + 1)).symm
+      _ ≤ _ := Finset.card_le_card_of_injOn _ hmaps'
+                 (fun x _ y _ hxy => (exitTime_strictMono c).injective hxy)
+  have hocc : ((Finset.range N).filter (InC c)).card ≤ exitTime c 0 + 2 * B := by
+    have hsplit := Finset.card_filter_add_card_filter_not
+      (s := Finset.range N) (p := InC c)
+    rw [Finset.card_range] at hsplit
+    omega
+  exact ⟨N, m0, hN1, hodd, hreal.2, hcard, hsize, hocc⟩
+
 /-! ## 5. What the counting fact does and does not say -/
 
 /-- **An elementary counting fact.** If `P` quantities each of size at least `B > 0` sum to at most

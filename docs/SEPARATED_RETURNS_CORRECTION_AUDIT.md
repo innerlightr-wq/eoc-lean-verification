@@ -23,9 +23,9 @@ Revision 6 remains frozen. Manuscript consequences are deferred to
 | 4 | "`E_n ≤ 0.275` across the tested range" | **Wrong number** | `0.190665` over corridor times; `0.325550` over all orbit times (seed `993`). |
 | 5 | **(P)** "`P_c(m₀) ≤ P₀` … entirely unstudied", offered as the isolated new hypothesis | **Refuted** | False for every `c`. Constructive, formalized. |
 | 6 | Conditional theorem **(U)**+**(P)** ⟹ EOC | **Withdrawn** | (P) is false, and (U) alone already suffices. |
-| 7 | "**(U)** alone is insufficient" | **False** | (U) ⟹ stopping bound ⟹ occupation ends at arrival at `1`. Formalized. |
-| 8 | Missing inequality is "*equivalent*" to bounding episode count; "no redistribution" | **Overstated** | One-way, and only for the surrogate sum. Many short episodes *do* compensate — demonstrated on an explicit family. |
-| 9 | "the route requires **`P = O(1)`**" | **False** | `P = O(1)` is impossible; `P = O(log m₀)` with `O(1)` lengths is what actually occurs. |
+| 7 | "**(U)** alone is insufficient" | **False** | (U) ⟹ stopping bound ⟹ occupation ends at arrival at `1`. The *bridge* is formalized for every seed; the step (U) ⟹ stopping bound is imported and unformalized — see §D. |
+| 8 | Missing inequality is "*equivalent*" to bounding episode count; "no redistribution" | **Overstated** | One-way, and only for the surrogate sum. Many short episodes *do* compensate, on an explicit family whose episode count is proved `Ω(log m₀)`. |
+| 9 | "the route requires **`P = O(1)`**" | **False** | `P = O(1)` is impossible; episode counts `Ω(log m₀)` are realized (proved), with lengths measured `O(1)`. |
 | 10 | Up-crossing band applied to corridor returns; "distinct returns consume distinct orbit values of that band" | **Mis-applied** | The threshold `Λ_n = m₀2^{E_n−c}` moves with `n`; distinct re-entries have distinct bands and the union is uncontrolled. |
 | 11 | "**Exact obstruction** … no sharpening of the band changes that" | **Overstated** | A failed coarse estimate, not an impossibility theorem. |
 
@@ -139,8 +139,31 @@ second hypothesis.
 
 Verified: 29,999 seeds, `c = 1`, **0 violations** of `O_c ≤ n*`.
 
-The old report's "(U) alone is insufficient" is withdrawn, and with it the conditional theorem,
-which added a false hypothesis to a sufficient one.
+**The `m₀ < 2^c` seeds are covered too.** `corridor_excludes_one` needs `2^c ≤ m₀`, leaving finitely
+many small seeds. They are handled separately and unconditionally: on the tail every digit is `2`
+(`tail_digit_two`, since `2^{d}·1 = 4`), and `2^{S_{n*}} ≥ 3^{n*}`, so being in the corridor at
+`n*+k` forces `4^k ≤ 2^c·3^k`, whence `k ≤ 3·2^c` (`tail_corridor_bound`). Therefore
+
+```
+O_c(m₀)  ≤  n*(m₀) + 3·2^c + 1          for every seed reaching 1, no size restriction.
+```
+
+(`occupation_le_of_reaches_one_general`. The constant `3·2^c` is far from sharp — the truth is about
+`2.41c`, measured: true max tail index `0, 2, 4, 12, 19` at `c = 0,1,2,5,8` — but it is a constant in
+`m₀`, which is what an occupation statement at fixed `c` requires.)
+
+### The implication has three layers; only two are formalized
+
+| layer | status |
+|---|---|
+| 1. **(U) ⟹ an `O(log m)` total-stopping-time bound** | **Not formalized.** Imported from the lifetime audit, which instantiates `U_all` at the automatic corridor and absorbs an `E_L = O(log L)` term. `OrbitLifetime.no_unbounded_injective` formalizes only the endpoint, and its own docstring says the absorption "needs a real-analytic step, so it is not formalized here". |
+| 2. **stopping bound ⟹ occupation bound** | **Formalized**, twice: `occupation_le_of_reaches_one` (sharp, `m₀ ≥ 2^c`) and `occupation_le_of_reaches_one_general` (every seed, tail `≤ 3·2^c`). |
+| 3. **the orbit stays at `1` after arrival** | **Formalized** for the genuine map: `a 1 = 2`, `T 1 = 1`, `orbit_one_of_one`. For the abstract `Orbit` structure it remains a hypothesis, since that structure does not force oddness and so admits `1 ↦ 2`. |
+
+So "(U) ⟹ EOC" is **a proved bridge plus an imported, unformalized first layer** — not a single
+formalized implication. The old report's "(U) alone is insufficient" is withdrawn, and with it the
+conditional theorem, which added a false hypothesis to a sufficient one; but the replacement claim
+must be stated at this granularity, not as a finished theorem.
 
 This is not good news for the programme: it relocates the difficulty rather than reducing it. (U)
 implies Collatz, so "(U) ⟹ EOC" is a statement about a hypothesis strictly stronger than the
@@ -167,7 +190,8 @@ A lower bound on (2) is **not** a lower bound on (1). What survives is only:
 It does not follow that occupation is `O(log m₀)` only when `P = O(1)`, and the old report's
 "*equivalent*" and "there is no redistribution to be found" are withdrawn.
 
-**Refuted concretely, inside the programme.** The seeds built in §C have, for `c = 1`:
+**Refuted concretely, inside the programme.** The seeds built in §C have, for `c = 1` (these are
+whole-orbit measurements, hence **computational**):
 
 | `N` | `log₂ m₀` | episodes `P` | occupation `O₁` | `O₁/log₂m₀` | `P/log₂m₀` |
 |---|---|---|---|---|---|
@@ -180,14 +204,43 @@ So `P ≈ 0.28·log₂m₀` episodes of mean length `≈ 1.4` give `O₁ ≈ 0.4
 compensate exactly as the review said they could**, and these orbits satisfy EOC comfortably while
 violating (P) badly.
 
-**What this does establish — a real, and now proved, obstruction to the surrogate route.** On this
-explicit family `P = Θ(log m₀)`, so the surrogate sum is
-`≥ P·K·(log₂m₀ − c) = Θ((log m₀)²)` while the truth is `Θ(log m₀)`. The per-episode single-window
-estimate is therefore **provably lossy by a factor `Θ(log m₀)` on an exhibited family**, and no
-choice of constants repairs it.
+### From unboundedness to a rate — what is proved, and what is not
 
-That is a much better statement than the one it replaces, and it is correctly scoped: it is an
-obstruction to *one accounting route*, not to EOC and not to every argument.
+`exists_odd_seed_with_many_reentries` gives *unboundedly many* episodes and **nothing about the
+rate**. A rate needs two further quantitative facts, and both are now proved.
+
+* **Exits recur within three steps** (`exit_within_three`). After an exit at `e` the word re-enters
+  at `e+1` with the drift pinned more than `log₂(3/2)` below the level (`post_exit_lower`), and two
+  digit-`2` steps raise it by `2log₂(4/3) > log₂(3/2)`; so it cannot still be inside at both `e+2`
+  and `e+3`. Integrally: `16X ≤ 9Y` against `2Y < 3X` gives `32Y < 27Y`. Hence
+  `exitTime(i+1) ≤ exitTime(i) + 3` and `exitTime(B) ≤ e₀ + 3B`, where `e₀ := exitTime(0)` depends
+  only on `c`. *(Measured: the gap set is exactly `{2,3}` for `c = 0,1,2,5` over 4000 steps.)*
+* **The realizing seed is only exponentially large in `B`.** `leastRealizer_lt` gives
+  `m₀ < 2^{S_N+1}`, and every digit is `1` or `2` so `S_N ≤ 2N` (`oscS_le`).
+
+Packaging them (`many_reentries_with_small_seed`), with `N = exitTime(B)+1 ≤ e₀+3B+1`:
+
+```
+≥ B re-entries before N ,        m₀ < 2^{6B + 2e₀ + 3} ,        #{n < N : R_n ≤ c} ≤ e₀ + 2B .
+```
+
+The middle bound inverts to **`B ≥ (log₂m₀ − 2e₀ − 3)/6`**: along this family the episode count is
+**at least linear in `log₂m₀`**, and that is now a theorem rather than a measurement.
+
+> **Proved obstruction, entirely about the finite prefix.** Summing the coarse per-episode estimate
+> charges `≥ (B+1)(log₂m₀ − c) = Ω((log m₀)²)`, while the prefix occupation it is bounding is
+> `≤ e₀ + 2B = O(log m₀)`. So the per-episode single-window accounting is **lossy by a factor
+> `Ω(log m₀)`**, and no choice of constants repairs it.
+
+**Three scope lines that must not be dropped.**
+
+* Only the **lower** bound `P = Ω(log m₀)` is proved — that is the direction the argument needs.
+  `P = Θ(log m₀)` is **not** proved; the constants `0.28`, `0.42` and the mean length `1.4` remain
+  **computational**.
+* The proved obstruction concerns **prefix occupation** `#{n < N : R_n ≤ c}`. The **total**
+  occupation of these seeds depends on the orbit beyond `N` and is *not* controlled here; the
+  `O₁` column above is a whole-orbit measurement, not a consequence of the theorem.
+* It is an obstruction to *one accounting route*, not to EOC and not to every argument.
 
 ---
 
@@ -237,7 +290,7 @@ constant `3/2` says nothing about whether some stronger orbit-dependent counting
 
 ## G. The surviving research target
 
-Since `P = O(1)` is false and `P = Θ(log m₀)` is attained, the right question is quantitative.
+Since `P = O(1)` is false and `P = Ω(log m₀)` is attained, the right question is quantitative.
 
 **Definition.** Fix `c ≥ 0` integer. For `p ≥ 1` let
 
@@ -293,7 +346,7 @@ single-window estimate is provably too lossy to close the gap. So the estimate a
 the **joint/weighted** one:
 
 > a bound on `Σ_i ℓ_i` that does **not** factor through per-episode single-window estimates,
-> because each such estimate costs a full `log₂ m₀` while there can be `Θ(log m₀)` episodes.
+> because each such estimate costs a full `log₂ m₀` while there can be `Ω(log m₀)` episodes.
 
 Stating that requirement precisely is the genuine content of this correction. Two measured
 constraints any candidate must respect: on random seeds `P ≈ 1.7` with mean `ℓ ≈ 5.1`; on the
@@ -306,24 +359,35 @@ reformulation.
 
 ## H. Deliverables and verification
 
-* **Lean.** `EOC/SeparatedReturns.lean`, 15 theorems, builds clean under Lean `4.34.0-rc1` +
-  Mathlib. Every theorem checked with `#print axioms`: `[propext, Classical.choice, Quot.sound]`
-  (four need only `[propext, Quot.sound]`). No `sorry`, `admit`, `axiom`, `opaque`, `native_decide`.
-* **New:** `entry_digit_one`, `entry_threshold_pinned`, `entry_threshold_real`,
-  `corridor_excludes_one`, `corridor_time_lt_of_reaches_one`, `occupation_le_of_reaches_one`,
-  `osc_invariant`, `reentry_immediate`, `exists_exit_ge`, `exists_horizon_many_reentries`,
-  `exists_odd_seed_with_many_reentries`, `S_oscD`.
+* **Lean.** `EOC/SeparatedReturns.lean`, 35 theorems (34 public, 1 private), builds clean under Lean
+  `4.34.0-rc1` + Mathlib. Every theorem checked with `#print axioms`:
+  `[propext, Classical.choice, Quot.sound]`, several needing only `[propext, Quot.sound]`. No
+  `sorry`, `admit`, `axiom`, `opaque`, `native_decide`.
+* **New — entry lemma:** `entry_digit_one`, `entry_threshold_pinned`, `entry_threshold_real`.
+* **New — occupation bridge:** `corridor_excludes_one`, `corridor_time_lt_of_reaches_one`,
+  `occupation_le_of_reaches_one`, and for every seed without a size restriction `a_one`, `T_one`,
+  `orbit_one_of_one`, `tail_digit_two`, `tail_corridor_bound`,
+  `occupation_le_of_reaches_one_general`.
+* **New — refutation of (P):** `oscS`/`oscD`/`InC`, `S_oscD`, `osc_invariant`, `reentry_immediate`,
+  `bernoulli_four_three`, `exists_exit_ge`, `exitTime` with `exitTime_not_mem`, `exitTime_lt_succ`,
+  `exitTime_strictMono`, `exists_horizon_many_reentries`, `exists_odd_seed_with_many_reentries`.
+* **New — the rate:** `post_exit_lower`, `exit_within_three`, `exitTime_le_add_three`,
+  `exitTime_le_linear`, `oscS_le`, `many_reentries_with_small_seed`.
 * **Retained, docstrings corrected:** `sum_concat`, `count_le_of_summands_ge`, `upcrossing_band`.
-* **Paper-level, not formalized:** the equivalence "(U) ⟺ `O(log m)` stopping time" is imported from
-  the earlier lifetime audit (its real-analytic absorption step was never formalized); the
-  `Θ((log m₀)²)` lossiness of the surrogate route in §E is arithmetic over measured data, not a Lean
-  theorem; the `σ_c(p)` table is computation.
+* **Paper-level, explicitly not formalized.** (i) **(U) ⟹ `O(log m)` stopping time** — imported from
+  the lifetime audit; its real-analytic absorption step was never formalized, and this is the one
+  unformalized layer of "(U) ⟹ EOC" (§D). (ii) The constants `0.28`, `0.42`, mean length `1.4`, and
+  anything about the **total** occupation of the constructed seeds — computational; only prefix
+  statements are theorems (§E). (iii) The `σ_c(p)` table — computation.
 * **Exact checks:** entry lemma on 97,091 re-entries (0 counterexamples); reframing identity on
   29,999 seeds (0 mismatches); `O_c ≤ n*` on 29,999 seeds (0 violations); realization of the
   constructed prefixes against the genuine map at `N = 10…60`; the Lean definitions re-implemented
-  independently and matched exactly (word, exit times, re-entry counts); counting conventions
-  audited (`#episodes = #re-entries + 1`; `reentries c N` is indexed by exit time, and every index
-  it touches lies within the realized prefix, so there is no off-by-one gap).
+  independently and matched exactly (word, exit times, re-entry counts); exit gaps measured to be
+  exactly `{2,3}` for `c = 0,1,2,5`, confirming `exit_within_three` is correct and tight; the three
+  bounds packaged in `many_reentries_with_small_seed` checked numerically at `c = 0,1,2` and
+  `B = 5,10,20,40`; tail index `k` measured against the Bernoulli constant `3·2^c−3`; counting
+  conventions audited (`#episodes = #re-entries + 1`; `reentries c N` is indexed by exit time, and
+  every index it touches lies within the realized prefix, so there is no off-by-one gap).
 
 Scripts: `scratch/correct.py`, `scratch/correct2.py`, `scratch/refuteP.py`, `scratch/sigma.py`,
-`scratch/joint.py`, `scratch/conventions.py`, `scratch/family_eoc.py`.
+`scratch/joint.py`, `scratch/conventions.py`, `scratch/family_eoc.py`, `scratch/quant.py`.

@@ -101,9 +101,25 @@ every corridor time precedes arrival at `1`:
 > **Theorem** (Lean: `corridor_excludes_one`, `corridor_time_lt_of_reaches_one`,
 > `occupation_le_of_reaches_one`). For `m₀ ≥ 2^c`, `O_c(m₀) ≤ n*(m₀)`, the arrival time at `1`.
 
+The finitely many seeds below `2^c` are covered separately and unconditionally: on the tail every
+digit is `2`, and `2^{S_{n*}} ≥ 3^{n*}`, so being in the corridor at `n*+k` forces `4^k ≤ 2^c3^k`,
+hence `k ≤ 3·2^c`:
+
+> **Theorem** (Lean: `tail_digit_two`, `tail_corridor_bound`,
+> `occupation_le_of_reaches_one_general`). For **every** seed reaching `1`,
+> `O_c(m₀) ≤ n*(m₀) + 3·2^c + 1`.
+
 The lifetime audit showed **(U)** — corridor-uniform `L_{c'}(m) ≤ K(log₂m + c')` — is equivalent to
-an `O(log m)` total-stopping-time bound. Hence **(U) implies `O_c(m₀) = O(log m₀)` directly**, with
-no auxiliary hypothesis. Verified: 0 violations of `O_c ≤ n*` over 29,999 seeds.
+an `O(log m)` total-stopping-time bound. Hence **(U) implies `O_c(m₀) = O(log m₀)`**, with no
+auxiliary hypothesis. Verified: 0 violations of `O_c ≤ n*` over 29,999 seeds.
+
+**The three layers, kept apart.** Calling this "(U) ⟹ EOC, formalized" would overstate it:
+
+| layer | status |
+|---|---|
+| (U) ⟹ `O(log m)` stopping time | **not formalized** — imported from the lifetime audit, whose absorption of an `E_L = O(log L)` term is a real-analytic step that audit records as unformalized |
+| stopping bound ⟹ occupation bound | **formalized**, for every seed |
+| the orbit stays at `1` after arrival | **formalized** for the genuine map (`a 1 = 2`, `T 1 = 1`, `orbit_one_of_one`); a hypothesis for the abstract `Orbit` structure, which does not force oddness |
 
 This is a withdrawal, not a gain: (U) implies Collatz, so this relocates the difficulty rather than
 reducing it. Its value is negative information — **the gap this investigation set out to fill does
@@ -127,7 +143,7 @@ So the hypothesis **(P)** `P_c(m₀) ≤ P₀` uniformly in `m₀` — offered i
 document as the isolated new hypothesis — is **false for every `c`**.
 
 Scope: the realizing seed grows with `B`; the count is finite-horizon; nothing is inferred about
-infinite realization.
+infinite realization, and **nothing about the rate** — see §F.
 
 Verified at `c = 1`, `N = 60`: `S_N = 96`, seed `136975455177362381873293329281`, all 60 valuations
 reproduced by the actual map.
@@ -143,21 +159,39 @@ The seeds of §E, evaluated over their *whole* orbits at `c = 1`:
 | 60 | 96.79 | 25 | 41 | 0.424 | 0.258 |
 | 80 | 127.74 | 34 | 49 | 0.384 | 0.266 |
 
-`P ≈ 0.28 log₂m₀` episodes of mean length `≈ 1.4` give `O₁ ≈ 0.42 log₂m₀`: these orbits violate (P)
-badly and satisfy EOC comfortably. So episode count **cannot** be the obstruction, and the earlier
-"no tradeoff between count and length" conclusion is false as stated.
+These whole-orbit numbers are **computational**: `P ≈ 0.28 log₂m₀` episodes of mean length `≈ 1.4`
+give `O₁ ≈ 0.42 log₂m₀`. The orbits violate (P) badly and satisfy EOC comfortably, so episode count
+**cannot** be the obstruction, and the earlier "no tradeoff between count and length" conclusion is
+false as stated.
 
-**What is true, and is now proved rather than asserted.** Under (U) the coarse per-episode estimate
-is `ℓ_i ≤ 1 + K(log₂ m_{a_i} + c_i)`, and each summand is `≥ log₂m₀ − c`. Summing them
-(Lean: `count_le_of_summands_ge`) gives `O(log m₀)` only if `P = O(1)`. Since §E exhibits
-`P = Θ(log m₀)`, that surrogate sum is `Θ((log m₀)²)` on an explicit family whose true occupation is
-`Θ(log m₀)`:
+**From unboundedness to a rate.** §E gives unboundedly many episodes and nothing about the rate.
+Two further facts supply one, and both are proved:
 
-> **The per-episode single-window accounting is provably lossy by a factor `Θ(log m₀)`,
-> and no choice of constants repairs it.**
+* **exits recur within three steps** (`post_exit_lower`, `exit_within_three`) — after an exit the
+  word re-enters with the drift pinned `> log₂(3/2)` below the level, and two digit-`2` steps raise
+  it by `2log₂(4/3) > log₂(3/2)`; hence `exitTime(B) ≤ e₀ + 3B` with `e₀ := exitTime(0)` depending
+  only on `c`. *(Measured gap set: exactly `{2,3}`.)*
+* **the seed is only exponentially large in `B`** — `m₀ < 2^{S_N+1}` and `S_N ≤ 2N` (`oscS_le`).
 
-This is an obstruction to one accounting route. It is not an impossibility theorem about EOC, and
-it says nothing about arguments that do not decompose per episode.
+> **Theorem** (Lean: `many_reentries_with_small_seed`). With `N = exitTime(B)+1`, there is an odd
+> `m₀` realizing the prefix with
+> ```
+> ≥ B re-entries before N ,   m₀ < 2^{6B+2e₀+3} ,   #{n < N : R_n ≤ c} ≤ e₀ + 2B .
+> ```
+
+The middle bound inverts to `B ≥ (log₂m₀ − 2e₀ − 3)/6`: along this family the episode count is
+**at least linear in `log₂m₀`** — a theorem, not a measurement. Hence:
+
+> **Proved obstruction, entirely about the finite prefix.** Summing the coarse per-episode estimate
+> charges `≥ (B+1)(log₂m₀ − c) = Ω((log m₀)²)`, while the prefix occupation it bounds is
+> `≤ e₀ + 2B = O(log m₀)`. The per-episode single-window accounting is **lossy by a factor
+> `Ω(log m₀)`**, and no choice of constants repairs it.
+
+**Scope.** Only the lower bound `P = Ω(log m₀)` is proved — the direction the argument needs;
+`P = Θ(log m₀)` is not. The obstruction concerns **prefix** occupation; the **total** occupation of
+these seeds depends on the orbit beyond `N` and is not controlled here, so the `O₁` column above
+remains a measurement. And it is an obstruction to one accounting route, not to EOC and not to
+arguments that do not decompose per episode.
 
 ## G. The up-crossing band: what it does and does not say
 
@@ -172,15 +206,17 @@ reaching `1` it fails on the tail. What re-entry *does* force exactly is `d_n = 
 
 ## H. The surviving question
 
-Since `P = O(1)` is false and `P = Θ(log m₀)` is attained, the question is quantitative. With
+Since `P = O(1)` is false and `P = Ω(log m₀)` is attained, the question is quantitative. With
 episodes and re-entries as in §A, define for integer `c ≥ 0`
 
 ```
 σ_c(p) := min { m odd, m > 0 : the orbit of m has at least p corridor episodes } .
 ```
 
-A lower bound `σ_c(p) ≥ 2^{γp}` would give **episode count `O(log m₀)`**; §F caps `γ` at about
-`3.5`. Exhaustively over odd `m < 4·10⁶` (so `p ≤ 13`), `log₂σ₁(p)/p` lies between `1.5` and `1.9`
+A lower bound `σ_c(p) ≥ 2^{γp}` would give **episode count `O(log m₀)`**. The theorem of §F caps
+`γ ≤ 6` outright (and the measured family caps it near `3.5`), since it exhibits seeds with `p`
+episodes below `2^{6p+2e₀+3}`. Exhaustively over odd `m < 4·10⁶` (so `p ≤ 13`),
+`log₂σ₁(p)/p` lies between `1.5` and `1.9`
 — consistent with exponential growth, far too short a range to suggest a constant, and no
 conjecture is offered.
 
@@ -194,7 +230,7 @@ not automatically easier.
 §F shows the per-episode route cannot supply them. The estimate actually needed is joint:
 
 > a bound on `Σ_i ℓ_i` that does **not** factor through per-episode single-window estimates,
-> because each such estimate costs a full `log₂m₀` while there can be `Θ(log m₀)` episodes.
+> because each such estimate costs a full `log₂m₀` while there can be `Ω(log m₀)` episodes.
 
 Any candidate must fit both measured regimes: random seeds give `P ≈ 1.7` with mean `ℓ ≈ 5.1`; the
 family of §E gives `P ≈ 0.28 log₂m₀` with mean `ℓ ≈ 1.4`.
@@ -219,11 +255,15 @@ size per bucket**, since a maximum over a larger sample is larger for trivial re
 
 **Establishes.** The episode decomposition, restart relation and local threshold, exactly and
 formalized; the entry lemma pinning every re-entry threshold below `α−1`; that occupation ends at
-arrival at `1`, hence that **(U) alone implies an occupation bound**; that **bounded episode count
-is false**; and that the per-episode single-window accounting is lossy by `Θ(log m₀)` on an explicit
-family.
+arrival at `1` for **every** seed, hence the bridge from a stopping bound to an occupation bound;
+that **bounded episode count is false**, with episode counts `Ω(log m₀)` realized by seeds of
+controlled size; and that the per-episode single-window accounting is lossy by `Ω(log m₀)` on the
+prefix of an explicit family.
 
-**Does not establish.** It does not prove or disprove EOC at any tier. It gives no bound on
-`σ_c(p)`. It does not show that per-episode accounting is the only route, nor that any of the
-routes it closes could not be replaced by a different decomposition. The empirical flatness of mean
-`P` on random seeds is a diagnostic only — §E shows it is not a law.
+**Does not establish.** It does not prove or disprove EOC at any tier. The step **(U) ⟹ `O(log m)`
+stopping time** is imported, not formalized, so "(U) ⟹ EOC" is a proved bridge on top of an
+unformalized layer. `P = Θ(log m₀)` is not proved — only `Ω`. Nothing is proved about the **total**
+occupation of the constructed seeds, only about their prefixes; the constants `0.28`, `0.42`, `1.4`
+are computational. It gives no bound on `σ_c(p)`. It does not show per-episode accounting is the
+only route. The flatness of mean `P` on random seeds is a diagnostic only — §E shows it is not a
+law.
