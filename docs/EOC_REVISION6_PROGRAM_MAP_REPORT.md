@@ -375,11 +375,12 @@ entries, 5 tables, 1 figure.
 
 ## AD. Commits
 
-*(filled at commit time)*
+`271f53f` — *Revision 6: the EOC programme map*, on top of base `e1aee37`, plus a follow-up commit
+recording this hash and the push status. `main` untouched.
 
 ## AE. Push status
 
-*(filled at push time)*
+Pushed to `origin/eoc-program-map-revision6`. **No PR opened.**
 
 ## AF. Final Revision-6 thesis
 
