@@ -207,7 +207,18 @@ theorem curry_summability_of_windowed' (hws : WindowedSparsity) : CurryReciproca
 /-- **The reduction, with the windowed sparsity theorem as the only external input.**
 
 If no positive odd seed is zero-confined at every horizon, then no positive accelerated orbit
-diverges. The sole remaining hypothesis is `WindowedSparsity` — Curry's Theorem 2.3. -/
+diverges.
+
+**Two hypotheses, of different kinds — do not conflate them.**
+
+* `hws : WindowedSparsity` is the **external theorem** (Curry Thm 2.3): audited on paper in
+  `docs/CURRY_INDEPENDENT_AUDIT.md`, not formalized. Formalizing it would remove the external
+  dependency.
+* `hDE` is the **open mathematical hypothesis** — universal drift exit, i.e. the divergence target
+  itself. Nothing here discharges it, and formalizing Curry's theorem would not.
+
+So this theorem is a *reduction*, not an exclusion: it converts "no zero-confined positive seed"
+into "no divergent orbit", given an audited external counting theorem. -/
 theorem no_divergent_orbit_of_windowed (hws : WindowedSparsity)
     (hDE : ∀ m0 : ℕ, Odd m0 → ∃ N, ¬ Confined 0 (orbWord m0) N)
     {M : ℕ} (hM : Odd M) : ¬ DivergentOrbit M :=

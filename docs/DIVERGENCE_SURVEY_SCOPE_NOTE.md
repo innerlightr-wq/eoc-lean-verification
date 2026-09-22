@@ -1,5 +1,9 @@
 # Scope corrections to the divergence-exclusion survey
 
+> **Consolidated ledger:** `docs/DIVERGENCE_REDUCTION_LEDGER.md` holds the theorem statements, the
+> dependency ledger and the corrected scope in one place, and is the right entry point. The
+> programme is paused there.
+
 *Four logical distinctions that `docs/DIVERGENCE_EXCLUSION_SURVEY.md` (commit `76afebb`) got
 wrong. Each is re-derived here against Curry's source text (audited in
 `docs/CURRY_INDEPENDENT_AUDIT.md`). Branch `curry-audit-and-scope-correction`.*

@@ -1,5 +1,9 @@
 # Separated returns: correction audit
 
+> **Consolidated ledger:** `docs/DIVERGENCE_REDUCTION_LEDGER.md` holds the theorem statements, the
+> dependency ledger and the corrected scope in one place, and is the right entry point. The
+> programme is paused there.
+
 *Every claim of `docs/SEPARATED_RETURNS_INVESTIGATION.md` (commit `8493f55`) re-derived from the
 definitions, with each incorrect claim identified, replaced, and given a mathematical status.
 Branch `separated-returns-correction`, base `8493f55` (verified against `origin`).*

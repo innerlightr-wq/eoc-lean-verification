@@ -1,5 +1,9 @@
 # Independent audit of Curry's windowed sparsity note
 
+> **Consolidated ledger:** `docs/DIVERGENCE_REDUCTION_LEDGER.md` holds the theorem statements, the
+> dependency ledger and the corrected scope in one place, and is the right entry point. The
+> programme is paused there.
+
 *Read from the source text, not from repository summaries. Branch
 `curry-audit-and-scope-correction`, base `76afebb` (verified against `origin`).*
 
@@ -190,10 +194,20 @@ Reading downward, each row consumes the rows above it.
 | F7 | zero-confined ⟹ injective ⟹ divergent (the §D equivalence) | **Lean**, unconditional | `CurryInterface.injective_of_zero_confined`, `divergent_of_zero_confined` |
 | — | **no positive integer realizes an infinite zero-confined word** | **OPEN** — the target | — |
 
-> **After discharging O1, the single explicit external input in this part of the chain is
-> `WindowedSparsity` — Curry's Theorem 2.3 itself.** `no_divergent_orbit_of_windowed` takes it as its
-> one hypothesis. This strengthens verification; it is **not** a new exclusion mechanism and does not
-> touch the open arithmetic target.
+> **After discharging O1, the single *external* input in this part of the chain is
+> `WindowedSparsity` — Curry's Theorem 2.3 itself.**
+>
+> `no_divergent_orbit_of_windowed` takes **two** hypotheses, and they are of different kinds:
+>
+> ```
+> windowed sparsity  +  universal drift exit  ⟹  no divergent orbits
+>       (external theorem,          (OPEN mathematical
+>        audited, unformalized)      hypothesis — the target)
+> ```
+>
+> Formalizing Curry's window theorem would remove the *external* dependency. It would **not**
+> discharge `hDE`, and would not prove divergence exclusion. This strengthens verification; it is
+> **not** a new exclusion mechanism and does not touch the open arithmetic target.
 
 Curry's Thm 4.1 / Thm 4.2 / Cor 4.3 (the logarithmic-floor exclusion) sit *beside* this chain, not
 in it: they sharpen what a hypothetical divergent orbit must look like, and the reduction does not

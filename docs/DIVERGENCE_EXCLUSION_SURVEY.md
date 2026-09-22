@@ -1,5 +1,9 @@
 # Divergence-exclusion survey
 
+> **Consolidated ledger:** `docs/DIVERGENCE_REDUCTION_LEDGER.md` holds the theorem statements, the
+> dependency ledger and the corrected scope in one place, and is the right entry point. The
+> programme is paused there.
+
 *Can the repository support a real step toward excluding divergent positive Collatz orbits?
 Branch `divergence-exclusion-survey`, base `f5ef74e` (verified against `origin`). 36 remote branches
 fetched and inspected. Revision 6 frozen, `main` and the dirty ordinary checkout untouched.*
