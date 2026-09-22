@@ -416,12 +416,15 @@ formalized, \S\ref{sec:lean}}
 \begin{lemma}[Carry budget]\label{lem:carrybudget}
 Every accelerated iterate $m_k$, $k\ge1$, satisfies $m_k\not\equiv0\pmod 3$. Hence for $k\ge1$ the
 states lie in the density-$1/3$ set of integers coprime to $6$, and for every injective orbit
-$E_N\le\frac19\log_2 N+O(1)$, so $2^{E_N}\ll N^{1/9}$. \status{Revision 5}
+$E_N\le\frac19\log_2 N+O(1)$, so $2^{E_N}\ll N^{1/9}$.
+\status{Revision 5, Lem.~4.3 --- where it carries a proof \emph{sketch} only. Theorem~\ref{thm:89}
+below rests on it}
 \end{lemma}
 
 \begin{theorem}[Logarithmic-floor exclusion, $8/9$]\label{thm:89}
 Let $m_0$ have an injective accelerated orbit. For every $B<8/9$, $R_k\ge-B\log_2 k$ fails for
-infinitely many $k$. \status{Revision 5}
+infinitely many $k$. \status{Revision 5, Thm.~4.5, verbatim; fully proved there, but via
+Lemma~\ref{lem:carrybudget}, which Revision 5 only sketches}
 \end{theorem}
 
 \begin{corollary}\label{cor:injocc}
@@ -635,7 +638,8 @@ Fix $c>0$ and $\varepsilon\in(0,2]$. The following are equivalent:
 \item $r(D)\ge2^{\varepsilon N}$ for every $c$-confined $D$ of length $N$ with $r(D)\ge3$;
 \item $L_c(m_0)\le\varepsilon^{-1}\log_2 m_0$ for every odd $m_0\ge3$.
 \end{enumerate}
-\status{Revision 5, Proposition 5.7}
+\status{Revision 5, Prop.~5.7, verbatim. Revision 5 labels its argument a proof \emph{sketch}; it is
+complete in substance in both directions, and both directions are re-derived in the Revision 7 audit}
 \end{proposition}
 
 Revision~5 presented Propositions~\ref{prop:inversion} and~\ref{prop:window} as technical
@@ -1642,15 +1646,29 @@ preprint.
 We retain the following structural observation from Revision~5, which constrains how a drift path
 may sit inside a unit band.
 
-\begin{theorem}[Band rigidity]\label{thm:band}
-Let $\theta=\al-1$. If a word's drift path satisfies $\beta\le R_j<\beta+1$ for all $j$ in a window,
-then the valuation letters in that window are determined up to the Beatty structure of $\theta$: the
-admissible letters are confined to $\{1,2\}$ and their placement follows the Beatty gap sequence of
-$\al$. \status{Revision 5, retained}
+\begin{theorem}[Band rigidity, Revision~5 Thm.~A.1]\label{thm:band}
+Let $\theta=\al-1$. If a word's drift path satisfies $\beta\le R_j<\beta+1$ for all $j\le\ell$ and
+some $\beta\in\mathbb{R}$, then every letter lies in $\{1,2\}$ and, writing $b_i=d_i-1$, the word is
+a length-$\ell$ factor of the Sturmian system of slope $\theta$; conversely every such factor
+arises, and there are exactly $\ell+1$ admissible words for each $\ell$.
+\status{Revision 5, Thm.~A.1, restated verbatim. Revision 5 gives a proof \emph{sketch}, with the
+factor characterisation and the count $\ell+1$ cited to Morse--Hedlund (see \cite{Lothaire})}
 \end{theorem}
 
+\begin{remark}[Why the substitution $b_i=d_i-1$ and the slope $\theta$ matter]\label{rem:bandslope}
+The reduction is exact: with $d_i\in\{1,2\}$ and $b_i=d_i-1\in\{0,1\}$,
+\[
+R_j=\textstyle\sum_{i<j}d_i-j\al=\sum_{i<j}(b_i+1)-j\al=\sum_{i<j}b_i-j(\al-1)=\sum_{i<j}b_i-j\theta,
+\]
+so the band condition is the Beatty condition \emph{at slope $\theta$}, on the binary word $b$.
+Revision~7 initially paraphrased this as ``the placement follows the Beatty gap sequence of $\al$'',
+dropping the substitution and naming the wrong slope, and dropped both the converse and the exact
+count while labelling the result ``retained''. It was a paraphrase, not a retention; the statement
+above is Revision~5's. \status{Revision 7, correction of attribution}
+\end{remark}
+
 The relevance to this revision is limited but worth recording: band rigidity says that a
-\emph{narrow} corridor forces near-Sturmian structure, which is exactly the regime where
+\emph{narrow} corridor forces exactly Sturmian structure, which is exactly the regime where
 Observation~\ref{obs:height} shows height amortization fails. Narrow corridors are therefore not
 automatically easier.
 
