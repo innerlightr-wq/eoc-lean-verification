@@ -1,12 +1,20 @@
-# Separated returns: episode decomposition and the missing inequality
+# Separated returns: episode decomposition, and what it does not give
 
 *Bounded investigation of the gap Revision 6 leaves open: single-window lifetime `L_c(m)` does not
-control total occupation `O_c(m)`. Branch `separated-returns-investigation`, base `5be9346`.*
+control total occupation `O_c(m)`.*
 
-**Deliverable.** An exact episode decomposition; an exact reframing of `O_c`; the missing
-inequality identified explicitly; a **no-tradeoff obstruction** showing that within the
-single-window framework the episode count must be bounded and cannot be traded against episode
-length; and a conditional occupation theorem with the isolated hypothesis named.
+> **Revised.** The first version of this document (commit `8493f55`) contained several incorrect
+> claims. They are listed, corrected and re-derived in
+> `docs/SEPARATED_RETURNS_CORRECTION_AUDIT.md`, which is the authoritative record of what changed
+> and why. This document has been rewritten to state only what is actually proved.
+
+**Net result.** The episode decomposition is exact and now fully formalized, and it yields two
+definite outcomes — neither of them the conditional reduction originally claimed:
+
+1. the proposed new hypothesis (bounded episode count) is **false**, constructively and for every
+   threshold;
+2. the hypothesis it was meant to supplement, **(U)**, already implies an occupation bound on its
+   own, so there was no gap for a return-counting hypothesis to fill.
 
 No claim here proves or disproves EOC.
 
@@ -16,187 +24,206 @@ No claim here proves or disproves EOC.
 
 Fix `c ≥ 0` and an odd seed `m₀`. The corridor is `𝒞 = {n ≥ 0 : R_n ≤ c}`; since `R₀ = 0 ≤ c`,
 `0 ∈ 𝒞`. Decompose `𝒞` into maximal contiguous intervals — *episodes* — with entry times
-`a₁ = 0 < a₂ < ⋯ < a_P` and lengths `ℓ₁,…,ℓ_P`, so that
+`a₁ = 0 < a₂ < ⋯ < a_P` and lengths `ℓ₁,…,ℓ_P`, so that `O_c(m₀) = Σ ℓ_i`. The episode at `a₁ = 0`
+is not a return, so `#episodes = #re-entries + 1`.
 
-```
-O_c(m₀) = Σ_{i=1}^{P} ℓ_i .
-```
-
-**Restart relation** (Lean: `sum_concat`). Valuation sums concatenate along the orbit,
-`S_{a+k}(m₀) = S_a(m₀) + S_k(m_a)`, so subtracting `(a+k)α`
+**Restart relation** (Lean: `sum_concat`). Valuation sums concatenate,
+`S_{a+k}(m₀) = S_a(m₀) + S_k(m_a)`, so
 
 ```
 R_{a+k}(m₀) = R_a(m₀) + R_k(m_a) .          (exact)
 ```
 
-**Local threshold.** For `n = a_i + k`,
-
-```
-R_n ≤ c   ⟺   R_k(m_{a_i}) ≤ c_i ,        c_i := c − R_{a_i}(m₀) ≥ 0,
-```
-
-hence
+Hence `R_n ≤ c` for `n = a_i + k` reads `R_k(m_{a_i}) ≤ c_i` with `c_i := c − R_{a_i}(m₀) ≥ 0`, and
 
 ```
 ℓ_i = 1 + L_{c_i}(m_{a_i}) .
 ```
 
-> **Each episode is the initial confined window of the restarted orbit at its own local threshold**
-> — and that threshold *widens* exactly as far as the drift has fallen by the entry time. This is
-> the precise reason single-window theory at a fixed `c` does not control occupation: later
-> episodes are governed by a different, larger corridor.
+Each episode is the initial confined window of the *restarted* orbit at its own **local threshold**.
 
-## B. An exact reframing: `O_c` counts time at or above the starting scale
+## B. The entry lemma: the local threshold is pinned
+
+At a genuine re-entry `a > 0` we have `R_{a−1} > c` and `R_a ≤ c` with `R_a = R_{a−1} + d_{a−1} − α`.
+Because `1 < α < 2` and `d_{a−1}` is a positive integer, a digit `≥ 2` would *raise* the drift; so
+
+> **Entry lemma** (Lean: `entry_digit_one`, `entry_threshold_pinned`, `entry_threshold_real`).
+> `d_{a−1} = 1`, and consequently
+> ```
+> c − (α−1) < R_a ≤ c ,        i.e.        0 ≤ c_a < α − 1 = log₂(3/2) = 0.58496… .
+> ```
+
+The bound is independent of `c`, of `m₀`, and of how deep the drift went during the excursion.
+**Only the first episode has threshold `c`; every later one starts in a corridor narrower than
+`0.585`.** Drift can of course fall far below `c` *inside* an episode — that is the interior, not
+the entry point.
+
+Verified: 97,091 re-entries over odd `m₀ < 60001` at `c ∈ {0,1,2,5}`; every one has `d_{a−1} = 1`
+and `c_a ∈ [0, α−1)`, maximum `0.571438`.
+
+*(The first version of this document claimed the opposite — that later thresholds widen with the
+accumulated drift. That was false; see the correction audit §B.)*
+
+## C. An exact reframing, with its range of validity
 
 From the Eliahou–Rozier identity `R_n = log₂(m₀/m_n) + E_n`,
 
 ```
-R_n ≤ c   ⟺   m_n ≥ m₀ · 2^{E_n − c} .
+R_n ≤ c   ⟺   m_n ≥ Λ_n := m₀ · 2^{E_n − c} .
 ```
 
-Verified on 29,999 seeds at `c = 1`: **0 mismatches**. Since `E_n` is small (`≤ 0.275` across the
-tested range, and bounded by `E_∞ < ∞` on any divergent orbit),
+This is an identity, verified on 29,999 seeds at `c = 1` with 0 mismatches. But `Λ_n` **moves with
+`n`** through the carry `E_n`, and `E_n` is not uniformly small: `T(1) = 1`, so on every orbit
+reaching `1` the carry gains `log₂(4/3)` per step and `E_∞ = +∞`. (On a *divergent* orbit the
+opposite holds — `m_n → ∞` gives `Σ1/m_j < ∞` and a finite `E_∞`, as the Curry foundation records.
+The mistake in the first version was applying the divergent-orbit fact to all orbits.) Measured
+maxima: `0.190665` over corridor times, `0.325550` over all orbit times. So the reading
 
-> **`O_c(m₀)` is, up to the carry factor `2^{E_n}`, the total number of steps the orbit spends at
-> or above `2^{−c}` times its starting value.**
+> `O_c(m₀)` is the total time spent at or above `2^{−c}` times the starting value
 
-This makes the three temporal scales concrete:
+is legitimate on the corridor range, where the carry is small, and must not be used as a fixed-level
+statement about the whole orbit.
 
-| object | reading |
+| object | reading (on the corridor range) |
 |---|---|
 | `L_c(m₀)` | length of the *first* sojourn at/above the starting scale |
-| `P` | number of *returns* to the starting scale |
-| `O_c(m₀)` | *total* time at/above the starting scale |
+| `P − 1` | number of *returns* to that scale |
+| `O_c(m₀)` | *total* time at/above that scale |
 
-and it explains the paper's example `L₁(285175) = 14`, `O₁(285175) = 97`: that orbit leaves its
-starting scale quickly but comes back six more times.
+This explains the paper's example `L₁(285175) = 14`, `O₁(285175) = 97`.
 
-## C. The missing inequality, stated exactly
+## D. Arrival at `1` ends occupation — so (U) alone suffices
 
-Suppose the corridor-uniform single-window bound holds: `L_{c'}(m) ≤ K(log₂ m + c')` for all odd
-`m` and all `c' ≥ 0`. Using the orbit-floor identity `log₂ m_{a_i} = log₂ m₀ − R_{a_i} + E_{a_i}`,
+With `m_n = 1` the aggregate identity gives `2^{S_n} = 3^n m₀ + C_n > 3^n m₀ ≥ 2^c 3^n` whenever
+`2^c ≤ m₀`, using `C_n > 0`. So no time at which the orbit equals `1` lies in the corridor, and
+every corridor time precedes arrival at `1`:
+
+> **Theorem** (Lean: `corridor_excludes_one`, `corridor_time_lt_of_reaches_one`,
+> `occupation_le_of_reaches_one`). For `m₀ ≥ 2^c`, `O_c(m₀) ≤ n*(m₀)`, the arrival time at `1`.
+
+The lifetime audit showed **(U)** — corridor-uniform `L_{c'}(m) ≤ K(log₂m + c')` — is equivalent to
+an `O(log m)` total-stopping-time bound. Hence **(U) implies `O_c(m₀) = O(log m₀)` directly**, with
+no auxiliary hypothesis. Verified: 0 violations of `O_c ≤ n*` over 29,999 seeds.
+
+This is a withdrawal, not a gain: (U) implies Collatz, so this relocates the difficulty rather than
+reducing it. Its value is negative information — **the gap this investigation set out to fill does
+not exist.**
+
+## E. The proposed hypothesis (P) is false
+
+Let the symbolic rule play digit `2` inside the corridor (drift `+ (2−α)`) and digit `1` outside
+(drift `− (α−1)`). Three formalized facts — an invariant `3·2^{S_n} ≤ 4·2^c 3^n`, immediate
+re-entry after any digit-`1` step, and recurrence of exits via `(4/3)^j → ∞` — show the drift
+oscillates across `c` forever, with unboundedly many completed exits and re-entries.
+
+Every finite prefix is realized by a positive odd integer: `leastRealizer d N` is odd and satisfies
+the exact realizer congruence, so by `realizerCongruence` the genuine orbit reproduces the prefix.
+
+> **Theorem** (Lean: `exists_odd_seed_with_many_reentries`). For every `c ≥ 0` and every `B` there
+> are `N` and an odd `m₀ > 0` whose genuine accelerated orbit follows the word for `N` steps and has
+> at least `B` corridor re-entries before time `N`.
+
+So the hypothesis **(P)** `P_c(m₀) ≤ P₀` uniformly in `m₀` — offered in the first version of this
+document as the isolated new hypothesis — is **false for every `c`**.
+
+Scope: the realizing seed grows with `B`; the count is finite-horizon; nothing is inferred about
+infinite realization.
+
+Verified at `c = 1`, `N = 60`: `S_N = 96`, seed `136975455177362381873293329281`, all 60 valuations
+reproduced by the actual map.
+
+## F. Many short episodes do compensate
+
+The seeds of §E, evaluated over their *whole* orbits at `c = 1`:
+
+| `N` | `log₂ m₀` | episodes `P` | `O₁` | `O₁/log₂m₀` | `P/log₂m₀` |
+|---|---|---|---|---|---|
+| 20 | 32.73 | 8 | 13 | 0.397 | 0.244 |
+| 40 | 58.64 | 18 | 26 | 0.443 | 0.307 |
+| 60 | 96.79 | 25 | 41 | 0.424 | 0.258 |
+| 80 | 127.74 | 34 | 49 | 0.384 | 0.266 |
+
+`P ≈ 0.28 log₂m₀` episodes of mean length `≈ 1.4` give `O₁ ≈ 0.42 log₂m₀`: these orbits violate (P)
+badly and satisfy EOC comfortably. So episode count **cannot** be the obstruction, and the earlier
+"no tradeoff between count and length" conclusion is false as stated.
+
+**What is true, and is now proved rather than asserted.** Under (U) the coarse per-episode estimate
+is `ℓ_i ≤ 1 + K(log₂ m_{a_i} + c_i)`, and each summand is `≥ log₂m₀ − c`. Summing them
+(Lean: `count_le_of_summands_ge`) gives `O(log m₀)` only if `P = O(1)`. Since §E exhibits
+`P = Θ(log m₀)`, that surrogate sum is `Θ((log m₀)²)` on an explicit family whose true occupation is
+`Θ(log m₀)`:
+
+> **The per-episode single-window accounting is provably lossy by a factor `Θ(log m₀)`,
+> and no choice of constants repairs it.**
+
+This is an obstruction to one accounting route. It is not an impossibility theorem about EOC, and
+it says nothing about arguments that do not decompose per episode.
+
+## G. The up-crossing band: what it does and does not say
+
+`2m_{n+1} ≤ 3m_n + 1`, so a crossing of a **fixed integer level** `L` lands in `[L, (3L+1)/2)`
+(Lean: `upcrossing_band`). This does not transfer to corridor re-entries: the threshold `Λ_n` is
+real and moves, distinct re-entries cross distinct levels so their landings lie in different bands
+whose union is uncontrolled, and injectivity holds only until the orbit cycles — for an orbit
+reaching `1` it fails on the tail. What re-entry *does* force exactly is `d_n = 1` (§B), i.e.
+`2m_{n+1} = 3m_n + 1`.
+
+*(The first version drew an "exact obstruction" from counting all landings in one band. Retracted.)*
+
+## H. The surviving question
+
+Since `P = O(1)` is false and `P = Θ(log m₀)` is attained, the question is quantitative. With
+episodes and re-entries as in §A, define for integer `c ≥ 0`
 
 ```
-ℓ_i ≤ 1 + K·( log₂ m_{a_i} + c_i )
-    = 1 + K·( log₂ m₀ + E_{a_i} + c − 2 R_{a_i} ) .          (*)
+σ_c(p) := min { m odd, m > 0 : the orbit of m has at least p corridor episodes } .
 ```
 
-Summing,
+A lower bound `σ_c(p) ≥ 2^{γp}` would give **episode count `O(log m₀)`**; §F caps `γ` at about
+`3.5`. Exhaustively over odd `m < 4·10⁶` (so `p ≤ 13`), `log₂σ₁(p)/p` lies between `1.5` and `1.9`
+— consistent with exponential growth, far too short a range to suggest a constant, and no
+conjecture is offered.
 
-```
-O_c(m₀) ≤ P + K · Σ_{i=1}^{P} ( log₂ m₀ + E_{a_i} + c − 2 R_{a_i} ) .
-```
+**Honest label.** By `realizerCongruence` the seeds realizing a word form one residue class, so
+`σ_c(p)` is the repository's existing **least-realizer / residue–time duality problem restricted to
+a new family** — many-episode words in place of zero-confined words. A reformulation, not a new
+mechanism; the two families are incomparable, and a larger family has a smaller minimum, so this is
+not automatically easier.
 
-**The missing inequality is a bound on that sum by `O(log m₀)`.** Everything else is exact.
+**And it is not enough by itself.** `O_c = Σℓ_i`: bounding `P` says nothing about the lengths, and
+§F shows the per-episode route cannot supply them. The estimate actually needed is joint:
 
-## D. The no-tradeoff obstruction
+> a bound on `Σ_i ℓ_i` that does **not** factor through per-episode single-window estimates,
+> because each such estimate costs a full `log₂m₀` while there can be `Θ(log m₀)` episodes.
 
-Each summand in (*) satisfies
+Any candidate must fit both measured regimes: random seeds give `P ≈ 1.7` with mean `ℓ ≈ 5.1`; the
+family of §E gives `P ≈ 0.28 log₂m₀` with mean `ℓ ≈ 1.4`.
 
-```
-log₂ m₀ + E_{a_i} + c − 2R_{a_i}  ≥  log₂ m₀ − c ,
-```
+## I. Computations
 
-since `E_{a_i} ≥ 0` and `R_{a_i} ≤ c`. So by the elementary counting fact (Lean:
-`count_le_of_summands_ge`):
-
-> **Proposition (no tradeoff).** If the episode sum in §C is bounded by `T`, then
-> `P ≤ T/(log₂ m₀ − c)`. In particular `T = O(log m₀)` forces `P = O(1)`.
-
-**Consequence.** Within the single-window-summation framework there is *no* tradeoff to exploit:
-one cannot compensate a growing episode count with shorter episodes, because every episode's bound
-already costs a full `log₂ m₀`. Bounding count and length separately by `O(log m₀)` yields
-`O((log m₀)²)` and nothing better.
-
-So the route requires **`P = O(1)`** — a bounded number of returns to the starting scale — as a
-genuinely separate input. This is the reviewer's question answered: the resource being sought must
-bound the *count*, not redistribute the *length*.
-
-## E. What a return costs, and why the natural resource is too large
-
-Each return is an up-crossing of the level `Λ_n = m₀2^{E_n−c}`. Because a single accelerated step
-satisfies `2m_{n+1} ≤ 3m_n + 1` (Lean: `upcrossing_band`), an up-crossing from below `Λ` must land
-in
-
-```
-Λ ≤ m_{n+1} < (3Λ+1)/2 ,
-```
-
-a band of multiplicative width `3/2` immediately above the level. Because the orbit is injective
-until it cycles, **distinct returns consume distinct orbit values of that band.** Verified: 41,837
-up-crossings over odd `m₀ < 120001`, all landing in the predicted band, no repeated landing value
-within any orbit.
-
-This is a genuine non-double-counted resource — and it is **exponentially too large**. The band
-holds about `Λ/4 ≈ m₀2^{−c}/4` odd integers, i.e. `2^{Θ(log₂ m₀)}` of them, against the `O(1)`
-needed. Even Curry's spatial sparsity, which for a divergent orbit bounds the orbit values in
-`[Λ, 1.5Λ)` by `C_β(1.5Λ)^β log(3Λ)` with `β ≈ 0.9654`, leaves `Λ^{0.9654}` — still exponentially
-more than `O(1)`.
-
-> **Exact obstruction.** The injectivity-plus-band accounting identifies the right kind of
-> resource but overshoots the requirement by an exponential factor. It cannot yield `P = O(1)`,
-> and no sharpening of the band (which is already optimal, since the growth factor `3/2` is
-> attained) changes that.
-
-## F. Conditional occupation theorem
-
-Collecting §C and §D:
-
-> **Theorem (conditional).** Suppose
-> **(U)** `L_{c'}(m) ≤ K(log₂ m + c')` for all odd `m ≥ 3` and all `c' ≥ 0`, and
-> **(P)** `P_c(m₀) ≤ P₀` for all odd `m₀`, with `P₀` independent of `m₀`.
-> Then for every odd `m₀`,
-> ```
-> O_c(m₀) ≤ P₀ + K·P₀·( log₂ m₀ + E_∞ + c + 2·max_i(−R_{a_i}) ) ,
-> ```
-> and if in addition the entry drifts satisfy `−R_{a_i} = O(log m₀)`, then
-> `O_c(m₀) = O(log m₀)`: Existence EOC at `c`.
-
-**Status of the hypotheses.** (U) is the corridor-uniform hypothesis, which Revision 6 §7.1 shows
-is equivalent to an `O(log m)`-scale stopping/lifetime hypothesis — substantially stronger than
-excluding divergence. **(P) is the isolated new hypothesis** and is, as far as this investigation
-can determine, entirely unstudied. The side condition on entry drifts is mild: by the automatic
-corridor, `−R_n ≤ log₂(max_k m_k / m₀)`, so it asks only that the orbit's maximum not be
-super-polynomial in `m₀`.
-
-Neither hypothesis is proved here, and (U) alone is insufficient.
-
-## G. Computations
-
-All diagnostics; none promoted to a theorem. Discipline note: episode-count maxima are reported at
-**constant sample size per bucket**, because a maximum over a larger sample is larger for trivial
-reasons — the error corrected in an earlier audit.
+All diagnostics; none promoted to a theorem. Episode-count maxima are reported at **constant sample
+size per bucket**, since a maximum over a larger sample is larger for trivial reasons.
 
 | quantity | result |
 |---|---|
+| entry lemma `d_{a−1}=1`, `c_a ∈ [0,α−1)` | 97,091 re-entries, `c ∈ {0,1,2,5}`, **0 counterexamples** |
 | reframing `R_n ≤ c ⟺ m_n ≥ m₀2^{E_n−c}` | 29,999 seeds, **0 mismatches** |
-| up-crossing band and distinctness | 41,837 up-crossings, **0 outside the band**, no repeats |
-| mean `P` at 2000 seeds/bucket, `log₂m₀ = 13…24` | **1.62 – 1.73, flat** |
-| max `P` at 2000 seeds/bucket, same range | 7 – 12, drifting slowly and noisily |
-| mean `O₁` at same buckets | 8.1 – 9.1, flat |
-| max `O₁` at same buckets | 63 → 92 across `log₂m₀ = 12 → 24` |
+| `O_c ≤ n*` (arrival at 1) | 29,999 seeds, **0 violations** |
+| realization of constructed prefixes vs the actual map | `N = 10…60`, **all valuations reproduced** |
+| mean `P`, 2000 seeds/bucket, `log₂m₀ = 13…24` | **1.64 – 1.75, flat** |
+| mean episode length, same buckets | **4.85 – 5.31, flat** |
+| mean `O₁`, same buckets | **8.1 – 9.1, flat** |
+| max `P` / max episode length, same buckets | 8–11 / 55–123, sampling-sensitive, no trend inferred |
 
-The mean episode count shows **no growth** with `log₂ m₀`, which is the robust signal and is
-consistent with (P). The maxima are sampling-sensitive and no trend is inferred from them. Max
-`O₁` growing roughly linearly in `log₂ m₀` (slope ≈ 3.5 over the tested range) is consistent with
-EOC's shape but proves nothing.
+## J. What this investigation establishes, and what it does not
 
-## H. What this investigation establishes
+**Establishes.** The episode decomposition, restart relation and local threshold, exactly and
+formalized; the entry lemma pinning every re-entry threshold below `α−1`; that occupation ends at
+arrival at `1`, hence that **(U) alone implies an occupation bound**; that **bounded episode count
+is false**; and that the per-episode single-window accounting is lossy by `Θ(log m₀)` on an explicit
+family.
 
-1. The episode decomposition, restart relation and local threshold are exact, and formalized.
-2. `O_c` has a clean dynamical meaning: total time at or above the starting scale.
-3. **The missing inequality is a bound on `Σ_i (log₂ m_{a_i} + c_i)`**, and by the no-tradeoff
-   proposition this is *equivalent* to bounding the episode count. There is no redistribution to
-   be found.
-4. The natural non-double-counted resource for charging returns — distinct orbit values in a
-   width-`3/2` band above the starting scale — is identified exactly and is exponentially too
-   large. This is a genuine obstruction to the accounting, not a failure to find the argument.
-5. The conditional theorem isolates **(P)**, bounded returns to the starting scale, as the new
-   hypothesis EOC needs beyond single-window control.
-
-## I. What it does not establish
-
-It does not bound `P`, does not prove EOC at any tier, and does not show (P) is true — the
-empirical flatness of mean `P` is a diagnostic only. It also does not rule out an approach outside
-the single-window-summation framework; the no-tradeoff proposition constrains that framework, not
-every possible argument.
+**Does not establish.** It does not prove or disprove EOC at any tier. It gives no bound on
+`σ_c(p)`. It does not show that per-episode accounting is the only route, nor that any of the
+routes it closes could not be replaced by a different decomposition. The empirical flatness of mean
+`P` on random seeds is a diagnostic only — §E shows it is not a law.
