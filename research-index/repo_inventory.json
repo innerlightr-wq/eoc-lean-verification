@@ -1,0 +1,1735 @@
+{
+ "branch": "compression-guided-research-index",
+ "docs": [
+  {
+   "lines": 204,
+   "path": "docs/AKSENOV_METHOD_NOTES.md",
+   "title": "Aksenov et al. method notes"
+  },
+  {
+   "lines": 136,
+   "path": "docs/ARITHMETIC_FRONTIER.md",
+   "title": "Arithmetic frontier \u2014 power-of-two digit sparsity (2026-09-16)"
+  },
+  {
+   "lines": 209,
+   "path": "docs/CURRY_FOUNDATION.md",
+   "title": "The Curry foundation"
+  },
+  {
+   "lines": 157,
+   "path": "docs/CURRY_REV5_PATCH_NOTES.md",
+   "title": "Recommended manuscript changes: EOC Revision 5 vs. the audited Curry chain"
+  },
+  {
+   "lines": 356,
+   "path": "docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md",
+   "title": "Dynamic deficit-feedback audit"
+  },
+  {
+   "lines": 308,
+   "path": "docs/LITERATURE_CONTEXT.md",
+   "title": "Literature context for the EOC / ShapeTail program"
+  },
+  {
+   "lines": 93,
+   "path": "docs/LITERATURE_SUBSPACE_TRIANGLES.md",
+   "title": "Literature for the triangle / Subspace rounds (2026-09)"
+  },
+  {
+   "lines": 296,
+   "path": "docs/NOVELTY_AND_PROVENANCE.md",
+   "title": "Novelty and provenance audit"
+  },
+  {
+   "lines": 226,
+   "path": "docs/RESEARCH_CHECKPOINT_2026-09.md",
+   "title": "Research checkpoint \u2014 September 2026"
+  },
+  {
+   "lines": 476,
+   "path": "docs/RESEARCH_STATUS.md",
+   "title": "Research status"
+  },
+  {
+   "lines": 311,
+   "path": "docs/SHAPETAIL_UNCONDITIONAL.md",
+   "title": "Unconditional ShapeTail for the Collatz barrier"
+  },
+  {
+   "lines": 283,
+   "path": "docs/ZCRE_REALIZER_GROWTH_AUDIT.md",
+   "title": "ZCRE realizer-growth audit"
+  },
+  {
+   "lines": 288,
+   "path": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md",
+   "title": "The zero-corridor realizability frontier"
+  }
+ ],
+ "generated_by": "tools/research_context",
+ "modules": [
+  {
+   "eoc_imports": [
+    "EOC.DangerousWindows"
+   ],
+   "first_commit": "ead87a4a205720bcf042e943dcf075752b4f53fc",
+   "imports": [
+    "EOC.DangerousWindows"
+   ],
+   "last_commit": "14dea46ae5af816754cf3883475fa73dea598130",
+   "lines": 152,
+   "module": "EOC.ArithmeticFrontier",
+   "n_commits": 2,
+   "path": "EOC/ArithmeticFrontier.lean",
+   "textual_decls": 7
+  },
+  {
+   "eoc_imports": [
+    "EOC.ShapeUnconditional",
+    "EOC.LogAbsorb"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.ShapeUnconditional",
+    "EOC.LogAbsorb"
+   ],
+   "last_commit": "2cfd249032f37536c391453ac47413f2ab8cbaf6",
+   "lines": 457,
+   "module": "EOC.AverageOddDark",
+   "n_commits": 2,
+   "path": "EOC/AverageOddDark.lean",
+   "textual_decls": 21
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "imports": [
+    "Mathlib.NumberTheory.Padics.PadicVal.Basic",
+    "Mathlib.Data.Nat.Prime.Basic"
+   ],
+   "last_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "lines": 51,
+   "module": "EOC.Basic",
+   "n_commits": 1,
+   "path": "EOC/Basic.lean",
+   "textual_decls": 6
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    "Mathlib.Algebra.BigOperators.NatAntidiagonal",
+    "Mathlib.Data.Nat.Choose.Sum"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 228,
+   "module": "EOC.BinomialEntropy",
+   "n_commits": 1,
+   "path": "EOC/BinomialEntropy.lean",
+   "textual_decls": 10
+  },
+  {
+   "eoc_imports": [
+    "EOC.WeightedChain"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.WeightedChain"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 162,
+   "module": "EOC.BlockCube",
+   "n_commits": 1,
+   "path": "EOC/BlockCube.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.GoodAngles",
+    "EOC.BlockCube"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.GoodAngles",
+    "EOC.BlockCube"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 537,
+   "module": "EOC.BlockCubeInstance",
+   "n_commits": 1,
+   "path": "EOC/BlockCubeInstance.lean",
+   "textual_decls": 37
+  },
+  {
+   "eoc_imports": [
+    "EOC.Periodic",
+    "EOC.BoundedDriftCore"
+   ],
+   "first_commit": "e5f80733acb6d41ef45959937d1c1c66dde581fe",
+   "imports": [
+    "EOC.Periodic",
+    "EOC.BoundedDriftCore"
+   ],
+   "last_commit": "e5f80733acb6d41ef45959937d1c1c66dde581fe",
+   "lines": 118,
+   "module": "EOC.BoundedDrift",
+   "n_commits": 1,
+   "path": "EOC/BoundedDrift.lean",
+   "textual_decls": 7
+  },
+  {
+   "eoc_imports": [
+    "EOC.PeriodicCore"
+   ],
+   "first_commit": "e5f80733acb6d41ef45959937d1c1c66dde581fe",
+   "imports": [
+    "EOC.PeriodicCore"
+   ],
+   "last_commit": "e5f80733acb6d41ef45959937d1c1c66dde581fe",
+   "lines": 519,
+   "module": "EOC.BoundedDriftCore",
+   "n_commits": 1,
+   "path": "EOC/BoundedDriftCore.lean",
+   "textual_decls": 35
+  },
+  {
+   "eoc_imports": [
+    "EOC.ChordRotation"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.ChordRotation"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 347,
+   "module": "EOC.CapacityBounds",
+   "n_commits": 1,
+   "path": "EOC/CapacityBounds.lean",
+   "textual_decls": 37
+  },
+  {
+   "eoc_imports": [
+    "EOC.ValuationWord"
+   ],
+   "first_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "imports": [
+    "EOC.ValuationWord"
+   ],
+   "last_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "lines": 82,
+   "module": "EOC.Carry",
+   "n_commits": 1,
+   "path": "EOC/Carry.lean",
+   "textual_decls": 7
+  },
+  {
+   "eoc_imports": [
+    "EOC.Realizer"
+   ],
+   "first_commit": "665a63b2dc4ea8966d625d503ec71f806b2b0c84",
+   "imports": [
+    "EOC.Realizer",
+    "Mathlib.Data.List.GetD",
+    "Mathlib.Data.List.Count",
+    "Mathlib.Algebra.BigOperators.Group.List.Basic"
+   ],
+   "last_commit": "665a63b2dc4ea8966d625d503ec71f806b2b0c84",
+   "lines": 440,
+   "module": "EOC.ChangHistory",
+   "n_commits": 1,
+   "path": "EOC/ChangHistory.lean",
+   "textual_decls": 37
+  },
+  {
+   "eoc_imports": [
+    "EOC.CompositionCounting"
+   ],
+   "first_commit": "4521b432af69a26c6cdb74112e6547b5df10e5c6",
+   "imports": [
+    "EOC.CompositionCounting",
+    "Mathlib.Data.List.Rotate"
+   ],
+   "last_commit": "4521b432af69a26c6cdb74112e6547b5df10e5c6",
+   "lines": 217,
+   "module": "EOC.ChordRotation",
+   "n_commits": 1,
+   "path": "EOC/ChordRotation.lean",
+   "textual_decls": 11
+  },
+  {
+   "eoc_imports": [
+    "EOC.FiniteValuationWord"
+   ],
+   "first_commit": "0f8bbfdd24f7f5cd1546149b981131a794306eff",
+   "imports": [
+    "EOC.FiniteValuationWord",
+    "Mathlib.Combinatorics.Enumerative.Composition",
+    "Mathlib.Data.Finset.Powerset",
+    "Mathlib.Data.Nat.Choose.Sum"
+   ],
+   "last_commit": "0f8bbfdd24f7f5cd1546149b981131a794306eff",
+   "lines": 193,
+   "module": "EOC.CompositionCounting",
+   "n_commits": 1,
+   "path": "EOC/CompositionCounting.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.Realizer"
+   ],
+   "first_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "imports": [
+    "EOC.Realizer",
+    "Mathlib.Analysis.SpecialFunctions.Log.Base"
+   ],
+   "last_commit": "dd7da0eeec449af8edd635cfe4b94ad584aed73e",
+   "lines": 650,
+   "module": "EOC.Confinement",
+   "n_commits": 2,
+   "path": "EOC/Confinement.lean",
+   "textual_decls": 36
+  },
+  {
+   "eoc_imports": [
+    "EOC.HarmonicPacking"
+   ],
+   "first_commit": "2c6e79069a3effb08e9539ad9984a19edcf6c7dd",
+   "imports": [
+    "EOC.HarmonicPacking",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Continuity"
+   ],
+   "last_commit": "1d087e20b72faaf7a4d13ee03c44b0858990f238",
+   "lines": 450,
+   "module": "EOC.CurryFoundation",
+   "n_commits": 2,
+   "path": "EOC/CurryFoundation.lean",
+   "textual_decls": 21
+  },
+  {
+   "eoc_imports": [
+    "EOC.PressureBridge"
+   ],
+   "first_commit": "5aa96a257b0f47167db4052b4ab4432e616cf7df",
+   "imports": [
+    "EOC.PressureBridge"
+   ],
+   "last_commit": "5aa96a257b0f47167db4052b4ab4432e616cf7df",
+   "lines": 498,
+   "module": "EOC.DangerousWindows",
+   "n_commits": 1,
+   "path": "EOC/DangerousWindows.lean",
+   "textual_decls": 21
+  },
+  {
+   "eoc_imports": [
+    "EOC.SpacingChain",
+    "EOC.PsiShellBound",
+    "EOC.PowerOrbit",
+    "EOC.ShellRefined"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.SpacingChain",
+    "EOC.PsiShellBound",
+    "EOC.PowerOrbit",
+    "EOC.ShellRefined"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 312,
+   "module": "EOC.DecayInterface",
+   "n_commits": 1,
+   "path": "EOC/DecayInterface.lean",
+   "textual_decls": 14
+  },
+  {
+   "eoc_imports": [
+    "EOC.HarmonicPacking",
+    "EOC.Confinement"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.HarmonicPacking",
+    "EOC.Confinement",
+    "Mathlib.Analysis.Complex.ExponentialBounds"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 333,
+   "module": "EOC.DirectDescent",
+   "n_commits": 1,
+   "path": "EOC/DirectDescent.lean",
+   "textual_decls": 19
+  },
+  {
+   "eoc_imports": [
+    "EOC.CapacityBounds"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.CapacityBounds",
+    "Mathlib.Analysis.SpecialFunctions.BinaryEntropy",
+    "Mathlib.Analysis.SpecialFunctions.Log.NegMulLog"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 333,
+   "module": "EOC.EntropyBounds",
+   "n_commits": 1,
+   "path": "EOC/EntropyBounds.lean",
+   "textual_decls": 25
+  },
+  {
+   "eoc_imports": [
+    "EOC.EntropyBounds",
+    "EOC.SurvivorDensity"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.EntropyBounds",
+    "EOC.SurvivorDensity"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 286,
+   "module": "EOC.ExceptionalPowerBound",
+   "n_commits": 1,
+   "path": "EOC/ExceptionalPowerBound.lean",
+   "textual_decls": 13
+  },
+  {
+   "eoc_imports": [
+    "EOC.BoundedDrift"
+   ],
+   "first_commit": "18ed7ca00a406e0d394a52005573c93d9a83df0d",
+   "imports": [
+    "EOC.BoundedDrift"
+   ],
+   "last_commit": "18ed7ca00a406e0d394a52005573c93d9a83df0d",
+   "lines": 384,
+   "module": "EOC.FinitePrefixPacking",
+   "n_commits": 1,
+   "path": "EOC/FinitePrefixPacking.lean",
+   "textual_decls": 20
+  },
+  {
+   "eoc_imports": [
+    "EOC.Confinement"
+   ],
+   "first_commit": "c1ec227e01022694876f0920960cbe1de783fefc",
+   "imports": [
+    "EOC.Confinement",
+    "Mathlib.Algebra.BigOperators.Group.Finset.Basic"
+   ],
+   "last_commit": "c1ec227e01022694876f0920960cbe1de783fefc",
+   "lines": 96,
+   "module": "EOC.FiniteValuationWord",
+   "n_commits": 1,
+   "path": "EOC/FiniteValuationWord.lean",
+   "textual_decls": 11
+  },
+  {
+   "eoc_imports": [
+    "EOC.Carry",
+    "EOC.TwistExpansion"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.Carry",
+    "EOC.TwistExpansion"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 169,
+   "module": "EOC.FirstDivergence",
+   "n_commits": 1,
+   "path": "EOC/FirstDivergence.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.DecayInterface"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.DecayInterface"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 213,
+   "module": "EOC.GoodAngles",
+   "n_commits": 1,
+   "path": "EOC/GoodAngles.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.HarmonicPacking",
+    "EOC.Confinement"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.HarmonicPacking",
+    "EOC.Confinement",
+    "Mathlib.Analysis.Complex.ExponentialBounds"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 437,
+   "module": "EOC.HarmonicFloor",
+   "n_commits": 1,
+   "path": "EOC/HarmonicFloor.lean",
+   "textual_decls": 14
+  },
+  {
+   "eoc_imports": [
+    "EOC.FinitePrefixPacking"
+   ],
+   "first_commit": "ff9a74aa480b672361eb963a9522a39505878663",
+   "imports": [
+    "EOC.FinitePrefixPacking",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics"
+   ],
+   "last_commit": "ff9a74aa480b672361eb963a9522a39505878663",
+   "lines": 492,
+   "module": "EOC.HarmonicPacking",
+   "n_commits": 1,
+   "path": "EOC/HarmonicPacking.lean",
+   "textual_decls": 28
+  },
+  {
+   "eoc_imports": [
+    "EOC.TwistExpansion"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.TwistExpansion",
+    "Mathlib.NumberTheory.Harmonic.Bounds"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 354,
+   "module": "EOC.IntervalSieve",
+   "n_commits": 1,
+   "path": "EOC/IntervalSieve.lean",
+   "textual_decls": 26
+  },
+  {
+   "eoc_imports": [
+    "EOC.SurvivorClusters",
+    "EOC.SurvivorCounting"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.SurvivorClusters",
+    "EOC.SurvivorCounting",
+    "Mathlib.Data.Int.CardIntervalMod"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 192,
+   "module": "EOC.LiftDigits",
+   "n_commits": 1,
+   "path": "EOC/LiftDigits.lean",
+   "textual_decls": 17
+  },
+  {
+   "eoc_imports": [
+    "EOC.LiftDigits"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.LiftDigits"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 94,
+   "module": "EOC.LiftGap",
+   "n_commits": 1,
+   "path": "EOC/LiftGap.lean",
+   "textual_decls": 4
+  },
+  {
+   "eoc_imports": [
+    "EOC.OddBlack"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.OddBlack"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 261,
+   "module": "EOC.LocalWindow",
+   "n_commits": 1,
+   "path": "EOC/LocalWindow.lean",
+   "textual_decls": 17
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Log.Base",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    "Mathlib.Analysis.Complex.ExponentialBounds"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 83,
+   "module": "EOC.LogAbsorb",
+   "n_commits": 1,
+   "path": "EOC/LogAbsorb.lean",
+   "textual_decls": 4
+  },
+  {
+   "eoc_imports": [
+    "EOC.PrescribedMatching",
+    "EOC.HarmonicPacking"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.PrescribedMatching",
+    "EOC.HarmonicPacking"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 305,
+   "module": "EOC.LogCorridor",
+   "n_commits": 1,
+   "path": "EOC/LogCorridor.lean",
+   "textual_decls": 14
+  },
+  {
+   "eoc_imports": [
+    "EOC.TriangleArray",
+    "EOC.GoodAngles"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.TriangleArray",
+    "EOC.GoodAngles"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 523,
+   "module": "EOC.MaxTriangle",
+   "n_commits": 1,
+   "path": "EOC/MaxTriangle.lean",
+   "textual_decls": 38
+  },
+  {
+   "eoc_imports": [
+    "EOC.WhiteContraction"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.WhiteContraction"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 367,
+   "module": "EOC.OddBlack",
+   "n_commits": 1,
+   "path": "EOC/OddBlack.lean",
+   "textual_decls": 22
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.Cylinder",
+    "EOC.Confinement"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.TaoLike.Cylinder",
+    "EOC.Confinement"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 326,
+   "module": "EOC.PairValuation",
+   "n_commits": 1,
+   "path": "EOC/PairValuation.lean",
+   "textual_decls": 17
+  },
+  {
+   "eoc_imports": [
+    "EOC.Confinement",
+    "EOC.PeriodicCore"
+   ],
+   "first_commit": "757fa59dc0b084f41d2dfaecd175d0129852943e",
+   "imports": [
+    "EOC.Confinement",
+    "EOC.PeriodicCore",
+    "Mathlib.NumberTheory.Padics.PadicVal.Basic"
+   ],
+   "last_commit": "757fa59dc0b084f41d2dfaecd175d0129852943e",
+   "lines": 496,
+   "module": "EOC.Periodic",
+   "n_commits": 1,
+   "path": "EOC/Periodic.lean",
+   "textual_decls": 12
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "757fa59dc0b084f41d2dfaecd175d0129852943e",
+   "imports": [],
+   "last_commit": "757fa59dc0b084f41d2dfaecd175d0129852943e",
+   "lines": 281,
+   "module": "EOC.PeriodicCore",
+   "n_commits": 1,
+   "path": "EOC/PeriodicCore.lean",
+   "textual_decls": 21
+  },
+  {
+   "eoc_imports": [
+    "EOC.PsiShellBound",
+    "EOC.WhiteRun"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.PsiShellBound",
+    "EOC.WhiteRun"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 275,
+   "module": "EOC.PowerOrbit",
+   "n_commits": 1,
+   "path": "EOC/PowerOrbit.lean",
+   "textual_decls": 14
+  },
+  {
+   "eoc_imports": [
+    "EOC.PrefixSuffixBilinear",
+    "EOC.RealizerLift"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.PrefixSuffixBilinear",
+    "EOC.RealizerLift"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 613,
+   "module": "EOC.PrefixCollision",
+   "n_commits": 1,
+   "path": "EOC/PrefixCollision.lean",
+   "textual_decls": 51
+  },
+  {
+   "eoc_imports": [
+    "EOC.PrefixCollision"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.PrefixCollision"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 126,
+   "module": "EOC.PrefixStateFormula",
+   "n_commits": 1,
+   "path": "EOC/PrefixStateFormula.lean",
+   "textual_decls": 6
+  },
+  {
+   "eoc_imports": [
+    "EOC.ShellWeyl"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.ShellWeyl"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 177,
+   "module": "EOC.PrefixSuffixBilinear",
+   "n_commits": 1,
+   "path": "EOC/PrefixSuffixBilinear.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.TransportCollapse",
+    "EOC.BoundedDrift",
+    "EOC.FinitePrefixPacking"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.TransportCollapse",
+    "EOC.BoundedDrift",
+    "EOC.FinitePrefixPacking"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 184,
+   "module": "EOC.PrescribedMatching",
+   "n_commits": 1,
+   "path": "EOC/PrescribedMatching.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.AverageOddDark",
+    "EOC.BinomialEntropy"
+   ],
+   "first_commit": "2cfd249032f37536c391453ac47413f2ab8cbaf6",
+   "imports": [
+    "EOC.AverageOddDark",
+    "EOC.BinomialEntropy"
+   ],
+   "last_commit": "2cfd249032f37536c391453ac47413f2ab8cbaf6",
+   "lines": 302,
+   "module": "EOC.PressureBridge",
+   "n_commits": 1,
+   "path": "EOC/PressureBridge.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.PsiSieve",
+    "EOC.ShellRefined",
+    "EOC.SpacingChain"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.PsiSieve",
+    "EOC.ShellRefined",
+    "EOC.SpacingChain"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 144,
+   "module": "EOC.PsiShellBound",
+   "n_commits": 1,
+   "path": "EOC/PsiShellBound.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.IntervalSieve",
+    "EOC.WeightedChain",
+    "EOC.FirstDivergence",
+    "EOC.WhiteRun",
+    "EOC.PrefixCollision"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.IntervalSieve",
+    "EOC.WeightedChain",
+    "EOC.FirstDivergence",
+    "EOC.WhiteRun",
+    "EOC.PrefixCollision"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 405,
+   "module": "EOC.PsiSieve",
+   "n_commits": 1,
+   "path": "EOC/PsiSieve.lean",
+   "textual_decls": 23
+  },
+  {
+   "eoc_imports": [
+    "EOC.Carry"
+   ],
+   "first_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "imports": [
+    "EOC.Carry"
+   ],
+   "last_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "lines": 552,
+   "module": "EOC.Realizer",
+   "n_commits": 1,
+   "path": "EOC/Realizer.lean",
+   "textual_decls": 38
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.Cylinder",
+    "EOC.Confinement"
+   ],
+   "first_commit": "2b61e0f668bc0e24581c281b9963a21d972bf6cf",
+   "imports": [
+    "EOC.TaoLike.Cylinder",
+    "EOC.Confinement"
+   ],
+   "last_commit": "9d0c7eaa2f1357c9a816cf891ccf6d6cc7e3d340",
+   "lines": 428,
+   "module": "EOC.RealizerLift",
+   "n_commits": 2,
+   "path": "EOC/RealizerLift.lean",
+   "textual_decls": 23
+  },
+  {
+   "eoc_imports": [
+    "EOC.IntervalSieve"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "Mathlib",
+    "EOC.IntervalSieve"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 202,
+   "module": "EOC.RenyiBarrier",
+   "n_commits": 1,
+   "path": "EOC/RenyiBarrier.lean",
+   "textual_decls": 18
+  },
+  {
+   "eoc_imports": [
+    "EOC.RenyiBarrier",
+    "EOC.PsiSieve",
+    "EOC.PsiShellBound"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.RenyiBarrier",
+    "EOC.PsiSieve",
+    "EOC.PsiShellBound"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 109,
+   "module": "EOC.RenyiInstance",
+   "n_commits": 1,
+   "path": "EOC/RenyiInstance.lean",
+   "textual_decls": 10
+  },
+  {
+   "eoc_imports": [
+    "EOC.LiftDigits",
+    "EOC.SurvivorDensity",
+    "EOC.ExceptionalPowerBound",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.LiftDigits",
+    "EOC.SurvivorDensity",
+    "EOC.ExceptionalPowerBound",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 184,
+   "module": "EOC.ResidueDiscrepancy",
+   "n_commits": 1,
+   "path": "EOC/ResidueDiscrepancy.lean",
+   "textual_decls": 9
+  },
+  {
+   "eoc_imports": [
+    "EOC.ShapeTail",
+    "EOC.LocalWindow"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.ShapeTail",
+    "EOC.LocalWindow"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 316,
+   "module": "EOC.ShapeBridge",
+   "n_commits": 1,
+   "path": "EOC/ShapeBridge.lean",
+   "textual_decls": 10
+  },
+  {
+   "eoc_imports": [
+    "EOC.ShapeBridge"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.ShapeBridge"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 249,
+   "module": "EOC.ShapeCertificate",
+   "n_commits": 1,
+   "path": "EOC/ShapeCertificate.lean",
+   "textual_decls": 9
+  },
+  {
+   "eoc_imports": [
+    "EOC.OddBlack"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.OddBlack"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 362,
+   "module": "EOC.ShapeTail",
+   "n_commits": 1,
+   "path": "EOC/ShapeTail.lean",
+   "textual_decls": 20
+  },
+  {
+   "eoc_imports": [
+    "EOC.ShapeCertificate",
+    "EOC.CapacityBounds"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.ShapeCertificate",
+    "EOC.CapacityBounds",
+    "Mathlib.Data.Nat.Choose.Vandermonde",
+    "Mathlib.Data.Nat.Log"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 354,
+   "module": "EOC.ShapeUnconditional",
+   "n_commits": 1,
+   "path": "EOC/ShapeUnconditional.lean",
+   "textual_decls": 43
+  },
+  {
+   "eoc_imports": [
+    "EOC.WeightedChain",
+    "EOC.FirstDivergence"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.WeightedChain",
+    "EOC.FirstDivergence"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 250,
+   "module": "EOC.ShellDecomposition",
+   "n_commits": 1,
+   "path": "EOC/ShellDecomposition.lean",
+   "textual_decls": 15
+  },
+  {
+   "eoc_imports": [
+    "EOC.ShellDecomposition"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.ShellDecomposition"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 112,
+   "module": "EOC.ShellRefined",
+   "n_commits": 1,
+   "path": "EOC/ShellRefined.lean",
+   "textual_decls": 5
+  },
+  {
+   "eoc_imports": [
+    "EOC.ResidueDiscrepancy"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.ResidueDiscrepancy",
+    "Mathlib.Analysis.SpecialFunctions.Complex.CircleAddChar",
+    "Mathlib.NumberTheory.LegendreSymbol.AddCharacter"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 295,
+   "module": "EOC.ShellWeyl",
+   "n_commits": 1,
+   "path": "EOC/ShellWeyl.lean",
+   "textual_decls": 18
+  },
+  {
+   "eoc_imports": [
+    "EOC.PrefixCollision"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.PrefixCollision"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 213,
+   "module": "EOC.ShellwiseChain",
+   "n_commits": 1,
+   "path": "EOC/ShellwiseChain.lean",
+   "textual_decls": 16
+  },
+  {
+   "eoc_imports": [
+    "EOC.PeriodicCore",
+    "EOC.BoundedDriftCore"
+   ],
+   "first_commit": "649dc0c2161c7e0fd0133b3b7b130d234c0425fa",
+   "imports": [
+    "EOC.PeriodicCore",
+    "EOC.BoundedDriftCore"
+   ],
+   "last_commit": "649dc0c2161c7e0fd0133b3b7b130d234c0425fa",
+   "lines": 247,
+   "module": "EOC.SignedBlock",
+   "n_commits": 1,
+   "path": "EOC/SignedBlock.lean",
+   "textual_decls": 13
+  },
+  {
+   "eoc_imports": [
+    "EOC.Confinement",
+    "EOC.SignedBlock"
+   ],
+   "first_commit": "649dc0c2161c7e0fd0133b3b7b130d234c0425fa",
+   "imports": [
+    "EOC.Confinement",
+    "EOC.SignedBlock"
+   ],
+   "last_commit": "649dc0c2161c7e0fd0133b3b7b130d234c0425fa",
+   "lines": 385,
+   "module": "EOC.SignedRealizer",
+   "n_commits": 1,
+   "path": "EOC/SignedRealizer.lean",
+   "textual_decls": 15
+  },
+  {
+   "eoc_imports": [
+    "EOC.FirstDivergence",
+    "EOC.ShellRefined",
+    "EOC.IntervalSieve"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.FirstDivergence",
+    "EOC.ShellRefined",
+    "EOC.IntervalSieve"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 205,
+   "module": "EOC.SpacingChain",
+   "n_commits": 1,
+   "path": "EOC/SpacingChain.lean",
+   "textual_decls": 12
+  },
+  {
+   "eoc_imports": [
+    "EOC.SurvivorClusters",
+    "EOC.CapacityBounds",
+    "EOC.SurvivorCounting"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.SurvivorClusters",
+    "EOC.CapacityBounds",
+    "EOC.SurvivorCounting"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 308,
+   "module": "EOC.SplitPrefix",
+   "n_commits": 1,
+   "path": "EOC/SplitPrefix.lean",
+   "textual_decls": 20
+  },
+  {
+   "eoc_imports": [
+    "EOC.PairValuation",
+    "EOC.Periodic"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.PairValuation",
+    "EOC.Periodic"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 255,
+   "module": "EOC.SuffixTransport",
+   "n_commits": 1,
+   "path": "EOC/SuffixTransport.lean",
+   "textual_decls": 16
+  },
+  {
+   "eoc_imports": [
+    "EOC.SuffixTransport"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.SuffixTransport"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 130,
+   "module": "EOC.SurvivorClusters",
+   "n_commits": 1,
+   "path": "EOC/SurvivorClusters.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.UpperCertificates",
+    "EOC.FiniteValuationWord"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.UpperCertificates",
+    "EOC.FiniteValuationWord"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 128,
+   "module": "EOC.SurvivorCounting",
+   "n_commits": 1,
+   "path": "EOC/SurvivorCounting.lean",
+   "textual_decls": 5
+  },
+  {
+   "eoc_imports": [
+    "EOC.CapacityBounds",
+    "EOC.SurvivorCounting",
+    "EOC.TaoLike.PersistenceModel"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.CapacityBounds",
+    "EOC.SurvivorCounting",
+    "EOC.TaoLike.PersistenceModel"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 156,
+   "module": "EOC.SurvivorDensity",
+   "n_commits": 1,
+   "path": "EOC/SurvivorDensity.lean",
+   "textual_decls": 7
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+    "Mathlib.Algebra.Order.BigOperators.Ring.Finset"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 398,
+   "module": "EOC.SwapBound",
+   "n_commits": 1,
+   "path": "EOC/SwapBound.lean",
+   "textual_decls": 33
+  },
+  {
+   "eoc_imports": [
+    "EOC.SwapBound",
+    "EOC.PrefixCollision"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.SwapBound",
+    "EOC.PrefixCollision"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 240,
+   "module": "EOC.SwapCollatz",
+   "n_commits": 1,
+   "path": "EOC/SwapCollatz.lean",
+   "textual_decls": 16
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.LateShiftPersistence",
+    "EOC.Periodic"
+   ],
+   "first_commit": "899e77faa0ef350a56327f9a8a15a68cc436c91c",
+   "imports": [
+    "EOC.TaoLike.LateShiftPersistence",
+    "EOC.Periodic"
+   ],
+   "last_commit": "1c228ef2e027e01f3d5b4ff97e680215fa8cf943",
+   "lines": 284,
+   "module": "EOC.TaoLike.AllShiftsAveragedPersistence",
+   "n_commits": 2,
+   "path": "EOC/TaoLike/AllShiftsAveragedPersistence.lean",
+   "textual_decls": 7
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.ResidueTV",
+    "EOC.TaoLike.TaoInterface",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "first_commit": "9400e31a66d788f1c33c8c882bc51622122a3758",
+   "imports": [
+    "EOC.TaoLike.ResidueTV",
+    "EOC.TaoLike.TaoInterface",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "last_commit": "1c228ef2e027e01f3d5b4ff97e680215fa8cf943",
+   "lines": 789,
+   "module": "EOC.TaoLike.ConditionalMixing",
+   "n_commits": 4,
+   "path": "EOC/TaoLike/ConditionalMixing.lean",
+   "textual_decls": 28
+  },
+  {
+   "eoc_imports": [
+    "EOC.Realizer"
+   ],
+   "first_commit": "5bf2b68742ae2b9f50fbc7edb96e69edbe26ed33",
+   "imports": [
+    "EOC.Realizer"
+   ],
+   "last_commit": "5bf2b68742ae2b9f50fbc7edb96e69edbe26ed33",
+   "lines": 199,
+   "module": "EOC.TaoLike.Cylinder",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/Cylinder.lean",
+   "textual_decls": 10
+  },
+  {
+   "eoc_imports": [
+    "EOC.Periodic",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "first_commit": "5bf2b68742ae2b9f50fbc7edb96e69edbe26ed33",
+   "imports": [
+    "EOC.Periodic",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "last_commit": "5bf2b68742ae2b9f50fbc7edb96e69edbe26ed33",
+   "lines": 77,
+   "module": "EOC.TaoLike.CylinderAppend",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/CylinderAppend.lean",
+   "textual_decls": 6
+  },
+  {
+   "eoc_imports": [
+    "EOC.Confinement",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "first_commit": "5dd38ea90f5a1ecba1d514c171608e1e24d6edd3",
+   "imports": [
+    "EOC.Confinement",
+    "EOC.TaoLike.Cylinder"
+   ],
+   "last_commit": "5dd38ea90f5a1ecba1d514c171608e1e24d6edd3",
+   "lines": 159,
+   "module": "EOC.TaoLike.CylinderDigitCounting",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/CylinderDigitCounting.lean",
+   "textual_decls": 6
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.ConditionalMixing",
+    "EOC.TaoLike.PersistenceModel"
+   ],
+   "first_commit": "ff09b604790ce4b7ddb82b3ded67c14d7c2a22a5",
+   "imports": [
+    "EOC.TaoLike.ConditionalMixing",
+    "EOC.TaoLike.PersistenceModel"
+   ],
+   "last_commit": "1c228ef2e027e01f3d5b4ff97e680215fa8cf943",
+   "lines": 477,
+   "module": "EOC.TaoLike.EarlyLate",
+   "n_commits": 4,
+   "path": "EOC/TaoLike/EarlyLate.lean",
+   "textual_decls": 21
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "c411396f0c87460d487419b6d3e94dce31e756e2",
+   "imports": [
+    "Mathlib.Data.Int.CardIntervalMod",
+    "Mathlib.Algebra.BigOperators.Module",
+    "Mathlib.Algebra.BigOperators.Ring.Finset",
+    "Mathlib.Data.ZMod.Basic",
+    "Mathlib.Data.Real.Basic",
+    "`EOC.TaoLike.Cylinder`."
+   ],
+   "last_commit": "c411396f0c87460d487419b6d3e94dce31e756e2",
+   "lines": 242,
+   "module": "EOC.TaoLike.HarmonicAP",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/HarmonicAP.lean",
+   "textual_decls": 5
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.NormalizedHarmonicLaw"
+   ],
+   "first_commit": "be1e64c110d758e0ee768ed15715adf73ca7622c",
+   "imports": [
+    "EOC.TaoLike.NormalizedHarmonicLaw"
+   ],
+   "last_commit": "be1e64c110d758e0ee768ed15715adf73ca7622c",
+   "lines": 538,
+   "module": "EOC.TaoLike.HarmonicExceptionalSetSummability",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/HarmonicExceptionalSetSummability.lean",
+   "textual_decls": 9
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.ShiftedPersistence",
+    "EOC.TaoLike.EarlyLate",
+    "EOC.TaoLike.PrefixPartition",
+    "EOC.TaoLike.RestartLawAlignment"
+   ],
+   "first_commit": "8d4fe624ff83606c3e755101e749f868cf847096",
+   "imports": [
+    "EOC.TaoLike.ShiftedPersistence",
+    "EOC.TaoLike.EarlyLate",
+    "EOC.TaoLike.PrefixPartition",
+    "EOC.TaoLike.RestartLawAlignment"
+   ],
+   "last_commit": "1c228ef2e027e01f3d5b4ff97e680215fa8cf943",
+   "lines": 367,
+   "module": "EOC.TaoLike.LateShiftPersistence",
+   "n_commits": 2,
+   "path": "EOC/TaoLike/LateShiftPersistence.lean",
+   "textual_decls": 8
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.AllShiftsAveragedPersistence"
+   ],
+   "first_commit": "be1e64c110d758e0ee768ed15715adf73ca7622c",
+   "imports": [
+    "EOC.TaoLike.AllShiftsAveragedPersistence"
+   ],
+   "last_commit": "1c228ef2e027e01f3d5b4ff97e680215fa8cf943",
+   "lines": 535,
+   "module": "EOC.TaoLike.NormalizedHarmonicLaw",
+   "n_commits": 2,
+   "path": "EOC/TaoLike/NormalizedHarmonicLaw.lean",
+   "textual_decls": 18
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.TaoInterface",
+    "EOC.Confinement"
+   ],
+   "first_commit": "9de65643ae2dfa4edc8b60cee623d9fd3168bc50",
+   "imports": [
+    "EOC.TaoLike.TaoInterface",
+    "EOC.Confinement",
+    "Mathlib.Analysis.Convex.SpecificFunctions.Basic"
+   ],
+   "last_commit": "9de65643ae2dfa4edc8b60cee623d9fd3168bc50",
+   "lines": 463,
+   "module": "EOC.TaoLike.PersistenceModel",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/PersistenceModel.lean",
+   "textual_decls": 45
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.PersistenceModel"
+   ],
+   "first_commit": "3dfae5c69129fdd61e9602f83d9844dc7582588e",
+   "imports": [
+    "EOC.TaoLike.PersistenceModel",
+    "Mathlib.Analysis.MeanInequalities"
+   ],
+   "last_commit": "3dfae5c69129fdd61e9602f83d9844dc7582588e",
+   "lines": 174,
+   "module": "EOC.TaoLike.PersistenceRateCramer",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/PersistenceRateCramer.lean",
+   "textual_decls": 11
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.ConditionalMixing"
+   ],
+   "first_commit": "19940d671569a8fbc76e777d4c00ab99cc66a95f",
+   "imports": [
+    "EOC.TaoLike.ConditionalMixing"
+   ],
+   "last_commit": "19940d671569a8fbc76e777d4c00ab99cc66a95f",
+   "lines": 284,
+   "module": "EOC.TaoLike.PrefixPartition",
+   "n_commits": 1,
+   "path": "EOC/TaoLike/PrefixPartition.lean",
+   "textual_decls": 11
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.Cylinder",
+    "EOC.TaoLike.HarmonicAP"
+   ],
+   "first_commit": "129ed892aad46272571dd6c2e97a145b2b310db6",
+   "imports": [
+    "EOC.TaoLike.Cylinder",
+    "EOC.TaoLike.HarmonicAP",
+    "Mathlib.Data.ZMod.Basic",
+    "Mathlib.Tactic.LinearCombination"
+   ],
+   "last_commit": "4f3de3c802757f9418478fa83b9d3c7d0abc21b5",
+   "lines": 639,
+   "module": "EOC.TaoLike.ResidueTV",
+   "n_commits": 3,
+   "path": "EOC/TaoLike/ResidueTV.lean",
+   "textual_decls": 15
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.PrefixPartition"
+   ],
+   "first_commit": "c231dbeb80a16ef1962ac32dd273db3610144e6d",
+   "imports": [
+    "EOC.TaoLike.PrefixPartition"
+   ],
+   "last_commit": "8d4fe624ff83606c3e755101e749f868cf847096",
+   "lines": 653,
+   "module": "EOC.TaoLike.RestartLawAlignment",
+   "n_commits": 4,
+   "path": "EOC/TaoLike/RestartLawAlignment.lean",
+   "textual_decls": 21
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.ConditionalMixing",
+    "EOC.TaoLike.PersistenceModel"
+   ],
+   "first_commit": "c2bed75a2ddebe610f8e0429160d3817526e8ba0",
+   "imports": [
+    "EOC.TaoLike.ConditionalMixing",
+    "EOC.TaoLike.PersistenceModel"
+   ],
+   "last_commit": "4f3de3c802757f9418478fa83b9d3c7d0abc21b5",
+   "lines": 198,
+   "module": "EOC.TaoLike.ShiftedPersistence",
+   "n_commits": 3,
+   "path": "EOC/TaoLike/ShiftedPersistence.lean",
+   "textual_decls": 6
+  },
+  {
+   "eoc_imports": [
+    "EOC.TaoLike.ResidueTV"
+   ],
+   "first_commit": "473f0cb26b3eefc8ae08fb082cfa2ce23f1ffd67",
+   "imports": [
+    "EOC.TaoLike.ResidueTV",
+    "Mathlib.Analysis.SpecificLimits.Basic",
+    "Mathlib.Analysis.Normed.Ring.InfiniteSum",
+    "Mathlib.Logic.Equiv.Fin.Basic",
+    "Mathlib.Algebra.BigOperators.Fin",
+    "Mathlib.Data.ZMod.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real"
+   ],
+   "last_commit": "1c228ef2e027e01f3d5b4ff97e680215fa8cf943",
+   "lines": 554,
+   "module": "EOC.TaoLike.TaoInterface",
+   "n_commits": 4,
+   "path": "EOC/TaoLike/TaoInterface.lean",
+   "textual_decls": 47
+  },
+  {
+   "eoc_imports": [
+    "EOC.BlockCube"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.BlockCube"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 248,
+   "module": "EOC.ThreeBlock",
+   "n_commits": 1,
+   "path": "EOC/ThreeBlock.lean",
+   "textual_decls": 23
+  },
+  {
+   "eoc_imports": [
+    "EOC.SuffixTransport"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.SuffixTransport"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 265,
+   "module": "EOC.TransportCollapse",
+   "n_commits": 1,
+   "path": "EOC/TransportCollapse.lean",
+   "textual_decls": 16
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "Mathlib"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 214,
+   "module": "EOC.TriangleArray",
+   "n_commits": 1,
+   "path": "EOC/TriangleArray.lean",
+   "textual_decls": 19
+  },
+  {
+   "eoc_imports": [
+    "EOC.MaxTriangle"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.MaxTriangle"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 590,
+   "module": "EOC.TriangleHop",
+   "n_commits": 1,
+   "path": "EOC/TriangleHop.lean",
+   "textual_decls": 32
+  },
+  {
+   "eoc_imports": [
+    "EOC.SwapBound"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.SwapBound",
+    "Mathlib.Analysis.SpecialFunctions.Complex.Log",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Bounds"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 511,
+   "module": "EOC.TwistExpansion",
+   "n_commits": 1,
+   "path": "EOC/TwistExpansion.lean",
+   "textual_decls": 31
+  },
+  {
+   "eoc_imports": [
+    "EOC.UpperEscape"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.UpperEscape"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 195,
+   "module": "EOC.UpperCertificates",
+   "n_commits": 1,
+   "path": "EOC/UpperCertificates.lean",
+   "textual_decls": 10
+  },
+  {
+   "eoc_imports": [
+    "EOC.LogCorridor"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.LogCorridor"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 341,
+   "module": "EOC.UpperEscape",
+   "n_commits": 1,
+   "path": "EOC/UpperEscape.lean",
+   "textual_decls": 27
+  },
+  {
+   "eoc_imports": [
+    "EOC.Basic"
+   ],
+   "first_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "imports": [
+    "EOC.Basic",
+    "Mathlib.Algebra.BigOperators.Group.Finset.Basic"
+   ],
+   "last_commit": "984ba55de3ed89146a09bb4feecf961437bfae30",
+   "lines": 109,
+   "module": "EOC.ValuationWord",
+   "n_commits": 1,
+   "path": "EOC/ValuationWord.lean",
+   "textual_decls": 11
+  },
+  {
+   "eoc_imports": [
+    "EOC.ShellwiseChain",
+    "EOC.TwistExpansion",
+    "EOC.PrefixStateFormula",
+    "EOC.SwapCollatz"
+   ],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "EOC.ShellwiseChain",
+    "EOC.TwistExpansion",
+    "EOC.PrefixStateFormula",
+    "EOC.SwapCollatz"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 413,
+   "module": "EOC.WeightedChain",
+   "n_commits": 1,
+   "path": "EOC/WeightedChain.lean",
+   "textual_decls": 29
+  },
+  {
+   "eoc_imports": [
+    "EOC.TriangleHop",
+    "EOC.BlockCubeInstance",
+    "EOC.PsiSieve"
+   ],
+   "first_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "imports": [
+    "EOC.TriangleHop",
+    "EOC.BlockCubeInstance",
+    "EOC.PsiSieve"
+   ],
+   "last_commit": "56f12748a6c78ea59c3c5cad6126c03b86f39e7a",
+   "lines": 449,
+   "module": "EOC.WhiteContraction",
+   "n_commits": 1,
+   "path": "EOC/WhiteContraction.lean",
+   "textual_decls": 30
+  },
+  {
+   "eoc_imports": [],
+   "first_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "imports": [
+    "Mathlib"
+   ],
+   "last_commit": "3e39041ba7b2263569117e51e4fc6cbcffca750f",
+   "lines": 234,
+   "module": "EOC.WhiteRun",
+   "n_commits": 1,
+   "path": "EOC/WhiteRun.lean",
+   "textual_decls": 15
+  },
+  {
+   "eoc_imports": [
+    "EOC.Realizer",
+    "EOC.LiftDigits"
+   ],
+   "first_commit": "70a4d4a3a472cd99fe772e98bfc846f18fa804be",
+   "imports": [
+    "EOC.Realizer",
+    "EOC.LiftDigits"
+   ],
+   "last_commit": "70a4d4a3a472cd99fe772e98bfc846f18fa804be",
+   "lines": 152,
+   "module": "EOC.ZCRERealizerGrowth",
+   "n_commits": 1,
+   "path": "EOC/ZCRERealizerGrowth.lean",
+   "textual_decls": 8
+  }
+ ],
+ "preexisting_tooling": {
+  "declaration_metadata": false,
+  "dependency_extraction": false,
+  "import_graph": false,
+  "note": "Searched for these before building; none present at 1d087e2. Nothing was duplicated.",
+  "status_registry": false,
+  "theorem_registry": false
+ },
+ "repo_head": "1d087e20b72faaf7a4d13ee03c44b0858990f238",
+ "schema": "eoc-research-index/repo_inventory/1",
+ "scratch_dirs": [
+  "scratch/avgpressure_2026-09-16",
+  "scratch/center_audit_2026-09-14",
+  "scratch/codimension_2026-09-16",
+  "scratch/collision_2026-09-15",
+  "scratch/decay_2026-09-15",
+  "scratch/dynamic_deficit_feedback_2026-09-21",
+  "scratch/hop_2026-09-15",
+  "scratch/horizon_2026-09-14",
+  "scratch/interval_2026-09-15",
+  "scratch/l3_2026-09-15",
+  "scratch/lift_mixing_2026-09-14",
+  "scratch/logwindows_2026-09-16",
+  "scratch/orbit_2026-09-15",
+  "scratch/pair_valuation_2026-09-14",
+  "scratch/phase_dependence_2026-09-14",
+  "scratch/pressure_2026-09-16",
+  "scratch/pressure_exact_2026-09-16",
+  "scratch/ridout_2026-09-15",
+  "scratch/scales_reconciliation_2026-09-14",
+  "scratch/shapetail_2026-09-16",
+  "scratch/shapetail_allEven_2026-09-16",
+  "scratch/shiftaudit_2026-09-16",
+  "scratch/spacing_2026-09-15",
+  "scratch/sparsevisits_2026-09-16",
+  "scratch/swap_2026-09-15",
+  "scratch/tao_2026-09-15",
+  "scratch/triangle_2026-09-15",
+  "scratch/weighted_2026-09-15",
+  "scratch/weyl_2026-09-14",
+  "scratch/zcre_realizer_growth_2026-09-21"
+ ],
+ "totals": {
+  "commits": 76,
+  "docs": 13,
+  "lean_lines": 30095,
+  "lean_modules": 97,
+  "scratch_dirs": 30
+ }
+}

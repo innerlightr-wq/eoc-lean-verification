@@ -1,0 +1,245 @@
+{
+ "schema": "eoc-research-index/research_graph/1",
+ "note": "Hand-curated semantic layer. NOT part of the Aksenov et al. methodology; see docs/AKSENOV_METHOD_NOTES.md Part 3. Every node and edge carries a `source` that must resolve to a real file, and for Lean sources to a real declaration in formal_graph.json; `python3 -m tools.research_context validate` enforces this. Seeded only from results the repository documents explicitly -- where the documentation does not support a claim, the claim is absent and the omission is recorded in `known_gaps`.",
+ "nodes": [
+  {
+   "id": "type-ii-divergence",
+   "title": "Type-II divergent orbit (the target)",
+   "status": "CURRENT_FRONTIER",
+   "summary": "The object the repository exists to exclude: an accelerated Collatz orbit that diverges. Everything below is either a reduction of this, a conditional handle on it, or a route to it that has been closed.",
+   "keywords": ["divergence", "type-ii", "divergent", "orbit", "collatz"],
+   "source": {"file": "docs/RESEARCH_STATUS.md"}
+  },
+  {
+   "id": "curry-hypothesis",
+   "title": "Curry hypothesis (ReciprocalSummable)",
+   "status": "CONDITIONAL_FOUNDATION",
+   "summary": "Summability of the reciprocals along the orbit. Everything in the Curry sector is conditional on this and must be labelled as such -- it is an assumed input, not a theorem of the repository.",
+   "keywords": ["curry", "reciprocal", "summable", "hypothesis", "conditional"],
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.ReciprocalSummable"}
+  },
+  {
+   "id": "curry-zero-corridor",
+   "title": "Curry normalization to the zero corridor",
+   "status": "CONDITIONAL_FOUNDATION",
+   "summary": "Conditionally on Curry, a hypothetical Type-II orbit can be restarted at the last global drift maximum so that R_0 = 0 and R_N < 0 for N >= 1, hence S_N <= floor(N*alpha) and the deficit is non-negative. This is the normalization every later Curry-sector argument assumes.",
+   "keywords": ["curry", "corridor", "normalization", "drift", "deficit", "restart"],
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.zero_corridor_tail"}
+  },
+  {
+   "id": "drift-to-minus-infinity",
+   "title": "Drift tends to minus infinity under Curry",
+   "status": "MAJOR_REDUCTION",
+   "summary": "R_N -> -infinity for every reciprocally-summable accelerated orbit. Labelled CURRY + ELEMENTARY CONSEQUENCE in the foundation document: not stated by Curry, but a short rigorous consequence via the Eliahou-Rozier identity.",
+   "keywords": ["drift", "curry", "divergence", "eliahou", "rozier"],
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.R_tendsto_atBot"}
+  },
+  {
+   "id": "deficit-diverges",
+   "title": "Deficit divergence is equivalent to drift divergence",
+   "status": "MAJOR_REDUCTION",
+   "summary": "R'_k = -Delta_k - {k*alpha} with the fractional correction bounded in (-1,0], so R'_k -> -infinity is exactly Delta_k -> infinity. This is the coordinate identity that lets the Curry sector be studied in deficit coordinates at all.",
+   "keywords": ["deficit", "drift", "equivalent", "coordinates", "beatty"],
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.deficit_tendsto_atTop_iff"}
+  },
+  {
+   "id": "deficit-recursion",
+   "title": "Deficit recursion (pure algebra)",
+   "status": "FOUNDATIONAL",
+   "summary": "Delta_{k+1} = Delta_k + b_{k+1} - d_k, where b is the Beatty gap and d the valuation digit. Its Lean proof is `unfold deficit; push_cast; ring`. This is the canonical example of a recurrence that looks dynamical and carries no information -- see the coordinate-change gate.",
+   "keywords": ["deficit", "recursion", "recurrence", "algebra", "ring", "tautology"],
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.deficit_succ"}
+  },
+  {
+   "id": "deficit-cannot-jump",
+   "title": "Deficit increases by at most one per step",
+   "status": "FOUNDATIONAL",
+   "summary": "Delta_{k+1} <= Delta_k + 1 whenever every digit is at least 1, so Delta -> infinity requires infinitely many steps with Beatty gap 2 and digit 1, each buying one unit. Corollary of the recursion and the Beatty gap; not an obstruction.",
+   "keywords": ["deficit", "increment", "growth", "beatty", "bound"],
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.deficit_succ_le"}
+  },
+  {
+   "id": "finite-valuation-word",
+   "title": "FiniteValuationWord (the central datatype)",
+   "status": "FOUNDATIONAL",
+   "summary": "The valuation-word abstraction on which most of the library is built; by a wide margin the most depended-upon EOC declaration (425 reverse dependencies inside EOC).",
+   "keywords": ["word", "valuation", "datatype", "prefix", "digits"],
+   "source": {"file": "EOC/FiniteValuationWord.lean", "declaration": "EOC.FiniteValuationWord"}
+  },
+  {
+   "id": "zcre-realizer-equivalence",
+   "title": "Bounded prefix realizers = positive-integer realizability",
+   "status": "EQUIVALENCE",
+   "summary": "sup_N r_N < infinity  <=>  the infinite valuation word has a positive-integer realizer  <=>  r_N is eventually constant. Unconditional, and independent of the Curry sector. Consequence: qualitative unbounded-realizer growth is NOT an easier target than positive-integer realizability, and must not be pursued as if it were.",
+   "keywords": ["realizer", "realizers", "bounded", "unbounded", "prefix", "growth", "equivalence", "zcre", "upr"],
+   "source": {"file": "EOC/ZCRERealizerGrowth.lean", "declaration": "EOC.ZCRERealizerGrowth.boundedPrefixRealizers_iff_positiveRealizer"}
+  },
+  {
+   "id": "realizer-eventually-constant",
+   "title": "Least prefix realizer stabilizes",
+   "status": "EQUIVALENCE",
+   "summary": "Bounded least-prefix-realizers are eventually constant. For an actual positive seed m_0 this means r_N = m_0 once 2^{S_N+1} > m_0 -- an extremely rigid signature, but not a mechanism for forbidding stabilization.",
+   "keywords": ["realizer", "stabilization", "constant", "seed", "prefix"],
+   "source": {"file": "EOC/ZCRERealizerGrowth.lean", "declaration": "EOC.ZCRERealizerGrowth.leastRealizer_eventually_constant_of_bounded"}
+  },
+  {
+   "id": "dynamic-deficit-feedback-closed",
+   "title": "Dynamic deficit feedback is a reparameterization",
+   "status": "CLOSED_ROUTE",
+   "summary": "The loop Delta_N -> m_N -> d_N = v_2(3m_N+1) -> Delta_{N+1} is the Bernstein-Lagarias 2-adic conjugacy in deficit coordinates; every arrow is a definition or an already-proved identity. The state-size ceiling d_N <= log2(3m_N+1) is strictly WEAKER than the zero-corridor ceiling d_N <= Delta_N + b for every seed m_0 >= 2, so a large state constrains the next valuation less than the corridor already does.",
+   "keywords": ["feedback", "dynamic", "deficit", "state", "valuation", "reparameterization", "coordinate", "tautology", "conjugacy"],
+   "source": {"file": "docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md", "section": "D. Tautology gate"}
+  },
+  {
+   "id": "zcre-frontier",
+   "title": "The surviving sector: zero-corridor, unboundedly many defects, diverging deficit",
+   "status": "CURRENT_FRONTIER",
+   "summary": "Population C in the frontier document: the sector that remains open after the controlled sectors are removed. The moving-anchor obstruction is itself the open problem here, not a tool for attacking it.",
+   "keywords": ["frontier", "open", "corridor", "defects", "deficit", "population", "moving", "anchor", "surviving"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 23 Sectors already controlled"}
+  },
+  {
+   "id": "chain-a-bottleneck",
+   "title": "Chain A arithmetic bottleneck: PowerOfTwoDangerousWindowSparsity",
+   "status": "BOTTLENECK",
+   "summary": "The documented open target: prove PowerOfTwoDangerousWindowSparsity for all sufficiently large even j, every shift t in range, and some logarithmic K <= A*log2(j)+1; the lambda = 1 case is the essential core. Separately open and needed by the exceptional-set chain: lower shells sigma < floor(j*alpha) and barrier offsets U > 0. The document states explicitly that it is NOT proved, NOT known to follow from any equidistribution theorem, and NOT claimed equivalent to any named conjecture.",
+   "keywords": ["chain", "bottleneck", "sparsity", "window", "dangerous", "arithmetic", "open", "target", "lambda"],
+   "source": {"file": "docs/ARITHMETIC_FRONTIER.md", "section": "Sec. 10 Open mathematical target (OPEN)"}
+  },
+  {
+   "id": "tao-mixing-conditional",
+   "title": "Tao-style machinery is gated on an unproved hypothesis",
+   "status": "BOTTLENECK",
+   "summary": "The repository's Chain A Fourier / dangerous-window machinery is a CONDITIONAL result gated on TaoMixingHypothesis, an unproved external interface. It does not currently reach the realizability frontier, and re-running it there will not change that without progress on the hypothesis itself.",
+   "keywords": ["tao", "mixing", "hypothesis", "fourier", "chain", "conditional", "dangerous", "window"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}
+  },
+  {
+   "id": "closed-pell-continued-fraction",
+   "title": "Pell / continued-fraction drift approximants",
+   "status": "CLOSED_ROUTE",
+   "summary": "Listed among routes not to repeat. The documented reason is precise and narrow: NO REPOSITORY RESULT CONNECTS THESE TO REALIZABILITY; the route would have to be developed from scratch with a stated realizability connection, not assumed. The repository does NOT document any stronger closure (e.g. a proved decoupling of real approximation from 2-adic behaviour) -- see known_gaps.",
+   "keywords": ["pell", "continued", "fraction", "diophantine", "approximation", "denominator", "closed", "drift"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}
+  },
+  {
+   "id": "closed-fixed-modulus-packing",
+   "title": "Fixed-modulus congruence packing",
+   "status": "CLOSED_ROUTE",
+   "summary": "Proved terminal at B < 8/9, independently of Curry (manuscript Theorem 4.5, Appendix D/E).",
+   "keywords": ["congruence", "packing", "modulus", "fixed", "terminal", "closed"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}
+  },
+  {
+   "id": "closed-entropy-counting",
+   "title": "Generic entropy counting",
+   "status": "CLOSED_ROUTE",
+   "summary": "Already fully spent on the Curry / window-sparsity axis; nothing left to extract from entropy counting alone for the residue axis.",
+   "keywords": ["entropy", "counting", "generic", "closed", "spent"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}
+  },
+  {
+   "id": "closed-periodic-only",
+   "title": "Periodic-only arguments",
+   "status": "CLOSED_ROUTE",
+   "summary": "Theorem 5.9's mechanism is already fully used, and the surviving sector is defined by EXCLUDING periodicity.",
+   "keywords": ["periodic", "periodicity", "closed", "mechanism"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}
+  },
+  {
+   "id": "closed-bounded-defect-only",
+   "title": "Bounded-defect-only arguments and naive recovery",
+   "status": "REFUTED_ROUTE",
+   "summary": "Proposition 5.10's mechanism is fully used and shown NOT to extend via naive recovery (Remark 5.11). Recovery-efficiency alone is the specific mechanism Remark 5.11 refuted.",
+   "keywords": ["bounded", "defect", "recovery", "efficiency", "refuted", "naive"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}
+  },
+  {
+   "id": "discriminator-criterion",
+   "title": "Discriminator criterion for any proposed invariant",
+   "status": "HEURISTIC",
+   "summary": "Before spending effort on a candidate invariant I(W), require an answer to whether I distinguishes finite prefixes coming from a fixed positive-integer orbit from those that do not. Arbitrary complexity statistics with no realizability-connection criterion must pass this bar first.",
+   "keywords": ["discriminator", "criterion", "invariant", "gate", "screening", "complexity", "statistics"],
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 28 Discriminator criterion"}
+  },
+  {
+   "id": "coordinate-change-gate",
+   "title": "Coordinate-change / tautology gate",
+   "status": "HEURISTIC",
+   "summary": "Screening heuristic distilled from two completed audits: if a proposed quantity is a deterministic function of the digit word or orbit state, its recurrence will be provable by `unfold; ring` and carries no new restriction. Not a general proof of equivalence.",
+   "keywords": ["coordinate", "change", "tautology", "gate", "screening", "reparameterization", "ring"],
+   "source": {"file": "research-index/research_protocol.md"}
+  }
+ ],
+ "edges": [
+  {"from": "curry-zero-corridor", "to": "curry-hypothesis", "relation": "CONDITIONAL_ON",
+   "note": "the normalization holds only under reciprocal summability",
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.zero_corridor_tail"}},
+  {"from": "drift-to-minus-infinity", "to": "curry-hypothesis", "relation": "CONDITIONAL_ON",
+   "note": "CURRY + ELEMENTARY CONSEQUENCE, per the foundation document",
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.R_tendsto_atBot"}},
+  {"from": "curry-zero-corridor", "to": "type-ii-divergence", "relation": "REDUCES_TO",
+   "note": "normalizes a hypothetical Type-II orbit into the zero corridor",
+   "source": {"file": "docs/CURRY_FOUNDATION.md"}},
+  {"from": "deficit-diverges", "to": "drift-to-minus-infinity", "relation": "EQUIVALENT_TO",
+   "note": "Delta_k -> infinity iff R'_k -> -infinity; bounded fractional correction",
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.deficit_tendsto_atTop_iff"}},
+  {"from": "deficit-cannot-jump", "to": "deficit-recursion", "relation": "DEPENDS_ON",
+   "note": "corollary of the recursion together with the Beatty gap being 1 or 2",
+   "source": {"file": "EOC/CurryFoundation.lean", "declaration": "EOC.CurryFoundation.deficit_succ_le"}},
+  {"from": "dynamic-deficit-feedback-closed", "to": "type-ii-divergence", "relation": "EQUIVALENT_TO",
+   "note": "the feedback system is Type-II divergence in (m_N, Delta_N) coordinates",
+   "source": {"file": "docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md", "section": "S. Research verdict"}},
+  {"from": "dynamic-deficit-feedback-closed", "to": "deficit-recursion", "relation": "DEPENDS_ON",
+   "note": "the decisive evidence is that the recursion's Lean proof is `ring`",
+   "source": {"file": "docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md", "section": "D. Tautology gate"}},
+  {"from": "coordinate-change-gate", "to": "dynamic-deficit-feedback-closed", "relation": "CLOSES_ROUTE",
+   "note": "the gate is distilled from this closure and would have caught it early",
+   "source": {"file": "research-index/research_protocol.md"}},
+  {"from": "coordinate-change-gate", "to": "zcre-realizer-equivalence", "relation": "CLOSES_ROUTE",
+   "note": "the gate is distilled from this closure too",
+   "source": {"file": "research-index/research_protocol.md"}},
+  {"from": "realizer-eventually-constant", "to": "zcre-realizer-equivalence", "relation": "DEPENDS_ON",
+   "note": "one of the three equivalent conditions",
+   "source": {"file": "EOC/ZCRERealizerGrowth.lean", "declaration": "EOC.ZCRERealizerGrowth.leastRealizer_eventually_constant_of_bounded"}},
+  {"from": "zcre-realizer-equivalence", "to": "zcre-frontier", "relation": "BLOCKED_BY",
+   "note": "the equivalence removes a proposed easier route; the frontier is unchanged by it",
+   "source": {"file": "docs/ZCRE_REALIZER_GROWTH_AUDIT.md"}},
+  {"from": "tao-mixing-conditional", "to": "chain-a-bottleneck", "relation": "BLOCKED_BY",
+   "note": "Chain A machinery is gated on an unproved external hypothesis",
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}},
+  {"from": "closed-pell-continued-fraction", "to": "zcre-frontier", "relation": "CLOSES_ROUTE",
+   "note": "listed as not to be repeated without a stated realizability connection",
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}},
+  {"from": "closed-fixed-modulus-packing", "to": "zcre-frontier", "relation": "CLOSES_ROUTE",
+   "note": "terminal at B < 8/9 independently of Curry",
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}},
+  {"from": "closed-entropy-counting", "to": "zcre-frontier", "relation": "CLOSES_ROUTE",
+   "note": "fully spent on the window-sparsity axis",
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}},
+  {"from": "closed-periodic-only", "to": "zcre-frontier", "relation": "CLOSES_ROUTE",
+   "note": "the surviving sector is defined by excluding periodicity",
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}},
+  {"from": "closed-bounded-defect-only", "to": "zcre-frontier", "relation": "REFUTES",
+   "note": "naive recovery shown not to extend the bounded-defect mechanism",
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 27 Routes already known not to work, or not new"}},
+  {"from": "discriminator-criterion", "to": "zcre-frontier", "relation": "BLOCKED_BY",
+   "note": "any candidate invariant must pass this bar before effort is spent",
+   "source": {"file": "docs/ZERO_CORRIDOR_REALIZABILITY_FRONTIER.md", "section": "Sec. 28 Discriminator criterion"}},
+  {"from": "finite-valuation-word", "to": "type-ii-divergence", "relation": "FORMALIZES",
+   "note": "the datatype in which symbolic statements about orbits are expressed",
+   "source": {"file": "EOC/FiniteValuationWord.lean", "declaration": "EOC.FiniteValuationWord"}}
+ ],
+ "known_gaps": [
+  {
+   "claim": "The Pell / continued-fraction route was closed because real approximation and 2-adic/carry behaviour decouple.",
+   "status": "NOT SUPPORTED BY REPOSITORY DOCUMENTATION",
+   "detail": "Searched docs/ for 'decouple' and 'Pell': the only occurrence of Pell is the single line in the frontier document's Sec. 27, whose stated reason is that no repository result connects these to realizability. No document asserts a proved decoupling. The weaker, documented reason is what the node records."
+  },
+  {
+   "claim": "Open Problem E and its relation to a sharp Open Problem C.",
+   "status": "NOT PRESENT IN REPOSITORY DOCUMENTATION",
+   "detail": "No document at commit 1d087e2 mentions 'Open Problem C' or 'Open Problem E'. The only numbered open problem reference is 'Open Problem 12.8' of the occupation program, cited in docs/CURRY_FOUNDATION.md. Nothing was encoded for C or E."
+  }
+ ]
+}

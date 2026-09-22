@@ -9,3 +9,11 @@ __pycache__/
 *~
 *.swp
 .*.swp
+
+# Intermediate output of tools/research_context/lean/ExtractDeps.lean.
+# Regenerate with:
+#   lake env lean tools/research_context/lean/ExtractDeps.lean > research-index/raw_decls.jsonl
+# Not versioned: multi-MB, and a fresh blob on every rebuild. The derived
+# research-index/formal_graph.json IS versioned, so every command except
+# `build` works from a clean clone with no Lean build.
+/research-index/raw_decls.jsonl

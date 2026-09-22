@@ -1,0 +1,226 @@
+{
+ "figures": {
+  "01_log2unwrapped_vs_depth_viewB": {
+   "intercept": 4.3525,
+   "n": 1676,
+   "r2": 0.6592,
+   "slope": 0.8866
+  },
+  "02_log2unwrapped_vs_depth_viewA": {
+   "intercept": 0.9103,
+   "n": 1676,
+   "r2": 0.9913,
+   "slope": 0.9061
+  },
+  "03_wrapped_vs_depth_viewB": {
+   "intercept": 94.3898,
+   "n": 1676,
+   "r2": 0.0367,
+   "slope": 23.8372
+  },
+  "04_log2unwrapped_vs_wrapped_viewB": {
+   "intercept": 7.3266,
+   "n": 1676,
+   "r2": 0.1246,
+   "slope": 0.0031
+  },
+  "05_centrality_vs_compression": {
+   "intercept": 0.0004,
+   "n": 1676,
+   "r2": 0.0018,
+   "slope": 0.0009
+  }
+ },
+ "median_log2unwrapped_by_depth_viewA_binned10": {
+  "0": {
+   "median": 5.0,
+   "n": 32
+  },
+  "10": {
+   "median": 16.0,
+   "n": 318
+  },
+  "20": {
+   "median": 22,
+   "n": 301
+  },
+  "30": {
+   "median": 36,
+   "n": 97
+  },
+  "40": {
+   "median": 42.0,
+   "n": 16
+  },
+  "50": {
+   "median": 52,
+   "n": 223
+  },
+  "60": {
+   "median": 57,
+   "n": 143
+  },
+  "70": {
+   "median": 73.0,
+   "n": 190
+  },
+  "80": {
+   "median": 75.0,
+   "n": 356
+  }
+ },
+ "median_log2unwrapped_by_depth_viewB": {
+  "1": {
+   "median": 6.0,
+   "n": 264
+  },
+  "2": {
+   "median": 6,
+   "n": 177
+  },
+  "3": {
+   "median": 7,
+   "n": 241
+  },
+  "4": {
+   "median": 7.0,
+   "n": 306
+  },
+  "5": {
+   "median": 9.0,
+   "n": 322
+  },
+  "6": {
+   "median": 10.0,
+   "n": 144
+  },
+  "7": {
+   "median": 10,
+   "n": 109
+  },
+  "8": {
+   "median": 12.0,
+   "n": 84
+  },
+  "9": {
+   "median": 13,
+   "n": 29
+  }
+ },
+ "sample": {
+  "excluded_generated": 1938,
+  "excluded_no_source_range": 12,
+  "human_written_with_source": 1676,
+  "total_eoc": 3626
+ },
+ "top_by_pagerank_components_separate": [
+  {
+   "T0_viewB": 0.3846,
+   "depth_viewB": 1,
+   "log2_unwrapped_viewB": 2,
+   "name": "EOC.FiniteValuationWord",
+   "pagerank_viewB": 0.08379879,
+   "rev_deps_eoc": 425,
+   "wrapped_tokens_approx": 13
+  },
+  {
+   "T0_viewB": 0.3571,
+   "depth_viewB": 1,
+   "log2_unwrapped_viewB": 2,
+   "name": "EOC.TaoExternal.EventProb",
+   "pagerank_viewB": 0.07054758,
+   "rev_deps_eoc": 28,
+   "wrapped_tokens_approx": 14
+  },
+  {
+   "T0_viewB": 0.6667,
+   "depth_viewB": 2,
+   "log2_unwrapped_viewB": 4,
+   "name": "EOC.TaoExternal.genEventProb",
+   "pagerank_viewB": 0.04638547,
+   "rev_deps_eoc": 58,
+   "wrapped_tokens_approx": 33
+  },
+  {
+   "T0_viewB": 8.7477,
+   "depth_viewB": 5,
+   "log2_unwrapped_viewB": 9,
+   "name": "EOC.SwapBound.G",
+   "pagerank_viewB": 0.04615479,
+   "rev_deps_eoc": 11,
+   "wrapped_tokens_approx": 107
+  },
+  {
+   "T0_viewB": 1.5094,
+   "depth_viewB": 3,
+   "log2_unwrapped_viewB": 6,
+   "name": "EOC.TaoExternal.IsProbabilityLaw",
+   "pagerank_viewB": 0.0387477,
+   "rev_deps_eoc": 17,
+   "wrapped_tokens_approx": 53
+  },
+  {
+   "T0_viewB": 0.5238,
+   "depth_viewB": 1,
+   "log2_unwrapped_viewB": 3,
+   "name": "EOC.ValuationShell",
+   "pagerank_viewB": 0.02411694,
+   "rev_deps_eoc": 22,
+   "wrapped_tokens_approx": 21
+  },
+  {
+   "T0_viewB": 0.4706,
+   "depth_viewB": 1,
+   "log2_unwrapped_viewB": 4,
+   "name": "EOC.extendDigit",
+   "pagerank_viewB": 0.02205786,
+   "rev_deps_eoc": 7,
+   "wrapped_tokens_approx": 34
+  },
+  {
+   "T0_viewB": 0.7576,
+   "depth_viewB": 1,
+   "log2_unwrapped_viewB": 4,
+   "name": "EOC.PrefixCollision.shiftBarrier",
+   "pagerank_viewB": 0.02104835,
+   "rev_deps_eoc": 3,
+   "wrapped_tokens_approx": 33
+  },
+  {
+   "T0_viewB": 4.459,
+   "depth_viewB": 1,
+   "log2_unwrapped_viewB": 9,
+   "name": "EOC.ShapeUnconditional.checkAt",
+   "pagerank_viewB": 0.01768751,
+   "rev_deps_eoc": 3,
+   "wrapped_tokens_approx": 122
+  },
+  {
+   "T0_viewB": 16.75,
+   "depth_viewB": 3,
+   "log2_unwrapped_viewB": 9,
+   "name": "EOC.SwapBound.blockWeight",
+   "pagerank_viewB": 0.01762577,
+   "rev_deps_eoc": 13,
+   "wrapped_tokens_approx": 40
+  },
+  {
+   "T0_viewB": 13.3929,
+   "depth_viewB": 5,
+   "log2_unwrapped_viewB": 8,
+   "name": "EOC.CapacityBounds.chordRot",
+   "pagerank_viewB": 0.01390269,
+   "rev_deps_eoc": 3,
+   "wrapped_tokens_approx": 28
+  },
+  {
+   "T0_viewB": 13.7027,
+   "depth_viewB": 6,
+   "log2_unwrapped_viewB": 8,
+   "name": "EOC.PrefixCollision.shellP",
+   "pagerank_viewB": 0.01389224,
+   "rev_deps_eoc": 128,
+   "wrapped_tokens_approx": 37
+  }
+ ]
+}
