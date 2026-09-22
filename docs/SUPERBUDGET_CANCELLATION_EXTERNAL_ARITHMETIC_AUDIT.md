@@ -787,8 +787,9 @@ scratch/gate36_pigeonhole.py                                (new)
 
 ## AM. Commits
 
-`5b456f8` — *Close the external-arithmetic route; the cancellation object has a closed form*,
-on top of base `d5d12c2`. Single commit; `main` untouched.
+`45647e1` — *Close the external-arithmetic route; the cancellation object has a closed form*,
+on top of base `d5d12c2`, plus a follow-up commit correcting this hash reference (the first
+recorded hash was stale after an amend). `main` untouched.
 
 ## AN. Push status
 
