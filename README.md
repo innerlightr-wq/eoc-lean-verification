@@ -22,6 +22,14 @@ This repository is a companion artifact to the current manuscript revision:
 > [doi:10.5281/zenodo.22903860](https://doi.org/10.5281/zenodo.22903860)
 > (all-versions DOI: [10.5281/zenodo.20569293](https://doi.org/10.5281/zenodo.20569293))
 
+**Revision 7 (September 2026, `paper/eoc_rev7.tex`, not yet deposited)** is a consolidation of
+corrections. The verification record improved — reciprocal summability is now *derived in Lean*
+from the windowed sparsity count, leaving Curry's Theorem 2.3 as the sole external input in that
+chain — several claims were narrowed (hierarchy strictness, the cardinality barrier's reach,
+fixed-modulus terminality), Open Problem F was made quantitative, and four bibliography entries
+recovered their DOIs. **Universal drift exit remains open**, and nothing in Revision 7 proves
+divergence exclusion or any tier of EOC. Revision 6 is preserved unchanged.
+
 **Revision 6 (September 2026)** reorganizes the manuscript around four axes —
 occupation, residue, time, and divergence — with the residue–time duality as
 the organizing bridge. The LaTeX source is in `paper/`. The section below
