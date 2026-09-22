@@ -22,6 +22,11 @@ cites. No discrepancy.
 No publication venue, DOI, or arXiv identifier appears in or on the note. **Nothing about its
 status is inferred from citations**: the audit below is of the mathematics only.
 
+**How to read the "independent check" column.** The verdicts rest on the *general proof arguments*,
+which are reproduced in §3–§5. The exact computations **corroborate** those arguments — they confirm
+identities, boundary cases and the numerical optimisation — and establish nothing on their own. A
+finite check is never evidence for a universally quantified theorem.
+
 ## 1. Setting, and the two maps (brief item 2)
 
 Curry works with **two** maps and keeps them apart correctly.
@@ -174,16 +179,21 @@ Reading downward, each row consumes the rows above it.
 |---|---|---|---|
 | E1 | Entropy tail bound `Σ_{i≥γN}C(N,i) ≤ 2^{NH(γ)}`, `γ ≥ 1/2` | **classical**, used without proof; verified here | Curry §2 |
 | E2 | **Thm 2.3** windowed count, exponent `β > β* = 0.9653844…` | **external, audited correct on paper, NOT formalized** | Curry §2; `CurryInterface.PowerSavingCount` / `WindowedSparsity` |
-| O1 | *dyadic summation* `PowerSavingCount ⟹ ReciprocalSummable` | **remaining formalization obligation** — stated, unproved | `CurryInterface.PowerSavingImpliesSummable` |
-| E3 | **Prop 3.1** `Σ1/y_n < ∞` on a divergent orbit | **external, audited correct, NOT formalized.** The *only* input the reduction consumes | Curry §3; `CurryInterface.CurryReciprocalSummability` |
+| O1 | *dyadic summation* `PowerSavingCount` + injectivity `⟹ ReciprocalSummable` | **DISCHARGED — now Lean** | `PowerSavingSummable.powerSaving_implies_summable` |
+| E3 | **Prop 3.1** `Σ1/y_n < ∞` on a divergent orbit | **no longer a separate input** — now derived from E2 via O1 | `PowerSavingSummable.curry_summability_of_windowed'` |
 | F1 | injective ⟺ divergent | **Lean** | `CurryInterface.injective_iff_divergent` (uses existing `UpperEscape.injective_orbit_tendsto`) |
 | F2 | `E_n ↑ E_∞ < ∞`, `y_n → ∞`, `R_n → −∞` | **Lean** | `CurryFoundation.carryE_tendsto`, `orbit_tendsto_atTop`, `R_tendsto_atBot` |
 | F3 | last global drift maximum | **Lean** | `CurryFoundation.exists_last_atBot_max` |
 | F4 | restart at `m* = m_{n₀}` is zero-confined, drift `→ −∞` | **Lean** | `ZeroConfinedSeed.exists_zero_confined_seed_tendsto` |
 | F5 | divergence ⟹ zero-confined positive seed | **Lean**, modulo E3 as a hypothesis | `CurryInterface.zero_confined_seed_of_divergent` |
-| F6 | universal drift exit ⟹ no divergent orbit | **Lean**, modulo E3 | `CurryInterface.no_divergent_orbit_of_universal_drift_exit` |
+| F6 | universal drift exit ⟹ no divergent orbit | **Lean**, modulo **E2 alone** | `PowerSavingSummable.no_divergent_orbit_of_windowed` |
 | F7 | zero-confined ⟹ injective ⟹ divergent (the §D equivalence) | **Lean**, unconditional | `CurryInterface.injective_of_zero_confined`, `divergent_of_zero_confined` |
 | — | **no positive integer realizes an infinite zero-confined word** | **OPEN** — the target | — |
+
+> **After discharging O1, the single explicit external input in this part of the chain is
+> `WindowedSparsity` — Curry's Theorem 2.3 itself.** `no_divergent_orbit_of_windowed` takes it as its
+> one hypothesis. This strengthens verification; it is **not** a new exclusion mechanism and does not
+> touch the open arithmetic target.
 
 Curry's Thm 4.1 / Thm 4.2 / Cor 4.3 (the logarithmic-floor exclusion) sit *beside* this chain, not
 in it: they sharpen what a hypothetical divergent orbit must look like, and the reduction does not
@@ -209,7 +219,13 @@ statistics, read carefully:
   least realizer is exactly `2^{N+1} − 1`, i.e. it *attains the top of its own shrunken cap*.
 
 So a large deficit is fully compatible with an exponentially large least realizer. **The deficit
-neither forces nor forbids large realizers.** C1 is therefore not a mechanism, and is dropped.
+neither forces nor forbids large realizers.**
+
+> **Qualification, important.** What is ruled out is the proposed inference **from the upper cap
+> alone**. It is *not* ruled out that the deficit could be used *together with additional residue
+> information*. The all-ones word is precisely the illustration: its least realizer `2^{N+1}−1` grows
+> exponentially *despite* its maximal deficit — so the cap is not what decides the matter there, and
+> something finer does. C1 is dropped as a standalone mechanism, not as an ingredient.
 
 **No candidate meets the four requirements** (exact statement; mechanism beyond reformulation;
 identified connection to positive realization; separate coverage obligation). Per the brief, this
@@ -220,10 +236,12 @@ phase stops at the completed audit and interface rather than manufacturing a dir
 1. **The target itself** — no positive integer realizes an infinite zero-confined word. Equivalent
    to universal drift exit and, given the background inputs, to its restriction to divergence
    candidates (scope note §D).
-2. **The formalization obligation O1** — dyadic summation, `PowerSavingCount ⟹ ReciprocalSummable`.
-   Curry's proof is three lines; formalizing needs summation over a set along dyadic blocks. This is
-   the smallest genuinely useful missing bridge.
-3. **Formalizing E2/E3 outright** — the full window theorem. Substantial; not attempted.
+2. ~~The formalization obligation O1~~ — **done** (`EOC/PowerSavingSummable.lean`). The dyadic
+   summation is formalized: block counts at `a = X = 2^k`, the bound `1/m ≤ 2^{−k}` on each block,
+   injectivity to pass from the value set to the orbit index, and summability of
+   `C·log2·(k+1)·(2^β/2)^k` for `β < 1`.
+3. **Formalizing E2 outright** — the full window theorem (Thm 2.3). Substantial; not attempted. It
+   is now the *only* explicit external input in this part of the chain.
 4. **The arithmetic gap** — the audited counting estimates discard the exact realizer congruence
    (scope note §C). Combining counting with that residue information is the open problem; no
    universal claim is made that counting cannot work.

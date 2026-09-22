@@ -134,3 +134,15 @@ Any wording suggesting a divergent orbit has linear (or any specific) negative d
 avoided. What is established is `R_n \to -\infty`, together with Curry's *limsup* bound
 `limsup g_n / \log_2 n \ge 1/\beta^*`. Logarithmic, sublinear and linear regimes are all open ---
 see `docs/DIVERGENCE_SURVEY_SCOPE_NOTE.md` A. **Status:** scope wording.
+
+## 10. The Curry dependency is now one theorem, and it is named
+
+After `EOC/PowerSavingSummable.lean`, the divergence-to-zero-confined-seed chain depends on exactly
+one unformalized external statement: **Curry's Theorem 2.3** (windowed sparsity), interfaced as
+`CurryInterface.WindowedSparsity`. Proposition 3.1 is no longer a separate input --- it is derived
+from Theorem 2.3 inside Lean by the dyadic summation.
+
+**Proposed for Revision 7:** where the manuscript cites Curry for reciprocal summability, cite
+Theorem 2.3 as the input and note that the passage to summability is formalized. **Status:**
+dependency precision; no mathematics changes. This strengthens verification and is **not** a new
+exclusion mechanism.

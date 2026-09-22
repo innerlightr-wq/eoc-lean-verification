@@ -145,6 +145,18 @@ does not imply, the original.
 
 ---
 
+## D'. A qualification on the deficit result
+
+The deficit computation (audit §9) rules out the proposed inference **from the upper cap alone**:
+`leastRealizer(d,N) < 2^{S_N+1}` and `Δ_N = ⌊Nα⌋ − S_N` mean a larger deficit lowers the cap, while
+unboundedness needs a lower bound.
+
+It does **not** rule out using the deficit *together with additional residue information*. The
+all-ones word illustrates exactly this: it has maximal deficit and yet its least realizer is
+`2^{N+1} − 1`, exponentially large. So at that extreme the cap is not what decides the size, and a
+finer invariant does. The deficit is dropped as a *standalone mechanism*, not as a possible
+*ingredient*.
+
 ## E. What the survey got right, and still stands
 
 * The verdict: no new exclusion mechanism was found.

@@ -113,15 +113,20 @@ def CurryReciprocalSummability : Prop :=
 Curry §3, which turns the windowed count into reciprocal summability. Curry's proof is three lines
 and the audit confirms it; formalizing it needs summation over a set along dyadic blocks.
 
-This is a `def`, i.e. a *statement*, deliberately left unproved — not an axiom. -/
+The divergence hypothesis is carried because the passage from the **value-set** count to the
+**orbit-indexed** sum needs injectivity, which `injective_iff_divergent` supplies.
+
+**Discharged** in `EOC/PowerSavingSummable.lean`
+(`PowerSavingSummable.powerSaving_implies_summable`); this `def` remains as the named interface. -/
 def PowerSavingImpliesSummable : Prop :=
-  ∀ M : ℕ, Odd M → PowerSavingCount (Set.range (orbit M)) → ReciprocalSummable M
+  ∀ M : ℕ, Odd M → DivergentOrbit M → PowerSavingCount (Set.range (orbit M)) →
+    ReciprocalSummable M
 
 /-- With that obligation discharged, the weaker hypothesis follows from the stronger one. -/
 theorem curry_summability_of_windowed
     (hbridge : PowerSavingImpliesSummable) (hws : WindowedSparsity) :
     CurryReciprocalSummability :=
-  fun M hM hdiv => hbridge M hM (hws M hM hdiv)
+  fun M hM hdiv => hbridge M hM hdiv (hws M hM hdiv)
 
 /-! ## 3. The reduction, composed -/
 
