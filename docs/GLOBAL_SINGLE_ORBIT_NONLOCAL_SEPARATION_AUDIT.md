@@ -363,8 +363,10 @@ member of an injectively indexed family had a positive-integer realizer, we woul
 > words with `R_j → −∞` linearly have **no positive-integer realizer**.
 
 Every word-level global condition in §H is satisfied by all of them — confinement, linear negative
-drift, convergence of `Σ2^{R_j}`, and the occupation bound. **Word-level global conditions are
-defeated by cardinality, before any arithmetic.** This is the strongest form of the negative result
+drift, convergence of `Σ2^{R_j}`, and the occupation bound. **Criteria depending only on the
+shadows shared by this family are defeated by cardinality, before any arithmetic.** This does not
+extend to word-level criteria in general — see the scope correction in
+`docs/CLOSED_ROUTE_SCOPE_AUDIT.md`. This is the strongest form of the negative result
 the brief asked for, and it subsumes §L (which gives two explicit witnesses) and §X.
 
 Honest scope: the theorem does not *name* a specific unrealizable member, and it does not claim
@@ -659,8 +661,8 @@ carries. `A STRICTLY WEAKER POSITIVE-ORBIT PROXY SURVIVES` is refuted by §AN.
 
 1. **The cardinality barrier (§Y).** An explicit uncountable family of zero-confined valuation
    words with `R_j → −∞` *linearly*, of which all but countably many have no positive-integer
-   realizer. Word-level global conditions are therefore insufficient before any arithmetic is
-   attempted — this replaces case-by-case refutation with one argument.
+   realizer. Criteria factoring through the shadows shared by that family are therefore
+   insufficient before any arithmetic is attempted — this replaces case-by-case refutation with one argument.
 2. **Zero confinement has an exact integer form**, `S_j ≤ ⌊αj⌋ ⟺ 2^{S_j} ≤ 3^j`, which removes
    real-number reasoning from confinement proofs entirely (`famWord_confined`).
 3. **The compactness failure is located precisely (§Q):** the realizer tree is *infinitely*

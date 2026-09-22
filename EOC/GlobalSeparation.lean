@@ -31,8 +31,11 @@ barrier.
   family of words cannot all have positive-integer realizers, because one integer realizes at most
   one word.
   Applied to `famWord`, **all but countably many** zero-confined words with `R_j → −∞` have no
-  positive realizer. Every known word-level shadow of the divergent-orbit conditions is therefore
-  insufficient by cardinality alone.
+  positive realizer. The divergent-orbit shadows shared by the family are therefore insufficient by
+  cardinality alone. This does *not* say that no word-level property characterizes realization:
+  `leastRealizer` is a function of the word, so `ZCRERealizerGrowth.
+  boundedPrefixRealizers_iff_positiveRealizer` exhibits one that does. It escapes the barrier by
+  not being shared by the family.
 
 No `sorry`, `admit`, `axiom`, or `opaque`.
 -/
@@ -175,9 +178,10 @@ cannot all be positively realizable.
 Applied with `F = famWord`: the family of §4 has cardinality `2^ℵ₀`, every member is zero-confined
 with valuation sum `≤ j + j/3` — hence drift `R_j ≤ (4/3 − α)j → −∞` linearly — and only countably
 many of them can have a positive-integer realizer. So **all but countably many** members satisfy
-every known word-level shadow of the divergent-orbit conditions while having no positive realizer.
+the divergent-orbit shadows listed above while having no positive realizer.
 
-Word-level global conditions are therefore defeated by cardinality, before any arithmetic. -/
+Criteria depending only on those shared shadows are therefore defeated by cardinality, before any
+arithmetic. Word-level criteria in general are not: see the module docstring. -/
 theorem not_all_realizable_of_injective {W : Type} (realizes : ℕ → W → Prop)
     (huniq : ∀ m w₁ w₂, realizes m w₁ → realizes m w₂ → w₁ = w₂)
     (F : Set ℕ → W) (hF : Function.Injective F)

@@ -186,9 +186,15 @@ form `2^{S_n} ≤ 3^n`, from `S_n ≤ n + ⌊n/3⌋` and `16 ≤ 27` after cubin
 injective; one positive integer realizes at most one infinite word; Cantor gives **all but countably
 many members unrealizable**.
 
-**Scope, stated in the paper**: no collection of word-level global properties can *characterize*
-positive realization. It does **not** preclude word-level information yielding quantitative realizer
-bounds.
+**Scope, stated in the paper**: the *shared shadows* of this family — zero confinement, linear
+negative drift, summability of `Σ2^{R_n}`, the `O(G)` occupation bound — do not characterize
+positive realization, and neither does any criterion depending only on properties shared by the
+family. It does **not** preclude word-level information yielding quantitative realizer bounds, and
+it does **not** say that no word-level criterion can characterize realization: `leastRealizer` is a
+function of the word alone, so bounded prefix realizers is itself a word-level global property, and
+`ZCRERealizerGrowth.boundedPrefixRealizers_iff_positiveRealizer` proves it characterizes
+realization exactly. It escapes the barrier because it is *not* shared by the family. See
+`docs/CLOSED_ROUTE_SCOPE_AUDIT.md`.
 
 ## N. Finite-cylinder barrier
 
