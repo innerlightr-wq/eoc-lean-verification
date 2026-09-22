@@ -3,11 +3,14 @@ import EOC.BoundedDriftCore
 /-!
 # EOC/BoundedDrift.lean — bounded-drift realizer escape (bridge to the repository API)
 
-STATUS: NOT COMPILED IN THE AUDIT ENVIRONMENT (Mathlib cache unreachable there).
-`EOC/BoundedDriftCore.lean` IS kernel-checked (Lean 4.34.0-rc1, no Mathlib, standard axioms).
-This file is written against the exact signatures in the repository's compiled
-`Periodic.lean` / `Confinement.lean` / `Realizer.lean`. Lines marked `-- CHECK` are the only
-Mathlib names not already used elsewhere in the repository.
+STATUS: COMPILED AND AXIOM-AUDITED (Lean 4.34.0-rc1 + Mathlib, on branch
+`divergence-exclusion-survey`). `leastRealizer_unbounded_of_two_sided_drift`,
+`leastRealizer_unbounded_of_int_drift` and `BoundedDriftCore.no_injective_orbit_of_lower_drift`
+all depend only on `[propext, Classical.choice, Quot.sound]`, and both `-- CHECK` markers below
+(`Odd.pos`, `Real.rpow_logb`) resolve. The previous banner here read "NOT COMPILED IN THE AUDIT
+ENVIRONMENT (Mathlib cache unreachable there)"; that was written on the Mac-era machine which
+could not build Mathlib, and was stale. `EOC/BoundedDriftCore.lean` remains separately
+kernel-checked without Mathlib.
 
 Curry-independent: the injective branch uses only `BoundedDriftCore.no_injective_orbit_of_lower_drift`.
 -/

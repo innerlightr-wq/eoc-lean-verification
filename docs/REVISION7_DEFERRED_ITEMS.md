@@ -76,3 +76,34 @@ bounds occupation --- `occupation_le_of_reaches_one` for `m_0 \ge 2^c`, and
 `3 \cdot 2^c`. Worth one sentence, with two caveats: this is a relocation rather than a reduction,
 since (U) implies Collatz; and the step from (U) to the stopping-time bound is imported from the
 lifetime audit and is *not* formalized, so the chain is a proved bridge on an unformalized layer.
+
+## 6. Proposition `prop:lastmax` — the status label over-claims
+
+Revision 6's Proposition `prop:lastmax` (the restart at the last global drift maximum) carries
+`\status{companion work; already formalized in the repository}`. At the time of the freeze what was
+formalized was `CurryFoundation.zero_corridor_tail`, the corridor inequality in **shifted-index form
+on the original seed's word**. The seed-level statement the divergence equivalence actually
+consumes --- *there is an actual positive odd integer `m*` with `R_k(m^*) < 0` for all `k \ge 1`* ---
+was **not** formalized.
+
+It is now: `EOC/ZeroConfinedSeed.lean` (`exists_neg_drift_seed`, `exists_zero_confined_seed`,
+`exists_zero_corridor_seed`, `exists_zero_confined_seed_tendsto`), assembled on branch
+`divergence-exclusion-survey` from `Periodic.orbit_add`, `SeparatedReturns.sum_concat`,
+`Confinement.odd_orbit` and `CurryFoundation.exists_last_atBot_max`.
+
+**Proposed for Revision 7:** keep the label but make it accurate, e.g.
+`\status{companion work; formalized (EOC/ZeroConfinedSeed.lean)}`. **Status:** label correction; the
+mathematics of Revision 6 is unaffected.
+
+## 7. Two repository defects found while checking that chain
+
+Both are recorded in `docs/DIVERGENCE_EXCLUSION_SURVEY.md` and fixed or corrected on
+`divergence-exclusion-survey`; neither affects the manuscript.
+
+- `EOC/BoundedDrift.lean` carried a banner "NOT COMPILED IN THE AUDIT ENVIRONMENT". It compiles, and
+  its three main theorems audit to standard axioms. Banner corrected.
+- `EOC/CurryDivergenceProfile.deficit_tendsto_atTop` has a docstring claiming to combine
+  `\Delta_k \ge 0` with `\Delta_k \to \infty` "past the last global drift maximum", but is proved by
+  `refine \<0, ?_\>` --- at `n_0 = 0`, where the companion `deficit_nonneg` need not hold. The
+  statement is true (bare `\exists`) but is not that combination. The two are now available at the
+  same seed via `exists_zero_confined_seed_tendsto`. The docstring should be corrected in place.
