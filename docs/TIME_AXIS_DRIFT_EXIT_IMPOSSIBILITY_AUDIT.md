@@ -560,11 +560,13 @@ scratch/strictsearch.py                             (new)
 
 ## BE. Commits
 
-*(filled at commit time)*
+`fca3b7e` — *Time axis: recovery is self-financing, so the temporal mechanism is blocked*, on top
+of base `1bb5826`, plus a follow-up commit recording this hash and the push status. `main`
+untouched.
 
 ## BF. Push status
 
-*(filled at push time)*
+Pushed to `origin/time-axis-drift-exit-impossibility-audit`. **No PR opened.**
 
 ## BG. Research verdict
 
