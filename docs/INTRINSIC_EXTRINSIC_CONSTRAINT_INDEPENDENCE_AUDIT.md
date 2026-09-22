@@ -709,11 +709,13 @@ scratch/gate34_defect.py                                    (new)
 
 ## AP. Commits
 
-*(filled at commit time)*
+`9b20c62` — *Close the intrinsic/extrinsic route; the two norms of `B_N` are one identity*, on top
+of base `c23b14a`, plus a follow-up commit recording this hash and the push status. `main`
+untouched.
 
 ## AQ. Push status
 
-*(filled at push time)*
+Pushed to `origin/intrinsic-extrinsic-constraint-independence-audit`. **No PR opened.**
 
 ## AR. Research verdict
 
