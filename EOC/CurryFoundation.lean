@@ -429,5 +429,21 @@ theorem deficit_succ (S : ℕ → ℤ) (k : ℕ) :
   push_cast
   ring
 
+/-- **The deficit cannot jump.** If every valuation digit is at least `1` -- which holds for any
+accelerated Collatz orbit, since `3m + 1` is even -- then the deficit increases by at most one
+per step:
+`Δ_{k+1} ≤ Δ_k + 1`.
+
+Immediate from `deficit_succ` and `beatty_gap_mem`. Recorded because it is the exact sense in
+which deficit growth is slow: `Δ_k → ∞` is possible only with infinitely many steps carrying
+Beatty gap `2` *and* digit `d_k = 1`, and each such step buys a single unit. It is the one
+structural fact the dynamic-deficit-feedback audit produced that is not already an instance of
+`deficit_succ`; see `docs/DYNAMIC_DEFICIT_FEEDBACK_AUDIT.md`. -/
+theorem deficit_succ_le (S : ℕ → ℤ) (k : ℕ) (hd : 1 ≤ S (k + 1) - S k) :
+    deficit S (k + 1) ≤ deficit S k + 1 := by
+  have hd' : (1 : ℝ) ≤ ((S (k + 1) - S k : ℤ) : ℝ) := by exact_mod_cast hd
+  have hrec := deficit_succ S k
+  rcases beatty_gap_mem k with h | h <;> rw [hrec, h] <;> push_cast at hd' ⊢ <;> linarith
+
 end CurryFoundation
 end EOC

@@ -1,0 +1,65 @@
+==========================================================================
+GATE 1 - exact identities on real orbits
+==========================================================================
+  m0=     7: Eliahou-Rozier state identity, Beatty gap in {1,2},
+            and Delta_(N+1) = Delta_N + b - d over 60 steps : PASS
+  m0=    27: Eliahou-Rozier state identity, Beatty gap in {1,2},
+            and Delta_(N+1) = Delta_N + b - d over 60 steps : PASS
+  m0=   703: Eliahou-Rozier state identity, Beatty gap in {1,2},
+            and Delta_(N+1) = Delta_N + b - d over 60 steps : PASS
+  m0= 10087: Eliahou-Rozier state identity, Beatty gap in {1,2},
+            and Delta_(N+1) = Delta_N + b - d over 60 steps : PASS
+
+  all identity checks: PASS
+
+==========================================================================
+GATE 2A - nu_2(3m+1) >= k is ONE residue class mod 2^k
+==========================================================================
+    k    class(es) mod 2^k  -3^{-1} mod 2^k  single class?
+    1                  [1]                1           True
+    2                  [1]                1           True
+    3                  [5]                5           True
+    4                  [5]                5           True
+    5                 [21]               21           True
+    6                 [21]               21           True
+    7                 [85]               85           True
+    8                 [85]               85           True
+
+==========================================================================
+GATE 2B - exact density of nu_2(3m+1)=k among odd residues mod 2^16
+==========================================================================
+    k      density         2^-k   equal?
+    1          1/2          1/2     True
+    2          1/4          1/4     True
+    3          1/8          1/8     True
+    4         1/16         1/16     True
+    5         1/32         1/32     True
+    6         1/64         1/64     True
+    7        1/128        1/128     True
+    8        1/256        1/256     True
+    9        1/512        1/512     True
+   10       1/1024       1/1024     True
+
+  mean of d over this ensemble: 65535/32768
+
+==========================================================================
+GATE 3 / Candidate 1 - is the state-size ceiling ever tighter
+than the zero-corridor ceiling d <= Delta + b ?
+==========================================================================
+  m0=      7:     0 /   400 steps where state ceiling is tighter
+  m0=     27:     0 /   400 steps where state ceiling is tighter
+  m0=    703:     0 /   400 steps where state ceiling is tighter
+  m0=  10087:     0 /   400 steps where state ceiling is tighter
+  m0= 106239:     0 /   400 steps where state ceiling is tighter
+
+  TOTAL: 0 / 2000  -> state-size ceiling is NEVER tighter
+
+==========================================================================
+GATE 2C / Candidate 4 - Delta increment classification
+==========================================================================
+  m0=    27  increments {+1:14, +0:225, -1:155, -2:4, -3:2}
+            increases (all with b=2,d=1): 14; max increment +1 asserted OK
+  m0=   703  increments {+1:24, +0:218, -1:149, -2:4, -3:3, -4:1, -5:1}
+            increases (all with b=2,d=1): 24; max increment +1 asserted OK
+  m0= 10087  increments {+1:29, +0:213, -1:148, -2:7, -3:1, -5:1, -6:1}
+            increases (all with b=2,d=1): 29; max increment +1 asserted OK
