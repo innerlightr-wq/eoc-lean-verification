@@ -1,5 +1,7 @@
 import EOC.Carry
+import EOC.CarryDomination
 import EOC.Confinement
+import EOC.Occupancy
 import EOC.Realizer
 import EOC.ValuationWord
 import EOC.FiniteValuationWord
