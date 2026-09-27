@@ -1,0 +1,8 @@
+K=1500 A=0.635 j0=946 N=953 L=7 j0/300=3.2  x_median=6 x99=15 x*=14 (x*/L=2.00)  log2(trivial cost everywhere / mass)=8.5  scanned x<=553
+K=1500 A=0.645 j0=946 N=968 L=22 j0/300=3.2  x_median=9 x99=24 x*=47 (x*/L=2.14)  log2(trivial cost everywhere / mass)=32.2  scanned x<=553
+K=1500 A=0.660 j0=946 N=991 L=45 j0/300=3.2  x_median=11 x99=28 x*=94 (x*/L=2.09)  log2(trivial cost everywhere / mass)=68.5  scanned x<=553
+K=1500 A=0.700 j0=946 N=1050 L=104 j0/300=3.2  x_median=15 x99=36 x*=197 (x*/L=1.89)  log2(trivial cost everywhere / mass)=162.2  scanned x<=553
+K=3000 A=0.635 j0=1892 N=1905 L=13 j0/300=6.3  x_median=7 x99=21 x*=27 (x*/L=2.08)  log2(trivial cost everywhere / mass)=17.3  scanned x<=600 (truncated)
+K=3000 A=0.645 j0=1892 N=1935 L=43 j0/300=6.3  x_median=11 x99=28 x*=92 (x*/L=2.14)  log2(trivial cost everywhere / mass)=64.6  scanned x<=600 (truncated)
+K=3000 A=0.660 j0=1892 N=1981 L=89 j0/300=6.3  x_median=14 x99=35 x*=185 (x*/L=2.08)  log2(trivial cost everywhere / mass)=137.5  scanned x<=600 (truncated)
+K=3000 A=0.700 j0=1892 N=2100 L=208 j0/300=6.3  x_median=20 x99=48 x*=393 (x*/L=1.89)  log2(trivial cost everywhere / mass)=326.3  scanned x<=600 (truncated)

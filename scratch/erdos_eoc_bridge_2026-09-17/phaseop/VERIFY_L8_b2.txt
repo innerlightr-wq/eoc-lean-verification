@@ -1,0 +1,9 @@
+Lc=8 P=13824 g0=17: max_j (Lt V)_j/V_j = 1.1285631591  (exact rational check vs rho'=1.12857: violations=0)
+maxV/minV = 5.5792
+=> P(val > 2^(K/5)) <= 5.579 * 3^(-0.14228 K)   [beta=2, q=37/100, eta=1/54]
+uniform-in-q=True Lc=8 P=13824 g0=17: max_j (Lt V)_j/V_j = 1.1458922836  (exact rational check vs rho'=1.1306: violations=13824)
+maxV/minV = 5.5792
+=> P(val > 2^(K/5)) <= 5.579 * 3^(-0.14064 K)   [beta=2, q=37/100, eta=1/54]
+uniform-in-q=True Lc=8 P=13824 g0=17: max_j (Lt V)_j/V_j = 1.1325526090  (exact rational check vs rho'=1.13256: violations=0)
+maxV/minV = 5.5792
+=> P(val > 2^(K/5)) <= 5.579 * 3^(-0.13906 K)   [beta=2, q=37/100, eta=1/54]

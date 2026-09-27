@@ -1,0 +1,26 @@
+same row, two columns z and z+delta (single-cell rank = 3):
+  delta=0: measure=3.704e-02 rank=3.000  (independent would be 6.000; nested 3 + delta*log3 2 = 3.000)
+  delta=1: measure=1.852e-02 rank=3.631  (independent would be 6.000; nested 3 + delta*log3 2 = 3.631)
+  delta=2: measure=9.259e-03 rank=4.262  (independent would be 6.000; nested 3 + delta*log3 2 = 4.262)
+  delta=3: measure=4.630e-03 rank=4.893  (independent would be 6.000; nested 3 + delta*log3 2 = 4.893)
+  delta=4: measure=2.315e-03 rank=5.524  (independent would be 6.000; nested 3 + delta*log3 2 = 5.524)
+  delta=5: measure=1.157e-03 rank=6.155  (independent would be 6.000; nested 3 + delta*log3 2 = 6.155)
+  delta=6: measure=1.736e-03 rank=5.786  (independent would be 6.000; nested 3 + delta*log3 2 = 6.786)
+  delta=7: measure=1.447e-03 rank=5.952  (independent would be 6.000; nested 3 + delta*log3 2 = 7.417)
+  delta=8: measure=1.302e-03 rank=6.047  (independent would be 6.000; nested 3 + delta*log3 2 = 8.047)
+consecutive rows r=0,1 with column gap g (path step):
+  g=0: rank=5.000
+  g=1: rank=5.000
+  g=2: rank=5.000
+  g=3: rank=5.000
+  g=4: rank=5.524
+  g=5: rank=6.155
+  g=6: rank=5.786
+  g=7: rank=5.952
+two paths, same rows 0,1,2: path A columns (0,3,6), path B shifted by d (black on all 6 cells):
+  d=0: rank(A)=7.000 rank(A∪B)=7.000  added rank=0.000
+  d=1: rank(A)=7.000 rank(A∪B)=7.631  added rank=0.631
+  d=2: rank(A)=7.000 rank(A∪B)=8.262  added rank=1.262
+  d=3: rank(A)=7.000 rank(A∪B)=8.893  added rank=1.893
+  d=5: rank(A)=7.000 rank(A∪B)=10.155  added rank=3.155
+  d=8: rank(A)=7.000 rank(A∪B)=12.047  added rank=5.047

@@ -1,0 +1,137 @@
+TASK 6 -- superblock renormalisation of the barrier word and the pressure (J = 400)
+  theta = 0.137.  Excess(t) = max over occurrences of (sum w - theta * #blocks).
+
+=== barrier alpha ===
+  level-0 word over {3,4}: #3 = 166, #4 = 33, density of 4 = 0.16583
+  level-1 run lengths k in '3^k 4' : [4, 5]  counts {4: 3, 5: 30}
+  -> EXACTLY TWO superblock types: A = 3^44 (len 5), B = 3^54 (len 6)
+  level-2 (derived word over {A,B}, len 33): rare symbol A, run lengths [8]
+  derived word prefix: BBBBBBBBABBBBBBBBABBBBBBBBABBBBBB
+  type k=4 (L=5): n=   45  mean W = 0.30717  sd = 0.41233  mean W/L = 0.06143  max excess = +0.57245
+  type k=5 (L=6): n=  390  mean W = 0.18630  sd = 0.42455  mean W/L = 0.03105  max excess = +0.56530
+  transition counts [[0, 3], [3, 26]]
+  2x2 excess matrix M[a][b] = 1{a->b} exp(max excess a) = [[0.0000,1.7726],[1.7600,1.7600]]
+  Perron root = 2.85335   -> certificate rate < theta blockwise: False
+  renormalised (pairs of superblocks):
+    pair (4, 5): n=   45 mean excess -0.94232 max excess +0.00254
+    pair (5, 4): n=   45 mean excess -0.82396 max excess +0.57781
+    pair (5, 5): n=  330 mean excess -1.29560 max excess +0.29235
+  max excess level1 = +0.57245 ; level2 (pairs) = +0.57781 ; contracts (per block): True
+
+=== barrier golden_m4 ===
+  level-0 word over {3,4}: #3 = 168, #4 = 31, density of 4 = 0.15578
+  level-1 run lengths k in '3^k 4' : [5, 6]  counts {5: 23, 6: 8}
+  -> EXACTLY TWO superblock types: A = 3^54 (len 6), B = 3^64 (len 7)
+  level-2 (derived word over {A,B}, len 31): rare symbol B, run lengths [3, 4]
+  -> SUBSTITUTION (level2 -> level1): X = A^3B,  Y = A^4B
+  derived word prefix: BAAABAAABAAABAAABAAAABAAABAAABA
+  type k=5 (L=6): n=  315  mean W = 0.18893  sd = 0.44892  mean W/L = 0.03149  max excess = +0.91489
+  type k=6 (L=7): n=   90  mean W = 0.27632  sd = 0.52123  mean W/L = 0.03947  max excess = +0.84571
+  transition counts [[15, 7], [8, 0]]
+  2x2 excess matrix M[a][b] = 1{a->b} exp(max excess a) = [[2.4965,2.4965],[2.3296,0.0000]]
+  Perron root = 3.96377   -> certificate rate < theta blockwise: False
+  renormalised (pairs of superblocks):
+    pair (5, 5): n=  210 mean excess -1.28409 max excess +1.04787
+    pair (5, 6): n=   90 mean excess -1.28396 max excess +0.34889
+    pair (6, 5): n=   90 mean excess -1.26571 max excess +0.28307
+  max excess level1 = +0.91489 ; level2 (pairs) = +1.04787 ; contracts (per block): True
+
+=== barrier silver_m4 ===
+  level-0 word over {3,4}: #3 = 165, #4 = 34, density of 4 = 0.17085
+  level-1 run lengths k in '3^k 4' : [4, 5]  counts {4: 5, 5: 29}
+  -> EXACTLY TWO superblock types: A = 3^44 (len 5), B = 3^54 (len 6)
+  level-2 (derived word over {A,B}, len 34): rare symbol A, run lengths [5]
+  derived word prefix: BBBBBABBBBBABBBBBABBBBBABBBBBABBBB
+  type k=4 (L=5): n=   75  mean W = 0.20887  sd = 0.46264  mean W/L = 0.04177  max excess = +0.72136
+  type k=5 (L=6): n=  360  mean W = 0.19237  sd = 0.43018  mean W/L = 0.03206  max excess = +0.67579
+  transition counts [[0, 5], [5, 23]]
+  2x2 excess matrix M[a][b] = 1{a->b} exp(max excess a) = [[0.0000,2.0572],[1.9656,1.9656]]
+  Perron root = 3.22100   -> certificate rate < theta blockwise: False
+  renormalised (pairs of superblocks):
+    pair (4, 5): n=   60 mean excess -1.13997 max excess +0.12433
+    pair (5, 4): n=   75 mean excess -1.11869 max excess +0.58441
+    pair (5, 5): n=  285 mean excess -1.23083 max excess +0.52835
+  max excess level1 = +0.72136 ; level2 (pairs) = +0.58441 ; contracts (per block): True
+
+=== barrier golden_m8 ===
+  level-0 word over {3,4}: #3 = 166, #4 = 33, density of 4 = 0.16583
+  level-1 run lengths k in '3^k 4' : [4, 5]  counts {4: 3, 5: 30}
+  -> EXACTLY TWO superblock types: A = 3^44 (len 5), B = 3^54 (len 6)
+  level-2 (derived word over {A,B}, len 33): rare symbol A, run lengths [8]
+  derived word prefix: BBBBBBBBABBBBBBBBABBBBBBBBABBBBBB
+  type k=4 (L=5): n=   45  mean W = 0.30717  sd = 0.41233  mean W/L = 0.06143  max excess = +0.57245
+  type k=5 (L=6): n=  390  mean W = 0.18630  sd = 0.42455  mean W/L = 0.03105  max excess = +0.56530
+  transition counts [[0, 3], [3, 26]]
+  2x2 excess matrix M[a][b] = 1{a->b} exp(max excess a) = [[0.0000,1.7726],[1.7600,1.7600]]
+  Perron root = 2.85335   -> certificate rate < theta blockwise: False
+  renormalised (pairs of superblocks):
+    pair (4, 5): n=   45 mean excess -0.94232 max excess +0.00254
+    pair (5, 4): n=   45 mean excess -0.82396 max excess +0.57781
+    pair (5, 5): n=  330 mean excess -1.29560 max excess +0.29235
+  max excess level1 = +0.57245 ; level2 (pairs) = +0.57781 ; contracts (per block): True
+
+=== barrier match2_m8 ===
+  level-0 word over {3,4}: #3 = 166, #4 = 33, density of 4 = 0.16583
+  level-1 run lengths k in '3^k 4' : [4, 5]  counts {4: 3, 5: 30}
+  -> EXACTLY TWO superblock types: A = 3^44 (len 5), B = 3^54 (len 6)
+  level-2 (derived word over {A,B}, len 33): rare symbol A, run lengths [8]
+  derived word prefix: BBBBBBBBABBBBBBBBABBBBBBBBABBBBBB
+  type k=4 (L=5): n=   45  mean W = 0.30717  sd = 0.41233  mean W/L = 0.06143  max excess = +0.57245
+  type k=5 (L=6): n=  390  mean W = 0.18630  sd = 0.42455  mean W/L = 0.03105  max excess = +0.56530
+  transition counts [[0, 3], [3, 26]]
+  2x2 excess matrix M[a][b] = 1{a->b} exp(max excess a) = [[0.0000,1.7726],[1.7600,1.7600]]
+  Perron root = 2.85335   -> certificate rate < theta blockwise: False
+  renormalised (pairs of superblocks):
+    pair (4, 5): n=   45 mean excess -0.94232 max excess +0.00254
+    pair (5, 4): n=   45 mean excess -0.82396 max excess +0.57781
+    pair (5, 5): n=  330 mean excess -1.29560 max excess +0.29235
+  max excess level1 = +0.57245 ; level2 (pairs) = +0.57781 ; contracts (per block): True
+
+=== barrier silver_m10 ===
+  level-0 word over {3,4}: #3 = 166, #4 = 33, density of 4 = 0.16583
+  level-1 run lengths k in '3^k 4' : [4, 5]  counts {4: 3, 5: 30}
+  -> EXACTLY TWO superblock types: A = 3^44 (len 5), B = 3^54 (len 6)
+  level-2 (derived word over {A,B}, len 33): rare symbol A, run lengths [8]
+  derived word prefix: BBBBBBBBABBBBBBBBABBBBBBBBABBBBBB
+  type k=4 (L=5): n=   45  mean W = 0.30717  sd = 0.41233  mean W/L = 0.06143  max excess = +0.57245
+  type k=5 (L=6): n=  390  mean W = 0.18630  sd = 0.42455  mean W/L = 0.03105  max excess = +0.56530
+  transition counts [[0, 3], [3, 26]]
+  2x2 excess matrix M[a][b] = 1{a->b} exp(max excess a) = [[0.0000,1.7726],[1.7600,1.7600]]
+  Perron root = 2.85335   -> certificate rate < theta blockwise: False
+  renormalised (pairs of superblocks):
+    pair (4, 5): n=   45 mean excess -0.94232 max excess +0.00254
+    pair (5, 4): n=   45 mean excess -0.82396 max excess +0.57781
+    pair (5, 5): n=  330 mean excess -1.29560 max excess +0.29235
+  max excess level1 = +0.57245 ; level2 (pairs) = +0.57781 ; contracts (per block): True
+
+=== barrier rat_65_41 ===
+  level-0 word over {3,4}: #3 = 166, #4 = 33, density of 4 = 0.16583
+  level-1 run lengths k in '3^k 4' : [4, 5]  counts {4: 4, 5: 29}
+  -> EXACTLY TWO superblock types: A = 3^44 (len 5), B = 3^54 (len 6)
+  level-2 (derived word over {A,B}, len 33): rare symbol A, run lengths [6]
+  derived word prefix: BBBBBBABBBBBBABBBBBBABBBBBBABBBBB
+  type k=4 (L=5): n=   60  mean W = 0.06560  sd = 0.37186  mean W/L = 0.01312  max excess = +0.34081
+  type k=5 (L=6): n=  375  mean W = 0.21720  sd = 0.43231  mean W/L = 0.03620  max excess = +0.67739
+  transition counts [[0, 4], [4, 24]]
+  2x2 excess matrix M[a][b] = 1{a->b} exp(max excess a) = [[0.0000,1.4061],[1.9687,1.9687]]
+  Perron root = 2.91755   -> certificate rate < theta blockwise: False
+  renormalised (pairs of superblocks):
+    pair (4, 5): n=   60 mean excess -1.17849 max excess +0.03183
+    pair (5, 4): n=   60 mean excess -1.20808 max excess -0.06893
+    pair (5, 5): n=  300 mean excess -1.20519 max excess +0.47554
+  max excess level1 = +0.67739 ; level2 (pairs) = +0.47554 ; contracts (per block): True
+
+TASK 6b -- how long must a window be before the excess is UNIFORMLY negative?
+  max over all block windows of length Lw (all 15 lam, J=400) of  sum w - 0.137*Lw
+  barrier            Lw=1      Lw=2      Lw=4      Lw=8     Lw=16     Lw=32     Lw=64    Lw=128   first Lw<0
+  alpha            0.6406    1.2090    1.3956    1.1577    0.6951   -0.2296   -3.0910   -9.6486   24
+  golden_m4        0.6406    1.2009    1.4210    1.1577    0.7205   -0.2296   -3.0910   -9.6487   24
+  silver_m4        0.6406    1.2102    1.3925    1.1577    0.6920   -0.2296   -3.0910   -9.6486   24
+  golden_m8        0.6406    1.2090    1.3956    1.1577    0.6951   -0.2296   -3.0910   -9.6486   24
+  match2_m8        0.6406    1.2090    1.3956    1.1577    0.6951   -0.2296   -3.0910   -9.6486   24
+  silver_m10       0.6406    1.2090    1.3956    1.1577    0.6951   -0.2296   -3.0910   -9.6486   24
+  rat_65_41        0.6406    1.2096    1.3942    1.1577    0.6937   -0.2296   -3.0910   -9.6486   24
+
+  (a uniform blockwise certificate exists exactly at the first Lw whose max is < 0;
+   a 2x2 superblock matrix built from max-excess per type needs Lw of that order,
+   so the 5-6 block superblocks of the barrier substitution are far too short.)

@@ -37,6 +37,36 @@ constraint on prefix sums. The unconditional baseline exceptional exponent H₂(
 counting statement of this Terras–Everett type. These parts are standard in spirit; the Lean formalization and the
 exact confined-word bookkeeping are this repository's contribution.
 
+### Bruun residue-class formulation
+
+Bruun [Br25] gives an explicit residue-class formulation of finite Collatz parity patterns and a compact recursion
+for first-reducing classes. The established counting and density structure overlaps substantially with the classical
+Terras/Everett stopping-time framework. The residue-class viewpoint is complementary to EOC's valuation-word and
+Fourier-pressure formulation.
+
+* **Classes.** For a parity pattern of length k with s odd steps, T^k(n) = (3^s n + c)/2^k on a single residue class
+  mod 2^k. Bruun's classes [2^k X − B] ↦ [3^s X − B'] track the additive term c exactly through the B-values. The
+  first-reduction condition 2^k > 3^s is the critical-drift condition R_j = S_j − αj > 0 (α = log₂ 3).
+* **Overlap with this repository.** The class ↔ parity-word correspondence and least class members correspond to
+  valuation cylinders and least realizers, which are formalized here in stronger form (`RealizerLift`: exact
+  extension relation `leastRealizer_succ_eq`, lift digit range `liftDigit_lt`). No separate formalization of the
+  residue classes is planned.
+* **Phase space vs seed space.** Bruun's established residue-density results operate in seed-residue space. They do
+  not presently provide control of the 3-adic phase variables 2^{−a} mod 3^b appearing in
+  `PowerOfTwoDangerousWindowSparsity` (`ArithmeticFrontier`), whose Haar codimension bound lives in 3-adic phase
+  space.
+* **Persistence.** The work provides a useful comparison for the distinction between a density-zero unresolved set
+  and the elimination of every individual exceptional orbit. A fixed integer can lie in one nested residue class at
+  every depth while the density of the unresolved classes tends to zero. This is the same distinction as between a
+  small exceptional set and the absence of one infinite exceptional orbit in the EOC programme.
+* **Final claim.** The paper's concluding Collatz statement is not established by the density results; the passage
+  from density decay of unresolved classes to the absence of every individual counterexample appears to require an
+  additional argument. A constructive audit is in `scratch/bruun_audit_2026-09-16/REPORT.md` (not committed).
+
+*Table note.* Independent reproduction agrees with Bruun's Resultlist 1 through s = 14. At s = 15, Formula (2a) gives
+51033 rather than the tabulated 47118; this appears to be a table-level discrepancy and does not affect the
+residue-class framework discussed here.
+
 ## 2. Surveys and structural perspective
 
 Lagarias's survey [La85] and the volume he edited [UC10], including the overview [La10] and the annotated
@@ -118,6 +148,9 @@ Nothing here proves the Collatz conjecture, and the exceptional-set exponent of 
 
 ## References
 
+* **[Br25]** R. Bruun, "Explanation of the Dynamics involved in the 3N+1 Problem — A proof for The Collatz
+  Conjecture", arXiv: [2105.11334](https://arxiv.org/abs/2105.11334), version 6 (31 August 2025). Earlier versions
+  (v1 2021, v4–v5 2023) carry different titles. Metadata read from the arXiv abstract page (2026-09-16).
 * **[DM47]** A. Dvoretzky and Th. Motzkin, "A problem of arrangements", *Duke Mathematical Journal* **14** (1947),
   no. 2. DOI: [10.1215/S0012-7094-47-01423-3](https://doi.org/10.1215/S0012-7094-47-01423-3). (Page range not
   recorded in the Crossref record; not re-checked.)

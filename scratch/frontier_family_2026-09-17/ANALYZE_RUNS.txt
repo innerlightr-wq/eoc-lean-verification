@@ -1,0 +1,36 @@
+j=1600 t=1 K=4: W=200 P(D)=0.615 P(D+1|D)=0.656 P(D+2|D)=0.702 #DDD=58 runs={1: 21, 2: 11, 3: 5, 4: 1, 5: 1, 7: 2, 9: 1, 33: 1} max9=9 frac9<=2=0.13 disjoint9=Counter({5: 5, 6: 4, 8: 3, 1: 2, 4: 2, 3: 2, 7: 2, 9: 2}) mod3={2: 41, 0: 38, 1: 44} mod2={0: 70, 1: 53}
+    dangerous (window,state) pairs sampled=918; a mod 6 distribution={0: 149, 1: 153, 2: 155, 3: 158, 4: 146, 5: 157}
+j=1600 t=1 K=6: W=133 P(D)=0.429 P(D+1|D)=0.518 P(D+2|D)=0.455 #DDD=15 runs={1: 14, 2: 7, 3: 3, 4: 1, 5: 2, 6: 1} max9=8 frac9<=2=0.20 disjoint9=Counter({5: 4, 3: 3, 1: 2, 2: 2, 4: 1, 6: 1, 7: 1}) mod3={2: 22, 0: 20, 1: 15} mod2={0: 26, 1: 31}
+    dangerous (window,state) pairs sampled=236; a mod 6 distribution={0: 41, 1: 33, 2: 37, 3: 47, 4: 38, 5: 40}
+j=1600 t=1 K=8: W=100 P(D)=0.130 P(D+1|D)=0.077 P(D+2|D)=0.154 #DDD=0 runs={1: 11, 2: 1} max9=4 frac9<=2=0.88 disjoint9=Counter({1: 4, 0: 3, 2: 3, 3: 1}) mod3={0: 6, 2: 3, 1: 4} mod2={0: 9, 1: 4}
+    dangerous (window,state) pairs sampled=41; a mod 6 distribution={0: 9, 1: 6, 2: 6, 3: 5, 4: 6, 5: 9}
+j=1600 t=7 K=4: W=200 P(D)=0.615 P(D+1|D)=0.656 P(D+2|D)=0.702 #DDD=58 runs={1: 21, 2: 11, 3: 5, 4: 1, 5: 1, 7: 2, 9: 1, 33: 1} max9=9 frac9<=2=0.13 disjoint9=Counter({5: 5, 6: 4, 8: 3, 1: 2, 4: 2, 3: 2, 7: 2, 9: 2}) mod3={2: 41, 0: 38, 1: 44} mod2={0: 70, 1: 53}
+    dangerous (window,state) pairs sampled=906; a mod 6 distribution={0: 147, 1: 150, 2: 153, 3: 155, 4: 145, 5: 156}
+j=1600 t=7 K=6: W=133 P(D)=0.429 P(D+1|D)=0.518 P(D+2|D)=0.455 #DDD=15 runs={1: 14, 2: 7, 3: 3, 4: 1, 5: 2, 6: 1} max9=8 frac9<=2=0.20 disjoint9=Counter({5: 4, 3: 3, 1: 2, 2: 2, 4: 1, 6: 1, 7: 1}) mod3={2: 22, 0: 20, 1: 15} mod2={0: 26, 1: 31}
+    dangerous (window,state) pairs sampled=236; a mod 6 distribution={0: 41, 1: 33, 2: 37, 3: 47, 4: 38, 5: 40}
+j=1600 t=7 K=8: W=100 P(D)=0.130 P(D+1|D)=0.077 P(D+2|D)=0.154 #DDD=0 runs={1: 11, 2: 1} max9=4 frac9<=2=0.88 disjoint9=Counter({1: 4, 0: 3, 2: 3, 3: 1}) mod3={0: 6, 2: 3, 1: 4} mod2={0: 9, 1: 4}
+    dangerous (window,state) pairs sampled=40; a mod 6 distribution={0: 9, 1: 6, 2: 6, 3: 5, 4: 5, 5: 9}
+j=1600 t=266 K=4: W=200 P(D)=0.625 P(D+1|D)=0.718 P(D+2|D)=0.675 #DDD=66 runs={1: 13, 2: 7, 3: 4, 4: 3, 5: 3, 7: 2, 9: 1, 10: 1, 12: 1, 14: 1} max9=9 frac9<=2=0.11 disjoint9=Counter({5: 5, 8: 5, 7: 4, 1: 2, 4: 2, 2: 1, 3: 1, 6: 1, 9: 1}) mod3={2: 41, 0: 45, 1: 39} mod2={1: 65, 0: 60}
+    dangerous (window,state) pairs sampled=865; a mod 6 distribution={0: 143, 1: 147, 2: 141, 3: 151, 4: 136, 5: 147}
+j=1600 t=266 K=6: W=133 P(D)=0.406 P(D+1|D)=0.566 P(D+2|D)=0.538 #DDD=18 runs={1: 12, 2: 5, 3: 1, 4: 4, 5: 1, 8: 1} max9=8 frac9<=2=0.38 disjoint9=Counter({2: 4, 7: 3, 0: 2, 6: 2, 1: 1, 3: 1, 4: 1}) mod3={1: 20, 2: 18, 0: 16} mod2={1: 28, 0: 26}
+    dangerous (window,state) pairs sampled=229; a mod 6 distribution={0: 42, 1: 38, 2: 37, 3: 38, 4: 36, 5: 38}
+j=1600 t=266 K=8: W=100 P(D)=0.160 P(D+1|D)=0.188 P(D+2|D)=0.250 #DDD=0 runs={1: 10, 2: 3} max9=5 frac9<=2=0.77 disjoint9=Counter({1: 5, 0: 3, 4: 2, 3: 1}) mod3={1: 6, 2: 6, 0: 4} mod2={0: 10, 1: 6}
+    dangerous (window,state) pairs sampled=56; a mod 6 distribution={0: 12, 1: 9, 2: 9, 3: 7, 4: 7, 5: 12}
+j=3200 t=1 K=4: W=400 P(D)=0.807 P(D+1|D)=0.879 P(D+2|D)=0.875 #DDD=254 runs={1: 11, 2: 10, 3: 2, 4: 1, 5: 1, 6: 2, 8: 1, 9: 1, 10: 3, 12: 1, 14: 1, 20: 2, 23: 1, 37: 1, 44: 1, 48: 1} max9=9 frac9<=2=0.06 disjoint9=Counter({9: 17, 8: 11, 7: 6, 6: 2, 4: 2, 5: 2, 0: 1, 1: 1, 3: 1, 2: 1}) mod3={2: 108, 0: 109, 1: 106} mod2={0: 161, 1: 162}
+    dangerous (window,state) pairs sampled=3755; a mod 6 distribution={0: 634, 1: 636, 2: 638, 3: 633, 4: 601, 5: 613}
+j=3200 t=1 K=6: W=266 P(D)=0.632 P(D+1|D)=0.731 P(D+2|D)=0.759 #DDD=97 runs={1: 21, 2: 8, 3: 3, 4: 3, 5: 1, 6: 3, 8: 1, 9: 2, 13: 1, 14: 1, 16: 1, 18: 1} max9=9 frac9<=2=0.14 disjoint9=Counter({6: 5, 9: 5, 8: 4, 4: 3, 5: 3, 7: 3, 1: 2, 2: 2, 0: 1, 3: 1}) mod3={0: 54, 2: 53, 1: 61} mod2={1: 86, 0: 82}
+    dangerous (window,state) pairs sampled=903; a mod 6 distribution={0: 166, 1: 160, 2: 138, 3: 145, 4: 154, 5: 140}
+j=3200 t=1 K=8: W=200 P(D)=0.285 P(D+1|D)=0.357 P(D+2|D)=0.455 #DDD=8 runs={1: 25, 2: 6, 3: 4, 4: 2} max9=7 frac9<=2=0.51 disjoint9=Counter({0: 5, 2: 5, 3: 3, 5: 3, 4: 3, 1: 2, 7: 1}) mod3={1: 18, 2: 19, 0: 20} mod2={1: 33, 0: 24}
+    dangerous (window,state) pairs sampled=229; a mod 6 distribution={0: 41, 1: 38, 2: 36, 3: 36, 4: 35, 5: 43}
+j=3200 t=7 K=4: W=400 P(D)=0.805 P(D+1|D)=0.879 P(D+2|D)=0.878 #DDD=254 runs={1: 12, 2: 9, 3: 2, 4: 1, 5: 1, 6: 2, 8: 1, 9: 1, 10: 3, 12: 1, 14: 1, 20: 2, 23: 1, 37: 1, 44: 1, 48: 1} max9=9 frac9<=2=0.06 disjoint9=Counter({9: 17, 8: 11, 7: 6, 1: 2, 6: 2, 4: 2, 5: 2, 0: 1, 3: 1}) mod3={2: 108, 0: 109, 1: 105} mod2={0: 160, 1: 162}
+    dangerous (window,state) pairs sampled=3755; a mod 6 distribution={0: 633, 1: 637, 2: 640, 3: 632, 4: 601, 5: 612}
+j=3200 t=7 K=6: W=266 P(D)=0.635 P(D+1|D)=0.732 P(D+2|D)=0.754 #DDD=97 runs={1: 20, 2: 9, 3: 3, 4: 3, 5: 1, 6: 3, 8: 1, 9: 2, 13: 1, 14: 1, 16: 1, 18: 1} max9=9 frac9<=2=0.13 disjoint9=Counter({6: 5, 9: 5, 4: 4, 8: 4, 5: 3, 7: 3, 1: 2, 2: 2, 0: 1}) mod3={0: 54, 2: 54, 1: 61} mod2={1: 86, 0: 83}
+    dangerous (window,state) pairs sampled=905; a mod 6 distribution={0: 167, 1: 161, 2: 139, 3: 144, 4: 153, 5: 141}
+j=3200 t=7 K=8: W=200 P(D)=0.285 P(D+1|D)=0.357 P(D+2|D)=0.455 #DDD=8 runs={1: 25, 2: 6, 3: 4, 4: 2} max9=7 frac9<=2=0.51 disjoint9=Counter({0: 5, 2: 5, 3: 3, 5: 3, 4: 3, 1: 2, 7: 1}) mod3={1: 18, 2: 19, 0: 20} mod2={1: 33, 0: 24}
+    dangerous (window,state) pairs sampled=229; a mod 6 distribution={0: 41, 1: 38, 2: 36, 3: 36, 4: 35, 5: 43}
+j=3200 t=533 K=4: W=400 P(D)=0.805 P(D+1|D)=0.894 P(D+2|D)=0.891 #DDD=263 runs={1: 11, 2: 4, 3: 4, 4: 1, 5: 4, 6: 1, 7: 2, 8: 2, 16: 1, 17: 1, 20: 1, 23: 1, 58: 1, 97: 1} max9=9 frac9<=2=0.09 disjoint9=Counter({9: 21, 8: 7, 7: 5, 1: 3, 4: 3, 6: 3, 0: 1, 5: 1}) mod3={1: 105, 0: 109, 2: 108} mod2={0: 160, 1: 162}
+    dangerous (window,state) pairs sampled=3690; a mod 6 distribution={0: 605, 1: 600, 2: 596, 3: 628, 4: 635, 5: 626}
+j=3200 t=533 K=6: W=266 P(D)=0.620 P(D+1|D)=0.701 P(D+2|D)=0.706 #DDD=83 runs={1: 18, 2: 14, 3: 3, 4: 4, 5: 5, 6: 2, 7: 1, 11: 1, 16: 1, 23: 1} max9=9 frac9<=2=0.12 disjoint9=Counter({5: 5, 6: 5, 7: 4, 8: 4, 9: 3, 3: 2, 4: 2, 2: 2, 0: 1, 1: 1}) mod3={2: 56, 0: 55, 1: 54} mod2={1: 82, 0: 83}
+    dangerous (window,state) pairs sampled=912; a mod 6 distribution={0: 160, 1: 155, 2: 158, 3: 142, 4: 152, 5: 145}
+j=3200 t=533 K=8: W=200 P(D)=0.275 P(D+1|D)=0.407 P(D+2|D)=0.434 #DDD=8 runs={1: 19, 2: 9, 3: 3, 4: 1, 5: 1} max9=7 frac9<=2=0.56 disjoint9=Counter({0: 4, 1: 4, 3: 4, 2: 4, 5: 3, 4: 2, 6: 1}) mod3={0: 20, 2: 19, 1: 16} mod2={0: 22, 1: 33}
+    dangerous (window,state) pairs sampled=274; a mod 6 distribution={0: 49, 1: 49, 2: 44, 3: 40, 4: 41, 5: 51}

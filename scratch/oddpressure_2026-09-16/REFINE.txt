@@ -1,0 +1,7 @@
+J=800 K=32 lam=7: stride-1 max CW = 0.1414 at (r0,S)=(205,600), window depth 6.70, >0.137: True
+J=400 K=16 lam=11: stride-1 max CW = 0.1835 at (r0,S)=(94,194), window depth 7.34, >0.137: True
+J=400 K=16 lam=1: stride-1 max CW = 0.1739 at (r0,S)=(166,385), window depth 7.69, >0.137: True
+J=400 K=16 lam=5: stride-1 max CW = 0.1593 at (r0,S)=(156,397), window depth 8.17, >0.137: True
+J=200 K=32 lam=5: stride-1 max CW = 0.0575 at (r0,S)=(25,79), window depth 5.15, >0.137: False
+J=800 K=32 lam=5: stride-1 max CW = 0.1044 at (r0,S)=(200,514), window depth 7.72, >0.137: False
+J=800 K=32 lam=1: stride-1 max CW = 0.1044 at (r0,S)=(298,607), window depth 5.29, >0.137: False

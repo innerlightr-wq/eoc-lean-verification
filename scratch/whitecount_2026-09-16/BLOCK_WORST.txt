@@ -1,0 +1,24 @@
+J=100 N0=2: pair blocks R=50
+  theta=0.0: max(#bad - theta #shape) = 9.00   maximizer: #bad=9, #shape=9, bad fraction 1.000
+  theta=0.05: max(#bad - theta #shape) = 8.55   maximizer: #bad=9, #shape=9, bad fraction 1.000
+  theta=0.1: max(#bad - theta #shape) = 8.10   maximizer: #bad=9, #shape=9, bad fraction 1.000
+  theta=0.2: max(#bad - theta #shape) = 7.20   maximizer: #bad=9, #shape=9, bad fraction 1.000
+  theta=0.3: max(#bad - theta #shape) = 6.30   maximizer: #bad=9, #shape=9, bad fraction 1.000
+  theta=0.5: max(#bad - theta #shape) = 4.50   maximizer: #bad=9, #shape=9, bad fraction 1.000
+  theta=1.0: max(#bad - theta #shape) = 0.00   maximizer: #bad=0, #shape=0
+J=200 N0=2: pair blocks R=100
+  theta=0.0: max(#bad - theta #shape) = 20.00   maximizer: #bad=20, #shape=21, bad fraction 0.952
+  theta=0.05: max(#bad - theta #shape) = 19.00   maximizer: #bad=20, #shape=20, bad fraction 1.000
+  theta=0.1: max(#bad - theta #shape) = 18.00   maximizer: #bad=20, #shape=20, bad fraction 1.000
+  theta=0.2: max(#bad - theta #shape) = 16.00   maximizer: #bad=20, #shape=20, bad fraction 1.000
+  theta=0.3: max(#bad - theta #shape) = 14.00   maximizer: #bad=20, #shape=20, bad fraction 1.000
+  theta=0.5: max(#bad - theta #shape) = 10.00   maximizer: #bad=20, #shape=20, bad fraction 1.000
+  theta=1.0: max(#bad - theta #shape) = 0.00   maximizer: #bad=0, #shape=0
+J=400 N0=2: pair blocks R=200
+  theta=0.0: max(#bad - theta #shape) = 47.00   maximizer: #bad=47, #shape=52, bad fraction 0.904
+  theta=0.05: max(#bad - theta #shape) = 44.60   maximizer: #bad=47, #shape=48, bad fraction 0.979
+  theta=0.1: max(#bad - theta #shape) = 42.20   maximizer: #bad=47, #shape=48, bad fraction 0.979
+  theta=0.2: max(#bad - theta #shape) = 37.40   maximizer: #bad=47, #shape=48, bad fraction 0.979
+  theta=0.3: max(#bad - theta #shape) = 32.60   maximizer: #bad=47, #shape=48, bad fraction 0.979
+  theta=0.5: max(#bad - theta #shape) = 23.00   maximizer: #bad=46, #shape=46, bad fraction 1.000
+  theta=1.0: max(#bad - theta #shape) = 0.00   maximizer: #bad=0, #shape=0

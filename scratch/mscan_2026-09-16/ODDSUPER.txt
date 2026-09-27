@@ -1,0 +1,47 @@
+J=200 s=3.0: log2 J = 7; threshold for the reduction at s=3 is 0.085 bits/step
+  K=  7 (10 anchors, K/log2 J = 1.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.2391 bits/step
+  K=  8 (9 anchors, K/log2 J = 1.1): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.2580 bits/step
+  K= 14 (9 anchors, K/log2 J = 2.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1902 bits/step
+  K= 16 (8 anchors, K/log2 J = 2.3): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1421 bits/step
+  K= 28 (7 anchors, K/log2 J = 4.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1087 bits/step
+  K= 32 (6 anchors, K/log2 J = 4.6): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1052 bits/step
+  K= 64 (2 anchors, K/log2 J = 9.1): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0621 bits/step
+J=400 s=3.0: log2 J = 8; threshold for the reduction at s=3 is 0.085 bits/step
+  K=  8 (10 anchors, K/log2 J = 1.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.2876 bits/step
+  K= 16 (9 anchors, K/log2 J = 2.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1576 bits/step
+  K= 32 (8 anchors, K/log2 J = 4.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0993 bits/step
+  K= 64 (6 anchors, K/log2 J = 8.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0710 bits/step
+J=800 s=3.0: log2 J = 9; threshold for the reduction at s=3 is 0.085 bits/step
+  K=  8 (10 anchors, K/log2 J = 0.9): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.2740 bits/step
+  K=  9 (10 anchors, K/log2 J = 1.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.2435 bits/step
+  K= 16 (10 anchors, K/log2 J = 1.8): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1556 bits/step
+  K= 18 (10 anchors, K/log2 J = 2.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1383 bits/step
+  K= 32 (9 anchors, K/log2 J = 3.6): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1064 bits/step
+  K= 36 (9 anchors, K/log2 J = 4.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1108 bits/step
+  K= 64 (8 anchors, K/log2 J = 7.1): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0801 bits/step
+J=400 s=1.5: log2 J = 8; threshold for the reduction at s=3 is 0.085 bits/step
+  K=  8 (10 anchors, K/log2 J = 1.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0958 bits/step
+  K= 16 (9 anchors, K/log2 J = 2.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0515 bits/step
+  K= 32 (8 anchors, K/log2 J = 4.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0303 bits/step
+  K= 64 (6 anchors, K/log2 J = 8.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0211 bits/step
+J=800 s=1.5: log2 J = 9; threshold for the reduction at s=3 is 0.085 bits/step
+  K=  8 (10 anchors, K/log2 J = 0.9): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0895 bits/step
+  K=  9 (10 anchors, K/log2 J = 1.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0796 bits/step
+  K= 16 (10 anchors, K/log2 J = 1.8): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0484 bits/step
+  K= 18 (10 anchors, K/log2 J = 2.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0443 bits/step
+  K= 32 (9 anchors, K/log2 J = 3.6): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0337 bits/step
+  K= 36 (9 anchors, K/log2 J = 4.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0321 bits/step
+  K= 64 (8 anchors, K/log2 J = 7.1): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0244 bits/step
+J=400 s=2.0: log2 J = 8; threshold for the reduction at s=3 is 0.085 bits/step
+  K=  8 (10 anchors, K/log2 J = 1.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1714 bits/step
+  K= 16 (9 anchors, K/log2 J = 2.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0926 bits/step
+  K= 32 (8 anchors, K/log2 J = 4.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0558 bits/step
+  K= 64 (6 anchors, K/log2 J = 8.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0394 bits/step
+J=800 s=2.0: log2 J = 9; threshold for the reduction at s=3 is 0.085 bits/step
+  K=  8 (10 anchors, K/log2 J = 0.9): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1617 bits/step
+  K=  9 (10 anchors, K/log2 J = 1.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.1438 bits/step
+  K= 16 (10 anchors, K/log2 J = 1.8): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0881 bits/step
+  K= 18 (10 anchors, K/log2 J = 2.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0805 bits/step
+  K= 32 (9 anchors, K/log2 J = 3.6): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0616 bits/step
+  K= 36 (9 anchors, K/log2 J = 4.0): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0610 bits/step
+  K= 64 (8 anchors, K/log2 J = 7.1): P_K = (1/2K) log2 max_r0 sup_S M_K = 0.0453 bits/step

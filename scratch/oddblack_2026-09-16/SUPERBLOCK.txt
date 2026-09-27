@@ -1,0 +1,35 @@
+J=200 env=true: superblock worst-state pressure (killed P* chain), anchors in [0.1R, 0.9R-K]
+  per-step rate (bits) of the block Chernoff bound for P*(C', sum Q_r >= theta R): max_tau [tau theta - max_r0 ln sup_S M_K / K] / (2 ln 2)
+  K=  4 (13 anchors): q*_K all=0.2981 typ=0.2981 | rate(theta) all: 0.05:-0.0179 0.06:-0.0172 0.075:-0.0161 0.1:-0.0143 | typ: 0.05:-0.0179 0.06:-0.0172 0.075:-0.0161 0.1:-0.0143
+  K=  8 (12 anchors): q*_K all=0.2083 typ=0.2083 | rate(theta) all: 0.05:-0.0114 0.06:-0.0107 0.075:-0.0096 0.1:-0.0078 | typ: 0.05:-0.0114 0.06:-0.0107 0.075:-0.0096 0.1:-0.0078
+  K= 16 (11 anchors): q*_K all=0.1125 typ=0.1125 | rate(theta) all: 0.05:-0.0045 0.06:-0.0038 0.075:-0.0027 0.1:-0.0009 | typ: 0.05:-0.0045 0.06:-0.0038 0.075:-0.0027 0.1:-0.0009
+  K= 32 (8 anchors): q*_K all=0.0766 typ=0.0766 | rate(theta) all: 0.05:-0.0019 0.06:-0.0012 0.075:-0.0001 0.1:+0.0084 | typ: 0.05:-0.0019 0.06:-0.0012 0.075:-0.0001 0.1:+0.0084
+  K= 64 (3 anchors): q*_K all=0.0457 typ=0.0457 | rate(theta) all: 0.05:+0.0003 0.06:+0.0025 0.075:+0.0126 0.1:+0.0447 | typ: 0.05:+0.0003 0.06:+0.0025 0.075:+0.0126 0.1:+0.0447
+J=400 env=true: superblock worst-state pressure (killed P* chain), anchors in [0.1R, 0.9R-K]
+  per-step rate (bits) of the block Chernoff bound for P*(C', sum Q_r >= theta R): max_tau [tau theta - max_r0 ln sup_S M_K / K] / (2 ln 2)
+  K=  4 (12 anchors): q*_K all=0.3547 typ=0.3547 | rate(theta) all: 0.05:-0.0220 0.06:-0.0213 0.075:-0.0202 0.1:-0.0184 | typ: 0.05:-0.0220 0.06:-0.0213 0.075:-0.0202 0.1:-0.0184
+  K=  8 (12 anchors): q*_K all=0.2696 typ=0.1856 | rate(theta) all: 0.05:-0.0158 0.06:-0.0151 0.075:-0.0140 0.1:-0.0122 | typ: 0.05:-0.0098 0.06:-0.0091 0.075:-0.0080 0.1:-0.0062
+  K= 16 (12 anchors): q*_K all=0.1651 typ=0.1248 | rate(theta) all: 0.05:-0.0083 0.06:-0.0076 0.075:-0.0065 0.1:-0.0047 | typ: 0.05:-0.0054 0.06:-0.0047 0.075:-0.0036 0.1:-0.0018
+  K= 32 (10 anchors): q*_K all=0.0926 typ=0.0774 | rate(theta) all: 0.05:-0.0031 0.06:-0.0024 0.075:-0.0013 0.1:+0.0008 | typ: 0.05:-0.0020 0.06:-0.0013 0.075:-0.0002 0.1:+0.0038
+  K= 64 (8 anchors): q*_K all=0.0632 typ=0.0560 | rate(theta) all: 0.05:-0.0010 0.06:-0.0002 0.075:+0.0022 0.1:+0.0163 | typ: 0.05:-0.0004 0.06:+0.0003 0.075:+0.0042 0.1:+0.0202
+J=800 env=true: superblock worst-state pressure (killed P* chain), anchors in [0.1R, 0.9R-K]
+  per-step rate (bits) of the block Chernoff bound for P*(C', sum Q_r >= theta R): max_tau [tau theta - max_r0 ln sup_S M_K / K] / (2 ln 2)
+  K=  4 (13 anchors): q*_K all=0.4501 typ=0.3957 | rate(theta) all: 0.05:-0.0289 0.06:-0.0281 0.075:-0.0271 0.1:-0.0253 | typ: 0.05:-0.0249 0.06:-0.0242 0.075:-0.0231 0.1:-0.0213
+  K=  8 (12 anchors): q*_K all=0.3375 typ=0.3276 | rate(theta) all: 0.05:-0.0207 0.06:-0.0200 0.075:-0.0189 0.1:-0.0171 | typ: 0.05:-0.0200 0.06:-0.0193 0.075:-0.0182 0.1:-0.0164
+  K= 16 (12 anchors): q*_K all=0.1847 typ=0.1750 | rate(theta) all: 0.05:-0.0097 0.06:-0.0090 0.075:-0.0079 0.1:-0.0061 | typ: 0.05:-0.0090 0.06:-0.0083 0.075:-0.0072 0.1:-0.0054
+  K= 32 (12 anchors): q*_K all=0.1111 typ=0.1006 | rate(theta) all: 0.05:-0.0044 0.06:-0.0037 0.075:-0.0026 0.1:-0.0008 | typ: 0.05:-0.0037 0.06:-0.0029 0.075:-0.0018 0.1:-0.0000
+  K= 64 (10 anchors): q*_K all=0.0703 typ=0.0587 | rate(theta) all: 0.05:-0.0015 0.06:-0.0007 0.075:+0.0003 0.1:+0.0091 | typ: 0.05:-0.0006 0.06:+0.0001 0.075:+0.0036 0.1:+0.0177
+J=400 env=random: superblock worst-state pressure (killed P* chain), anchors in [0.1R, 0.9R-K]
+  per-step rate (bits) of the block Chernoff bound for P*(C', sum Q_r >= theta R): max_tau [tau theta - max_r0 ln sup_S M_K / K] / (2 ln 2)
+  K=  4 (12 anchors): q*_K all=0.4539 typ=0.2917 | rate(theta) all: 0.05:-0.0291 0.06:-0.0284 0.075:-0.0273 0.1:-0.0255 | typ: 0.05:-0.0174 0.06:-0.0167 0.075:-0.0156 0.1:-0.0138
+  K=  8 (12 anchors): q*_K all=0.2529 typ=0.1817 | rate(theta) all: 0.05:-0.0146 0.06:-0.0139 0.075:-0.0128 0.1:-0.0110 | typ: 0.05:-0.0095 0.06:-0.0088 0.075:-0.0077 0.1:-0.0059
+  K= 16 (12 anchors): q*_K all=0.1334 typ=0.1284 | rate(theta) all: 0.05:-0.0060 0.06:-0.0053 0.075:-0.0042 0.1:-0.0024 | typ: 0.05:-0.0057 0.06:-0.0049 0.075:-0.0039 0.1:-0.0021
+  K= 32 (10 anchors): q*_K all=0.0972 typ=0.0972 | rate(theta) all: 0.05:-0.0034 0.06:-0.0027 0.075:-0.0016 0.1:+0.0002 | typ: 0.05:-0.0034 0.06:-0.0027 0.075:-0.0016 0.1:+0.0002
+  K= 64 (8 anchors): q*_K all=0.0671 typ=0.0591 | rate(theta) all: 0.05:-0.0012 0.06:-0.0005 0.075:+0.0011 0.1:+0.0152 | typ: 0.05:-0.0007 0.06:+0.0001 0.075:+0.0024 0.1:+0.0159
+J=800 env=random: superblock worst-state pressure (killed P* chain), anchors in [0.1R, 0.9R-K]
+  per-step rate (bits) of the block Chernoff bound for P*(C', sum Q_r >= theta R): max_tau [tau theta - max_r0 ln sup_S M_K / K] / (2 ln 2)
+  K=  4 (13 anchors): q*_K all=0.4170 typ=0.2933 | rate(theta) all: 0.05:-0.0265 0.06:-0.0258 0.075:-0.0247 0.1:-0.0229 | typ: 0.05:-0.0176 0.06:-0.0168 0.075:-0.0157 0.1:-0.0139
+  K=  8 (12 anchors): q*_K all=0.2559 typ=0.2306 | rate(theta) all: 0.05:-0.0149 0.06:-0.0141 0.075:-0.0130 0.1:-0.0112 | typ: 0.05:-0.0130 0.06:-0.0123 0.075:-0.0112 0.1:-0.0094
+  K= 16 (12 anchors): q*_K all=0.1417 typ=0.1287 | rate(theta) all: 0.05:-0.0066 0.06:-0.0059 0.075:-0.0048 0.1:-0.0030 | typ: 0.05:-0.0057 0.06:-0.0050 0.075:-0.0039 0.1:-0.0021
+  K= 32 (12 anchors): q*_K all=0.1137 typ=0.1062 | rate(theta) all: 0.05:-0.0046 0.06:-0.0039 0.075:-0.0028 0.1:-0.0010 | typ: 0.05:-0.0041 0.06:-0.0033 0.075:-0.0023 0.1:-0.0004
+  K= 64 (10 anchors): q*_K all=0.0800 typ=0.0793 | rate(theta) all: 0.05:-0.0022 0.06:-0.0014 0.075:-0.0004 0.1:+0.0041 | typ: 0.05:-0.0021 0.06:-0.0014 0.075:-0.0003 0.1:+0.0041

@@ -1,0 +1,3 @@
+uniform-in-q=True Lc=10 P=55296 g0=19: max_j (Lt V)_j/V_j = 1.1279680086  (exact rational check vs rho'=1.12797: violations=0)
+maxV/minV = 5.5623
+=> P(val > 2^(K/5)) <= 5.562 * 3^(-0.14276 K)   [beta=2, q in [0.3670,0.37] termwise-max weights, eta=1/54]

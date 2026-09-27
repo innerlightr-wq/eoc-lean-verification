@@ -1,0 +1,83 @@
+== AL13 examples ==
+OK  C(1,7)                 vertices=     4 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=4 beta=None
+OK  C(1,19)                vertices=     8 beta=1.465571 dim=0.347934  paper: dim=0.347934 vert=8 beta=1.465571
+OK  C(1,7,19)              vertices=     6 beta=1.465571 dim=0.347934  paper: dim=0.347934 vert=None beta=None
+OK  C(1,43) dim 0          vertices=     8 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,49)                vertices=     9 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+== AL13 Table 4.1: L_k = (1^k)_3 (k vertices) ==
+OK  C(1,L_2=4)             vertices=     2 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=2 beta=1.618033
+OK  C(1,L_3=13)            vertices=     3 beta=1.465571 dim=0.347934  paper: dim=0.347934 vert=3 beta=1.465571
+OK  C(1,L_4=40)            vertices=     4 beta=1.380278 dim=0.293356  paper: dim=0.293358 vert=4 beta=1.380278
+OK  C(1,L_5=121)           vertices=     5 beta=1.324718 dim=0.255959  paper: dim=0.25596 vert=5 beta=1.324718
+OK  C(1,L_6=364)           vertices=     6 beta=1.285199 dim=0.228391  paper: dim=0.228392 vert=6 beta=1.285199
+MISMATCH C(1,L_7=1093)          vertices=     7 beta=1.255423 dim=0.207054  paper: dim=0.207052 vert=7 beta=1.255423
+MISMATCH C(1,L_8=3280)          vertices=     8 beta=1.232055 dim=0.189952  paper: dim=0.189948 vert=8 beta=1.232055
+OK  C(1,L_9=9841)          vertices=     9 beta=1.213150 dim=0.175876  paper: dim=0.175877 vert=9 beta=1.21315
+== AL13 N_k = 3^k+1 (2^k vertices, dim log3 phi) ==
+OK  C(1,N_1)               vertices=     2 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=2 beta=None
+OK  C(1,N_2)               vertices=     4 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=4 beta=None
+OK  C(1,N_3)               vertices=     8 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=8 beta=None
+OK  C(1,N_4)               vertices=    16 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=16 beta=None
+OK  C(1,N_5)               vertices=    32 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=32 beta=None
+OK  C(1,N_6)               vertices=    64 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=64 beta=None
+OK  C(1,N_7)               vertices=   128 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=128 beta=None
+OK  C(1,N_8)               vertices=   256 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=256 beta=None
+== AL13 Table 5.2: powers of two ==
+OK  C(1,2^2)               vertices=     2 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=None beta=None
+OK  C(1,2^4)               vertices=     5 beta=1.324718 dim=0.255959  paper: dim=0.25596 vert=None beta=None
+OK  C(1,2^6)               vertices=    14 beta=1.357193 dim=0.278004  paper: dim=0.278002 vert=None beta=None
+MISMATCH C(1,2^8)               vertices=    35 beta=1.400925 dim=0.306871  paper: dim=0.287416 vert=None beta=None
+MISMATCH C(1,2^10)              vertices=    77 beta=1.266705 dim=0.215198  paper: dim=0.215201 vert=None beta=None
+MISMATCH C(1,2^12)              vertices=   181 beta=1.307425 dim=0.243998  paper: dim=0.244002 vert=None beta=None
+OK  C(1,2^14)              vertices=   442 beta=1.341047 dim=0.267110  paper: dim=0.267112 vert=None beta=None
+OK  C(1,2^2,2^4)           vertices=     2 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^2,2^6)           vertices=     5 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^2,2^8)           vertices=    10 beta=1.285199 dim=0.228391  paper: dim=0.228392 vert=None beta=None
+OK  C(1,2^2,2^10)          vertices=     2 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^4,2^6)           vertices=     7 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^4,2^8)           vertices=     2 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^4,2^10)          vertices=     3 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^6,2^8)           vertices=     6 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^6,2^10)          vertices=     3 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^8,2^10)          vertices=     2 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^2,2^8,2^12)      vertices=     3 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^2,2^8,2^14)      vertices=     3 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+OK  C(1,2^2,2^8,2^16)      vertices=     2 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=None beta=None
+== ABL15 Table 2.1: P_k = 2*3^k+1 ==
+OK  C(1,P_1=7)             vertices=     4 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=4 beta=1.618033
+OK  C(1,P_2=19)            vertices=     8 beta=1.465571 dim=0.347934  paper: dim=0.347934 vert=8 beta=1.465571
+OK  C(1,P_3=55)            vertices=    16 beta=1.380278 dim=0.293356  paper: dim=0.293358 vert=16 beta=1.380278
+OK  C(1,P_4=163)           vertices=    32 beta=1.324718 dim=0.255959  paper: dim=0.25596 vert=32 beta=1.324718
+MISMATCH C(1,P_5=487)           vertices=    64 beta=1.370957 dim=0.287189  paper: dim=0.287191 vert=64 beta=1.370957
+OK  C(1,P_6=1459)          vertices=   128 beta=1.388728 dim=0.298912  paper: dim=0.298913 vert=128 beta=1.388728
+MISMATCH C(1,P_7=4375)          vertices=   256 beta=1.392067 dim=0.301098  paper: dim=0.30101 vert=256 beta=1.392067
+OK  C(1,P_8=13123)         vertices=   512 beta=1.387961 dim=0.298409  paper: dim=0.298408 vert=512 beta=1.387961
+== ABL15 Q_k = 3^{2k}-3^k+1 (4^k vertices, dim log3 phi, k>=2) ==
+OK  C(1,Q_2)               vertices=    16 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=16 beta=None
+OK  C(1,Q_3)               vertices=    64 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=64 beta=None
+OK  C(1,Q_4)               vertices=   256 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=256 beta=None
+OK  C(1,Q_5)               vertices=  1024 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=1024 beta=None
+== ABL15 Table 7.1 ==
+OK  C(1,10)                vertices=     4 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=4 beta=1.618033
+OK  C(1,16)                vertices=     5 beta=1.324718 dim=0.255959  paper: dim=0.25596 vert=5 beta=1.324718
+OK  C(1,19)                vertices=     8 beta=1.465571 dim=0.347934  paper: dim=0.347934 vert=8 beta=1.465571
+OK  C(1,73)                vertices=    16 beta=1.618034 dim=0.438018  paper: dim=0.438018 vert=16 beta=1.618033
+OK  C(1,34)                vertices=     8 beta=1.324718 dim=0.255959  paper: dim=0.25596 vert=8 beta=1.324718
+OK  C(1,46)                vertices=    10 beta=1.112776 dim=0.097266  paper: dim=0.097266 vert=10 beta=1.112776
+OK  C(1,61)                vertices=    14 beta=1.570147 dim=0.410672  paper: dim=0.410672 vert=14 beta=1.570147
+OK  C(1,64)                vertices=    14 beta=1.357193 dim=0.278004  paper: dim=0.278004 vert=14 beta=1.357193
+OK  C(1,70)                vertices=    14 beta=1.360632 dim=0.280308  paper: dim=0.280308 vert=14 beta=1.360632
+OK  C(1,91)                vertices=     9 beta=1.465571 dim=0.347934  paper: dim=0.347934 vert=9 beta=1.465571
+OK  C(1,97)                vertices=    16 beta=1.380278 dim=0.293356  paper: dim=0.293356 vert=16 beta=1.380277
+OK  C(1,100)               vertices=    17 beta=1.354948 dim=0.276497  paper: dim=0.276497 vert=17 beta=1.354948
+OK  C(1,142)               vertices=    20 beta=1.276393 dim=0.222133  paper: dim=0.222133 vert=20 beta=1.276393
+OK  C(1,145)               vertices=    21 beta=1.000000 dim=0.000000  paper: dim=0.0 vert=21 beta=1.0
+OK  C(1,151)               vertices=    20 beta=1.227525 dim=0.186599  paper: dim=0.186599 vert=20 beta=1.227525
+OK  C(1,172)               vertices=    22 beta=1.288329 dim=0.230605  paper: dim=0.230606 vert=22 beta=1.288329
+OK  C(1,178)               vertices=    25 beta=1.345528 dim=0.270146  paper: dim=0.270148 vert=25 beta=1.345528
+OK  C(1,181)               vertices=    22 beta=1.324718 dim=0.255959  paper: dim=0.25596 vert=22 beta=1.324718
+OK  C(1,196)               vertices=    24 beta=1.383785 dim=0.295666  paper: dim=0.295666 vert=24 beta=1.383785
+OK  C(1,208)               vertices=    25 beta=1.290893 dim=0.232415  paper: dim=0.232415 vert=25 beta=1.290893
+== Lagarias 2005 Thm 1.5(3) / ABL: C(1,4,256) ==
+OK  C(1,4,256)             vertices=    10 beta=1.285199 dim=0.228391  paper: dim=0.228392 vert=None beta=None
+SOME MISMATCH

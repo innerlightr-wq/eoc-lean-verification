@@ -1,0 +1,112 @@
+window: 64 levels b = 12..138, 2802 cell constraints (402 black / 2400 white)
+
+level b=12: enumerating all 3^12 = 531441 residues ...
+  survivors 308  density 5.795563e-04   (XI_adv present: True)
+  level b= 18: lifted      2034 -> survivors       178  density 4.5945e-07
+  level b= 26: lifted      4464 -> survivors       124  density 4.8783e-11
+  level b= 34: lifted       432 -> survivors       384  density 2.3025e-14
+  level b= 42: lifted       144 -> survivors       112  density 1.0236e-18
+  level b= 50: lifted       144 -> survivors        16  density 2.2287e-23
+  level b= 58: lifted       288 -> survivors        32  density 6.7939e-27
+  level b= 66: lifted       144 -> survivors        16  density 5.1775e-31
+  level b= 74: lifted       144 -> survivors        16  density 7.8913e-35
+  level b= 82: lifted       432 -> survivors        16  density 1.2028e-38
+  level b= 90: lifted       144 -> survivors        16  density 1.8332e-42
+  level b= 98: lifted       144 -> survivors        16  density 2.7941e-46
+  level b=106: lifted       144 -> survivors        16  density 4.2586e-50
+  level b=114: lifted       144 -> survivors        16  density 6.4908e-54
+  level b=122: lifted       144 -> survivors        16  density 9.8930e-58
+  level b=130: lifted       144 -> survivors        16  density 1.5078e-61
+  level b=138: lifted       144 -> survivors        16  density 2.2982e-65
+
+FINAL level b=138: |surviving residues mod 3^138| = 16
+  density of the exceptional set = 16/3^138 = 2.298195e-65
+  XI_adv mod 3^138 in surviving set: True
+  of which 3-adic UNITS (v != 0 mod 3): 10
+  explicit realizing residue xi = XI_adv mod 3^138 =
+    287547455275089266100138961337820217276590274522087250973991738462
+  full surviving set:
+    8628357598004709039287903785445954915294778314402654274318196576
+    95218625786692938376994387561569515390567832324913676880128383437
+    112475340982702356455570195132461425221157388953718985428764776589
+    183700471890391618683856669990804746970727663882770919819545158449
+    199065609171390585793276678908584985696430442964230008034574963450
+    200957187086401036762432477561696656801317220511576228368181551601
+    287547455275089266100138961337820217276590274522087250973991738462   <-- XI_adv
+    304804170471098684178714768908712127107179831150892559522628131614
+    391394438659786913516421252684835687582452885161403582128438318475
+    408651153855796331594997060255727597413042441790208890677074711627
+    495241422044484560932703544031851157888315495800719913282884898488
+    497132999959495011901859342684962828993202273348066133616491486639
+    512498137240493979011279351602743067718905052429525221831521291640
+    583723268148183241239565826461086389468475327358577156222301673500
+    600979983344192659318141634031978299299064883987382464770938066652
+    687570251532880888655848117808101859774337937997893487376748253513
+
+per-level survivor counts (b, count, 3^b):
+  b= 12  count=      308  density=5.7956e-04
+  b= 14  count=      270  density=5.6450e-05
+  b= 16  count=      226  density=5.2501e-06
+  b= 18  count=      178  density=4.5945e-07
+  b= 20  count=      122  density=3.4989e-08
+  b= 22  count=       62  density=1.9757e-09
+  b= 24  count=      496  density=1.7562e-09
+  b= 26  count=      124  density=4.8783e-11
+  b= 28  count=      124  density=5.4203e-12
+  b= 30  count=       62  density=3.0113e-13
+  b= 32  count=       48  density=2.5904e-14
+  b= 34  count=      384  density=2.3025e-14
+  b= 36  count=       16  density=1.0660e-16
+  b= 38  count=       16  density=1.1844e-17
+  b= 40  count=       16  density=1.3160e-18
+  b= 42  count=      112  density=1.0236e-18
+  b= 44  count=       32  density=3.2495e-20
+  b= 46  count=       32  density=3.6105e-21
+  b= 48  count=       16  density=2.0059e-22
+  b= 50  count=       16  density=2.2287e-23
+  b= 52  count=      112  density=1.7335e-23
+  b= 54  count=      448  density=7.7042e-24
+  b= 56  count=       32  density=6.1145e-26
+  b= 58  count=       32  density=6.7939e-27
+  b= 60  count=       32  density=7.5487e-28
+  b= 62  count=       16  density=4.1937e-29
+  b= 64  count=       16  density=4.6597e-30
+  b= 66  count=       16  density=5.1775e-31
+  b= 68  count=       16  density=5.7527e-32
+  b= 70  count=       16  density=6.3919e-33
+  b= 72  count=       16  density=7.1021e-34
+  b= 74  count=       16  density=7.8913e-35
+  b= 76  count=       16  density=8.7681e-36
+  b= 78  count=       16  density=9.7423e-37
+  b= 80  count=       48  density=3.2474e-37
+  b= 82  count=       16  density=1.2028e-38
+  b= 84  count=       16  density=1.3364e-39
+  b= 86  count=       16  density=1.4849e-40
+  b= 88  count=       16  density=1.6499e-41
+  b= 90  count=       16  density=1.8332e-42
+  b= 92  count=       16  density=2.0369e-43
+  b= 94  count=       16  density=2.2632e-44
+  b= 96  count=       16  density=2.5147e-45
+  b= 98  count=       16  density=2.7941e-46
+  b=100  count=       16  density=3.1045e-47
+  b=102  count=       16  density=3.4495e-48
+  b=104  count=       16  density=3.8327e-49
+  b=106  count=       16  density=4.2586e-50
+  b=108  count=       16  density=4.7318e-51
+  b=110  count=       16  density=5.2575e-52
+  b=112  count=       16  density=5.8417e-53
+  b=114  count=       16  density=6.4908e-54
+  b=116  count=       16  density=7.2120e-55
+  b=118  count=       16  density=8.0133e-56
+  b=120  count=       16  density=8.9037e-57
+  b=122  count=       16  density=9.8930e-58
+  b=124  count=       16  density=1.0992e-58
+  b=126  count=       16  density=1.2214e-59
+  b=128  count=       16  density=1.3571e-60
+  b=130  count=       16  density=1.5078e-61
+  b=132  count=       16  density=1.6754e-62
+  b=134  count=       16  density=1.8615e-63
+  b=136  count=       16  density=2.0684e-64
+  b=138  count=       16  density=2.2982e-65
+
+wrote surv.json

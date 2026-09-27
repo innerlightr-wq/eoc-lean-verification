@@ -1,0 +1,29 @@
+driver core rows (blocks 5..10):
+   j=0: 1111110
+   j=1: 11111110
+   j=2: 111111110
+   j=3: 1111111110
+   j=4: 111111111100
+   j=5: 1111111111110
+
+period P=16, 12 driver copies, blocks 5..186, levels 12..374, 708 constrained cells
+  after driver copy # 0: level b= 12  survivors 206
+  after driver copy # 1: level b= 44  survivors 229
+  after driver copy # 2: level b= 76  survivors 245
+  after driver copy # 3: level b=108  survivors 244
+  after driver copy # 4: level b=140  survivors 224
+  after driver copy # 5: level b=172  survivors 250
+  after driver copy # 6: level b=204  survivors 232
+  after driver copy # 7: level b=236  survivors 228
+  after driver copy # 8: level b=268  survivors 221
+  after driver copy # 9: level b=300  survivors 240
+  after driver copy #10: level b=332  survivors 214
+  after driver copy #11: level b=364  survivors 225
+
+survivors mod 3^374: 42  (subsampling factor applied: e^-166.3)
+explicit repeating phase xi (unit, xi mod 3 = 2), 178 decimal digits
+independent verification of all 708 constrained cells: OK - the driver really repeats
+black fraction over blocks 5..186: 1291/20532 = 0.0629; max triangle depth = 7.74
+CW(r0=5,K=32) = 0.0306   (theta_max = 0.137; adversary's single unit 0.3742)
+long-product growth Lambda(r0,L) = L=16:0.2926  L=32:0.1772  L=64:0.1039  L=96:0.0826  L=128:0.0759  L=160:0.0656  L=190:0.0612
+MAX CYCLE MEAN estimate for this periodic unit: Lambda -> 0.0612 bits/step

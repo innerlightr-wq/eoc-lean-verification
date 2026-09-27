@@ -1,0 +1,3 @@
+q0=0.369070: c* = x*/L = 2.2686  (solves c ln q0 + int_0^c ln((alpha+u)/(alpha-1+u))du = -alpha ln 2)
+q0=0.370000: c* = x*/L = 2.2768  (solves c ln q0 + int_0^c ln((alpha+u)/(alpha-1+u))du = -alpha ln 2)
+t_max/L = 3.862; worst 2t - log2 C(t-1,L-1) per L = 4.537; L/j0 = gamma/4.537; DeltaE = I0/alpha * L/j0 = 0.01103 gamma

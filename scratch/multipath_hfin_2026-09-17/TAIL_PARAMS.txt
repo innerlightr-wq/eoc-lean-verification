@@ -1,0 +1,12 @@
+gamma = 8.6e-08
+  L=    10 xs=    53 xs/L=5.300 j0=2.439e+09 L/j0=4.101e-09  DeltaE=2.052e-10  DeltaE/gamma=0.0024
+  L=   100 xs=   263 xs/L=2.630 j0=1.073e+10 L/j0=9.321e-09  DeltaE=4.665e-10  DeltaE/gamma=0.0054
+  L=  1000 xs=  2316 xs/L=2.316 j0=9.176e+10 L/j0=1.090e-08  DeltaE=5.454e-10  DeltaE/gamma=0.0063
+  L= 10000 xs= 22811 xs/L=2.281 j0=9.002e+11 L/j0=1.111e-08  DeltaE=5.559e-10  DeltaE/gamma=0.0065
+  L=100000 xs=227729 xs/L=2.277 j0=8.983e+12 L/j0=1.113e-08  DeltaE=5.571e-10  DeltaE/gamma=0.0065
+gamma = 0.00025
+  L=    10 xs=    43 xs/L=4.300 j0=6.641e+05 L/j0=1.506e-05  DeltaE=7.535e-07  DeltaE/gamma=0.0030
+  L=   100 xs=   252 xs/L=2.520 j0=3.510e+06 L/j0=2.849e-05  DeltaE=1.426e-06  DeltaE/gamma=0.0057
+  L=  1000 xs=  2305 xs/L=2.305 j0=3.138e+07 L/j0=3.186e-05  DeltaE=1.595e-06  DeltaE/gamma=0.0064
+  L= 10000 xs= 22799 xs/L=2.280 j0=3.095e+08 L/j0=3.231e-05  DeltaE=1.617e-06  DeltaE/gamma=0.0065
+  L=100000 xs=227717 xs/L=2.277 j0=3.090e+09 L/j0=3.236e-05  DeltaE=1.620e-06  DeltaE/gamma=0.0065

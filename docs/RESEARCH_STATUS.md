@@ -142,6 +142,35 @@ scattered shifts up to t = 77702; Haar controls; 40 shifts at K = ⌈5 log₂ j�
 
 These finite computations support the hypothesis but do not prove it.
 
+## Downstream chain conditional on the frontier (2026-09-16, uncommitted round)
+
+### PROVED (LEAN)
+
+* `ShapeRegion.shapeTail_region`: ShapeTail for barrier `collatzBarrier U` on every shell with
+  b₀(j) − j/300 ≤ σ ≤ b_U(j), σ + 2 ≤ 2j, rate 2^{−(j/300 − δ)}. The certificate moves down one shell per rate bit
+  (`arith_down`) and up for free (`arith_up`).
+* `FrontierRegion.lowFreqDecay_of_sparsityAt`: `PowerOfTwoDangerousWindowSparsityAt U j σ …` (the frontier Prop on
+  shell σ at offset U) ⇒ `LowFreqDecay` on that region, for 63σ + 37 ≤ 100j.
+* `ConditionalChain.hfin_of_split`: the low-frequency half of `hfin` is bookkeeping (cost (Us+1)·2^t).
+* `ConditionalChain.exceptional_bound_of_pairInputs`: the exceptional-set bound from `PairInputs` on the pairs used
+  (else the trivial branch) plus `hweight`.
+
+### Remaining inputs
+
+* The frontier Prop on the shells used (OPEN).
+* The high-frequency (C3) sieve tail and a binomial lower bound on |V_{σ,s}| inside `PairInputs` (quantitative, not
+  proved).
+* `hweight` (Haar-weight large deviations, COMPUTATIONAL checks only).
+
+### COMPUTATIONAL / HEURISTIC
+
+* The needed shells satisfy b₀(j0) − σ ≲ 2.1(N − j0), inside the proved region.
+* The best rate allowed is γ ≤ 8.6·10⁻⁸ at d = 1/108.
+* The heuristic conditional improvement is ε ≈ 0.013–0.030·γ, i.e. about 10⁻⁹ below H₂(1/α).
+* White contraction (d²/N₀) is the dominant loss.
+
+See `scratch/downstream_2026-09-16/REPORT.md`.
+
 ## Chain after this milestone
 
     PowerOfTwoDangerousWindowSparsity (OPEN)  ⇒  SummedOddDarkPressure   ArithmeticFrontier.summedPressure_of_powerOfTwoSparsity (PROVED (LEAN))

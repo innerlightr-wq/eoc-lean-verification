@@ -1,0 +1,72 @@
+=================== P=6
+  after driver copy #12: level b=156 survivors 370
+  after driver copy #13: level b=168 survivors 370
+  after driver copy #14: level b=180 survivors 370
+  after driver copy #15: level b=192 survivors 370
+  after driver copy #16: level b=204 survivors 370
+  after driver copy #17: level b=216 survivors 370
+  after driver copy #18: level b=228 survivors 370
+  after driver copy #19: level b=240 survivors 370
+
+final: 370 surviving residues mod 3^250  (density 1.940e-117)
+  explicit periodic-driver phase xi mod 3^250 = 92591476424497723384197916515447421498456844086918569258005390273570875267009629034714823167339797819886723297420022647
+  CW(r0=5,K=32) of this periodic environment = 0.7860   (theta_max 0.137)
+    Lambda(r0,16) = (1/2L)log2 max_S M_L = 0.7773
+    Lambda(r0,32) = (1/2L)log2 max_S M_L = 0.7796
+    Lambda(r0,64) = (1/2L)log2 max_S M_L = 0.7828
+    Lambda(r0,96) = (1/2L)log2 max_S M_L = 0.7847
+    Lambda(r0,128) = (1/2L)log2 max_S M_L = 0.7381
+  (driver-repetition re-verified independently: False)
+=================== P=7
+  after driver copy #12: level b=180 survivors 370
+  after driver copy #13: level b=194 survivors 370
+  after driver copy #14: level b=208 survivors 370
+  after driver copy #15: level b=222 survivors 370
+  after driver copy #16: level b=236 survivors 370
+  after driver copy #17: level b=250 survivors 370
+  after driver copy #18: level b=264 survivors 370
+  after driver copy #19: level b=278 survivors 370
+
+final: 370 surviving residues mod 3^288  (density 1.436e-135)
+  explicit periodic-driver phase xi mod 3^288 = 195243216534235958200197864691168516361999116075841505668485002518965122962038555011756625278246376769001627538927705554937282487167503538
+  CW(r0=5,K=32) of this periodic environment = 0.7860   (theta_max 0.137)
+    Lambda(r0,16) = (1/2L)log2 max_S M_L = 0.7773
+    Lambda(r0,32) = (1/2L)log2 max_S M_L = 0.7796
+    Lambda(r0,64) = (1/2L)log2 max_S M_L = 0.7828
+    Lambda(r0,96) = (1/2L)log2 max_S M_L = 0.7847
+    Lambda(r0,128) = (1/2L)log2 max_S M_L = 0.7859
+  (driver-repetition re-verified independently: False)
+=================== P=8
+  after driver copy #12: level b=204 survivors 370
+  after driver copy #13: level b=220 survivors 370
+  after driver copy #14: level b=236 survivors 370
+  after driver copy #15: level b=252 survivors 370
+  after driver copy #16: level b=268 survivors 370
+  after driver copy #17: level b=284 survivors 370
+  after driver copy #18: level b=300 survivors 370
+  after driver copy #19: level b=316 survivors 370
+
+final: 370 surviving residues mod 3^326  (density 1.063e-153)
+  explicit periodic-driver phase xi mod 3^326 = 341969242252622399795306173563827891527342838884203137229734333725809726122688508795103190295439723583431357283608948990742944582417633650783141304234123608
+  CW(r0=5,K=32) of this periodic environment = 0.7860   (theta_max 0.137)
+    Lambda(r0,16) = (1/2L)log2 max_S M_L = 0.7773
+    Lambda(r0,32) = (1/2L)log2 max_S M_L = 0.7796
+    Lambda(r0,64) = (1/2L)log2 max_S M_L = 0.7828
+    Lambda(r0,96) = (1/2L)log2 max_S M_L = 0.7847
+    Lambda(r0,128) = (1/2L)log2 max_S M_L = 0.7859
+  (driver-repetition re-verified independently: False)
+=================== P=10
+period P=10, 19 repetitions, blocks 5..190, levels 12..382
+constrained cells: 988
+  after driver copy #0: level b= 12 survivors 410
+  after driver copy #1: level b= 32 survivors 25530
+  !! level 50: 148081770 lifts exceed CAP; abort
+
+final: 16453530 surviving residues mod 3^48  (density 2.063e-16)
+=================== P=12
+period P=12, 16 repetitions, blocks 5..190, levels 12..382
+constrained cells: 832
+  after driver copy #0: level b= 12 survivors 410
+  !! level 34: 196633170 lifts exceed CAP; abort
+
+final: 21848130 surviving residues mod 3^32  (density 1.179e-08)

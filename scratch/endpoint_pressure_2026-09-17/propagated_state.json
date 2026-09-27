@@ -1,0 +1,72 @@
+[
+  {
+    "j": 400,
+    "t": 66,
+    "K_pair_blocks": 60,
+    "windows": 4,
+    "pinned_rate_per_j": -0.024390433477382754,
+    "unpinned_rate_per_j": -0.004044150564448993,
+    "product_sup_rate_per_j": 0.005555494187262834,
+    "sup_minus_pinned_per_j": 0.02994592766464559,
+    "ratio_log2": 11.978371065858235,
+    "max_window_rate": 0.05343804555570514,
+    "mean_window_rate": 0.013535919415336552,
+    "dangerous_fraction": 0.0
+  },
+  {
+    "j": 800,
+    "t": 133,
+    "K_pair_blocks": 67,
+    "windows": 6,
+    "pinned_rate_per_j": -0.010165726655485305,
+    "unpinned_rate_per_j": 0.0018957648369220554,
+    "product_sup_rate_per_j": 0.008973551648371611,
+    "sup_minus_pinned_per_j": 0.019139278303856918,
+    "ratio_log2": 15.311422643085534,
+    "max_window_rate": 0.02332518423751206,
+    "mean_window_rate": 0.009044952805531513,
+    "dangerous_fraction": 0.0
+  },
+  {
+    "j": 1600,
+    "t": 266,
+    "K_pair_blocks": 74,
+    "windows": 11,
+    "pinned_rate_per_j": 0.0002753454974981739,
+    "unpinned_rate_per_j": 0.006635857829358355,
+    "product_sup_rate_per_j": 0.015851141575227712,
+    "sup_minus_pinned_per_j": 0.015575796077729537,
+    "ratio_log2": 24.92127372436726,
+    "max_window_rate": 0.035038462352875256,
+    "mean_window_rate": 0.01618114463528553,
+    "dangerous_fraction": 0.0
+  },
+  {
+    "j": 3200,
+    "t": 533,
+    "K_pair_blocks": 81,
+    "windows": 20,
+    "pinned_rate_per_j": 0.004925187956430428,
+    "unpinned_rate_per_j": 0.008201603567403468,
+    "product_sup_rate_per_j": 0.018044409143631934,
+    "sup_minus_pinned_per_j": 0.013119221187201505,
+    "ratio_log2": 41.98150779904481,
+    "max_window_rate": 0.02605385593907052,
+    "mean_window_rate": 0.01814329120283488,
+    "dangerous_fraction": 0.0
+  },
+  {
+    "j": 6400,
+    "t": 1066,
+    "K_pair_blocks": 88,
+    "windows": 37,
+    "pinned_rate_per_j": 0.00691060896814625,
+    "unpinned_rate_per_j": 0.008833835044993466,
+    "product_sup_rate_per_j": 0.020250669815521722,
+    "sup_minus_pinned_per_j": 0.013340060847375473,
+    "ratio_log2": 85.37638942320302,
+    "max_window_rate": 0.03592412815241839,
+    "mean_window_rate": 0.020520237895026088,
+    "dangerous_fraction": 0.0
+  }
+]

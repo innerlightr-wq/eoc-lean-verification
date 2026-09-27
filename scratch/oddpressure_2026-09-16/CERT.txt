@@ -1,0 +1,27 @@
+geometry check:
+  block r=10: level b=22, readable columns x = 21..33 (n=13); adversary row = 1111111111110
+  block r=11: level b=24, readable columns x = 23..36 (n=14); adversary row = 00000000000000
+
+exhaustive verification of the certificate (all 9 digit pairs c, all y(x,22) in the black range):
+  c=0: d_x for x=23..29 = [0, 0, 0, 0, 0, 0, 0]   -> x=23..28 all forced-black-compatible: True; d_29 != 0: False
+  c=1: d_x for x=23..29 = [2, 4, -1, -2, -4, 1, 2]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+  c=2: d_x for x=23..29 = [4, -1, -2, -4, 1, 2, 4]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+  c=3: d_x for x=23..29 = [-3, 3, -3, 3, -3, 3, -3]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+  c=4: d_x for x=23..29 = [-1, -2, -4, 1, 2, 4, -1]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+  c=5: d_x for x=23..29 = [1, 2, 4, -1, -2, -4, 1]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+  c=6: d_x for x=23..29 = [3, -3, 3, -3, 3, -3, 3]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+  c=7: d_x for x=23..29 = [-4, 1, 2, 4, -1, -2, -4]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+  c=8: d_x for x=23..29 = [-2, -4, 1, 2, 4, -1, -2]   -> x=23..28 all forced-black-compatible: False; d_29 != 0: True
+
+  number of digit pairs c allowing BOTH the six blacks and the terminating white: 0
+  => period-6 repetition of the depth-capped driver is IMPOSSIBLE (REFUTED).
+
+quantitative check of the two thresholds:
+  black at level 22: |y| < 3^22/54 = 581130733
+  black at level 24: |y| < 3^24/54 = 3^22/6 = 5230176601  (= 0.1667 * 3^22)
+  a nonzero digit shift moves y by at least 3^22 = 31381059609, i.e. by 6.00x the
+  level-24 black threshold, so it always turns a level-22 black cell WHITE at level 24.
+
+sanity: in the adversary's own environment, is x=29 black at level 22 and at level 24?
+  block r=10 level b=22: y(29,22) = -67108864, |54y| < 3^b : True
+  block r=11 level b=24: y(29,24) = -62829228082, |54y| < 3^b : False

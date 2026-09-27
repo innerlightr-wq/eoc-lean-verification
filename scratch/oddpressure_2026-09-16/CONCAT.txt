@@ -1,0 +1,30 @@
+================ P=6
+driver core rows (blocks 5..10):
+   j=0: 1111110
+   j=1: 11111110
+   j=2: 111111110
+   j=3: 1111111110
+   j=4: 111111111100
+   j=5: 1111111111110
+
+period P=6, 30 driver copies, blocks 5..184, levels 12..370, 1770 constrained cells
+  after driver copy # 0: level b= 12  survivors 206
+  after driver copy # 1: level b= 24  survivors 0
+  *** EMPTY at block r=11 (level b=24): driver cannot repeat at period 6
+
+survivors mod 3^24: 0  (subsampling factor applied: e^0.0)
+================ P=8
+driver core rows (blocks 5..10):
+   j=0: 1111110
+   j=1: 11111110
+   j=2: 111111110
+   j=3: 1111111110
+   j=4: 111111111100
+   j=5: 1111111111110
+
+period P=8, 24 driver copies, blocks 5..194, levels 12..390, 1416 constrained cells
+  after driver copy # 0: level b= 12  survivors 206
+  after driver copy # 1: level b= 28  survivors 0
+  *** EMPTY at block r=13 (level b=28): driver cannot repeat at period 8
+
+survivors mod 3^28: 0  (subsampling factor applied: e^0.0)

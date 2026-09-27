@@ -1,0 +1,31 @@
+==============================================================================================================
+TASK 4b -- DISJOINT-TILING window graph (true low-frequency environments only)
+==============================================================================================================
+  recur   = fraction of window occurrences whose state lies in a nontrivial SCC
+  badrec  = same, restricted to windows with P_j > theta_max = 0.137
+  mu_max  = max cycle mean of P over the graph; target = 0.137
+
+    K  G  wnb wpre wdep    |V|    |E|  #SCC>1   recur  badrec    maxP    mu_max  <target
+   16  1  999  999  999      1      1       1  1.0000  1.0000  0.2242   0.22423       NO
+   16  1   40    3    2    107    692       3  0.9489  0.9955  0.2242   0.22293       NO
+   16  2   20    3    2    523   3085      10  0.7227  0.7197  0.2242   0.17499       NO
+   16  4   10    2    1   5038   6337       0  0.0000  0.0000  0.2242      none      YES
+   16  4    5    1    1   7040   6583       0  0.0000  0.0000  0.2242      none      YES
+   16  8    5    1    1   7476   6600       0  0.0000  0.0000  0.2242      none      YES
+      K=16: longest run of consecutive BAD windows in ANY disjoint tiling (all offsets, all environments) = 4
+   24  1  999  999  999      1      1       1  1.0000  1.0000  0.1692   0.16925       NO
+   24  1   40    3    2    121    795       8  0.2770  0.1000  0.1692   0.12245      YES
+   24  2   20    3    2    672   2956       3  0.0196  0.0000  0.1692   0.10984      YES
+   24  4   10    2    1   5153   5248       0  0.0000  0.0000  0.1692      none      YES
+   24  4    5    1    1   6540   5394       0  0.0000  0.0000  0.1692      none      YES
+   24  8    5    1    1   6814   5399       0  0.0000  0.0000  0.1692      none      YES
+      K=24: longest run of consecutive BAD windows in ANY disjoint tiling (all offsets, all environments) = 1
+   32  1  999  999  999      1      1       1  1.0000  1.0000  0.1414   0.14142       NO
+   32  1   40    3    2    147    784       1  0.0019  0.0000  0.1414   0.07835      YES
+   32  2   20    3    2    804   2472       2  0.0014  0.0000  0.1414   0.07409      YES
+   32  4   10    2    1   4662   4115       0  0.0000  0.0000  0.1414      none      YES
+   32  4    5    1    1   5546   4196       0  0.0000  0.0000  0.1414      none      YES
+   32  8    5    1    1   5731   4200       0  0.0000  0.0000  0.1414      none      YES
+      K=32: longest run of consecutive BAD windows in ANY disjoint tiling (all offsets, all environments) = 1
+
+wrote t4b_window.json

@@ -1,0 +1,25 @@
+J=400 N0=2 UMAX=30 true env eta=1/54: #words = 2^588.04; pair blocks R = 200; mean #good = 57.008 (0.2850 R)
+   P(#good < 0.02R) = 2^-80.57 (rate/step 0.2014); P(#good < 0.05R) = 2^-58.65 (rate/step 0.1466); P(#good < 0.1R) = 2^-34.48 (rate/step 0.0862); P(#good < 0.15R) = 2^-18.79 (rate/step 0.0470); P(#good < 0.2R) = 2^-8.78 (rate/step 0.0220); P(#good < 0.25R) = 2^-3.08 (rate/step 0.0077)
+   min #good over all words = 0
+J=400 N0=2 UMAX=30 true env eta=1/20: #words = 2^588.04; pair blocks R = 200; mean #good = 53.165 (0.2658 R)
+   P(#good < 0.02R) = 2^-73.30 (rate/step 0.1832); P(#good < 0.05R) = 2^-52.19 (rate/step 0.1305); P(#good < 0.1R) = 2^-29.38 (rate/step 0.0735); P(#good < 0.15R) = 2^-15.04 (rate/step 0.0376); P(#good < 0.2R) = 2^-6.34 (rate/step 0.0158); P(#good < 0.25R) = 2^-1.83 (rate/step 0.0046)
+   min #good over all words = 0
+J=400 N0=2 UMAX=30 true env eta=1/8: #words = 2^588.04; pair blocks R = 200; mean #good = 43.927 (0.2196 R)
+   P(#good < 0.02R) = 2^-57.01 (rate/step 0.1425); P(#good < 0.05R) = 2^-37.96 (rate/step 0.0949); P(#good < 0.1R) = 2^-18.60 (rate/step 0.0465); P(#good < 0.15R) = 2^-7.64 (rate/step 0.0191); P(#good < 0.2R) = 2^-2.15 (rate/step 0.0054); P(#good < 0.25R) = 2^-0.27 (rate/step 0.0007)
+   min #good over all words = 0
+J=400 N0=2 UMAX=30 true env eta=1/5: #words = 2^588.04; pair blocks R = 200; mean #good = 35.214 (0.1761 R)
+   P(#good < 0.02R) = 2^-42.44 (rate/step 0.1061); P(#good < 0.05R) = 2^-25.72 (rate/step 0.0643); P(#good < 0.1R) = 2^-10.16 (rate/step 0.0254); P(#good < 0.15R) = 2^-2.82 (rate/step 0.0070); P(#good < 0.2R) = 2^-0.34 (rate/step 0.0008); P(#good < 0.25R) = 2^-0.01 (rate/step 0.0000)
+   min #good over all words = 0
+J=400 N0=2 UMAX=30 true env eta=1/4: #words = 2^588.04; pair blocks R = 200; mean #good = 29.435 (0.1472 R)
+   P(#good < 0.02R) = 2^-33.50 (rate/step 0.0837); P(#good < 0.05R) = 2^-18.50 (rate/step 0.0463); P(#good < 0.1R) = 2^-5.76 (rate/step 0.0144); P(#good < 0.15R) = 2^-0.96 (rate/step 0.0024); P(#good < 0.2R) = 2^-0.04 (rate/step 0.0001); P(#good < 0.25R) = 2^-0.00 (rate/step 0.0000)
+   min #good over all words = 0
+J=400 N0=2 UMAX=30 true env eta=3/10: #words = 2^588.04; pair blocks R = 200; mean #good = 23.648 (0.1182 R)
+   P(#good < 0.02R) = 2^-24.84 (rate/step 0.0621); P(#good < 0.05R) = 2^-11.92 (rate/step 0.0298); P(#good < 0.1R) = 2^-2.47 (rate/step 0.0062); P(#good < 0.15R) = 2^-0.15 (rate/step 0.0004); P(#good < 0.2R) = 2^-0.00 (rate/step 0.0000); P(#good < 0.25R) = 2^-0.00 (rate/step 0.0000)
+   min #good over all words = 0
+J=400 N0=2 UMAX=30 true env eta=10/27: #words = 2^588.04; pair blocks R = 200; mean #good = 15.624 (0.0781 R)
+   P(#good < 0.02R) = 2^-13.64 (rate/step 0.0341); P(#good < 0.05R) = 2^-4.48 (rate/step 0.0112); P(#good < 0.1R) = 2^-0.24 (rate/step 0.0006); P(#good < 0.15R) = 2^-0.00 (rate/step 0.0000); P(#good < 0.2R) = 2^-0.00 (rate/step 0.0000); P(#good < 0.25R) = 2^-0.00 (rate/step 0.0000)
+   min #good over all words = 0
+J=400 N0=2 UMAX=30 true env eta=2/5: #words = 2^588.04; pair blocks R = 200; mean #good = 11.457 (0.0573 R)
+   P(#good < 0.02R) = 2^-8.49 (rate/step 0.0212); P(#good < 0.05R) = 2^-1.81 (rate/step 0.0045); P(#good < 0.1R) = 2^-0.02 (rate/step 0.0000); P(#good < 0.15R) = 2^-0.00 (rate/step 0.0000); P(#good < 0.2R) = 2^-0.00 (rate/step 0.0000); P(#good < 0.25R) = 2^-0.00 (rate/step 0.0000)
+   min #good over all words = 0
+exit=0

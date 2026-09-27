@@ -1,0 +1,25 @@
+====================================================================================================
+TASK 5 -- exact Bellman potential, window-level disjoint-tiling graph
+====================================================================================================
+
+K=16: |V| = 107, |E| = 692, 6600 window occurrences, max edge weight 0.224228
+  SMALLEST certifiable rho (exact integer bisection) = 13933/62500 = 0.222928 bits/step
+  target theta_max = 0.137: NO potential exists (a cycle of mean > theta_max is realised)
+
+K=24: |V| = 121, |E| = 795, 5400 window occurrences, max edge weight 0.169250
+  SMALLEST certifiable rho (exact integer bisection) = 122447/1000000 = 0.122447 bits/step
+  potential built at rho_min = 122447/1000000; Bellman-Ford converged in 5 passes
+  EVERY edge verified in exact integers: True
+  delta_min = 14553/1000000 = +0.014553000 bits/step
+  phi in [-46651/500000, 0] = [-0.093302, 0.000000]
+  independent Fraction re-verification: violations = 0, min slack = 14553/1000000 = +0.014553000
+
+K=32: |V| = 147, |E| = 784, 4200 window occurrences, max edge weight 0.141422
+  SMALLEST certifiable rho (exact integer bisection) = 15671/200000 = 0.078355 bits/step
+  potential built at rho_min = 15671/200000; Bellman-Ford converged in 4 passes
+  EVERY edge verified in exact integers: True
+  delta_min = 11729/200000 = +0.058645000 bits/step
+  phi in [-113263/500000, 0] = [-0.226526, 0.000000]
+  independent Fraction re-verification: violations = 0, min slack = 11729/200000 = +0.058645000
+
+wrote t5_cert.json

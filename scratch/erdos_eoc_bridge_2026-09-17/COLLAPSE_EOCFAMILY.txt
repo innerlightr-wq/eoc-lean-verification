@@ -1,0 +1,5 @@
+carry collapse: 28 pairs checked, violations 0
+k=1 multipliers (plus 1), even exponents <= 16: 8/8 have positive dimension; max dim 0.438018 at exponents (2,)
+k=2 multipliers (plus 1), even exponents <= 16: 1/28 have positive dimension; max dim 0.228391 at exponents (2, 8)
+k=3 multipliers (plus 1), even exponents <= 16: 0/56 have positive dimension; max dim 0.000000 at exponents None
+k=4 multipliers (plus 1), even exponents <= 16: 0/70 have positive dimension; max dim 0.000000 at exponents None

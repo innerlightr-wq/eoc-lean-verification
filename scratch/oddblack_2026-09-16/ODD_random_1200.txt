@@ -1,0 +1,21 @@
+J=1200 env=random sg=1901 t=200 m=2102: #confined words = 2^1790.21; pair blocks R = 600
+(1) E[N_odd] = 22.3202 = 0.03720 R;  Var = 23.5416 (Var/R = 0.03924)
+(2) exact P(N_odd >= qR): q=0.04: 2^-1.35 (rate 0.0011); q=0.05: 2^-3.74 (rate 0.0031); q=0.06: 2^-7.50 (rate 0.0062); q=0.075: 2^-15.65 (rate 0.0130); q=0.1: 2^-35.89 (rate 0.0299)
+(3) pressure (1/J) log2 E[s^N_odd]: s=1.25: 0.00675  s=1.5: 0.01354  s=2.0: 0.02699  s=2.5: 0.03993  s=3.0: 0.05217  s=4.0: 0.07457  s=6.0: 0.11247
+    Chernoff rate bound for P(N_odd >= qR): q=0.04: -0.0003  q=0.05: 0.0013  q=0.06: 0.0040  q=0.075: 0.0105  q=0.1: 0.0271
+(4) E[sum Q_r]/R = 0.03736;  E[sum beta_r]/R = 0.03720  (identity: = E[N_odd]/R = 0.03720)
+    Q: path-weighted median 0.0000, 90% 0.0117, 99% 0.9497, 99.9% 0.9975; sup over states with mass>1e-12 1.0000; sup over all confined states 1.0000
+    E #{r: Q_r >= q0}/R: q0=0.1: 0.06413  q0=0.2: 0.05474  q0=0.5: 0.03753  q0=0.8: 0.01990  q0=0.95: 0.00564
+    beta: path-weighted median 0.0000, 90% 0.0123, 99% 0.9274, 99.9% 0.9986; sup over states with mass>1e-12 1.0000; sup over all confined states 1.0000
+    E #{r: beta_r >= q0}/R: q0=0.1: 0.06428  q0=0.2: 0.05483  q0=0.5: 0.03722  q0=0.8: 0.01927  q0=0.95: 0.00757
+(5) strip mean of Q_r by tenths of r: 0.0266 0.0408 0.0287 0.0277 0.0452 0.0410 0.0584 0.0331 0.0299 0.0421
+    strip mean of beta_r by tenths:     0.0264 0.0408 0.0287 0.0277 0.0452 0.0410 0.0584 0.0331 0.0299 0.0408
+    bulk [0.05,0.95]R: mean Q 0.03727, mean beta 0.03727; endpoint blocks carry sum beta = 0.00366 R
+    bulk [0.1,0.9]R: mean Q 0.03811, mean beta 0.03811; endpoint blocks carry sum beta = 0.00671 R
+    bulk [0.2,0.8]R: mean Q 0.03902, mean beta 0.03903; endpoint blocks carry sum beta = 0.01378 R
+(6) pressure (1/J) log2 E[exp(tau sum Q_r)]: tau=0.5: 0.01619  tau=1.0: 0.03857  tau=2.0: 0.10194  tau=3.0: 0.18935  tau=5.0: 0.41808  tau=8.0: 0.83611
+    Chernoff rate bound for P(A_Q >= q): q=0.05: 0.0018  q=0.06: 0.0055  q=0.075: 0.0155  q=0.1: 0.0423
+(6) pressure (1/J) log2 E[exp(tau sum beta_r)]: tau=0.5: 0.01612  tau=1.0: 0.03842  tau=2.0: 0.10143  tau=3.0: 0.18773  tau=5.0: 0.41099  tau=8.0: 0.81429
+    Chernoff rate bound for P(A_beta >= q): q=0.05: 0.0019  q=0.06: 0.0055  q=0.075: 0.0157  q=0.1: 0.0428
+(7) sum over 23 bulk anchors of Cov(Q_r, Q_(r+l)): l=1: -1.1871e-03  l=2: -1.9226e-02  l=5: -2.2114e-02  l=10: -7.3823e-03  l=20: -3.0980e-03   (anchor-sum of Var-scale E Q_r(1-Q_r) <= 9.7024e-01)
+    memory ratio E[Q_(r+l) | odd cell r black] / E[Q_(r+l)]: l=1: 1.075  l=2: 0.297  l=5: 0.727  l=10: 0.846

@@ -1,0 +1,20 @@
+EXACTNESS VERIFICATION of floor(j*beta), integer-only routine vs 140-digit Decimal
+  j = 0 .. 100000
+  golden_m4      trip=(37, -1, 22, 5)  mismatches=0
+  silver_m4      trip=(3, -1, 1, 2)  mismatches=0
+  match2_m4      trip=(31, 1, 22, 15)  mismatches=0
+  match3_m4      trip=(163, -1, 99, 37)  mismatches=0
+  golden_m6      trip=(3315, -1, 2090, 5)  mismatches=0
+  silver_m6      trip=(878, -1, 553, 2)  mismatches=0
+  match2_m6      trip=(4745, 3, 2998, 5)  mismatches=0
+  match3_m6      trip=(7246, -1, 4566, 82)  mismatches=0
+  golden_m8      trip=(236507, -1, 149218, 5)  mismatches=0
+  silver_m8      trip=(92549, -1, 58391, 2)  mismatches=0
+  match2_m8      trip=(987983, 5, 623363, 23)  mismatches=0
+  match3_m8      trip=(9779195, -1, 6169910, 14165)  mismatches=0
+  golden_m10     trip=(737243125, -1, 465148622, 5)  mismatches=0
+  silver_m10     trip=(352178108, -1, 222199646, 2)  mismatches=0
+  match2_m10     trip=(352178108, -1, 222199646, 2)  mismatches=0
+  match3_m10     trip=(3689019265, -1, 2327512010, 85)  mismatches=0
+  alpha          (rational bracket)                 mismatches=0
+ALL EXACT: True

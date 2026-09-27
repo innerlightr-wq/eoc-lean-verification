@@ -1,0 +1,20 @@
+J=600 law=confined sg=950 t=100 m=1051: #paths = 2^888.30
+(a) mean mu_i = 0.03272 (2 eta = 0.03704); by thirds [0.04335, 0.02849, 0.02632]; max mu_i = 0.5577 at i = 24; min = 0.0000
+(c) E[N_B] = 19.633 (0.03272 J); Var(N_B) = 23.115; Var/J = 0.0385  (independent benchmark sum mu_i(1-mu_i)/J = 0.0278)
+(d) worst case over ALL admissible paths: max #black = 161 (0.2683 J), i.e. W_J >= 439 (0.7317 J) deterministically
+
+J=800 law=confined sg=1267 t=133 m=1401: #paths = 2^1188.82
+(a) mean mu_i = 0.03212 (2 eta = 0.03704); by thirds [0.02652, 0.03522, 0.03486]; max mu_i = 0.6970 at i = 796; min = 0.0000
+(c) E[N_B] = 25.696 (0.03212 J); Var(N_B) = 37.906; Var/J = 0.0474  (independent benchmark sum mu_i(1-mu_i)/J = 0.0275)
+(d) worst case over ALL admissible paths: max #black = 205 (0.2562 J), i.e. W_J >= 595 (0.7438 J) deterministically
+
+J=1200 law=confined sg=1901 t=200 m=2102: #paths = 2^1790.21
+(a) mean mu_i = 0.03538 (2 eta = 0.03704); by thirds [0.03238, 0.03521, 0.03855]; max mu_i = 0.4988 at i = 1168; min = 0.0000
+(c) E[N_B] = 42.456 (0.03538 J); Var(N_B) = 54.111; Var/J = 0.0451  (independent benchmark sum mu_i(1-mu_i)/J = 0.0310)
+(d) worst case over ALL admissible paths: max #black = 354 (0.2950 J), i.e. W_J >= 846 (0.7050 J) deterministically
+
+J=1600 law=confined sg=2535 t=266 m=2802: #paths = 2^2391.86
+(a) mean mu_i = 0.03808 (2 eta = 0.03704); by thirds [0.04216, 0.03761, 0.03456]; max mu_i = 0.5527 at i = 166; min = 0.0000
+(c) E[N_B] = 60.933 (0.03808 J); Var(N_B) = 82.646; Var/J = 0.0517  (independent benchmark sum mu_i(1-mu_i)/J = 0.0336)
+(d) worst case over ALL admissible paths: max #black = 457 (0.2856 J), i.e. W_J >= 1143 (0.7144 J) deterministically
+

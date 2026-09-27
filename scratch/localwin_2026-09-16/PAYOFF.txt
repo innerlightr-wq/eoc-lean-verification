@@ -1,0 +1,21 @@
+Exact requirement (N0 = 4, g = 0.1): rate = min( c_shape(g+beta), beta*log2((1+s)/2)/2 - theta )
+theta_max(beta, s) = beta*log2((1+s)/2)/2 - c_shape(0.1+beta)  (the largest local exponent still giving
+a positive combined rate equal to the shape rate):
+  s=1.5: beta=0.15: theta_max=-0.0174 (shape 0.0415)  beta=0.2: theta_max=0.0006 (shape 0.0316)  beta=0.25: theta_max=0.0185 (shape 0.0217)  beta=0.3: theta_max=0.0348 (shape 0.0135)  beta=0.35: theta_max=0.0497 (shape 0.0066)
+  s=2.0: beta=0.15: theta_max=0.0023 (shape 0.0415)  beta=0.2: theta_max=0.0269 (shape 0.0316)  beta=0.25: theta_max=0.0514 (shape 0.0217)  beta=0.3: theta_max=0.0743 (shape 0.0135)  beta=0.35: theta_max=0.0957 (shape 0.0066)
+  s=3.0: beta=0.15: theta_max=0.0335 (shape 0.0415)  beta=0.2: theta_max=0.0684 (shape 0.0316)  beta=0.25: theta_max=0.1033 (shape 0.0217)  beta=0.3: theta_max=0.1365 (shape 0.0135)  beta=0.35: theta_max=0.1684 (shape 0.0066)
+  s=4.0: beta=0.15: theta_max=0.0576 (shape 0.0415)  beta=0.2: theta_max=0.1006 (shape 0.0316)  beta=0.25: theta_max=0.1435 (shape 0.0217)  beta=0.3: theta_max=0.1848 (shape 0.0135)  beta=0.35: theta_max=0.2247 (shape 0.0066)
+
+payoff for measured local exponents theta (exhaustive P_K^max, J = 800):
+  s=3.0 theta=0.0770: combined rate 0.0282 bits/step at beta=0.215 (shape 0.0282)
+  s=3.0 theta=0.0800: combined rate 0.0277 bits/step at beta=0.220 (shape 0.0277)
+  s=3.0 theta=0.0906: combined rate 0.0249 bits/step at beta=0.235 (shape 0.0249)
+  s=3.0 theta=0.1000: combined rate 0.0225 bits/step at beta=0.245 (shape 0.0233)
+  s=3.0 theta=0.1100: combined rate 0.0199 bits/step at beta=0.260 (shape 0.0199)
+  s=3.0 theta=0.1280: combined rate 0.0150 bits/step at beta=0.290 (shape 0.0150)
+  s=2.0 theta=0.0450: combined rate 0.0237 bits/step at beta=0.235 (shape 0.0249)
+  s=2.0 theta=0.0610: combined rate 0.0182 bits/step at beta=0.275 (shape 0.0182)
+  s=1.5 theta=0.0240: combined rate 0.0187 bits/step at beta=0.265 (shape 0.0199)
+  s=1.5 theta=0.0320: combined rate 0.0150 bits/step at beta=0.295 (shape 0.0150)
+
+best: 0.0282 bits/step at s=3.0, theta=0.077, beta=0.215

@@ -1,0 +1,7 @@
+ord_{3^b}(2) vs 2*3^{b-1}: [(1, True), (2, True), (3, True), (4, True), (5, True), (6, True), (7, True), (8, True)]
+K=6: #units=486, #distinct values of lam*2^-m over one period=486, each hit once: True
+  s=1.5: a change of the last delta*J ternary digits moves Psi by at most delta*log2(s)/2 = delta*0.292
+  s=3.0: a change of the last delta*J ternary digits moves Psi by at most delta*log2(s)/2 = delta*0.792
+  J=400, measure 2^-0.02J: #cylinders at depth J >= 2^{626}, m-range needed ~ 400 values
+  J=400, measure 2^-0.05J: #cylinders at depth J >= 2^{614}, m-range needed ~ 400 values
+  J=1200, measure 2^-0.02J: #cylinders at depth J >= 2^{1878}, m-range needed ~ 1200 values

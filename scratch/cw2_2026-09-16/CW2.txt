@@ -1,0 +1,9 @@
+J=400 s=3.0: one-block Collatz-Wielandt with analytic weights (per-step bits; theta_max = 0.137)
+  fixed-K CW (h = M_K): K=8: 0.2917  K=16: 0.1496  K=24: 0.1138  K=32: 0.0951
+  global pressure (1/J) log2 E[s^N_odd] = 0.0410 bits/step
+J=800 s=3.0: one-block Collatz-Wielandt with analytic weights (per-step bits; theta_max = 0.137)
+  fixed-K CW (h = M_K): K=8: 0.2428  K=16: 0.1647  K=24: 0.1070  K=32: 0.1044
+  global pressure (1/J) log2 E[s^N_odd] = 0.0417 bits/step
+J=1600 s=3.0: one-block Collatz-Wielandt with analytic weights (per-step bits; theta_max = 0.137)
+  fixed-K CW (h = M_K): K=8: 0.2746  K=16: 0.1542  K=24: 0.1082  K=32: 0.1061
+  global pressure (1/J) log2 E[s^N_odd] = 0.0515 bits/step

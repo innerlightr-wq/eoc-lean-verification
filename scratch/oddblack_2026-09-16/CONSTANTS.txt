@@ -1,0 +1,20 @@
+(A) generic annealed pressure per step (bits) log2 rho(s)/2  vs independent Bernoulli(1/27) and true J=1200:
+   s=1.25: generic 0.00677   Bernoulli(1/27) 0.00665   true(1200) 0.00645
+   s=1.5: generic 0.01373   Bernoulli(1/27) 0.01324   true(1200) 0.01278
+   s=2.0: generic 0.02821   Bernoulli(1/27) 0.02623   true(1200) 0.02500
+   s=2.5: generic 0.04342   Bernoulli(1/27) 0.03900   true(1200) 0.03665
+   s=3.0: generic 0.05936   Bernoulli(1/27) 0.05155   true(1200) 0.04796
+   s=4.0: generic 0.09330   Bernoulli(1/27) 0.07600   true(1200) 0.07072
+   s=6.0: generic 0.16791   Bernoulli(1/27) 0.12256   true(1200) 0.11125
+   generic annealed P(N_odd >= 0.05 R) rate: 0.0013 bits/step
+   generic annealed P(N_odd >= 0.06 R) rate: 0.0038 bits/step
+   generic annealed P(N_odd >= 0.075 R) rate: 0.0095 bits/step
+   generic annealed P(N_odd >= 0.1 R) rate: 0.0229 bits/step
+   MC path 0: s=2.0: (1/R)ln E_xi s^N = 0.0365 <= ln rho + ln(C)/R = 0.0419  s=3.0: (1/R)ln E_xi s^N = 0.0734 <= ln rho + ln(C)/R = 0.0880  s=6.0: (1/R)ln E_xi s^N = 0.1704 <= ln rho + ln(C)/R = 0.2473
+   MC path 1: s=2.0: (1/R)ln E_xi s^N = 0.0379 <= ln rho + ln(C)/R = 0.0419  s=3.0: (1/R)ln E_xi s^N = 0.0853 <= ln rho + ln(C)/R = 0.0880  s=6.0: (1/R)ln E_xi s^N = 0.2473 <= ln rho + ln(C)/R = 0.2473
+   MC path 2: s=2.0: (1/R)ln E_xi s^N = 0.0372 <= ln rho + ln(C)/R = 0.0419  s=3.0: (1/R)ln E_xi s^N = 0.0753 <= ln rho + ln(C)/R = 0.0880  s=6.0: (1/R)ln E_xi s^N = 0.1734 <= ln rho + ln(C)/R = 0.2473
+(B) optimized reduction, N0 = 4, g = 0.1 (bits/step):
+   true env J=1200 pressure (COMPUTATIONAL input): rate 0.0367 at beta = 0.17, s = 3.0 (shape rate 0.0367, black-term rate 0.0370)
+   true env J=800 pressure (COMPUTATIONAL input): rate 0.0415 at beta = 0.15, s = 6.0 (shape rate 0.0415, black-term rate 0.0441)
+   generic xi (PROVED; exceptional Haar measure 2^{-eps J}, eps = rate): rate 0.0261 at beta = 0.22, s = 4.0 (shape rate 0.0277, black-term rate 0.0521)
+   Hoeffding form needs P(N_odd >= beta R/4): with beta = 0.3 -> threshold 0.075 R (the original target).

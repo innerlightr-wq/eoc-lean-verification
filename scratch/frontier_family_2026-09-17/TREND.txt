@@ -1,0 +1,6 @@
+j=1600 K=6: danger fraction by quarter ['0.18', '0.39', '0.55', '0.59']; states per window at quarter starts [1, 232, 464, 695]; P(D+1|D)=0.518 vs local-rate proxy 0.464
+j=1600 K=8: danger fraction by quarter ['0.04', '0.12', '0.16', '0.20']; states per window at quarter starts [1, 234, 468, 702]; P(D+1|D)=0.077 vs local-rate proxy 0.115
+j=1600 K=12: danger fraction by quarter ['0.00', '0.00', '0.00', '0.00']; states per window at quarter starts [1, 225, 464, 688]; P(D+1|D)=0.000 vs local-rate proxy 0.000
+j=3200 K=6: danger fraction by quarter ['0.23', '0.60', '0.82', '0.88']; states per window at quarter starts [1, 464, 934, 1397]; P(D+1|D)=0.731 vs local-rate proxy 0.731
+j=3200 K=8: danger fraction by quarter ['0.04', '0.20', '0.38', '0.52']; states per window at quarter starts [1, 468, 936, 1404]; P(D+1|D)=0.357 vs local-rate proxy 0.339
+j=3200 K=12: danger fraction by quarter ['0.00', '0.03', '0.03', '0.06']; states per window at quarter starts [1, 464, 927, 1390]; P(D+1|D)=0.000 vs local-rate proxy 0.167

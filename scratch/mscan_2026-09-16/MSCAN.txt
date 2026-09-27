@@ -1,0 +1,90 @@
+J=50 lambda=1 s=3.0: m in [88, 200087] (200000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.03949 sd 0.02480 | min 0.00000 5% 0.00688 50% 0.03532 95% 0.08625 99% 0.11407 max 0.21227
+  mu = E[N_odd]/R: mean 0.03579 max 0.22081 min 0.00000
+  threshold Psi >= 0.06: 37143 exceptional m (0.1857); longest run 31; autocorr h=1: 1.45e-01 (indep 3.45e-02) h=2: 1.13e-01 (indep 3.45e-02) h=3: 9.04e-02 (indep 3.45e-02) h=5: 5.92e-02 (indep 3.45e-02) h=10: 3.49e-02 (indep 3.45e-02)
+  threshold Psi >= 0.07: 23172 exceptional m (0.1159); longest run 28; autocorr h=1: 8.70e-02 (indep 1.34e-02) h=2: 6.54e-02 (indep 1.34e-02) h=3: 4.99e-02 (indep 1.34e-02) h=5: 2.92e-02 (indep 1.34e-02) h=10: 1.41e-02 (indep 1.34e-02)
+  threshold Psi >= 0.08: 13974 exceptional m (0.0699); longest run 25; autocorr h=1: 5.08e-02 (indep 4.88e-03) h=2: 3.65e-02 (indep 4.88e-03) h=3: 2.67e-02 (indep 4.88e-03) h=5: 1.42e-02 (indep 4.88e-03) h=10: 5.24e-03 (indep 4.88e-03)
+  threshold Psi >= 0.085: 10664 exceptional m (0.0533); longest run 23; autocorr h=1: 3.82e-02 (indep 2.84e-03) h=2: 2.70e-02 (indep 2.84e-03) h=3: 1.94e-02 (indep 2.84e-03) h=5: 9.72e-03 (indep 2.84e-03) h=10: 3.10e-03 (indep 2.84e-03)
+  threshold Psi >= 0.09: 8173 exceptional m (0.0409); longest run 23; autocorr h=1: 2.89e-02 (indep 1.67e-03) h=2: 2.00e-02 (indep 1.67e-03) h=3: 1.40e-02 (indep 1.67e-03) h=5: 6.70e-03 (indep 1.67e-03) h=10: 1.84e-03 (indep 1.67e-03)
+  threshold Psi >= 0.1: 4627 exceptional m (0.0231); longest run 19; autocorr h=1: 1.58e-02 (indep 5.35e-04) h=2: 1.05e-02 (indep 5.35e-04) h=3: 7.02e-03 (indep 5.35e-04) h=5: 3.07e-03 (indep 5.35e-04) h=10: 6.35e-04 (indep 5.35e-04)
+J=100 lambda=1 s=3.0: m in [175, 100174] (100000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04220 sd 0.01658 | min 0.00245 5% 0.01875 50% 0.04024 95% 0.07219 99% 0.08954 max 0.16245
+  mu = E[N_odd]/R: mean 0.03620 max 0.15329 min 0.00167
+  threshold Psi >= 0.06: 13907 exceptional m (0.1391); longest run 26; autocorr h=1: 1.12e-01 (indep 1.93e-02) h=2: 9.08e-02 (indep 1.93e-02) h=3: 7.46e-02 (indep 1.93e-02) h=5: 5.12e-02 (indep 1.93e-02) h=10: 2.33e-02 (indep 1.93e-02)
+  threshold Psi >= 0.07: 6075 exceptional m (0.0607); longest run 23; autocorr h=1: 4.70e-02 (indep 3.69e-03) h=2: 3.64e-02 (indep 3.69e-03) h=3: 2.85e-02 (indep 3.69e-03) h=5: 1.71e-02 (indep 3.69e-03) h=10: 5.39e-03 (indep 3.69e-03)
+  threshold Psi >= 0.08: 2540 exceptional m (0.0254); longest run 19; autocorr h=1: 1.88e-02 (indep 6.45e-04) h=2: 1.37e-02 (indep 6.45e-04) h=3: 1.01e-02 (indep 6.45e-04) h=5: 5.48e-03 (indep 6.45e-04) h=10: 1.10e-03 (indep 6.45e-04)
+  threshold Psi >= 0.085: 1535 exceptional m (0.0154); longest run 17; autocorr h=1: 1.11e-02 (indep 2.36e-04) h=2: 7.92e-03 (indep 2.36e-04) h=3: 5.79e-03 (indep 2.36e-04) h=5: 2.93e-03 (indep 2.36e-04) h=10: 5.30e-04 (indep 2.36e-04)
+  threshold Psi >= 0.09: 957 exceptional m (0.0096); longest run 16; autocorr h=1: 6.81e-03 (indep 9.16e-05) h=2: 4.89e-03 (indep 9.16e-05) h=3: 3.49e-03 (indep 9.16e-05) h=5: 1.82e-03 (indep 9.16e-05) h=10: 3.30e-04 (indep 9.16e-05)
+  threshold Psi >= 0.1: 376 exceptional m (0.0038); longest run 14; autocorr h=1: 2.69e-03 (indep 1.41e-05) h=2: 1.93e-03 (indep 1.41e-05) h=3: 1.39e-03 (indep 1.41e-05) h=5: 6.80e-04 (indep 1.41e-05) h=10: 1.20e-04 (indep 1.41e-05)
+J=200 lambda=1 s=3.0: m in [350, 20349] (20000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04474 sd 0.01110 | min 0.01527 5% 0.02861 50% 0.04365 95% 0.06464 99% 0.07720 max 0.09545
+  mu = E[N_odd]/R: mean 0.03665 max 0.08573 min 0.01110
+  threshold Psi >= 0.06: 1858 exceptional m (0.0929); longest run 26; autocorr h=1: 7.77e-02 (indep 8.63e-03) h=2: 6.60e-02 (indep 8.63e-03) h=3: 5.63e-02 (indep 8.63e-03) h=5: 4.08e-02 (indep 8.63e-03) h=10: 1.83e-02 (indep 8.63e-03)
+  threshold Psi >= 0.07: 458 exceptional m (0.0229); longest run 20; autocorr h=1: 1.86e-02 (indep 5.24e-04) h=2: 1.52e-02 (indep 5.24e-04) h=3: 1.26e-02 (indep 5.24e-04) h=5: 8.60e-03 (indep 5.24e-04) h=10: 2.70e-03 (indep 5.24e-04)
+  threshold Psi >= 0.08: 124 exceptional m (0.0062); longest run 10; autocorr h=1: 4.70e-03 (indep 3.84e-05) h=2: 3.45e-03 (indep 3.84e-05) h=3: 2.60e-03 (indep 3.84e-05) h=5: 1.25e-03 (indep 3.84e-05) h=10: 1.00e-04 (indep 3.84e-05)
+  threshold Psi >= 0.085: 42 exceptional m (0.0021); longest run 7; autocorr h=1: 1.30e-03 (indep 4.41e-06) h=2: 7.50e-04 (indep 4.41e-06) h=3: 3.00e-04 (indep 4.41e-06) h=5: 1.00e-04 (indep 4.41e-06) h=10: 0.00e+00 (indep 4.41e-06)
+  threshold Psi >= 0.09: 8 exceptional m (0.0004); longest run 4; autocorr h=1: 2.50e-04 (indep 1.60e-07) h=2: 1.00e-04 (indep 1.60e-07) h=3: 5.00e-05 (indep 1.60e-07) h=5: 0.00e+00 (indep 1.60e-07) h=10: 0.00e+00 (indep 1.60e-07)
+  threshold Psi >= 0.1: 0 exceptional m of 20000
+J=400 lambda=1 s=3.0: m in [700, 4699] (4000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04677 sd 0.00701 | min 0.02788 5% 0.03549 50% 0.04661 95% 0.05869 99% 0.06449 max 0.07327
+  mu = E[N_odd]/R: mean 0.03677 max 0.06342 min 0.02182
+  threshold Psi >= 0.06: 142 exceptional m (0.0355); longest run 19; autocorr h=1: 3.05e-02 (indep 1.26e-03) h=2: 2.70e-02 (indep 1.26e-03) h=3: 2.40e-02 (indep 1.26e-03) h=5: 1.87e-02 (indep 1.26e-03) h=10: 9.75e-03 (indep 1.26e-03)
+  threshold Psi >= 0.07: 3 exceptional m (0.0008); longest run 2; autocorr h=1: 2.50e-04 (indep 5.63e-07) h=2: 0.00e+00 (indep 5.63e-07) h=3: 0.00e+00 (indep 5.63e-07) h=5: 0.00e+00 (indep 5.63e-07) h=10: 0.00e+00 (indep 5.63e-07)
+  threshold Psi >= 0.08: 0 exceptional m of 4000
+  threshold Psi >= 0.085: 0 exceptional m of 4000
+  threshold Psi >= 0.09: 0 exceptional m of 4000
+  threshold Psi >= 0.1: 0 exceptional m of 4000
+J=100 lambda=5 s=3.0: m in [175, 20174] (20000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04249 sd 0.01669 | min 0.00233 5% 0.01897 50% 0.04056 95% 0.07242 99% 0.08955 max 0.15028
+  mu = E[N_odd]/R: mean 0.03642 max 0.16109 min 0.00167
+  threshold Psi >= 0.06: 2921 exceptional m (0.1461); longest run 34; autocorr h=1: 1.18e-01 (indep 2.13e-02) h=2: 9.54e-02 (indep 2.13e-02) h=3: 7.81e-02 (indep 2.13e-02) h=5: 5.31e-02 (indep 2.13e-02) h=10: 2.62e-02 (indep 2.13e-02)
+  threshold Psi >= 0.07: 1245 exceptional m (0.0622); longest run 23; autocorr h=1: 4.73e-02 (indep 3.88e-03) h=2: 3.60e-02 (indep 3.88e-03) h=3: 2.79e-02 (indep 3.88e-03) h=5: 1.69e-02 (indep 3.88e-03) h=10: 5.95e-03 (indep 3.88e-03)
+  threshold Psi >= 0.08: 501 exceptional m (0.0250); longest run 20; autocorr h=1: 1.85e-02 (indep 6.28e-04) h=2: 1.39e-02 (indep 6.28e-04) h=3: 1.03e-02 (indep 6.28e-04) h=5: 5.70e-03 (indep 6.28e-04) h=10: 1.65e-03 (indep 6.28e-04)
+  threshold Psi >= 0.085: 292 exceptional m (0.0146); longest run 19; autocorr h=1: 1.08e-02 (indep 2.13e-04) h=2: 8.00e-03 (indep 2.13e-04) h=3: 6.00e-03 (indep 2.13e-04) h=5: 3.45e-03 (indep 2.13e-04) h=10: 1.00e-03 (indep 2.13e-04)
+  threshold Psi >= 0.09: 189 exceptional m (0.0095); longest run 18; autocorr h=1: 6.90e-03 (indep 8.93e-05) h=2: 5.15e-03 (indep 8.93e-05) h=3: 4.00e-03 (indep 8.93e-05) h=5: 2.40e-03 (indep 8.93e-05) h=10: 6.50e-04 (indep 8.93e-05)
+  threshold Psi >= 0.1: 75 exceptional m (0.0037); longest run 16; autocorr h=1: 2.70e-03 (indep 1.41e-05) h=2: 1.95e-03 (indep 1.41e-05) h=3: 1.55e-03 (indep 1.41e-05) h=5: 1.00e-03 (indep 1.41e-05) h=10: 4.00e-04 (indep 1.41e-05)
+J=100 lambda=7 s=3.0: m in [175, 20174] (20000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04210 sd 0.01671 | min 0.00267 5% 0.01861 50% 0.04001 95% 0.07229 99% 0.09024 max 0.12347
+  mu = E[N_odd]/R: mean 0.03614 max 0.12882 min 0.00140
+  threshold Psi >= 0.06: 2849 exceptional m (0.1424); longest run 25; autocorr h=1: 1.15e-01 (indep 2.03e-02) h=2: 9.31e-02 (indep 2.03e-02) h=3: 7.71e-02 (indep 2.03e-02) h=5: 5.40e-02 (indep 2.03e-02) h=10: 2.62e-02 (indep 2.03e-02)
+  threshold Psi >= 0.07: 1237 exceptional m (0.0619); longest run 19; autocorr h=1: 4.77e-02 (indep 3.83e-03) h=2: 3.72e-02 (indep 3.83e-03) h=3: 2.96e-02 (indep 3.83e-03) h=5: 1.84e-02 (indep 3.83e-03) h=10: 5.90e-03 (indep 3.83e-03)
+  threshold Psi >= 0.08: 503 exceptional m (0.0251); longest run 16; autocorr h=1: 1.87e-02 (indep 6.33e-04) h=2: 1.41e-02 (indep 6.33e-04) h=3: 1.09e-02 (indep 6.33e-04) h=5: 6.35e-03 (indep 6.33e-04) h=10: 1.30e-03 (indep 6.33e-04)
+  threshold Psi >= 0.085: 316 exceptional m (0.0158); longest run 15; autocorr h=1: 1.19e-02 (indep 2.50e-04) h=2: 9.00e-03 (indep 2.50e-04) h=3: 6.80e-03 (indep 2.50e-04) h=5: 3.80e-03 (indep 2.50e-04) h=10: 6.00e-04 (indep 2.50e-04)
+  threshold Psi >= 0.09: 202 exceptional m (0.0101); longest run 12; autocorr h=1: 7.90e-03 (indep 1.02e-04) h=2: 6.05e-03 (indep 1.02e-04) h=3: 4.50e-03 (indep 1.02e-04) h=5: 2.40e-03 (indep 1.02e-04) h=10: 2.00e-04 (indep 1.02e-04)
+  threshold Psi >= 0.1: 73 exceptional m (0.0037); longest run 9; autocorr h=1: 2.60e-03 (indep 1.33e-05) h=2: 1.90e-03 (indep 1.33e-05) h=3: 1.30e-03 (indep 1.33e-05) h=5: 7.00e-04 (indep 1.33e-05) h=10: 0.00e+00 (indep 1.33e-05)
+J=100 lambda=11 s=3.0: m in [175, 20174] (20000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04204 sd 0.01636 | min 0.00217 5% 0.01842 50% 0.04031 95% 0.07187 99% 0.08741 max 0.11814
+  mu = E[N_odd]/R: mean 0.03613 max 0.11877 min 0.00148
+  threshold Psi >= 0.06: 2771 exceptional m (0.1386); longest run 30; autocorr h=1: 1.12e-01 (indep 1.92e-02) h=2: 9.09e-02 (indep 1.92e-02) h=3: 7.50e-02 (indep 1.92e-02) h=5: 5.12e-02 (indep 1.92e-02) h=10: 2.59e-02 (indep 1.92e-02)
+  threshold Psi >= 0.07: 1207 exceptional m (0.0604); longest run 16; autocorr h=1: 4.63e-02 (indep 3.64e-03) h=2: 3.51e-02 (indep 3.64e-03) h=3: 2.66e-02 (indep 3.64e-03) h=5: 1.58e-02 (indep 3.64e-03) h=10: 5.05e-03 (indep 3.64e-03)
+  threshold Psi >= 0.08: 440 exceptional m (0.0220); longest run 12; autocorr h=1: 1.61e-02 (indep 4.84e-04) h=2: 1.17e-02 (indep 4.84e-04) h=3: 8.50e-03 (indep 4.84e-04) h=5: 4.10e-03 (indep 4.84e-04) h=10: 4.00e-04 (indep 4.84e-04)
+  threshold Psi >= 0.085: 266 exceptional m (0.0133); longest run 10; autocorr h=1: 9.55e-03 (indep 1.77e-04) h=2: 6.75e-03 (indep 1.77e-04) h=3: 4.80e-03 (indep 1.77e-04) h=5: 2.10e-03 (indep 1.77e-04) h=10: 5.00e-05 (indep 1.77e-04)
+  threshold Psi >= 0.09: 155 exceptional m (0.0077); longest run 9; autocorr h=1: 5.45e-03 (indep 6.01e-05) h=2: 3.60e-03 (indep 6.01e-05) h=3: 2.50e-03 (indep 6.01e-05) h=5: 1.05e-03 (indep 6.01e-05) h=10: 0.00e+00 (indep 6.01e-05)
+  threshold Psi >= 0.1: 44 exceptional m (0.0022); longest run 8; autocorr h=1: 1.25e-03 (indep 4.84e-06) h=2: 7.00e-04 (indep 4.84e-06) h=3: 4.00e-04 (indep 4.84e-06) h=5: 2.00e-04 (indep 4.84e-06) h=10: 0.00e+00 (indep 4.84e-06)
+J=100 lambda=13 s=3.0: m in [175, 20174] (20000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04243 sd 0.01686 | min 0.00451 5% 0.01841 50% 0.04059 95% 0.07320 99% 0.08893 max 0.11927
+  mu = E[N_odd]/R: mean 0.03647 max 0.11556 min 0.00333
+  threshold Psi >= 0.06: 3031 exceptional m (0.1515); longest run 22; autocorr h=1: 1.24e-01 (indep 2.30e-02) h=2: 1.01e-01 (indep 2.30e-02) h=3: 8.42e-02 (indep 2.30e-02) h=5: 5.78e-02 (indep 2.30e-02) h=10: 2.91e-02 (indep 2.30e-02)
+  threshold Psi >= 0.07: 1370 exceptional m (0.0685); longest run 14; autocorr h=1: 5.27e-02 (indep 4.69e-03) h=2: 4.07e-02 (indep 4.69e-03) h=3: 3.20e-02 (indep 4.69e-03) h=5: 1.94e-02 (indep 4.69e-03) h=10: 5.25e-03 (indep 4.69e-03)
+  threshold Psi >= 0.08: 538 exceptional m (0.0269); longest run 11; autocorr h=1: 1.98e-02 (indep 7.24e-04) h=2: 1.44e-02 (indep 7.24e-04) h=3: 1.01e-02 (indep 7.24e-04) h=5: 4.90e-03 (indep 7.24e-04) h=10: 4.00e-04 (indep 7.24e-04)
+  threshold Psi >= 0.085: 325 exceptional m (0.0163); longest run 10; autocorr h=1: 1.13e-02 (indep 2.64e-04) h=2: 7.45e-03 (indep 2.64e-04) h=3: 4.75e-03 (indep 2.64e-04) h=5: 2.15e-03 (indep 2.64e-04) h=10: 0.00e+00 (indep 2.64e-04)
+  threshold Psi >= 0.09: 176 exceptional m (0.0088); longest run 8; autocorr h=1: 6.00e-03 (indep 7.74e-05) h=2: 3.95e-03 (indep 7.74e-05) h=3: 2.55e-03 (indep 7.74e-05) h=5: 1.00e-03 (indep 7.74e-05) h=10: 0.00e+00 (indep 7.74e-05)
+  threshold Psi >= 0.1: 42 exceptional m (0.0021); longest run 5; autocorr h=1: 1.20e-03 (indep 4.41e-06) h=2: 6.50e-04 (indep 4.41e-06) h=3: 3.50e-04 (indep 4.41e-06) h=5: 0.00e+00 (indep 4.41e-06) h=10: 0.00e+00 (indep 4.41e-06)
+J=100 lambda=101 s=3.0: m in [175, 20174] (20000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04223 sd 0.01652 | min 0.00276 5% 0.01849 50% 0.04052 95% 0.07166 99% 0.08785 max 0.18322
+  mu = E[N_odd]/R: mean 0.03627 max 0.17788 min 0.00145
+  threshold Psi >= 0.06: 2733 exceptional m (0.1366); longest run 22; autocorr h=1: 1.09e-01 (indep 1.87e-02) h=2: 8.74e-02 (indep 1.87e-02) h=3: 7.10e-02 (indep 1.87e-02) h=5: 4.67e-02 (indep 1.87e-02) h=10: 2.10e-02 (indep 1.87e-02)
+  threshold Psi >= 0.07: 1146 exceptional m (0.0573); longest run 21; autocorr h=1: 4.35e-02 (indep 3.28e-03) h=2: 3.30e-02 (indep 3.28e-03) h=3: 2.57e-02 (indep 3.28e-03) h=5: 1.47e-02 (indep 3.28e-03) h=10: 3.55e-03 (indep 3.28e-03)
+  threshold Psi >= 0.08: 458 exceptional m (0.0229); longest run 13; autocorr h=1: 1.70e-02 (indep 5.24e-04) h=2: 1.24e-02 (indep 5.24e-04) h=3: 8.85e-03 (indep 5.24e-04) h=5: 3.90e-03 (indep 5.24e-04) h=10: 4.00e-04 (indep 5.24e-04)
+  threshold Psi >= 0.085: 283 exceptional m (0.0141); longest run 13; autocorr h=1: 1.01e-02 (indep 2.00e-04) h=2: 7.25e-03 (indep 2.00e-04) h=3: 5.20e-03 (indep 2.00e-04) h=5: 2.25e-03 (indep 2.00e-04) h=10: 2.00e-04 (indep 2.00e-04)
+  threshold Psi >= 0.09: 160 exceptional m (0.0080); longest run 13; autocorr h=1: 5.75e-03 (indep 6.40e-05) h=2: 4.10e-03 (indep 6.40e-05) h=3: 2.90e-03 (indep 6.40e-05) h=5: 1.30e-03 (indep 6.40e-05) h=10: 1.50e-04 (indep 6.40e-05)
+  threshold Psi >= 0.1: 70 exceptional m (0.0035); longest run 11; autocorr h=1: 2.75e-03 (indep 1.23e-05) h=2: 2.10e-03 (indep 1.23e-05) h=3: 1.45e-03 (indep 1.23e-05) h=5: 6.00e-04 (indep 1.23e-05) h=10: 5.00e-05 (indep 1.23e-05)
+J=100 lambda=1025 s=3.0: m in [175, 20174] (20000 values); Psi = (1/J) log2 E[s^N_odd]
+  Psi: mean 0.04208 sd 0.01678 | min 0.00123 5% 0.01879 50% 0.03998 95% 0.07339 99% 0.09083 max 0.13382
+  mu = E[N_odd]/R: mean 0.03616 max 0.12756 min 0.00081
+  threshold Psi >= 0.06: 2773 exceptional m (0.1386); longest run 23; autocorr h=1: 1.11e-01 (indep 1.92e-02) h=2: 9.06e-02 (indep 1.92e-02) h=3: 7.43e-02 (indep 1.92e-02) h=5: 5.05e-02 (indep 1.92e-02) h=10: 2.35e-02 (indep 1.92e-02)
+  threshold Psi >= 0.07: 1282 exceptional m (0.0641); longest run 17; autocorr h=1: 5.06e-02 (indep 4.11e-03) h=2: 3.98e-02 (indep 4.11e-03) h=3: 3.14e-02 (indep 4.11e-03) h=5: 1.94e-02 (indep 4.11e-03) h=10: 5.25e-03 (indep 4.11e-03)
+  threshold Psi >= 0.08: 573 exceptional m (0.0286); longest run 14; autocorr h=1: 2.14e-02 (indep 8.21e-04) h=2: 1.59e-02 (indep 8.21e-04) h=3: 1.18e-02 (indep 8.21e-04) h=5: 6.20e-03 (indep 8.21e-04) h=10: 1.10e-03 (indep 8.21e-04)
+  threshold Psi >= 0.085: 355 exceptional m (0.0177); longest run 12; autocorr h=1: 1.31e-02 (indep 3.15e-04) h=2: 9.70e-03 (indep 3.15e-04) h=3: 6.80e-03 (indep 3.15e-04) h=5: 3.10e-03 (indep 3.15e-04) h=10: 3.00e-04 (indep 3.15e-04)
+  threshold Psi >= 0.09: 220 exceptional m (0.0110); longest run 10; autocorr h=1: 7.90e-03 (indep 1.21e-04) h=2: 5.50e-03 (indep 1.21e-04) h=3: 3.75e-03 (indep 1.21e-04) h=5: 1.45e-03 (indep 1.21e-04) h=10: 0.00e+00 (indep 1.21e-04)
+  threshold Psi >= 0.1: 70 exceptional m (0.0035); longest run 9; autocorr h=1: 2.45e-03 (indep 1.23e-05) h=2: 1.60e-03 (indep 1.23e-05) h=3: 1.10e-03 (indep 1.23e-05) h=5: 5.50e-04 (indep 1.23e-05) h=10: 0.00e+00 (indep 1.23e-05)

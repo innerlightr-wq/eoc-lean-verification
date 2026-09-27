@@ -1,0 +1,13 @@
+lam=    1 J=800 K=32: max CW = 0.0973 at (r0,S)=(301, 616) window max depth 5.29
+lam=    2 J=800 K=32: max CW = 0.0973 at (r0,S)=(301, 615) window max depth 5.29
+lam=    4 J=800 K=32: max CW = 0.0973 at (r0,S)=(301, 614) window max depth 5.29
+lam=    5 J=800 K=32: max CW = 0.0940 at (r0,S)=(193, 489) window max depth 7.72
+lam=    7 J=800 K=32: max CW = 0.1414 at (r0,S)=(205, 600) window max depth 6.70
+lam=    8 J=800 K=32: max CW = 0.0973 at (r0,S)=(301, 613) window max depth 5.29
+lam=   10 J=800 K=32: max CW = 0.0940 at (r0,S)=(193, 488) window max depth 7.72
+lam=   11 J=800 K=32: max CW = 0.1216 at (r0,S)=(73, 151) window max depth 8.27
+lam=   13 J=800 K=32: max CW = 0.1062 at (r0,S)=(109, 250) window max depth 7.09
+lam=   16 J=800 K=32: max CW = 0.0973 at (r0,S)=(301, 612) window max depth 5.29
+lam=  101 J=800 K=32: max CW = 0.1048 at (r0,S)=(325, 777) window max depth 8.90
+lam= 1025 J=800 K=32: max CW = 0.1082 at (r0,S)=(193, 492) window max depth 5.54
+# wrote scan_800.json (336 windows)

@@ -1,0 +1,16 @@
+== engine agreement (common.Env vs tcommon.FastEnv) ==
+  max |CW_old - CW_new| over 80 checks = 0.000e+00   (float assoc. only)
+
+== sweep vs per-anchor agreement ==
+  max |sweep - direct| = 0.000e+00;  sweep of 152 anchors took 3.4s
+
+== published maxima, J=400 stride-1, K=16 / 24 (oddpressure SCAN_400_K16.txt) ==
+  lam=    1 K=16: new max 0.1739 at r0=166   published 0.1739   OK
+  lam=    1 K=24: new max 0.1196 at r0=150   published 0.1196   OK
+  lam=    5 K=16: new max 0.1593 at r0=156   published 0.1593   OK
+  lam=    5 K=24: new max 0.1454 at r0=133   published 0.1454   OK
+  lam=    7 K=16: new max 0.1400 at r0=163   published 0.1400   OK
+  lam=   11 K=16: new max 0.1835 at r0=94   published 0.1835   OK
+  lam=   11 K=24: new max 0.1334 at r0=86   published 0.1334   OK
+  lam=  101 K=16: new max 0.1375 at r0=128   published 0.1375   OK
+  lam= 1025 K=16: new max 0.1501 at r0=165   published 0.1501   OK

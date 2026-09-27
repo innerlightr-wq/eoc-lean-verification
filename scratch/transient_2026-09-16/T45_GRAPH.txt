@@ -1,0 +1,34 @@
+============================================================================================================
+TASK 4 -- block-level compatibility graph, TRUE low-frequency environments only
+============================================================================================================
+corpus: 30 environments; target theta_max = 0.137 bits/step
+  state design      |V|     |E|  #SCC>1   recur  hi-recur   max w    mu_max  <target
+  pre D0F0            9      25       1  1.0000    1.0000  0.7776   0.77759       NO
+  pre D1F1           45      75       1  1.0000    1.0000  0.7776   0.77759       NO
+  pre D2F2          110     150       1  1.0000    1.0000  0.7776   0.77759       NO
+  pre D2F2+ph       191     326       1  1.0000    1.0000  0.7776   0.76422       NO
+  pre D3F3          196     246       1  0.9991    0.9982  0.7776   0.77759       NO
+  pre D4F4          301     362       1  0.9991    0.9982  0.7776   0.77759       NO
+  pre D4F4+ph       455     643       1  0.9991    0.9982  0.7776   0.76297       NO
+  pre D6F6          568     646       1  0.9991    0.9991  0.7776   0.77759       NO
+  pre D8F8          901     992       1  0.9989    0.9981  0.7776   0.77759       NO
+    (SCC of size 2682 too large for Karp -- mu_max below is a LOWER bound only; the exact answer comes from the Bellman-Ford test)
+  pre D6F6+nb3     6555    6825       2  0.5020    0.4511  0.7776   0.08161     YES?
+
+NO tested design gives a finite mu_max below the target; see the table.
+
+============================================================================================================
+TASK 5 -- Bellman potential on the FULL graph, verified in exact integer arithmetic
+============================================================================================================
+  'pre D0F0': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D1F1': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D2F2': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D2F2+ph': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D3F3': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D4F4': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D4F4+ph': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D6F6': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D8F8': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+  'pre D6F6+nb3': integer Bellman-Ford DID NOT converge (a cycle with mean > 0.137 exists) -- no certificate
+
+wrote t45_graph.json

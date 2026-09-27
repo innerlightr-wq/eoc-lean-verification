@@ -1,0 +1,5 @@
+J=800: path-weighted mean Q_r(S) by
+  headroom bin (0,1,2,3=3-5,6=6-10,11=11-20,21=>20): 0: 0.0252 (mass 0.004)  1: 0.0325 (mass 0.012)  2: 0.0217 (mass 0.017)  3: 0.0288 (mass 0.076)  6: 0.0176 (mass 0.194)  11: 0.0329 (mass 0.411)  21: 0.0352 (mass 0.283)
+  leading black run k (5 = >=5):                      0: 0.0073 (mass 0.967)  1: 0.6311 (mass 0.016)  2: 0.8638 (mass 0.008)  3: 0.9497 (mass 0.003)  4: 0.9815 (mass 0.001)  5: 0.9953 (mass 0.002)
+  position tenth r/R:                                  0: 0.0176 (mass 0.097)  1: 0.0246 (mass 0.100)  2: 0.0354 (mass 0.100)  3: 0.0294 (mass 0.100)  4: 0.0367 (mass 0.100)  5: 0.0437 (mass 0.100)  6: 0.0181 (mass 0.100)  7: 0.0333 (mass 0.100)  8: 0.0407 (mass 0.100)  9: 0.0205 (mass 0.100)
+  colour of even cell (m-S, 2r+1) (True = black):      False: 0.0231 (mass 0.963)  True: 0.2270 (mass 0.034)

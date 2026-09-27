@@ -1,0 +1,299 @@
+QUADRATIC SURROGATE BARRIERS -- round of 2026-09-16
+====================================================
+dir: scratch/quadsurr_2026-09-16/   (pure python, no numpy; nothing committed, no Lean touched)
+engine reused verbatim: scratch/transient_2026-09-16/tcommon.py
+barrier-swap recipe reused verbatim: scratch/ratbarrier_2026-09-16/pressure_swap.py
+
+scripts: qirr.py (exact quadratic irrationals), qcommon.py, qstat.py,
+         t1_betadata.py, t2_theta.py, t3_corpus.py, t3_cramer.py,
+         t4_cobound.py, t5_blackness.py, t6_superblock.py, t7_independence.py
+outputs: T0_EXACT.txt T1_BETADATA.txt T2_THETA.txt T3_CRAMER.txt T4_COBOUND.txt
+         T5_BLACKNESS.txt T6_SUPERBLOCK.txt T7_INDEP.txt + matching .json + corpus.json
+
+
+EXACTNESS STATEMENT (this is load-bearing)
+------------------------------------------
+Every beta is stored as an integer quadruple (P,Q,S,D) meaning beta = (P + Q*sqrt(D))/S.
+floor(j*beta) is computed with math.isqrt and EXACT INTEGER COMPARISONS only:
+    k = floor(j*beta)  <=>  k*S - j*P <= sgn(Q)*sqrt(j^2 Q^2 D)
+tested as an integer inequality after squaring (no float, no Decimal in the barrier).
+T0_EXACT.txt: all 16 betas + alpha checked against 140-digit Decimal for j = 0..10^5,
+ZERO mismatches.  floor(j*alpha) uses an 80-digit rational bracket with an assert that the
+bracket determines the floor.  The 3-adic environment is exact big-integer arithmetic
+(unchanged from tcommon.py).  The ONLY floating point is in the transfer operator itself
+(as in every previous round), so the block weights w_r are float but the combinatorics
+underneath them is exact.
+
+
+TASK 1 -- the surrogate barriers  (COMPUTATIONAL, exact)
+--------------------------------------------------------
+alpha = log2 3 = [1;1,1,2,2,3,1,5,2,23,2,2,1,1,55,1,...]
+
+beta_name   minpoly (A,B,C)               beta               |b-a|     side   period    disc   firstDiff  density(1e5)
+golden_m4   (11,-37,31)                   1.5801787282954641 4.784e-03 below  [1]           5  12         0.99896
+silver_m4   (1,-6,7)                      1.5857864376269050 8.239e-04 above  [2]           8  41         0.99392
+match2_m4   (22,-62,43)                   1.5851356066457917 1.731e-04 above  [2,3]        60  94         0.97109
+match3_m4   (99,-326,268)                 1.5850226007040584 6.010e-05 above  [2,3,1]     148  200        0.91681
+golden_m6   (1045,-3315,2629)             1.5850545129294259 9.201e-05 above  [1]           5  147        0.94564
+silver_m6   (553,-1756,1394)              1.5851460875906454 1.836e-04 above  [2]           8  94         0.97274
+match2_m6   (1499,-4745,3755)             1.5849593742269844 3.127e-06 below  [1,5]        45  665        0.15634
+match3_m6   (4566,-14492,11499)           1.5849637789885814 1.278e-06 above  [1,5,2]     328  1636       0.06389
+golden_m8   (74609,-236507,187429)        1.5849613580936784 1.143e-06 below  [1]           5  665        0.05715
+silver_m8   (58391,-185098,146689)        1.5849631927255506 6.920e-07 above  [2]           8  2301       0.03458
+match2_m8   (623363,-1975966,1565878)     1.5849625004333215 2.878e-10 below  [2,23]     2300  >1e5       0
+match3_m8   (3084955,-9779195,7749923)    1.5849625007811239 5.997e-11 above  [2,23,2]  14165  >1e5       0
+golden_m10  (232574311,-737243125,...)    1.5849624999296075 7.916e-10 below  [1]           5  31867      0.00004
+silver_m10  (222199646,-704356216,...)    1.5849625007313758 1.022e-11 above  [2]           8  >1e5       0
+match2_m10  == silver_m10 (period [2,2] is the same tail as [2])
+match3_m10  (1163756005,-3689019265,...)  1.5849625007006755 2.048e-11 below  [2,2,1]      85  >1e5       0
+(alpha = 1.5849625007211562)
+
+Mismatch density up to N=1e5 is ~ N*|b-a|/2 capped at 1, matching the previous round's
+|D(N)| ~ N^2 eps/2 law.
+
+
+TASK 2 -- Theta_beta  (COMPUTATIONAL, exact barrier + exact 3-adic env, float operator)
+---------------------------------------------------------------------------------------
+Reproduced the reference values exactly: alpha, J=400 gives 0.02087 / 0.02798 / 0.02669 /
+0.03536 at lam = 1/5/7/11.
+
+J = 400:  Theta_alpha = 0.03536 (attained at lam=11), margin to theta_max=0.137 is 0.10164.
+J = 800:  Theta_alpha = 0.04532 (attained at lam=5),  margin 0.09168.
+
+Deviations |Theta_beta - Theta_alpha| (max over lam in {1,5,7,11,19,101}):
+  worst case, golden_m4 (|b-a| = 4.8e-3):  5.85e-4 at J=400, 1.19e-4 at J=800.
+  every beta with prefix m >= 8 (and match2_m6, match3_m6): deviation EXACTLY 0.
+Margin never drops below 0.1004 at J=400 -- there is no barrier in this family that
+eats the margin.
+
+*** TASK 2 MAIN FINDING (COMPUTATIONAL, verified for all 16 betas x 2 J, T2_THETA.txt) ***
+The convergence Theta_beta -> Theta_alpha is NOT asymptotic, it is a DICHOTOMY:
+
+    Theta_beta == Theta_alpha bit-for-bit   <=>   floor(j*beta) == floor(j*alpha) for all j <= J.
+
+Verified as an iff on every (beta, J) pair.  This is obvious once stated -- the model only
+ever reads top[0..J] -- but it means the "rate relative to |beta-alpha|" question has no
+continuous answer.  When agreement fails, the observed ratio |dTheta|/|b-a| is
+0.05-0.12 at J=400 and 0.008-0.034 at J=800, i.e. the perturbation per barrier index is
+bounded and DECREASES with J: the barrier perturbation is a boundary/transient effect,
+not a bulk one.  Prefix length m is the wrong variable; the right one is
+first_diff(beta) vs J, and first_diff grows like the partial-quotient denominators, not
+like exp(m).
+
+
+TASK 3 -- Cramer statistics  (COMPUTATIONAL; 30-environment corpus, 15 lam x J in {400,800})
+--------------------------------------------------------------------------------------------
+theta = 0.137.  lambda* solves (1/n) sum exp(lambda(w_i - theta)) = 1, bisection, n = 8310.
+
+barrier      mean(w-theta)   sd(w)    max(w-th)   lambda*   ln2/lambda*
+alpha          -0.100208   0.26575    0.64059    2.3948     0.28943     <- matches the
+golden_m4      -0.100544   0.26557    0.64059    2.4044     0.28829        previous round's
+silver_m4      -0.100154   0.26574    0.64059    2.3940     0.28953        2.3948 / -0.10021
+match3_m4      -0.100205   0.26575    0.64059    2.3948     0.28944        exactly
+golden_m6      -0.100203   0.26575    0.64059    2.3948     0.28944
+match2_m6 / golden_m8 / match2_m8 / silver_m10 / match3_m10
+               -0.100208   0.26575    0.64059    2.3948     0.28943  (identical to alpha)
+rat_65_41      -0.100178   0.26574    0.64059    2.3944     0.28948
+
+lambda*_beta matches lambda*_alpha to 4 significant figures for EVERY barrier; the largest
+deviation is golden_m4 at +0.0096 (0.4%), with |b-a| = 4.8e-3.  The log-excess slope
+prediction ln2/lambda* = 0.2894 +- 0.0006 across the whole family.
+Per-J split for alpha: J=400 lambda*=2.5780 (slope 0.2689), J=800 lambda*=2.3100 (slope 0.3001).
+
+VERDICT: the Cramer exponent is a property of the 3-adic environment, NOT of the barrier.
+
+
+TASK 4 -- COBOUNDARY TEST  (COMPUTATIONAL; J=400, 15 lam, per-barrier)
+-----------------------------------------------------------------------
+Model  w_r - wbar = phi(s(r+1)) - phi(s(r)) + eps_r, phi fitted by exact least squares
+(graph-Laplacian normal equations, gauge phi(s_0)=0).  n = 177 blocks per environment.
+"chance" = (#states-1)/n, the fraction of variance a RANDOM labelling with that many
+states would absorb.  fracVar = 1 - Var(eps)/Var(w).
+
+alpha, mean over 15 lam (sd(w) = 0.261):
+  state                              #st   fracVar   resid sd   chance   excess
+  (f) nblack 2-window               24.2    0.2750   0.22204   0.1311   0.1439
+  (d') (sym, nblack)                27.5    0.2905   0.21982   0.1499   0.1406
+  (d'') (nblack clip4, depth clip4) 11.9    0.2012   0.23314   0.0614   0.1398
+  (b) nblack                        16.5    0.2175   0.23081   0.0874   0.1301
+  (b') nblack clip4                  5.0    0.1322   0.24306   0.0226   0.1096
+  (e) depth clip4                    5.0    0.0758   0.25093   0.0226   0.0532
+  (a'') headroom mod 3               3.0    0.0241   0.25784   0.0113   0.0128
+  (c''') barrier sym 3-window        4.0    0.0283   0.25739   0.0169   0.0114
+  (c'') barrier sym 2-window         3.0    0.0197   0.25853   0.0113   0.0084
+  (c') (sym1, sym2) in {1,2}^2       3.0    0.0150   0.25909   0.0113   0.0037
+  (c) barrier symbol {3,4}           2.0    0.0074   0.26010   0.0056   0.0017
+  (a) headroom raw (CONTROL)       178.0    1.0000   0.00000   1.0000   0.0000   <- DEGENERATE
+
+The raw headroom h_r = top[2r] - 2r is strictly increasing, so it takes 178 distinct values
+on 178 blocks: the "perfect" coboundary fit is pure overfit (chance = 1.0000, excess = 0).
+It is reported only as a control; it is NOT evidence of a coboundary.
+
+Cross-barrier (fracVar, all 11 barriers, J=400):
+  barrier sym {3,4}        0.003 - 0.010   (essentially nothing)
+  (sym1,sym2)              0.009 - 0.017
+  sym 3-window             0.018 - 0.028
+  nblack clip4             0.130 - 0.132
+  nblack                   0.214 - 0.218
+  (sym, nblack)            0.290 - 0.296
+  nblack 2-window          0.272 - 0.275
+The numbers are essentially barrier-independent.
+
+*** TASK 4 CONCLUSION: REFUTED (COMPUTATIONAL) ***
+The block-weight sequence is NOT a coboundary over any small state tested.  The best
+non-degenerate state (a 2-block black-count window, ~24 states) leaves 72.5% of the
+variance unexplained, and the residual sd (0.222) is 85% of sd(w) (0.261).  Every barrier-
+only state explains < 3% -- below or barely above the chance level.  The pressure is not a
+coboundary over the barrier word, and not over a small black statistic either.
+
+
+TASK 5 -- BLACK-DENSITY SUFFICIENCY  (COMPUTATIONAL; J=400, 15 lam)
+--------------------------------------------------------------------
+R^2 = 1 - E[Var(w | statistic)] / Var(w), exact conditional-variance decomposition;
+"chance" = (#groups-1)/(n-1) with n = 177.
+
+  statistic                      #g/#p   mean R2   min R2   max R2   chance   excess
+  (nblack_r, nblack_{r+1})        89.4    0.6720   0.5647   0.7839   0.5023   0.1697
+  (nblack, depth bucket)          38.2    0.3641   0.2789   0.4975   0.2116   0.1525
+  nblack_r                        16.4    0.2127   0.1554   0.3049   0.0875   0.1252
+  (nblack, sym)                   27.4    0.2730   0.1944   0.3793   0.1499   0.1231
+  OLS nb_r..nb_{r+7}               9.0    0.1611   0.0744   0.2136   0.0455   0.1157
+  OLS nb_r..nb_{r+7} + sym        10.0    0.1666   0.0753   0.2466   0.0511   0.1155
+  (nb_r,nb_{r+1},nb_{r+2})       144.9    0.9328   0.8902   0.9785   0.8179   0.1149  <- overfit
+  OLS nblack_r                     2.0    0.1066   0.0510   0.1447   0.0057   0.1009
+  maxdepth_r (bucket)              6.3    0.1131   0.0547   0.1560   0.0299   0.0832
+  nblack window 4                 40.6    0.2616   0.1411   0.4183   0.2252   0.0364
+  prefix black run                 3.3    0.0377   0.0075   0.1341   0.0133   0.0245
+  nblack window 8                 61.7    0.3533   0.2191   0.5583   0.3447   0.0086
+  nblack window 16                87.7    0.4647   0.2575   0.6084   0.4925  -0.0278
+  ncell_r                        177.0    1.0000   1.0000   1.0000   1.0000   0.0000  <- DEGENERATE
+
+ncell_r (the window width) is a bijection with r on 177 blocks, so its R^2 = 1 is vacuous.
+The 3-block tuple reaches R^2 = 0.93 but uses 145 groups for 177 points -- also overfit
+(chance 0.82).
+
+*** TASK 5 CONCLUSION (COMPUTATIONAL) ***
+NO small statistic of the black pattern reaches 80% of the variance of w.  The honest
+ceiling for a genuinely small statistic is:
+    single-block black count           R^2 = 0.213  (16 groups)
+    black count + max depth            R^2 = 0.364  (38 groups)
+    two-block black count window       R^2 = 0.672  (89 groups, chance 0.50 -> excess 0.17)
+Windowed black counts (4/8/16 blocks) are WORSE than chance once the group count is
+accounted for: smoothing the black pattern destroys the signal.  The block weight depends
+on the black pattern's fine structure (which columns, not how many), so "black density" is
+NOT a sufficient statistic.
+
+
+TASK 6 -- SUPERBLOCK / RENORMALISATION  (COMPUTATIONAL; J=400, 15 lam)
+-----------------------------------------------------------------------
+Level-0 word: u_r = top[2r+2] - top[2r] in {3,4}, r = 0..R-2 (uncapped over this range).
+
+SUBSTITUTIVE STRUCTURE (COMPUTATIONAL, confirmed):
+  alpha:      density of '4' = 0.16583; run lengths of 3's between 4's = {4,5} EXACTLY
+              -> two superblock types A = 3^4 4 (length 5), B = 3^5 4 (length 6)
+              derived word over {A,B} = B^8 A B^8 A B^8 A ... -> level-2 substitution
+              X = B^8 A (uniform over the J=400 window)
+  silver_m4:  types {4,5}, derived word B^5 A B^5 A ...      -> X = B^5 A
+  golden_m4:  types {5,6}, derived word (BA^3)^*             -> X = A^3 B
+  rat_65_41:  types {4,5}, derived word B^6 A B^6 A ...      -> X = B^6 A
+  golden_m8 / match2_m8 / silver_m10: identical to alpha on this window
+So yes -- the barrier word is Sturmian/substitutive and the superblock decomposition is
+clean and two-typed, exactly as predicted.
+
+PRESSURE PER SUPERBLOCK TYPE (alpha, pooled over 15 lam):
+  type A (3^4 4, L=5): n=45   mean W = 0.30717  sd 0.41233  W/L = 0.06143  max excess +0.5725
+  type B (3^5 4, L=6): n=390  mean W = 0.18630  sd 0.42455  W/L = 0.03105  max excess +0.5653
+  (excess := W - theta*L with theta = 0.137)
+Mean W/L differs by a factor 2 between types, but sd(W) ~ 0.42 is 2x the mean, so the type
+label explains almost none of it (consistent with Task 4: sym explains < 1% of Var(w)).
+
+2x2 MATRIX INEQUALITY: M[a][b] = 1{a->b occurs} * exp(max excess of type a).
+  alpha:      M = [[0, 1.7726], [1.7600, 1.7600]],  Perron root 2.85335
+  golden_m4:  Perron root 3.96377
+  silver_m4:  Perron root 3.22100
+  rat_65_41:  Perron root 2.91755
+All Perron roots are > 1, so the 2x2 superblock inequality DOES NOT CERTIFY rate < theta.
+Renormalising to pairs of superblocks (10-13 blocks) lowers the per-block max excess but
+the max is still positive (alpha: +0.578 over 11-12 blocks).
+
+HOW LONG A WINDOW IS ACTUALLY NEEDED (the useful number):
+  max over all block windows of length Lw of (sum w - theta*Lw), over all 15 lam, J=400:
+    Lw:        1       2       4       8      16      32      64     128
+    alpha:  0.6406  1.2090  1.3956  1.1577  0.6951 -0.2296 -3.0910 -9.6486
+  first Lw with a UNIFORMLY negative max: Lw = 24, IDENTICAL for all 7 barriers tested
+  (alpha, golden_m4, silver_m4, golden_m8, match2_m8, silver_m10, rat_65_41).
+
+*** TASK 6 CONCLUSION (COMPUTATIONAL) ***
+The substitution exists and is clean, but the superblocks it produces (5-6 blocks) are
+roughly 4x TOO SHORT to carry a pressure certificate: a uniform blockwise certificate
+needs windows of 24 blocks, and that threshold is barrier-independent.  Renormalised
+pressure does contract per block, but it is governed by the 3-adic environment's mixing
+length (24 blocks), not by the barrier's substitution length.  A 2x2 matrix over barrier
+superblock types cannot work; the state would have to encode ~24 blocks of black pattern.
+
+
+TASK 7 -- BARRIER SYMBOL vs BLACKNESS  (DECISIVE KILL TEST)
+------------------------------------------------------------
+(A) STRUCTURAL -- PROVED (MATH), by inspection of the model, verified computationally.
+The blackness predicate for the cell of block r at column x is
+    54 * |centered( XI * 2^{-(m-x)}  mod 3^{2r+2} )|  <  3^{2r+2},   m = sg + t + 1.
+It reads XI, r, x and m.  It does NOT read top[].  The barrier enters only through
+sg = floor(J*alpha) (held fixed by construction: geom_with caps at G.sg) and through the
+read window [lo, hi] = cell_xrange.  Therefore the black field is literally the SAME
+function of (r, x) under every barrier.
+Verified, lam=11, J=400, common window x = 2r..2r+40 for all 200 blocks:
+    alpha / golden_m4 / silver_m4 / golden_m8 / silver_m10 / rat_65_41:
+    200/200 rows identical, 0 cells differing, m = 700 and sg = 633 in every case.
+
+(B) black density as actually read (window moves with the barrier), lam = 11:
+    alpha 0.03775, golden_m4 0.03784, silver_m4 0.03769, golden_m8 0.03775,
+    silver_m10 0.03775, rat_65_41 0.03772.   Spread 1.5e-4, i.e. 0.4% relative.
+
+(C)/(E) POOLED CORRELATIONS (J=400, 15 lam concatenated, n = 2655, s.e. ~ 0.019):
+    barrier      r(sym,nblack)  t      r(sym,w)  t      r(nblack,w)
+    alpha           0.03416   1.76      0.03004  1.55      0.32162
+    golden_m4      -0.01534  -0.79     -0.01010 -0.52      0.32092
+    silver_m4       0.00603   0.31      0.01878  0.97      0.32106
+    match3_m4       0.02751   1.42      0.02855  1.47      0.32163
+    rat_65_41       0.01663   0.86      0.03819  1.97      0.32120
+    (all others identical to alpha: 0.03416 / 0.03004)
+EVERY |t| < 2.  The sign even flips between barriers (golden_m4 negative, alpha positive),
+which is what noise looks like, not signal.  For contrast, r(nblack, w) = 0.322 with
+t = 17.5 -- the black count IS correlated with the weight; the barrier symbol is not.
+
+(D) black density conditioned on the barrier symbol:
+    alpha:     sym=3 -> mean nblack 3.781, density 0.03522 ; sym=4 -> 4.124, 0.03960
+    golden_m4: sym=3 -> mean nblack 3.836, density 0.03659 ; sym=4 -> 3.679, 0.03291
+    The conditional gap reverses sign when the barrier changes: not a real effect.
+
+*** TASK 7 CONCLUSION: REFUTED (COMPUTATIONAL + structural) ***
+Changing the barrier does NOT change the black pattern at all -- it only shifts which
+cells are read (0 cells differ on a common window, for every barrier tested).  The
+correlation between the barrier symbol (3 vs 4) and the block's black-cell count is
+0.034 +- 0.019 for alpha (t = 1.76, not significant) and changes sign across barriers.
+THE IDEA THAT BARRIER SYMBOLIC BALANCE CONTROLS BLACK-CELL DENSITY IS REFUTED.
+
+
+OVERALL STATUS
+--------------
+PROVED (MATH, by inspection of the model, verified computationally):
+  * the blackness predicate is barrier-independent; the barrier only selects the read window.
+COMPUTATIONAL:
+  * exact integer floor(j*beta) for quadratic beta, 0 mismatches vs 140-digit Decimal to 1e5.
+  * Theta_beta == Theta_alpha bit-for-bit  <=>  the barriers agree on j <= J  (iff, all 32 cases).
+  * Theta margin to theta_max = 0.137 is 0.1004-0.1022 at J=400 for every barrier in the family.
+  * lambda*_beta = lambda*_alpha = 2.3948 to 4 s.f. for all 11 barriers; slope ln2/lambda* = 0.2894.
+  * barrier word is substitutive with exactly two superblock types (4/5 or 5/6 threes per 4)
+    and an explicit level-2 substitution; superblock length 5-6.
+  * uniform-excess window length is 24 blocks, identical across all barriers.
+REFUTED:
+  * the block weights are a coboundary over a small state (best non-degenerate state leaves
+    72.5% of Var(w));
+  * a small black statistic (density, windowed counts) predicts the block weight
+    (ceiling ~0.21 for one block, ~0.67 for two, both below 80% and heavily group-inflated);
+  * a 2x2 superblock matrix inequality certifies rate < theta (all Perron roots > 1);
+  * barrier symbolic balance controls the black pattern (correlation ~0, sign-unstable).
+OPEN (unchanged):
+  * OddDarkPressure / AverageOddDarkPressure -- the single analytic hypothesis; this round
+    gives no new leverage on it, and rules out three cheap routes to it.
+NOT CLAIMED: nothing about genericity or equidistribution of XI or of {j*beta}.

@@ -1,0 +1,17 @@
+OK   300 <= j0, 2 | j0
+OK   hlarge: (3C/(theta'-1/6))^2 <= j0
+OK   k + n <= Kb, k > 0
+OK   gamma*j*log2 <= 8 k d^2/N0 (log2 < 0.693148)
+OK   theta' + gamma <= nu
+   b_U(j0) = 1584962500721, Kb = 178259537032, k = 10591870365, n = 167667666667, gamma = 7.8723e-08, gamma*j0 = 78723.248
+   largest feasible L: (17363, 39429)
+OK   hnum on all good pairs (max lhs-rhs in log2 = -4.310)
+OK   hL: L < B - b + 1
+OK   K <= b_U(N), b_U(j0) < K
+OK   region: b_0(j0) <= sigma + delta for sigma >= b - xs (U=0)
+OK   gamma*j <= j/300 - delta
+OK   63 sigma + 37 <= 100 j for sigma <= b
+OK   U <= sigma
+   instance: j0=1000000000000, L=17363, N=1000000017363, K=1584962500722, xs=39429, A=N/K=0.630929764526, 1/alpha=0.630929753571
+   exponent 1 - I0*A = 0.949955499131  vs baseline H2(1/alpha) = 0.9499555 ; gain = 8.689e-10
+ALL NUMERIC HYPOTHESES OK

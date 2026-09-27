@@ -1,0 +1,7 @@
+depth D=20000
+  a=1: digit freqs -1/0/+1 = 1.0000/0.0000/0.0000; aligned 3-zero windows 0.00000 (Haar 0.03704); max zero run 0; runs>=3: 0; autocorr h=1: +nan h=2: +nan h=3: +nan h=10: +nan
+  a=5: digit freqs -1/0/+1 = 0.2500/0.3750/0.3750; aligned 3-zero windows 0.00000 (Haar 0.03704); max zero run 2; runs>=3: 0; autocorr h=1: +0.1795 h=2: -0.2308 h=3: -0.2309 h=10: -0.2308
+  a=700: digit freqs -1/0/+1 = 0.3332/0.3348/0.3319; aligned 3-zero windows 0.03530 (Haar 0.03704); max zero run 7; runs>=3: 472; autocorr h=1: -0.0017 h=2: -0.0147 h=3: +0.0089 h=10: +0.0015
+  a=1401: digit freqs -1/0/+1 = 0.3339/0.3342/0.3320; aligned 3-zero windows 0.03715 (Haar 0.03704); max zero run 9; runs>=3: 512; autocorr h=1: -0.0071 h=2: -0.0007 h=3: +0.0022 h=10: -0.0080
+  a=2102: digit freqs -1/0/+1 = 0.3278/0.3352/0.3370; aligned 3-zero windows 0.03870 (Haar 0.03704); max zero run 8; runs>=3: 527; autocorr h=1: +0.0075 h=2: -0.0075 h=3: -0.0025 h=10: +0.0059
+  a=100003: digit freqs -1/0/+1 = 0.3347/0.3306/0.3348; aligned 3-zero windows 0.03745 (Haar 0.03704); max zero run 12; runs>=3: 494; autocorr h=1: -0.0052 h=2: -0.0130 h=3: -0.0046 h=10: +0.0078

@@ -1,0 +1,40 @@
+J=200 K=28 (c0=4) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.1105 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.0464 bits/step
+  P_K^bridge(weighted over states)    = 0.0368 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 2 of 273 over 10 anchors; max bridge mass of such a state 2.169e-04
+J=400 K=32 (c0=4) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.1048 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.0948 bits/step
+  P_K^bridge(weighted over states)    = 0.0587 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 3 of 1319 over 16 anchors; max bridge mass of such a state 0.000e+00
+J=800 K=36 (c0=4) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.1105 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.1034 bits/step
+  P_K^bridge(weighted over states)    = 0.0823 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 11 of 4035 over 20 anchors; max bridge mass of such a state 4.375e-02
+J=200 K=42 (c0=6) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.0477 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.0338 bits/step
+  P_K^bridge(weighted over states)    = 0.0281 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 0 of 33 over 3 anchors; max bridge mass of such a state 0.000e+00
+J=400 K=48 (c0=6) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.0775 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.0680 bits/step
+  P_K^bridge(weighted over states)    = 0.0448 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 0 of 764 over 12 anchors; max bridge mass of such a state 0.000e+00
+J=800 K=54 (c0=6) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.0837 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.0768 bits/step
+  P_K^bridge(weighted over states)    = 0.0666 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 0 of 2952 over 17 anchors; max bridge mass of such a state 0.000e+00
+J=400 K=64 (c0=8) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.0667 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.0592 bits/step
+  P_K^bridge(weighted over states)    = 0.0456 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 0 of 360 over 8 anchors; max bridge mass of such a state 0.000e+00
+J=800 K=72 (c0=8) s=3.0: sup vs Collatz-Wielandt vs bridge-weighted window pressure
+  P_K^sup   (current hypothesis)      = 0.0790 bits/step
+  P_K^CW    (super-eigenvector h=M_K) = 0.0747 bits/step
+  P_K^bridge(weighted over states)    = 0.0575 bits/step
+  high-pressure states (M_K > 2^(2K*0.10)): 0 of 2324 over 15 anchors; max bridge mass of such a state 0.000e+00

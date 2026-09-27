@@ -1,0 +1,58 @@
+TASK 7 -- barrier symbol vs blackness (decisive kill test)
+
+(A) raw black field comparison, lam = 11, J = 400, common window x = 2r..2r+40
+    (the blackness predicate does not read top[]; m = sg+t+1 is held fixed at sg = floor(J*alpha))
+    barrier            m    sg    rows identical to alpha   #cells differing
+    alpha            700   633                    200/200                  0
+    golden_m4        700   633                    200/200                  0
+    silver_m4        700   633                    200/200                  0
+    golden_m8        700   633                    200/200                  0
+    silver_m10       700   633                    200/200                  0
+    rat_65_41        700   633                    200/200                  0
+
+(B) black DENSITY as actually read (window moves with the barrier), lam = 11
+    barrier        #cells read   #black   density  mean ncell/blk
+    alpha                23499      887   0.03775         117.495
+    golden_m4            23308      882   0.03784         116.540
+    silver_m4            23531      887   0.03769         117.655
+    golden_m8            23499      887   0.03775         117.495
+    silver_m10           23499      887   0.03775         117.495
+    rat_65_41            23517      887   0.03772         117.585
+
+(C) Pearson correlations, J = 400, averaged over the 15 lam of the corpus
+    barrier         corr(sym,nblack)   corr(sym,w)  corr(sym,ncell)  corr(nblack,w)  corr(ncell,w)
+    alpha                    0.03389       0.03260          0.00625         0.32348        0.08782
+    golden_m4               -0.01504      -0.01128         -0.00063         0.32281        0.09048
+    golden_m6                0.03235       0.03617          0.00537         0.32349        0.08788
+    golden_m8                0.03389       0.03260          0.00625         0.32348        0.08782
+    match2_m6                0.03389       0.03260          0.00625         0.32348        0.08782
+    match2_m8                0.03389       0.03260          0.00625         0.32348        0.08782
+    match3_m10               0.03389       0.03260          0.00625         0.32348        0.08782
+    match3_m4                0.02707       0.02976          0.00566         0.32348        0.08786
+    rat_65_41                0.01734       0.04046          0.00183         0.32306        0.08777
+    silver_m10               0.03389       0.03260          0.00625         0.32348        0.08782
+    silver_m4                0.00746       0.01969         -0.00145         0.32291        0.08760
+
+(D) black density CONDITIONED on the barrier symbol (alpha, J=400, all 15 lam)
+    alpha: sym=3 -> n=2205 mean nblack 3.7810 mean black-density 0.03522
+    alpha: sym=4 -> n=450 mean nblack 4.1244 mean black-density 0.03960
+    golden_m4: sym=3 -> n=2235 mean nblack 3.8362 mean black-density 0.03659
+    golden_m4: sym=4 -> n=420 mean nblack 3.6786 mean black-density 0.03291
+
+TASK 7 (E) -- pooled correlations and significance (J=400, 15 lam concatenated)
+   n_pooled = 2655 block observations per barrier; s.e.(rho) ~ 1/sqrt(n) = 0.0194
+   barrier        r(sym,nb)        t   r(sym,w)        t  r(nblack,w)
+   alpha            0.03416     1.76    0.03004     1.55      0.32162
+   golden_m4       -0.01534    -0.79   -0.01010    -0.52      0.32092
+   golden_m6        0.03283     1.69    0.03465     1.79      0.32163
+   golden_m8        0.03416     1.76    0.03004     1.55      0.32162
+   match2_m6        0.03416     1.76    0.03004     1.55      0.32162
+   match2_m8        0.03416     1.76    0.03004     1.55      0.32162
+   match3_m10       0.03416     1.76    0.03004     1.55      0.32162
+   match3_m4        0.02751     1.42    0.02855     1.47      0.32163
+   rat_65_41        0.01663     0.86    0.03819     1.97      0.32120
+   silver_m10       0.03416     1.76    0.03004     1.55      0.32162
+   silver_m4        0.00603     0.31    0.01878     0.97      0.32106
+
+   |t| < 2 means the barrier symbol carries no detectable signal about the block
+   black count / block weight at this sample size.

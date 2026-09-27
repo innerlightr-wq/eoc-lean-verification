@@ -1,0 +1,30 @@
+2 as a primitive root mod 3^k (PROVED MATH; verified here):
+  ord(2 mod 3^1) = 2 = phi(3^1) = 2 -> primitive root: True
+  ord(2 mod 3^2) = 6 = phi(3^2) = 6 -> primitive root: True
+  ord(2 mod 3^12) = 354294 = phi(3^12) = 354294 -> primitive root: True
+  ord(2 mod 3^138) = 464132406087257065130090681062365209793088477541530761100710966726 = phi(3^138) = 464132406087257065130090681062365209793088477541530761100710966726 -> primitive root: True
+
+(a) EXISTENCE over unrestricted m: the orbit {lam*2^-d : d} of ANY unit lam is the whole
+    unit group mod 3^138; the surviving set has 10 units, so for EVERY unit lam
+    (lam = 1 included) there are exactly 10 residues d mod 2*3^137 realizing it.
+(b) DENSITY over m in one full period = 10/(2*3^137) = 2.1546e-65
+    full period 2*3^137 has 66 decimal digits; geometrically m ~ 1.7516*J.
+
+level b=12: 308 surviving residues mod 3^12 (206 units), density 5.7956e-04
+
+(c) exhaustive: |lambda| <= 500 (3 not | lambda), delta = 0..2000000  (m = 700+delta,
+    delta=0 is the m the window dictates; delta<=2000000 covers every J up to ~1e+06).
+    candidate deltas per lambda: 206 residues x 6 cycles = 1236
+    (lambda,delta) pairs examined past the level-12 test: 776680
+    deepest consecutive-level prefix matched: 7 of 64 levels, at (lambda,delta) = (283, 98649)
+    pairs realizing the FULL 64-level / 2802-cell pattern: 0  []
+
+    at the DICTATED m = 700 (delta = 0), levels of the pattern matched by small lambda:
+      1:0, -1:0, 2:0, -2:0, 4:0, -4:0, 5:0, -5:0, 7:0, -7:0, 8:0, -8:0, 10:0, -10:0, 11:0, -11:0, 13:0, -13:0, 14:0, -14:0, 16:0, -16:0, 17:0, -17:0, 19:0, -19:0, 20:0, -20:0, 22:0, -22:0, 23:0, -23:0, 25:0, -25:0, 26:0, -26:0, 28:0, -28:0, 29:0, -29:0, 31:0, -31:0, 32:0, -32:0, 34:0, -34:0, 35:0, -35:0, 37:0, -37:0, 38:0, -38:0, 40:0, -40:0, 41:0, -41:0, 43:0, -43:0, 44:0, -44:0
+      every listed lambda fails at the very first level (b=12): True
+
+    smallest |lambda| realizing the pattern at the dictated m (delta=0), i.e. min over the
+    10 surviving units of min(v, 3^138-v): 8628357598004709039287903785445954915294778314402654274318196576
+      (64 decimal digits; the low-frequency shell is |lambda| <~ 10^3)
+
+wrote lam.json

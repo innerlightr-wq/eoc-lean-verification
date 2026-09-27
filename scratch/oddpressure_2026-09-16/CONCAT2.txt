@@ -1,0 +1,39 @@
+================ P=9
+  after driver copy # 0: level b= 12  survivors 206
+  after driver copy # 1: level b= 30  survivors 168
+  *** EMPTY at block r=18 (level b=38): driver cannot repeat at period 9
+survivors mod 3^38: 0  (subsampling factor applied: e^0.0)
+================ P=10
+  after driver copy # 0: level b= 12  survivors 206
+  after driver copy # 1: level b= 32  survivors 1428
+  after driver copy # 2: level b= 52  survivors 1718
+  after driver copy # 3: level b= 72  survivors 1760
+  after driver copy # 4: level b= 92  survivors 1698
+  after driver copy # 5: level b=112  survivors 1678
+  after driver copy # 6: level b=132  survivors 1817
+  after driver copy # 7: level b=152  survivors 1743
+  after driver copy # 8: level b=172  survivors 1692
+  after driver copy # 9: level b=192  survivors 1787
+  after driver copy #10: level b=212  survivors 1813
+  after driver copy #11: level b=232  survivors 1704
+  after driver copy #12: level b=252  survivors 1699
+  after driver copy #13: level b=272  survivors 1810
+================ P=11
+  after driver copy # 0: level b= 12  survivors 206
+  after driver copy # 1: level b= 34  survivors 1762
+  after driver copy # 2: level b= 56  survivors 1747
+  after driver copy # 3: level b= 78  survivors 1724
+  after driver copy # 4: level b=100  survivors 1761
+  after driver copy # 5: level b=122  survivors 1727
+  after driver copy # 6: level b=144  survivors 1738
+  after driver copy # 7: level b=166  survivors 1755
+  after driver copy # 8: level b=188  survivors 1740
+  after driver copy # 9: level b=210  survivors 1758
+  after driver copy #10: level b=232  survivors 1742
+  after driver copy #11: level b=254  survivors 1756
+  after driver copy #12: level b=276  survivors 1746
+  after driver copy #13: level b=298  survivors 1772
+================ P=12
+  after driver copy # 0: level b= 12  survivors 206
+  after driver copy # 1: level b= 36  survivors 1785
+  after driver copy # 2: level b= 60  survivors 1672

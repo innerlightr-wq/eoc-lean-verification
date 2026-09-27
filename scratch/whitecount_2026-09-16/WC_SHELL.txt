@@ -1,0 +1,26 @@
+J=100 law=shell sg=158 t=16 m=175: #paths = 2^145.26
+(a) mean mu_i = 0.02928 (2 eta = 0.03704); by thirds [0.02518, 0.03121, 0.03234]; max mu_i = 0.3037 at i = 30; min = 0.0000
+(b) C(s) = sum over bulk anchors of Cov(B_i, B_{i+s}): s=1: +6.147e-01  s=2: +1.348e-01  s=5: -9.132e-02  s=10: +3.411e-03  s=20: +1.320e-02  s=50: +1.036e-02   (bulk sum of mu_i(1-mu_i) = 2.467e+00)
+(c) E[N_B] = 2.928 (0.02928 J); Var(N_B) = 3.413; Var/J = 0.0341  (independent benchmark sum mu_i(1-mu_i)/J = 0.0247)
+(d) worst case over ALL admissible paths: max #black = 22 (0.2200 J), i.e. W_J >= 78 (0.7800 J) deterministically
+    P(N_B >= q J) exact: q=0.05: 2^-2.4 (rate 0.024); q=0.1: 2^-9.9 (rate 0.099); q=0.15: 2^-24.9 (rate 0.249); q=0.2: 2^-53.7 (rate 0.537); q=0.3: 0
+    so P(W_J < delta J) = 0 exactly for every delta <= 0.7800
+(e) tilted one-step black prob: sup over black states 0.9932 (at (10, 51)), sup over white states 0.9975; path-averaged 0.0297
+    confined-kernel value at that state: 1.0000
+(f) sup_state P*(next k cells all black): k=1: 9.997e-01  k=2: 9.949e-01  k=3: 9.651e-01  k=4: 8.419e-01  k=5: 5.434e-01  k=6: 8.021e-04  k=7: 1.742e-07  k=8: 7.090e-16  k=9: 3.302e-16  k=10: 0.000e+00  k=11: 0.000e+00  k=12: 0.000e+00
+    restricted to states with path mass > 1e-6: k=1: 9.932e-01  k=2: 9.346e-01  k=3: 7.003e-01  k=4: 2.754e-01  k=5: 1.173e-03  k=6: 1.093e-04  k=7: 1.742e-07  k=8: 7.090e-16  k=9: 3.302e-16  k=10: 0.000e+00  k=11: 0.000e+00  k=12: 0.000e+00
+    Doeblin eps_k = 1 - sup = 0.0003  0.0051  0.0349  0.1581  0.4566  0.9992
+
+J=200 law=shell sg=316 t=33 m=350: #paths = 2^294.61
+(a) mean mu_i = 0.03829 (2 eta = 0.03704); by thirds [0.04309, 0.03966, 0.03328]; max mu_i = 0.4049 at i = 127; min = 0.0000
+(b) C(s) = sum over bulk anchors of Cov(B_i, B_{i+s}): s=1: +1.115e+00  s=2: +2.622e-01  s=5: +3.427e-02  s=10: -9.868e-02  s=20: +4.124e-02  s=50: +2.148e-03   (bulk sum of mu_i(1-mu_i) = 5.223e+00)
+(c) E[N_B] = 7.658 (0.03829 J); Var(N_B) = 8.783; Var/J = 0.0439  (independent benchmark sum mu_i(1-mu_i)/J = 0.0318)
+(d) worst case over ALL admissible paths: max #black = 53 (0.2650 J), i.e. W_J >= 147 (0.7350 J) deterministically
+    P(N_B >= q J) exact: q=0.05: 2^-1.9 (rate 0.010); q=0.1: 2^-12.5 (rate 0.063); q=0.15: 2^-32.2 (rate 0.161); q=0.2: 2^-60.9 (rate 0.305); q=0.3: 0
+    so P(W_J < delta J) = 0 exactly for every delta <= 0.7350
+(e) tilted one-step black prob: sup over black states 0.9991 (at (10, 79)), sup over white states 0.9997; path-averaged 0.0381
+    confined-kernel value at that state: 1.0000
+(f) sup_state P*(next k cells all black): k=1: 9.997e-01  k=2: 9.949e-01  k=3: 9.651e-01  k=4: 8.558e-01  k=5: 5.907e-01  k=6: 8.021e-04  k=7: 1.742e-07  k=8: 7.090e-16  k=9: 3.302e-16  k=10: 7.681e-33  k=11: 4.846e-33  k=12: 1.953e-38
+    restricted to states with path mass > 1e-6: k=1: 9.991e-01  k=2: 9.852e-01  k=3: 9.074e-01  k=4: 6.584e-01  k=5: 1.909e-03  k=6: 8.008e-10  k=7: 3.460e-12  k=8: 7.565e-18  k=9: 0.000e+00  k=10: 0.000e+00  k=11: 0.000e+00  k=12: 0.000e+00
+    Doeblin eps_k = 1 - sup = 0.0003  0.0051  0.0349  0.1442  0.4093  0.9992
+

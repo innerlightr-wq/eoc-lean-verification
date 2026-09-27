@@ -1,0 +1,12 @@
+============================================================================================
+J=1600 crossover sweep: 55 true low-frequency environments (lambda odd)
+============================================================================================
+  lambda range 1..2085;  columns: Lam_long, C(0.137), L*(0.137), L*(0.10), rate@64, rate@128
+  Lam_long   : min 0.04051  median 0.04578  MAX 0.05186 (lam=91)
+  C(0.137)   : min 1.04510  median 1.62700  MAX 2.60620 (lam=17)
+  rate@L=64  : min 0.07525  median 0.09124  MAX 0.14184 (lam=17)
+  rate@L=128 : min 0.06718  median 0.07222  MAX 0.09702 (lam=17)
+  L*(0.137)  : min 18  median 28  MAX 72 (lam=17)
+  L*(0.10)   : min 36  median 54  MAX 128 (lam=17)
+  #lambda with the exact 64-block rate above theta_max: 1/55  [17]
+  #lambda with the exact 128-block rate above theta_max: 0/55

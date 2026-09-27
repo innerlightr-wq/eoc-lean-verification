@@ -1,0 +1,105 @@
+====================================================================================================
+TASK 7 -- DeepBlackRun(6,6) as a necessary condition for P_j > theta_max
+====================================================================================================
+
+J=400: blocks with pre >= 6 : 2/3000 = 0.00067;  longest run of such blocks per lambda:
+   1:0, 3:0, 5:0, 7:0, 9:0, 11:0, 13:1, 17:0, 19:0, 23:0, 25:0, 29:0, 31:1, 101:0, 1025:0
+  K=16: bad windows   96; windows with DeepBlackRun(6,6)    0; bad AND signature    0  -> implication holds: False  (REFUTED)
+  K=24: bad windows    1; windows with DeepBlackRun(6,6)    0; bad AND signature    0  -> implication holds: False  (REFUTED)
+  K=32: bad windows    0; windows with DeepBlackRun(6,6)    0; bad AND signature    0  -> implication holds: False
+
+J=800: blocks with pre >= 6 : 4/6000 = 0.00067;  longest run of such blocks per lambda:
+   1:0, 3:0, 5:0, 7:0, 9:0, 11:1, 13:0, 17:0, 19:1, 23:1, 25:0, 29:0, 31:0, 101:0, 1025:0
+  K=16: bad windows  493; windows with DeepBlackRun(6,6)    0; bad AND signature    0  -> implication holds: False  (REFUTED)
+  K=24: bad windows   40; windows with DeepBlackRun(6,6)    0; bad AND signature    0  -> implication holds: False  (REFUTED)
+  K=32: bad windows    2; windows with DeepBlackRun(6,6)    0; bad AND signature    0  -> implication holds: False  (REFUTED)
+
+====================================================================================================
+TASK 7b -- search for the WEAKEST signature DeepBlackRun(c,L) that covers every bad window
+====================================================================================================
+  coverage = (#bad windows with the signature)/(#bad);  density = (#windows with sig)/N
+  a usable separator needs coverage = 1.000 and density as small as possible.
+
+J=400 K=16: N=2280 windows, 96 bad
+    c   L  coverage   density    lift
+  -> NO (c,L) in 1..12 x 1..12 achieves full coverage
+     best-lift: c=2 L=1 coverage 0.375 density 0.3987 lift 0.94
+     best-lift: c=1 L=1 coverage 0.438 density 0.6193 lift 0.71
+     best-lift: c=1 L=2 coverage 0.052 density 0.0794 lift 0.66
+
+J=400 K=24: N=1920 windows, 1 bad
+    c   L  coverage   density    lift
+    1   1    1.0000    0.7510   1.331
+    2   1    1.0000    0.5297   1.888
+  -> sharpest full-coverage signature: DeepBlackRun(c=2, L=1), density 1017/1920 = 0.5297, lift 1.888
+     best-lift: c=2 L=1 coverage 1.000 density 0.5297 lift 1.89
+     best-lift: c=1 L=1 coverage 1.000 density 0.7510 lift 1.33
+     best-lift: c=3 L=1 coverage 0.000 density 0.2083 lift 0.00
+
+J=800 K=16: N=5280 windows, 493 bad
+    c   L  coverage   density    lift
+  -> NO (c,L) in 1..12 x 1..12 achieves full coverage
+     best-lift: c=5 L=1 coverage 0.079 density 0.0737 lift 1.07
+     best-lift: c=2 L=1 coverage 0.426 density 0.4006 lift 1.06
+     best-lift: c=3 L=1 coverage 0.272 density 0.2587 lift 1.05
+
+J=800 K=24: N=4920 windows, 40 bad
+    c   L  coverage   density    lift
+  -> NO (c,L) in 1..12 x 1..12 achieves full coverage
+     best-lift: c=5 L=1 coverage 0.300 density 0.1104 lift 2.72
+     best-lift: c=4 L=1 coverage 0.300 density 0.1679 lift 1.79
+     best-lift: c=3 L=1 coverage 0.425 density 0.3589 lift 1.18
+
+====================================================================================================
+TASK 7c -- alternative window statistics; which one separates best?
+====================================================================================================
+
+J=400 K=16: 96 bad of 2280
+  feature                 min over bad  #good >= that   density     AUC
+  max pre                            0           2184    1.0000  0.4138
+  sum pre                            0           2184    1.0000  0.4307
+  max run pre>=3                     0           2184    1.0000  0.4461
+  max run pre>=4                     0           2184    1.0000  0.4448
+  sum nblack                        87           1682    0.7798  0.8740
+  max nblack                         7           2078    0.9535  0.8146
+  max depth                      3.822           1343    0.6311  0.8506
+  max 8-blk sum pre                  0           2184    1.0000  0.4084
+  max 4-blk sum pre                  0           2184    1.0000  0.4110
+
+J=400 K=24: 1 bad of 1920
+  feature                 min over bad  #good >= that   density     AUC
+  max pre                            2           1016    0.5297  0.6311
+  sum pre                            2           1147    0.5979  0.4666
+  max run pre>=3                     0           1919    1.0000  0.3958
+  max run pre>=4                     0           1919    1.0000  0.4130
+  sum nblack                       320            272    0.1422  0.8603
+  max nblack                        17            579    0.3021  0.7131
+  max depth                      8.171             66    0.0349  0.9703
+  max 8-blk sum pre                  2           1100    0.5734  0.5349
+  max 4-blk sum pre                  2           1100    0.5734  0.5461
+
+J=800 K=16: 493 bad of 5280
+  feature                 min over bad  #good >= that   density     AUC
+  max pre                            0           4787    1.0000  0.5149
+  sum pre                            0           4787    1.0000  0.5175
+  max run pre>=3                     0           4787    1.0000  0.5031
+  max run pre>=4                     0           4787    1.0000  0.5008
+  sum nblack                        46           4709    0.9852  0.6879
+  max nblack                         6           4675    0.9788  0.6970
+  max depth                      3.664           4137    0.8769  0.7898
+  max 8-blk sum pre                  0           4787    1.0000  0.5149
+  max 4-blk sum pre                  0           4787    1.0000  0.5118
+
+J=800 K=24: 40 bad of 4920
+  feature                 min over bad  #good >= that   density     AUC
+  max pre                            0           4880    1.0000  0.5352
+  sum pre                            0           4880    1.0000  0.5288
+  max run pre>=3                     0           4880    1.0000  0.5255
+  max run pre>=4                     0           4880    1.0000  0.5623
+  sum nblack                       254           3648    0.7496  0.5581
+  max nblack                        16           3652    0.7504  0.5666
+  max depth                      4.981           3209    0.6604  0.7265
+  max 8-blk sum pre                  0           4880    1.0000  0.5094
+  max 4-blk sum pre                  0           4880    1.0000  0.5228
+
+wrote t7_signature.json

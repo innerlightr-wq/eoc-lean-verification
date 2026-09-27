@@ -1,0 +1,18 @@
+J=200 s=3.0: log2 J = 7; exhaustive over anchors (stride 1) and ALL confined start states
+  c0= 2 K= 14: P_K^max = 0.1902 at anchor r0=74 (r0/R=0.74), S=151, headroom=83; window has 56 black band cells, 2 row-runs, longest 11
+  c0= 4 K= 28: P_K^max = 0.1105 at anchor r0=21 (r0/R=0.21), S=46, headroom=20; window has 58 black band cells, 7 row-runs, longest 5
+  c0= 6 K= 42: P_K^max = 0.0820 at anchor r0=18 (r0/R=0.18), S=36, headroom=21; window has 79 black band cells, 11 row-runs, longest 5
+  c0= 8 K= 56: P_K^max = 0.0692 at anchor r0=18 (r0/R=0.18), S=36, headroom=21; window has 124 black band cells, 12 row-runs, longest 9
+  c0=10 K= 70: P_K^max = 0.0601 at anchor r0=18 (r0/R=0.18), S=36, headroom=21; window has 180 black band cells, 13 row-runs, longest 11
+J=400 s=3.0: log2 J = 8; exhaustive over anchors (stride 1) and ALL confined start states
+  c0= 2 K= 16: P_K^max = 0.2073 at anchor r0=168 (r0/R=0.84), S=461, headroom=71; window has 121 black band cells, 1 row-runs, longest 16
+  c0= 4 K= 32: P_K^max = 0.1272 at anchor r0=165 (r0/R=0.82), S=448, headroom=75; window has 291 black band cells, 1 row-runs, longest 32
+  c0= 6 K= 48: P_K^max = 0.0926 at anchor r0=134 (r0/R=0.67), S=351, headroom=73; window has 329 black band cells, 1 row-runs, longest 48
+  c0= 8 K= 64: P_K^max = 0.0805 at anchor r0=134 (r0/R=0.67), S=351, headroom=73; window has 505 black band cells, 1 row-runs, longest 64
+  c0=10 K= 80: P_K^max = 0.0706 at anchor r0=80 (r0/R=0.40), S=227, headroom=26; window has 405 black band cells, 6 row-runs, longest 43
+J=800 s=3.0: log2 J = 9; exhaustive over anchors (stride 2) and ALL confined start states
+  c0= 2 K= 18: P_K^max = 0.2060 at anchor r0=278 (r0/R=0.69), S=699, headroom=182; window has 270 black band cells, 1 row-runs, longest 18
+  c0= 4 K= 36: P_K^max = 0.1280 at anchor r0=328 (r0/R=0.82), S=696, headroom=343; window has 541 black band cells, 1 row-runs, longest 36
+  c0= 6 K= 54: P_K^max = 0.1053 at anchor r0=302 (r0/R=0.76), S=930, headroom=27; window has 772 black band cells, 1 row-runs, longest 54
+  c0= 8 K= 72: P_K^max = 0.0906 at anchor r0=302 (r0/R=0.76), S=930, headroom=27; window has 1037 black band cells, 1 row-runs, longest 72
+  c0=10 K= 90: P_K^max = 0.0769 at anchor r0=298 (r0/R=0.74), S=918, headroom=26; window has 1317 black band cells, 1 row-runs, longest 90

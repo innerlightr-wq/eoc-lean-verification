@@ -1,0 +1,22 @@
+============================================================================================
+SCALING OF THE UNPAID-EXCESS CONSTANT C(0.137) AND THE CROSSOVER LENGTH L* WITH J
+============================================================================================
+  (Kadane max-subarray of w_r - 0.137, and the smallest L with every L-block mean <= 0.137)
+
+       J  R=J/2  #lam  L*(.137)    max C  argmax   C on the 8 common lam: min/med/max
+     200    100    16        20   1.3518      13   0.544 / 0.935 / 1.352
+     400    200    16        64   1.7158    2085   0.741 / 1.227 / 1.494
+     800    400    16        48   3.0259      85   0.881 / 1.290 / 1.738
+    1600    800    16        72   2.6062      17   1.361 / 1.813 / 2.606
+    3200   1600     8        50   3.1454       5   1.464 / 2.300 / 3.145
+
+  On the SAME 8 lambda {1,3,5,7,11,13,17,19} (so the population size is fixed):
+       J      R    max C   log2 R  C/log2 R  max L*
+     200    100   1.3518    6.644    0.2035      20
+     400    200   1.4942    7.644    0.1955      20
+     800    400   1.7378    8.644    0.2010      32
+    1600    800   2.6062    9.644    0.2702      72
+    3200   1600   3.1454   10.644    0.2955      50
+
+  A negative-drift sequence has max-subarray growing like O(log R); the ratio
+  C/log2(R) above is the test.  Reported as COMPUTATIONAL; no claim of a law.

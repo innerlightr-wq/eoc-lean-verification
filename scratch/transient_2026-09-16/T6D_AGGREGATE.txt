@@ -1,0 +1,47 @@
+========================================================================================================
+TASK 6 -- wide-lambda C-scan: the unpaid-excess constant and sustained bursts
+========================================================================================================
+
+J=400: 688 true low-frequency environments scanned (lambda odd, 1 <= lambda <= 1377)
+  Lambda_long   : median 0.03258   MAX 0.06651 (lam=611)   -- theta_max/max = 2.06x margin
+  C(0.137)      : median 1.1760   MAX 3.2434 bits (lam=1105)
+  C(0.100)      : median 1.3346   MAX 3.6874 bits
+      L  median burst  MAX burst  argmax  #lambda > theta_max
+     16       0.13930    0.29290    1105          369/688 = 0.5363
+     24       0.10950    0.21060    1105           74/688 = 0.1076
+     32       0.09400    0.17030    1083           18/688 = 0.0262
+     48       0.07860    0.13890    1105            1/688 = 0.0015
+     64       0.07000    0.11870     695            0/688 = 0.0000
+    128       0.05200    0.08690     695            0/688 = 0.0000
+  DeepBlackRun(6,6): 0/688 lambda;   max run of blocks with pre>=6 = 3;   total such blocks = 143
+  top-10 lambda by C(0.137): 1105(3.243), 1083(3.218), 373(2.736), 1165(2.531), 417(2.354), 571(2.353), 565(2.337), 833(2.331), 573(2.298), 377(2.280)
+
+J=800: 1000 true low-frequency environments scanned (lambda odd, 1 <= lambda <= 1999)
+  Lambda_long   : median 0.04100   MAX 0.05600 (lam=925)   -- theta_max/max = 2.45x margin
+  C(0.137)      : median 1.3842   MAX 3.2312 bits (lam=821)
+  C(0.100)      : median 1.5938   MAX 4.0822 bits
+      L  median burst  MAX burst  argmax  #lambda > theta_max
+     16       0.16160    0.30680    1327          889/1000 = 0.8890
+     24       0.12650    0.25820     821          312/1000 = 0.3120
+     32       0.11010    0.20600     821           66/1000 = 0.0660
+     48       0.09070    0.17200    1411            3/1000 = 0.0030
+     64       0.08160    0.13330    1411            0/1000 = 0.0000
+    128       0.06580    0.09490    1411            0/1000 = 0.0000
+  DeepBlackRun(6,6): 0/1000 lambda;   max run of blocks with pre>=6 = 3;   total such blocks = 438
+  top-10 lambda by C(0.137): 821(3.231), 1411(3.038), 85(3.026), 765(2.987), 1345(2.861), 573(2.809), 1327(2.716), 1373(2.685), 687(2.673), 805(2.644)
+
+J=1600: 36 true low-frequency environments scanned (lambda odd, 1 <= lambda <= 71)
+  Lambda_long   : median 0.04635   MAX 0.05106 (lam=19)   -- theta_max/max = 2.68x margin
+  C(0.137)      : median 1.6310   MAX 2.6062 bits (lam=17)
+  C(0.100)      : median 1.8306   MAX 2.9668 bits
+      L  median burst  MAX burst  argmax  #lambda > theta_max
+     16       0.17900    0.26270      17           36/36 = 1.0000
+     24       0.14060    0.19850      17           22/36 = 0.6111
+     32       0.12030    0.16300      17            5/36 = 0.1389
+     48       0.10140    0.13940      17            1/36 = 0.0278
+     64       0.09060    0.14180      17            1/36 = 0.0278
+    128       0.07240    0.09590      17            0/36 = 0.0000
+  DeepBlackRun(6,6): 0/36 lambda;   max run of blocks with pre>=6 = 2;   total such blocks = 27
+  top-10 lambda by C(0.137): 17(2.606), 53(2.351), 11(2.269), 35(2.160), 37(2.142), 31(2.127), 57(2.065), 3(1.837), 27(1.835), 51(1.821)
+
+wrote t6d_aggregate.json

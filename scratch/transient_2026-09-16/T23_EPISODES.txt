@@ -1,0 +1,129 @@
+====================================================================================================
+TASK 2 -- EPISODE DECOMPOSITION (stride-1 anchors, true low-frequency environments)
+====================================================================================================
+J=400 K=16 theta_safe=0.1:  17 episodes over 13 lambda
+      duration    min/med/max/mean =    2 /   9 /  19 /    9.29
+      peak P      min/med/max/mean = 0.1375 / 0.1501 / 0.1835 / 0.1548
+      sum P over E min/med/max/mean= 0.249 / 1.278 / 2.683 / 1.294
+      RETURN TIME min/med/max/mean =    4 /  56 /  63 /   31.75      *** MIN RETURN TIME = 4 ***
+J=400 K=16 theta_safe=0.08:  15 episodes over 13 lambda
+      duration    min/med/max/mean =    2 /  13 /  44 /   15.60
+      peak P      min/med/max/mean = 0.1375 / 0.1497 / 0.1835 / 0.1540
+      sum P over E min/med/max/mean= 0.249 / 1.757 / 4.683 / 1.976
+      RETURN TIME min/med/max/mean =   56 /  63 /  63 /   59.50      *** MIN RETURN TIME = 56 ***
+J=400 K=16 theta_safe=0.06:  15 episodes over 13 lambda
+      duration    min/med/max/mean =    2 /  22 /  96 /   27.47
+      peak P      min/med/max/mean = 0.1375 / 0.1497 / 0.1835 / 0.1540
+      sum P over E min/med/max/mean= 0.282 / 2.683 / 8.712 / 3.014
+      RETURN TIME min/med/max/mean =   44 /  52 /  52 /   48.00      *** MIN RETURN TIME = 44 ***
+J=400 K=24 theta_safe=0.1:   1 episodes over 1 lambda
+      duration    min/med/max/mean =   19 /  19 /  19 /   19.00
+      peak P      min/med/max/mean = 0.1454 / 0.1454 / 0.1454 / 0.1454
+      sum P over E min/med/max/mean= 2.082 / 2.082 / 2.082 / 2.082
+      RETURN TIME: only one episode per lambda, none measurable
+J=400 K=24 theta_safe=0.08:   1 episodes over 1 lambda
+      duration    min/med/max/mean =   19 /  19 /  19 /   19.00
+      peak P      min/med/max/mean = 0.1454 / 0.1454 / 0.1454 / 0.1454
+      sum P over E min/med/max/mean= 2.082 / 2.082 / 2.082 / 2.082
+      RETURN TIME: only one episode per lambda, none measurable
+J=400 K=24 theta_safe=0.06:   1 episodes over 1 lambda
+      duration    min/med/max/mean =   19 /  19 /  19 /   19.00
+      peak P      min/med/max/mean = 0.1454 / 0.1454 / 0.1454 / 0.1454
+      sum P over E min/med/max/mean= 2.082 / 2.082 / 2.082 / 2.082
+      RETURN TIME: only one episode per lambda, none measurable
+J=400 K=32 theta_safe=0.1:  NO EPISODES
+J=400 K=32 theta_safe=0.08:  NO EPISODES
+J=400 K=32 theta_safe=0.06:  NO EPISODES
+J=800 K=16 theta_safe=0.1:  64 episodes over 15 lambda
+      duration    min/med/max/mean =    3 /  15 /  51 /   14.94
+      peak P      min/med/max/mean = 0.1373 / 0.1567 / 0.2242 / 0.1601
+      sum P over E min/med/max/mean= 0.372 / 2.014 / 6.928 / 2.046
+      RETURN TIME min/med/max/mean =    2 /  27 / 222 /   38.59      *** MIN RETURN TIME = 2 ***
+J=800 K=16 theta_safe=0.08:  45 episodes over 15 lambda
+      duration    min/med/max/mean =    6 /  28 / 132 /   33.71
+      peak P      min/med/max/mean = 0.1373 / 0.1585 / 0.2242 / 0.1613
+      sum P over E min/med/max/mean= 0.891 / 3.344 / 17.108 / 4.186
+      RETURN TIME min/med/max/mean =    5 /  42 / 212 /   47.17      *** MIN RETURN TIME = 5 ***
+J=800 K=16 theta_safe=0.06:  20 episodes over 15 lambda
+      duration    min/med/max/mean =    9 / 151 / 287 /  147.85
+      peak P      min/med/max/mean = 0.1428 / 0.1657 / 0.2242 / 0.1713
+      sum P over E min/med/max/mean= 1.130 / 16.714 / 30.954 / 16.217
+      RETURN TIME min/med/max/mean =   32 /  53 / 211 /   78.20      *** MIN RETURN TIME = 32 ***
+J=800 K=24 theta_safe=0.1:   5 episodes over 4 lambda
+      duration    min/med/max/mean =    6 /  10 /  20 /   12.40
+      peak P      min/med/max/mean = 0.1418 / 0.1544 / 0.1692 / 0.1538
+      sum P over E min/med/max/mean= 0.831 / 1.361 / 2.813 / 1.745
+      RETURN TIME min/med/max/mean =   20 /  20 /  20 /   20.00      *** MIN RETURN TIME = 20 ***
+J=800 K=24 theta_safe=0.08:   5 episodes over 4 lambda
+      duration    min/med/max/mean =   22 /  23 /  90 /   36.80
+      peak P      min/med/max/mean = 0.1418 / 0.1544 / 0.1692 / 0.1538
+      sum P over E min/med/max/mean= 2.382 / 3.081 / 9.464 / 4.224
+      RETURN TIME min/med/max/mean =   17 /  17 /  17 /   17.00      *** MIN RETURN TIME = 17 ***
+J=800 K=24 theta_safe=0.06:   4 episodes over 4 lambda
+      duration    min/med/max/mean =  109 / 150 / 270 /  167.75
+      peak P      min/med/max/mean = 0.1445 / 0.1590 / 0.1692 / 0.1568
+      sum P over E min/med/max/mean= 9.335 / 15.833 / 23.539 / 15.936
+      RETURN TIME: only one episode per lambda, none measurable
+J=800 K=32 theta_safe=0.1:   1 episodes over 1 lambda
+      duration    min/med/max/mean =   11 /  11 /  11 /   11.00
+      peak P      min/med/max/mean = 0.1414 / 0.1414 / 0.1414 / 0.1414
+      sum P over E min/med/max/mean= 1.450 / 1.450 / 1.450 / 1.450
+      RETURN TIME: only one episode per lambda, none measurable
+J=800 K=32 theta_safe=0.08:   1 episodes over 1 lambda
+      duration    min/med/max/mean =   68 /  68 /  68 /   68.00
+      peak P      min/med/max/mean = 0.1414 / 0.1414 / 0.1414 / 0.1414
+      sum P over E min/med/max/mean= 7.054 / 7.054 / 7.054 / 7.054
+      RETURN TIME: only one episode per lambda, none measurable
+J=800 K=32 theta_safe=0.06:   1 episodes over 1 lambda
+      duration    min/med/max/mean =  131 / 131 / 131 /  131.00
+      peak P      min/med/max/mean = 0.1414 / 0.1414 / 0.1414 / 0.1414
+      sum P over E min/med/max/mean= 12.221 / 12.221 / 12.221 / 12.221
+      RETURN TIME: only one episode per lambda, none measurable
+
+====================================================================================================
+TASK 3 -- EXCESS / CREDIT BUDGET   (does the quiet stretch pay for the burst?)
+====================================================================================================
+  excess = sum_{j in episode} max(0, P_j - rho);  credit = sum_{j outside} max(0, rho - P_j)
+
+J=400 K=16 rho=0.137 safe=0.1: excess=  1.2732  credit= 127.2641  ratio= 0.01000   | log2-form  12.556 / 1894.165 =  0.0066
+                                  disjoint tiling: excess=  0.0000 credit=  4.8086 ratio= 0.00000   worst single lambda e/c = 0.03932 (lam=11)
+J=400 K=16 rho=0.137 safe=0.06: excess=  1.2732  credit= 115.6910  ratio= 0.01101   | log2-form  12.556 / 1738.579 =  0.0072
+                                  disjoint tiling: excess=  0.0000 credit=  4.8086 ratio= 0.00000   worst single lambda e/c = 0.04074 (lam=11)
+J=400 K=16 rho=0.100 safe=0.1: excess=  6.1925  credit=  52.3356  ratio= 0.11832   | log2-form  73.632 /  978.004 =  0.0753
+                                  disjoint tiling: excess=  0.0000 credit=  2.2369 ratio= 0.00000   worst single lambda e/c = 0.27326 (lam=1)
+J=400 K=16 rho=0.100 safe=0.06: excess=  7.2081  credit=  49.1448  ratio= 0.14667   | log2-form  87.037 /  924.374 =  0.0942
+                                  disjoint tiling: excess=  0.0000 credit=  2.2369 ratio= 0.00000   worst single lambda e/c = 0.31593 (lam=3)
+J=400 K=24 rho=0.137 safe=0.1: excess=  0.0084  credit= 128.0058  ratio= 0.00007   | log2-form   0.086 / 1948.054 =  0.0000
+                                  disjoint tiling: excess=  0.0000 credit=  3.2519 ratio= 0.00000   worst single lambda e/c = 0.00115 (lam=5)
+J=400 K=24 rho=0.137 safe=0.06: excess=  0.0084  credit= 128.0058  ratio= 0.00007   | log2-form   0.086 / 1948.054 =  0.0000
+                                  disjoint tiling: excess=  0.0000 credit=  3.2519 ratio= 0.00000   worst single lambda e/c = 0.00115 (lam=5)
+J=400 K=24 rho=0.100 safe=0.1: excess=  0.1816  credit=  58.8312  ratio= 0.00309   | log2-form   2.390 / 1100.307 =  0.0022
+                                  disjoint tiling: excess=  0.0000 credit=  1.5869 ratio= 0.00000   worst single lambda e/c = 0.05427 (lam=5)
+J=400 K=24 rho=0.100 safe=0.06: excess=  0.1816  credit=  58.8312  ratio= 0.00309   | log2-form   2.390 / 1100.307 =  0.0022
+                                  disjoint tiling: excess=  0.0000 credit=  1.5869 ratio= 0.00000   worst single lambda e/c = 0.05427 (lam=5)
+J=800 K=16 rho=0.137 safe=0.1: excess=  8.6035  credit= 220.6017  ratio= 0.03900   | log2-form  81.806 / 3164.922 =  0.0258
+                                  disjoint tiling: excess=  0.1989 credit=  7.4798 ratio= 0.02659   worst single lambda e/c = 0.12424 (lam=7)
+J=800 K=16 rho=0.137 safe=0.06: excess=  8.6035  credit= 139.8451  ratio= 0.06152   | log2-form  81.806 / 2116.954 =  0.0386
+                                  disjoint tiling: excess=  0.1989 credit=  5.8441 ratio= 0.03404   worst single lambda e/c = 0.21086 (lam=101)
+J=800 K=16 rho=0.100 safe=0.1: excess= 35.3633  credit=  75.6188  ratio= 0.46765   | log2-form 416.058 / 1399.365 =  0.2973
+                                  disjoint tiling: excess=  0.8093 credit=  2.8415 ratio= 0.28481   worst single lambda e/c = 1.01660 (lam=31)
+J=800 K=16 rho=0.100 safe=0.06: excess= 45.3763  credit=  58.8862  ratio= 0.77058   | log2-form 548.471 / 1127.789 =  0.4863
+                                  disjoint tiling: excess=  0.9668 credit=  2.4173 ratio= 0.39994   worst single lambda e/c = 2.45298 (lam=101)
+J=800 K=24 rho=0.137 safe=0.1: excess=  0.5982  credit= 274.1162  ratio= 0.00218   | log2-form   5.871 / 3951.152 =  0.0015
+                                  disjoint tiling: excess=  0.0395 credit=  6.0562 ratio= 0.00653   worst single lambda e/c = 0.02235 (lam=7)
+J=800 K=24 rho=0.137 safe=0.06: excess=  0.5982  credit= 245.6997  ratio= 0.00243   | log2-form   5.871 / 3572.510 =  0.0016
+                                  disjoint tiling: excess=  0.0395 credit=  5.9445 ratio= 0.00665   worst single lambda e/c = 0.03187 (lam=7)
+J=800 K=24 rho=0.100 safe=0.1: excess=  2.5255  credit= 104.4154  ratio= 0.02419   | log2-form  29.851 / 1878.312 =  0.0159
+                                  disjoint tiling: excess=  0.1264 credit=  2.4346 ratio= 0.05194   worst single lambda e/c = 0.17867 (lam=19)
+J=800 K=24 rho=0.100 safe=0.06: excess=  4.4707  credit=  96.5867  ratio= 0.04629   | log2-form  55.659 / 1750.456 =  0.0318
+                                  disjoint tiling: excess=  0.1529 credit=  2.4075 ratio= 0.06350   worst single lambda e/c = 0.41696 (lam=11)
+J=800 K=32 rho=0.137 safe=0.1: excess=  0.0077  credit= 284.9837  ratio= 0.00003   | log2-form   0.080 / 4172.929 =  0.0000
+                                  disjoint tiling: excess=  0.0000 credit=  4.8062 ratio= 0.00000   worst single lambda e/c = 0.00048 (lam=7)
+J=800 K=32 rho=0.137 safe=0.06: excess=  0.0077  credit= 279.3140  ratio= 0.00003   | log2-form   0.080 / 4098.031 =  0.0000
+                                  disjoint tiling: excess=  0.0000 credit=  4.8062 ratio= 0.00000   worst single lambda e/c = 0.00074 (lam=7)
+J=800 K=32 rho=0.100 safe=0.1: excess=  0.3502  credit= 119.4908  ratio= 0.00293   | log2-form   4.367 / 2144.337 =  0.0020
+                                  disjoint tiling: excess=  0.0000 credit=  2.0722 ratio= 0.00000   worst single lambda e/c = 0.05782 (lam=7)
+J=800 K=32 rho=0.100 safe=0.06: excess=  0.4693  credit= 118.1421  ratio= 0.00397   | log2-form   6.036 / 2122.270 =  0.0028
+                                  disjoint tiling: excess=  0.0000 credit=  2.0722 ratio= 0.00000   worst single lambda e/c = 0.09965 (lam=7)
+
+wrote t23_episodes.json

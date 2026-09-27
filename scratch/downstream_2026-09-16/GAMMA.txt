@@ -1,0 +1,7 @@
+alpha=1.5849625 H2(1/alpha)=0.9499555 I0=0.0793186
+d=1/108: gamma_max=8.625e-08 (N0=133); heuristic eps_exp in [1.12e-09, 2.59e-09]  (coefficients 0.0129..0.0301); exponent <= 0.9499555261
+d=1/54: gamma_max=3.450e-07 (N0=133); heuristic eps_exp in [4.46e-09, 1.04e-08]  (coefficients 0.0129..0.0301); exponent <= 0.9499555227
+d=1/20: gamma_max=2.514e-06 (N0=133); heuristic eps_exp in [3.25e-08, 7.56e-08]  (coefficients 0.0129..0.0301); exponent <= 0.9499554947
+d=1/10: gamma_max=1.005e-05 (N0=133); heuristic eps_exp in [1.30e-07, 3.02e-07]  (coefficients 0.0129..0.0301); exponent <= 0.9499553972
+d=1/4: gamma_max=6.254e-05 (N0=133); heuristic eps_exp in [8.09e-07, 1.88e-06]  (coefficients 0.0129..0.0301); exponent <= 0.9499547184
+d=1/2: gamma_max=2.462e-04 (N0=134); heuristic eps_exp in [3.18e-06, 7.40e-06]  (coefficients 0.0129..0.0301); exponent <= 0.9499523432

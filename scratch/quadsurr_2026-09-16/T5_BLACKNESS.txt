@@ -1,0 +1,33 @@
+TASK 5 -- variance of the block weight explained by black-pattern statistics (J=400)
+  'cond R2' = 1 - E[Var(w|stat)]/Var(w) (exact grouping);  'OLS R2' = linear fit.
+  #g = number of groups used by the conditional decomposition.
+
+  statistic                        #g/#p   mean R2   min R2   max R2   chance   excess
+  ------------------------------------------------------------------------------------
+  (nblack_r, nblack_{r+1})          89.4    0.6720   0.5647   0.7839   0.5023   0.1697
+  (nblack, depth bucket)            38.2    0.3641   0.2789   0.4975   0.2116   0.1525
+  nblack_r                          16.4    0.2127   0.1554   0.3049   0.0875   0.1252
+  OLS: ncell,nblack,depth,pre        5.0    0.1467   0.0597   0.2127   0.0227   0.1240
+  (nblack, sym)                     27.4    0.2730   0.1944   0.3793   0.1499   0.1231
+  OLS: nb_r..nb_{r+3}                5.0    0.1384   0.0638   0.1863   0.0227   0.1157
+  OLS: nb_r..nb_{r+7}                9.0    0.1611   0.0744   0.2136   0.0455   0.1157
+  OLS: nb_r..nb_{r+7}+sym           10.0    0.1666   0.0753   0.2466   0.0511   0.1155
+  (nb_r,nb_{r+1},nb_{r+2})         144.9    0.9328   0.8902   0.9785   0.8179   0.1149
+  OLS: nblack_r + depth              3.0    0.1132   0.0544   0.1608   0.0114   0.1018
+  OLS: nblack_r                      2.0    0.1066   0.0510   0.1447   0.0057   0.1009
+  maxdepth_r (bucket)                6.3    0.1131   0.0547   0.1560   0.0299   0.0832
+  nblack window 4                   40.6    0.2616   0.1411   0.4183   0.2252   0.0364
+  prefix black run                   3.3    0.0377   0.0075   0.1341   0.0133   0.0245
+  OLS: nb window4                    2.0    0.0222   0.0061   0.0482   0.0057   0.0166
+  nblack window 8                   61.7    0.3533   0.2191   0.5583   0.3447   0.0086
+  OLS: nb window8                    2.0    0.0124   0.0008   0.0273   0.0057   0.0067
+  ncell_r                          177.0    1.0000   1.0000   1.0000   1.0000   0.0000
+  nblack window 16                  87.7    0.4647   0.2575   0.6084   0.4925  -0.0278
+
+  n (blocks per environment) = 177
+  'chance' = (#groups-1)/(n-1): the R2 a RANDOM labelling with the same number of
+  groups would get.  'excess' = mean R2 - chance, sorted by excess.  Statistics with
+  #g comparable to n (ncell_r, 3-block tuples) are degenerate/overfit, not informative.
+best statistic by excess: (nblack_r, nblack_{r+1})  (excess = 0.1697)
+R2 >= 0.80 reached by: ncell_r, (nb_r,nb_{r+1},nb_{r+2})
+excess >= 0.80 reached by: NONE of the statistics tested

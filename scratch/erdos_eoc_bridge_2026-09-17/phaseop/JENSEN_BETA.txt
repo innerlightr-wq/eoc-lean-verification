@@ -1,0 +1,19 @@
+Lc=4 P=864 beta=1.500 q=0.370000 G=60  rho_iter=1.09240350  maxratio(Lt v/v)=1.09240350  min v=3.2937e-01  tailmass=1.28e-24  c(beta)=0.10883
+Lc=6 P=3456 beta=1.500 q=0.370000 G=60  rho_iter=1.07081096  maxratio(Lt v/v)=1.07081096  min v=3.2856e-01  tailmass=1.28e-24  c(beta)=0.12700
+Lc=8 P=13824 beta=1.500 q=0.370000 G=60  rho_iter=1.06400736  maxratio(Lt v/v)=1.06400736  min v=3.2850e-01  tailmass=1.28e-24  c(beta)=0.13281
+Lc=4 P=864 beta=2.000 q=0.370000 G=60  rho_iter=1.19138088  maxratio(Lt v/v)=1.19138088  min v=1.8196e-01  tailmass=1.28e-24  c(beta)=0.09298
+Lc=6 P=3456 beta=2.000 q=0.370000 G=60  rho_iter=1.14341656  maxratio(Lt v/v)=1.14341656  min v=1.7965e-01  tailmass=1.28e-24  c(beta)=0.13038
+Lc=8 P=13824 beta=2.000 q=0.370000 G=60  rho_iter=1.12844139  maxratio(Lt v/v)=1.12844139  min v=1.7924e-01  tailmass=1.28e-24  c(beta)=0.14238
+Lc=4 P=864 beta=3.000 q=0.370000 G=60  rho_iter=1.81388750  maxratio(Lt v/v)=1.81388750  min v=3.8906e-02  tailmass=1.28e-24  c(beta)=-0.16346
+Lc=6 P=3456 beta=3.000 q=0.370000 G=60  rho_iter=1.59725885  maxratio(Lt v/v)=1.59725885  min v=3.0465e-02  tailmass=1.28e-24  c(beta)=-0.04770
+Lc=8 P=13824 beta=3.000 q=0.370000 G=60  rho_iter=1.51680256  maxratio(Lt v/v)=1.51680255  min v=2.6994e-02  tailmass=1.28e-24  c(beta)=-0.00065
+Lc=4 P=864 beta=4.000 q=0.370000 G=60  rho_iter=4.18453480  maxratio(Lt v/v)=4.18453479  min v=8.2100e-03  tailmass=1.28e-24  c(beta)=-0.79817
+Lc=6 P=3456 beta=4.000 q=0.370000 G=60  rho_iter=3.63147512  maxratio(Lt v/v)=3.63147401  min v=2.7981e-03  tailmass=1.28e-24  c(beta)=-0.66914
+Lc=8 P=13824 beta=4.000 q=0.370000 G=60  rho_iter=3.46784814  maxratio(Lt v/v)=3.46784700  min v=9.4321e-04  tailmass=1.28e-24  c(beta)=-0.62717
+Lc=4 P=864 beta=6.000 q=0.370000 G=60  rho_iter=34.51418842  maxratio(Lt v/v)=34.51418820  min v=1.5380e-03  tailmass=1.28e-24  c(beta)=-2.46638
+Lc=6 P=3456 beta=6.000 q=0.370000 G=60  rho_iter=30.88759492  maxratio(Lt v/v)=30.88759344  min v=2.5591e-04  tailmass=1.28e-24  c(beta)=-2.36533
+Lc=8 P=13824 beta=6.000 q=0.370000 G=60  rho_iter=30.19264022  maxratio(Lt v/v)=30.19263998  min v=3.9847e-05  tailmass=1.28e-24  c(beta)=-2.34461
+Lc=4 P=864 beta=8.000 q=0.370000 G=60  rho_iter=308.11505745  maxratio(Lt v/v)=308.11505687  min v=1.0787e-03  tailmass=1.28e-24  c(beta)=-4.20661
+Lc=6 P=3456 beta=8.000 q=0.370000 G=60  rho_iter=276.76231788  maxratio(Lt v/v)=276.76231363  min v=1.6573e-04  tailmass=1.28e-24  c(beta)=-4.10893
+Lc=8 P=13824 beta=8.000 q=0.370000 G=60  rho_iter=270.99614240  maxratio(Lt v/v)=270.99614211  min v=2.3358e-05  tailmass=1.28e-24  c(beta)=-4.08977
+done

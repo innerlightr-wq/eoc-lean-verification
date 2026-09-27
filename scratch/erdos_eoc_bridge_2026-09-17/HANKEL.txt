@@ -1,0 +1,7 @@
+D=3: i=0:rk[2, 2]/min2 i=1:rk[6, 2]/min6 i=2:rk[3, 2]/min3
+D=4: i=0:rk[2, 2]/min2 i=1:rk[6, 3]/min6 i=2:rk[7, 3]/min9 i=3:rk[3, 3]/min3
+D=5: i=0:rk[2, 2]/min2 i=1:rk[6, 6]/min6 i=2:rk[18, 11]/min18 i=3:rk[7, 8]/min9 i=4:rk[3, 3]/min3
+D=6: i=0:rk[2, 2]/min2 i=1:rk[6, 6]/min6 i=2:rk[18, 18]/min18 i=3:rk[19, 22]/min27 i=4:rk[7, 9]/min9 i=5:rk[3, 3]/min3
+D=7: i=0:rk[2, 2]/min2 i=1:rk[6, 6]/min6 i=2:rk[18, 18]/min18 i=3:rk[54, 54]/min54 i=4:rk[19, 27]/min27 i=5:rk[7, 9]/min9 i=6:rk[3, 3]/min3
+D=8: i=0:rk[2, 2]/min2 i=1:rk[6, 6]/min6 i=2:rk[18, 18]/min18 i=3:rk[54, 54]/min54 i=4:rk[55, 76]/min81 i=5:rk[19, 27]/min27 i=6:rk[7, 9]/min9 i=7:rk[3, 3]/min3
+D=9: i=0:rk[2, 2]/min2 i=1:rk[6, 6]/min6 i=2:rk[18, 18]/min18 i=3:rk[54, 54]/min54 i=4:rk[162, 162]/min162 i=5:rk[55, 79]/min81 i=6:rk[19, 27]/min27 i=7:rk[7, 9]/min9 i=8:rk[3, 3]/min3

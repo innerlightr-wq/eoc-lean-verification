@@ -1,0 +1,16 @@
+====================================================================================================
+CALIBRATION -- CW window pressure P_j vs the exact rate of the same 2K blocks
+====================================================================================================
+     J   K     N   mean P  mean rate  mean P-rate    max P  rate there  max rate  #P>th  #rate>th
+   400  16  2265   0.0810     0.0421       0.0389   0.1835      0.0765    0.1298     92         0
+   400  24  1905   0.0699     0.0440       0.0259   0.1454      0.0641    0.0962      1         0
+   400  32  1545   0.0647     0.0458       0.0189   0.1217      0.0536    0.0887      0         0
+   800  16  5265   0.0951     0.0461       0.0490   0.2242      0.0413    0.1335    488         0
+   800  24  4905   0.0813     0.0472       0.0341   0.1692      0.0604    0.1088     40         0
+   800  32  4545   0.0745     0.0484       0.0261   0.1414      0.0734    0.0951      2         0
+
+  P_j is a LOOK-AHEAD RATIO, not the growth rate of the window: it compares the
+  2K-block survival vector with the K-block one at the same state.  The table shows
+  by how much it overstates the actual 2K-block growth.
+
+wrote t2b_cw_vs_rate.json

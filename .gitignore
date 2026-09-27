@@ -9,3 +9,7 @@ __pycache__/
 *~
 *.swp
 .*.swp
+
+# --- 2026-09-27 hygiene pass -------------------------------------------------
+# The author's own paper revision PDFs are kept locally, not tracked.
+/EOC_latestRev*.pdf

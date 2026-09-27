@@ -1,0 +1,1 @@
+# wrote /home/elias/GitHub/eoc-lean-verification/scratch/spine_2026-09-16/s1_w_400_s4.json: 125 envs in 103.0s

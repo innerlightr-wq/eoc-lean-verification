@@ -1,0 +1,12 @@
+alpha         done (21.4s)
+golden_m4     done (13.4s)
+silver_m4     done (14.2s)
+match3_m4     done (16.2s)
+golden_m6     done (15.6s)
+match2_m6     done (14.5s)
+golden_m8     done (14.6s)
+match2_m8     done (14.9s)
+silver_m10    done (14.6s)
+match3_m10    done (14.5s)
+rat_65_41     done (14.6s)
+wrote corpus.json: 330 environments, 11 barriers

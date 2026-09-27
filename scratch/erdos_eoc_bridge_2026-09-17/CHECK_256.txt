@@ -1,0 +1,4 @@
+M=2^6: brute N_20,N_30,N_40 = 1381,29312,621620  automaton = [1381, 29312, 621620]  ratio N_40/N_30 per digit = 1.357213  rho = 1.357193  dim(rho) = 0.278004
+M=2^8: brute N_20,N_30,N_40 = 1616,46022,1344844  automaton = [1616, 46022, 1344844]  ratio N_40/N_30 per digit = 1.401428  rho = 1.400925  dim(rho) = 0.306871
+M=2^10: brute N_20,N_30,N_40 = 288,3112,32280  automaton = [288, 3112, 32280]  ratio N_40/N_30 per digit = 1.263541  rho = 1.266705  dim(rho) = 0.215198
+M=2^12: brute N_20,N_30,N_40 = 1241,18592,267810  automaton = [1241, 18592, 267810]  ratio N_40/N_30 per digit = 1.305720  rho = 1.307425  dim(rho) = 0.243998
