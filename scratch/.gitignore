@@ -86,3 +86,29 @@
 /pressure_exact_2026-09-16/corpus_200.json
 /pressure_exact_2026-09-16/corpus_400.json
 /pressure_exact_2026-09-16/corpus_800.json
+
+# --- 2026-09-27 hygiene pass -------------------------------------------------
+# Compiled executables: rebuild from the .c source beside each one.
+/downstream_2026-09-16/shellregion
+/frontier_family_2026-09-17/dangerset
+
+# Python bytecode.
+__pycache__/
+*.pyc
+
+# Third-party copyrighted papers and their text extractions. Cited by arXiv ID in
+# erdos_eoc_bridge_2026-09-17/lit/LIT_SEARCH.md and REPORT.md; fetch from arXiv:
+#   1308.3133 (Abram-Lagarias), 1508.05967 (Abram-Bolshakov-Lagarias), math/0512006 (Lagarias).
+/erdos_eoc_bridge_2026-09-17/lit/*.pdf
+/erdos_eoc_bridge_2026-09-17/lit/*.txt
+/bruun_audit_2026-09-16/*.pdf
+
+# Large raw outputs (> 300 KB; regenerable from the scripts in the same folder).
+/quadsurr_2026-09-16/corpus.json
+/erdos_eoc_bridge_2026-09-17/phaseop/v_L10_b2_unif3670.txt
+/spine_2026-09-16/s1_w_400_s*.json
+/frontier_family_2026-09-17/windows_lam1.json
+/bruun_audit_2026-09-16/v6.txt
+/oddpressure_2026-09-16/scan_400_K16.json
+/oddpressure_2026-09-16/scan_400_stride4.json
+/transient_2026-09-16/corpus.json
