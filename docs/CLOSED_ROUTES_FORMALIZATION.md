@@ -28,7 +28,7 @@ would need is equivalent to `(DE)`.
 | aspect | status |
 |---|---|
 | `modEq_of_parity_prefix`, `two_mul_U_of_even/odd`, `U_iter_shift`, `bridge`, `aggregate_identity` | **ALREADY FORMALIZED** (in `eoc-divergence`, `Divergence/RawMap.lean` and `Basic.lean`) |
-| `2^N * (U^[N] n + 1) ≤ 3^N * (n + 1)` — the exact-`ℕ` growth bound | **SMALL MISSING LEMMA**. Must be *added*, not reused: the existing `E_lt`/`contraction` prove `2^N·U^[N] n < 3^m·(n + 2^N)`, which carries an additive `3^m` and is not strong enough |
+| `2^N * (U^[N] n + 1) ≤ 3^N * (n + 1)` — the exact-`ℕ` growth bound | **SMALL MISSING LEMMA**. Must be *added*, not reused: the existing `E_lt`/`contraction` prove `2^N·U^[N] n < 3^m·(n + 2^N)`, which carries an additive `3^m` and is not strong enough. **This one lemma now carries four route-closures** — see the note below |
 | the `ℕ`-subtraction step ("a nonzero difference divisible by `2^L` is at least `2^L`") | **SMALL MISSING LEMMA** (bookkeeping; `Nat.le_of_dvd` plus a `max` case split, or a detour through `ℤ`) |
 | the target itself | **SMALL MISSING LEMMA** once the two above are in place |
 | purpose | **NOT A SEPARATOR** — it records a closure |
@@ -37,6 +37,23 @@ would need is equivalent to `(DE)`.
 only — not this repository, since every dependency lives there. Estimated 1–2 focused days
 (*an estimate, not a measurement*). Full detail:
 [`docs/PERIODICITY_HANDOFF_FORMALIZATION.md`](PERIODICITY_HANDOFF_FORMALIZATION.md).
+
+**Why the growth bound is now the highest-value single lemma in this list.** Four separate
+route-closures rest on it:
+
+1. it gives `4^L ≤ 3^L(n+1)`, the initial-square cap that makes the periodic-approximation handoff
+   circular;
+2. it is the reason the amortization integral `U_n` is bounded on the orbits of interest;
+3. it is the Archimedean half of the realizer-deficit picture (`δ(w_n) = S_n + 1 − log₂ m₀`);
+4. it is, verbatim, the 3-adic half of Theorem 1 of arXiv:2607.10041 — *"`x_{k+1} + 1 ≤ (3/2)(x_k
+   + 1)`, hence `x_k + 1 ≤ (n+1)(3/2)^k`"* — which is what forces that paper's endpoint
+   representative `M_k` to equal the orbit value, and hence what makes its 3-adic coordinate a
+   function of its 2-adic one.
+
+Each of the four is recorded in `eoc-divergence`'s
+[`notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md`](https://github.com/innerlightr-wq/eoc-divergence/blob/main/notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md)
+(§§2, 3, 4, 4b). Formalizing one two-line induction would put all four on a machine-checked
+footing.
 
 ## B. Finite-height / realizer-deficit reduction
 
@@ -85,9 +102,11 @@ In priority order, with the reason:
 1. **B, the bijection form** (≈ 3–6 h, this repository). Cheapest, purely `ℕ`, and it is the
    statement that makes the entire realizer-deficit coordinate a restatement. It also pins the
    `n ≥ B−1` side condition that was got wrong once already.
-2. **A, `initial_square_bound`** (≈ 1–2 days, `eoc-divergence`). Converts the periodicity
-   route-closure from "verified on 1 862 checkpoints and 400 random seeds" to machine-checked
-   for all `n` and all `L`, so the route is never re-litigated.
+2. **A, `initial_square_bound`** (≈ 1–2 days, `eoc-divergence`), and in particular its
+   `2^N(U^[N] n + 1) ≤ 3^N(n+1)` ingredient on its own (≈ 1–2 h). Converts the periodicity
+   route-closure from "verified on 1 862 checkpoints and 400 random seeds" to machine-checked for
+   all `n` and all `L`, so the route is never re-litigated — and the growth-bound ingredient alone
+   underpins three further closures (§A note).
 3. **C, the two `ℕ` carry bounds** (≈ half a day). Records the exact strength of the
    amortization channel.
 
@@ -100,5 +119,6 @@ anything asymptotic in `α`'s equidistribution.
 None of these targets bears on the Collatz conjecture, on `(DE)`, on `(PosPC)`, or on this
 repository's open arithmetic hypothesis `PowerOfTwoDangerousWindowSparsity`
 ([`docs/ARITHMETIC_FRONTIER.md`](ARITHMETIC_FRONTIER.md)), which is unaffected. They record
-closures; they do not open anything. Effort figures throughout are **estimates**, not
+closures — four as of 2026-09-29, including the cross-prime 2–3–∞ diagnostic — and they do not
+open anything. Effort figures throughout are **estimates**, not
 measurements.
