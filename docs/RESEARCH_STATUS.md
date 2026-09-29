@@ -1,9 +1,12 @@
 # Research status
 
-> **Planned, not implemented:** a formalization plan for the repetition-surplus cap
-> (`initial_square_bound : 4^L ≤ 3^L * (n+1)`) is recorded in
-> [`docs/PERIODICITY_HANDOFF_FORMALIZATION.md`](PERIODICITY_HANDOFF_FORMALIZATION.md); it
-> belongs in `eoc-divergence`, where all its dependencies already live.
+> **Planned, not implemented:** formalization targets for the three audited EOC route-closures
+> (initial-square / surplus cap, the finite-height realizer-deficit reduction, and the carry
+> bounds) are indexed in
+> [`docs/CLOSED_ROUTES_FORMALIZATION.md`](CLOSED_ROUTES_FORMALIZATION.md), with the detailed
+> plan for the first in
+> [`docs/PERIODICITY_HANDOFF_FORMALIZATION.md`](PERIODICITY_HANDOFF_FORMALIZATION.md). None is
+> a separator; all record closures.
 
 This file records the current state of the analytic program in this repository: what is proved in Lean, what is
 proved on paper, what rests on an external theorem, what is only computational, and what is open.  It complements
